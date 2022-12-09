@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.common.blockentity.CraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.Registration;
 
 import java.util.function.Supplier;

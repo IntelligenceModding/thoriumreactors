@@ -1,0 +1,21 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "  A  ",
+    " ABA ",
+    " ABA ",
+    " ABA ",
+    "  A  "
+  ],
+  "result": {
+    "item": "minecraft:redstone_lamp"
+  }
+}
