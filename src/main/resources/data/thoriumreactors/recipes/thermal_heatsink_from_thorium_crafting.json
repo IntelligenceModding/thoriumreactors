@@ -1,0 +1,22 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:thermal_conductor"
+    }
+  },
+  "pattern": [
+    "     ",
+    " AAA ",
+    " AAA ",
+    " BBB ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:thermal_heat_sink",
+    "count": 3
+  }
+}

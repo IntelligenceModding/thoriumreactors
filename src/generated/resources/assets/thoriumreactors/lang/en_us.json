@@ -1,4 +1,21 @@
 {
+  "block.thoriumreactors.graphite_ore": "Graphite Ore",
+  "block.thoriumreactors.hardened_stone": "Hardened Smooth Stone",
+  "block.thoriumreactors.reactor_casing": "Reactor Casing",
+  "block.thoriumreactors.thermal_conductor": "Thermal Conductor",
+  "block.thoriumreactors.thermal_controller": "Thermal Controller",
+  "block.thoriumreactors.thermal_heat_sink": "Thermal Sink",
+  "block.thoriumreactors.thermal_valve": "Thermal Valve",
   "block.thoriumreactors.thorium_crafting_table": "Thorium Crafting Table",
-  "itemGroup.quarry.items": "Thorium Reactors"
+  "item.thoriumreactors.blasted_iron_ingot": "Blasted Iron Ingot",
+  "item.thoriumreactors.enriched_uranium": "Enriched Uranium",
+  "item.thoriumreactors.graphite": "Graphite",
+  "item.thoriumreactors.graphite_ingot": "Graphite Ingot",
+  "item.thoriumreactors.graphite_tube": "Graphite Tube",
+  "item.thoriumreactors.raw_thorium": "Raw Thorium",
+  "item.thoriumreactors.raw_uranium": "Raw Uranium",
+  "item.thoriumreactors.redstone_processor": "Redstone Processor",
+  "item.thoriumreactors.steel_compound": "Steel Compound",
+  "item.thoriumreactors.steel_ingot": "Steel Ingot",
+  "itemGroup.thoriumreactors.items": "Thorium Reactors"
 }

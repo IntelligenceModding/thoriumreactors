@@ -8,12 +8,13 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.blockentity.CraftingTableBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 
 // CREDIT GOES TO: Sr_endi  | https://github.com/Seniorendi
 public abstract class BaseContainer extends AbstractContainerMenu {
@@ -25,15 +26,16 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-    private static final int TE_INVENTORY_SLOT_COUNT = 25;
+    private final int TE_INVENTORY_SLOT_COUNT;
     private final IItemHandler inventory;
-    protected CraftingTableBlockEntity tileEntity;
+    protected BlockEntity tileEntity;
 
-    protected BaseContainer(@Nullable MenuType<?> type, int id, Inventory inventory, BlockPos pos, Level world) {
+    protected BaseContainer(@Nullable MenuType<?> type, int id, Inventory inventory, BlockPos pos, Level world, int slotCount) {
         super(type, id);
         this.inventory = new InvWrapper(inventory);
+        this.TE_INVENTORY_SLOT_COUNT = slotCount;
         if (world != null)
-            this.tileEntity = world.getBlockEntity(pos) instanceof CraftingTableBlockEntity ? (CraftingTableBlockEntity) world.getBlockEntity(pos) : null;
+            this.tileEntity = world.getBlockEntity(pos) != null ? world.getBlockEntity(pos) : null;
     }
 
     @NotNull
@@ -62,7 +64,6 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         sourceSlot.onTake(playerIn, sourceStack);
         return copyOfSourceStack;
     }
-
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {

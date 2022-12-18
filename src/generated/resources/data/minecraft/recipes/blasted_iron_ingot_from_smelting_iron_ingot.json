@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 500,
+  "experience": 0.5,
+  "group": "blasted_iron",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "result": "thoriumreactors:blasted_iron_ingot"
+}

@@ -1,0 +1,31 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "minecraft:gold_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:hardened_stone"
+    },
+    "C": {
+      "item": "thoriumreactors:graphite_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "E": {
+      "item": "thoriumreactors:steel_ingot"
+    }
+  },
+  "pattern": [
+    " DED ",
+    "DCBCD",
+    "EBABE",
+    "DCBCD",
+    " DED "
+  ],
+  "result": {
+    "item": "thoriumreactors:reactor_casing",
+    "count": 2
+  }
+}

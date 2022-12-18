@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 500,
+  "experience": 0.5,
+  "group": "steel_ingot",
+  "ingredient": {
+    "item": "thoriumreactors:steel_compound"
+  },
+  "result": "thoriumreactors:steel_ingot"
+}

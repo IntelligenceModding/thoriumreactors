@@ -16,13 +16,14 @@ import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
-    static int MAX_WIDTH = 5;
-    static int MAX_HEIGHT = 5;
+    public static final int MAX_WIDTH = 5;
+    public static final int MAX_HEIGHT = 5;
 
     public ThoriumCraftingRecipe(ResourceLocation id, NonNullList<Ingredient> recipeItems, ItemStack output) {
         this.id = id;
@@ -31,18 +32,21 @@ public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(SimpleContainer container, Level level) {
+    public boolean matches(@NotNull SimpleContainer container, Level level) {
         if (level.isClientSide()) return false;
-        NonNullList<ItemStack> currentItems = NonNullList.withSize(25, ItemStack.EMPTY);
-        for (int i = 0; i < 25; i++) if (!container.getItem(i).is(Items.AIR)) currentItems.set(i, container.getItem(i));
+        NonNullList<ItemStack> currentItems = NonNullList.withSize(MAX_WIDTH * MAX_HEIGHT, ItemStack.EMPTY);
+        for (int i = 0; i < MAX_WIDTH * MAX_HEIGHT; i++)
+                currentItems.set(i, container.getItem(i).is(Items.AIR) ? ItemStack.EMPTY : container.getItem(i));
         return isRecipe(currentItems);
     }
 
     public boolean isRecipe(NonNullList<ItemStack> currentItems) {
-        for (int i = 0, s = recipeItems.size(); i < s; ++i)
-            if (!recipeItems.get(i).test(currentItems.get(i)))
-                return false;
-        return true;
+        byte airs = 0;
+        for (int i = 0, s = recipeItems.size(); i < s; ++i) {
+            if (!recipeItems.get(i).test(currentItems.get(i))) return false;
+            if (currentItems.get(i).is(Items.AIR)) airs++;
+        }
+        return airs != MAX_WIDTH * MAX_HEIGHT;
     }
 
     @NotNull
@@ -80,6 +84,11 @@ public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
         return ModRecipes.THORIUM_RECIPE_TYPE.get();
     }
 
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return recipeItems;
+    }
+
     public static class Serializer implements RecipeSerializer<ThoriumCraftingRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(ThoriumReactors.MOD_ID, "thorium_crafting");
@@ -89,13 +98,19 @@ public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "result"));
             JsonArray pattern = GsonHelper.getAsJsonArray(pSerializedRecipe, "pattern");
             JsonObject ingredients = GsonHelper.getAsJsonObject(pSerializedRecipe, "key");
-            NonNullList<Ingredient> recipeItems = NonNullList.withSize(25, Ingredient.EMPTY);
+            NonNullList<Ingredient> recipeItems = NonNullList.withSize(MAX_WIDTH * MAX_HEIGHT, Ingredient.EMPTY);
 
+            if (pattern.size() == 0) throw new IllegalArgumentException("Invalid pattern: Recipe height cannot be 0!");
+            if (pattern.size() > MAX_HEIGHT) throw new IllegalArgumentException("Invalid pattern: Recipe height cannot be bigger than 5! (Value: " + pattern.size() + ")");
             int index = 0;
-            for (int i = 0; i < 5; i++) {
-                for (int i1 = 0; i1 < 5; i1++) {
-                    String current = pattern.get(i).getAsString().split("")[i1];
-                    recipeItems.set(index, !Objects.equals(current, " ") ? Ingredient.fromJson(ingredients.get(current)) : Ingredient.of(Items.AIR));
+
+            for (int i = 0; i < pattern.size(); i++) {
+                String[] current = pattern.get(i).getAsString().split("");
+                if (Objects.equals(current[0], "")) throw new IllegalArgumentException("Invalid pattern: Recipe width cannot be 0!");
+                if (current.length > MAX_WIDTH) throw new IllegalArgumentException("Invalid pattern: Recipe width cannot be bigger than 5! (Value: " + current.length + ")");
+                for (int e = 0; e < current.length; e++) {
+                    if (!ingredients.has(current[e]) && !Objects.equals(current[e], " ")) throw new IllegalArgumentException("Invalid pattern: Recipe key not existing! (Value: " + current[e] + ")");
+                    recipeItems.set(index, !Objects.equals(current[e], " ") ? Ingredient.fromJson(ingredients.get(current[e])) : Ingredient.EMPTY);
                     index++;
                 }
             }

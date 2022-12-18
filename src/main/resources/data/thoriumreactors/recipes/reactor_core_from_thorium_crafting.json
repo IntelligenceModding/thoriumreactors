@@ -1,0 +1,30 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "B": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:redstone_processor"
+    },
+    "D": {
+      "item": "thoriumreactors:hardened_stone"
+    },
+    "E": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    }
+  },
+  "pattern": [
+    "EAAAE",
+    "ABDBA",
+    "ADCDA",
+    "ABDBA",
+    "EAAAE"
+  ],
+  "result": {
+    "item": "thoriumreactors:reactor_core"
+  }
+}

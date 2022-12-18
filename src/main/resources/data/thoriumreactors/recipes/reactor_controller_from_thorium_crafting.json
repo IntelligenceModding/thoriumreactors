@@ -1,0 +1,30 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:reactor_casing"
+    },
+    "D": {
+      "item": "thoriumreactors:redstone_processor"
+    },
+    "E": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    " BAB ",
+    "BECEB",
+    "ACDCA",
+    "BECEB",
+    " BAB "
+  ],
+  "result": {
+    "item": "thoriumreactors:reactor_controller"
+  }
+}

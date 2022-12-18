@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "fueled=false,heating=false": {
+      "model": "thoriumreactors:block/reactor_core_off"
+    },
+    "fueled=false,heating=true": {
+      "model": "thoriumreactors:block/reactor_core_on"
+    },
+    "fueled=true,heating=false": {
+      "model": "thoriumreactors:block/reactor_core_off_fueled"
+    },
+    "fueled=true,heating=true": {
+      "model": "thoriumreactors:block/reactor_core_on_fueled"
+    }
+  }
+}

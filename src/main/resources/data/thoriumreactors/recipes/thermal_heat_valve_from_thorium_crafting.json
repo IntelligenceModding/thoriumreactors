@@ -1,0 +1,25 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:thermal_conductor"
+    },
+    "C": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "pattern": [
+    "     ",
+    " BAB ",
+    " ACA ",
+    " BAB ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:thermal_valve",
+    "count": 4
+  }
+}

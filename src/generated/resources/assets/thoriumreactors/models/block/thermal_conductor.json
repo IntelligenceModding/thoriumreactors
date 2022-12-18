@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "thoriumreactors:block/thermal_conductor",
+    "particle": "thoriumreactors:block/thermal_conductor"
+  }
+}

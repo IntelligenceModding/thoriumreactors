@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "thoriumreactors:block/machine_base",
+    "east": "thoriumreactors:block/machine_valve",
+    "north": "thoriumreactors:block/fluid_evaporation_block_on",
+    "particle": "thoriumreactors:block/fluid_evaporation_block_on",
+    "south": "thoriumreactors:block/machine_power",
+    "up": "thoriumreactors:block/machine_ventilator",
+    "west": "thoriumreactors:block/machine_valve"
+  }
+}

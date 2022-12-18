@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "thoriumreactors:block/reactor_valve"
+    },
+    "facing=south": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 180
+    },
+    "facing=up": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 270
+    },
+    "facing=west": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 270
+    }
+  }
+}

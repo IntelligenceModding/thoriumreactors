@@ -1,10 +1,24 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
+    }
+}
+
 plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 group = 'unhappycodings'
-version = '1.0-SNAPSHOT'
+version = "${mc_version}-${mod_version}"
 
 java {
     archivesBaseName = 'thoriumreactors'
@@ -12,7 +26,7 @@ java {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.19.2'
+    mappings channel: "${mappings_channel}", version: "${mappings_version}"
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -78,23 +92,39 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    flatDir {
+        dirs 'lib'
+    }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.1.58'
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+
+    implementation fg.deobf("team.chisel.ctm:ctm-dev:1.1.523a9b31")
+
+    implementation fg.deobf("curse.maven:mek-${mek_version}")
+    implementation fg.deobf("curse.maven:mekgen-${mekgen_version}")
+    implementation fg.deobf("curse.maven:jei-${jei_version}")
+    //runtimeOnly fg.deobf("curse.maven:biggerreactors-${biggerreactors_version}")
+    //runtimeOnly fg.deobf("curse.maven:corezero-${corezero_version}")
 }
 
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "thoriumreactors",
-                //"Specification-Vendor": "thoriumreactors authors",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                //"Implementation-Vendor": "thoriumreactors authors",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Specification-Title"     : "thoriumreactors",
+            "Specification-Vendor"    : "UnhappyWithoutU",
+            "Specification-Version"   : "${mod_version}",
+            "Implementation-Title"    : project.name,
+            "Implementation-Version"  : "${mod_version}",
+            "Implementation-Vendor"   : "UnhappyWithoutU",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }

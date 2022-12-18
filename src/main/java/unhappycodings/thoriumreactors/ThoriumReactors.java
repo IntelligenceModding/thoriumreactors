@@ -5,13 +5,15 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import unhappycodings.thoriumreactors.common.ItemCreativeTab;
-import unhappycodings.thoriumreactors.common.block.ModBlocks;
-import unhappycodings.thoriumreactors.common.blockentity.ModBlockEntities;
-import unhappycodings.thoriumreactors.common.container.ContainerTypes;
-import unhappycodings.thoriumreactors.common.item.ModItems;
+import unhappycodings.thoriumreactors.common.network.PacketHandler;
+import unhappycodings.thoriumreactors.common.registration.ModBlocks;
+import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
+import unhappycodings.thoriumreactors.common.container.util.ContainerTypes;
+import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.recipe.ModRecipes;
 import unhappycodings.thoriumreactors.common.registration.Registration;
 
@@ -23,6 +25,7 @@ public class ThoriumReactors {
     public static final CreativeModeTab creativeTab = new ItemCreativeTab();
 
     public ThoriumReactors() {
+        final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         LOGGER.info("[" + MOD_ID + "] Initialization");
 
         Registration.register();
@@ -35,6 +38,11 @@ public class ThoriumReactors {
         ModRecipes.register();
 
         MinecraftForge.EVENT_BUS.register(this);
+        bus.addListener(this::onCommonSetup);
+    }
+
+    public void onCommonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(PacketHandler::init);
     }
 
 }

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "thoriumreactors:block/thermal_heat_sink",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "thoriumreactors:block/thermal_heat_sink"
+    },
+    "facing=south": {
+      "model": "thoriumreactors:block/thermal_heat_sink",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "thoriumreactors:block/thermal_heat_sink",
+      "y": 270
+    }
+  }
+}

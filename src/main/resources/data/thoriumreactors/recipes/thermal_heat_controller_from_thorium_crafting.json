@@ -1,0 +1,25 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:thermal_conductor"
+    },
+    "C": {
+      "item": "thoriumreactors:redstone_processor"
+    }
+  },
+  "pattern": [
+    "     ",
+    " BAB ",
+    " ACA ",
+    " BAB ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:thermal_controller",
+    "count": 4
+  }
+}

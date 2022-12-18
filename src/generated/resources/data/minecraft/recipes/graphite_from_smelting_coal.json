@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 400,
+  "experience": 0.1,
+  "group": "raw_graphite",
+  "ingredient": {
+    "item": "minecraft:coal"
+  },
+  "result": "thoriumreactors:graphite"
+}

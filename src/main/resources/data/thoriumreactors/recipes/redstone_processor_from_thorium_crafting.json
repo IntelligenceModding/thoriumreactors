@@ -1,0 +1,39 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "C": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "item": "minecraft:redstone_torch"
+    },
+    "E": {
+      "item": "minecraft:repeater"
+    },
+    "F": {
+      "item": "minecraft:comparator"
+    },
+    "G": {
+      "item": "minecraft:observer"
+    },
+    "H": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    "  H  ",
+    " CDC ",
+    " EBF ",
+    " CGC ",
+    "  A  "
+  ],
+  "result": {
+    "item": "thoriumreactors:redstone_processor"
+  }
+}

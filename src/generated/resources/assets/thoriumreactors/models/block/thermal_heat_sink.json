@@ -1,0 +1,7 @@
+{
+  "parent": "thoriumreactors:generation/heat_sink",
+  "textures": {
+    "0": "thoriumreactors:block/thermal_conductor",
+    "particle": "thoriumreactors:block/thermal_conductor"
+  }
+}

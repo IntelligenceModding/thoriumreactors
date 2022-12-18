@@ -1,0 +1,21 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "minecraft:coal"
+    }
+  },
+  "pattern": [
+    "     ",
+    "     ",
+    "  A  ",
+    "  B  ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:steel_compound"
+  }
+}

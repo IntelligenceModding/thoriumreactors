@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=east,powered=false": {
+      "model": "thoriumreactors:block/thermal_controller_off"
+    },
+    "facing=east,powered=true": {
+      "model": "thoriumreactors:block/thermal_controller"
+    },
+    "facing=north,powered=false": {
+      "model": "thoriumreactors:block/thermal_controller_off"
+    },
+    "facing=north,powered=true": {
+      "model": "thoriumreactors:block/thermal_controller"
+    },
+    "facing=south,powered=false": {
+      "model": "thoriumreactors:block/thermal_controller_off"
+    },
+    "facing=south,powered=true": {
+      "model": "thoriumreactors:block/thermal_controller"
+    },
+    "facing=west,powered=false": {
+      "model": "thoriumreactors:block/thermal_controller_off"
+    },
+    "facing=west,powered=true": {
+      "model": "thoriumreactors:block/thermal_controller"
+    }
+  }
+}

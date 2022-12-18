@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "thoriumreactors:block/reactor_rod_controller_down",
+    "east": "thoriumreactors:block/reactor_rod_controller_side",
+    "north": "thoriumreactors:block/reactor_rod_controller_side",
+    "particle": "thoriumreactors:block/reactor_rod_controller_side",
+    "south": "thoriumreactors:block/reactor_rod_controller_side",
+    "up": "thoriumreactors:block/reactor_rod_controller_up",
+    "west": "thoriumreactors:block/reactor_rod_controller_side"
+  }
+}

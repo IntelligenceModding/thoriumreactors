@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "thoriumreactors:block/thermal_conductor",
+    "east": "thoriumreactors:block/thermal_conductor",
+    "north": "thoriumreactors:block/thermal_controller_off",
+    "particle": "thoriumreactors:block/thermal_controller_off",
+    "south": "thoriumreactors:block/thermal_conductor",
+    "up": "thoriumreactors:block/thermal_conductor",
+    "west": "thoriumreactors:block/thermal_conductor"
+  }
+}

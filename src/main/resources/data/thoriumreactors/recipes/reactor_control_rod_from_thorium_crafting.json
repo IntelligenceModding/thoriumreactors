@@ -1,0 +1,30 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "minecraft:gold_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:graphite_tube"
+    },
+    "E": {
+      "item": "thoriumreactors:hardened_stone"
+    }
+  },
+  "pattern": [
+    "BACAB",
+    "CDEDC",
+    "CEDEC",
+    "CDEDC",
+    "BACAB"
+  ],
+  "result": {
+    "item": "thoriumreactors:reactor_rod_controller"
+  }
+}

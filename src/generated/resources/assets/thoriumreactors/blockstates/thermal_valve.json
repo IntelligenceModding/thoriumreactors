@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "thoriumreactors:block/thermal_valve",
+      "x": 90
+    },
+    "facing=east": {
+      "model": "thoriumreactors:block/thermal_valve",
+      "x": 90
+    },
+    "facing=north": {
+      "model": "thoriumreactors:block/thermal_valve"
+    },
+    "facing=south": {
+      "model": "thoriumreactors:block/thermal_valve",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "thoriumreactors:block/thermal_valve",
+      "x": 270
+    },
+    "facing=west": {
+      "model": "thoriumreactors:block/thermal_valve",
+      "x": 270
+    }
+  }
+}
