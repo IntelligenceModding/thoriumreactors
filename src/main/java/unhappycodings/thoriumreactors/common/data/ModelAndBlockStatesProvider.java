@@ -21,21 +21,13 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         this.gen = gen;
     }
 
-    private static int getSensorRotation(Direction facing) {
-        return switch (facing) {
-            case EAST -> 90;
-            case SOUTH -> 180;
-            case WEST -> 270;
-            default -> 0;
-        };
-    }
-
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(ModBlocks.HARDENED_STONE.get());
         simpleBlock(ModBlocks.REACTOR_CASING.get());
         simpleBlock(ModBlocks.GRAPHITE_ORE.get());
         simpleBlock(ModBlocks.GRAPHITE_BLOCK.get());
+        simpleBlock(ModBlocks.THORIUM_BLOCK.get());
 
         heatSinkBlock(ModBlocks.THERMAL_HEAT_SINK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
         allSideBlock(ModBlocks.THERMAL_CONDUCTOR.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
@@ -48,24 +40,32 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         valveBlock(ModBlocks.REACTOR_VALVE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_valve"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_casing"));
         simpleBlock(ModBlocks.REACTOR_GLASS.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.REACTOR_GLASS.get()), new ResourceLocation("block/cube_all")).texture("all", new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_glass")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_glass")).renderType("cutout"));
 
-        machineBlock(ModBlocks.ELECTROLYTIC_SALT_SEPARATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/electrolytic_salt_separator"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve"));
-        machineBlock(ModBlocks.FLUID_EVAPORATION_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_evaporation_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve"));
-        machineBlock(ModBlocks.GENERATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/generator_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"));
+        machineBlock(ModBlocks.ELECTROLYTIC_SALT_SEPARATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/electrolytic_salt_separator_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_red"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), false);
+        machineBlock(ModBlocks.FLUID_EVAPORATION_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_evaporation_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_red"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), true);
+        machineBlock(ModBlocks.GENERATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/generator_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_red"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), true);
+        machineBlock(ModBlocks.SAlT_MELTER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/salt_melter_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_red"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), false);
     }
 
-    public void machineBlock(Block block, ResourceLocation texture, ResourceLocation valve) {
-        ResourceLocation ventilator = new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_ventilator");
-        ResourceLocation ventilatorOff = new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_ventilator_off");
-        ResourceLocation side = new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base");
+    public void machineBlock(Block block, ResourceLocation texture, ResourceLocation valveLeft, ResourceLocation valveRight, ResourceLocation bottom, boolean onOffState) {
+        ResourceLocation vent = new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_vent");
         ResourceLocation power = new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_power");
-        ModelFile off = models().withExistingParent(ItemUtil.getRegString(block) + "_off", new ResourceLocation("block/cube"))
-                .texture("up", ventilatorOff).texture("down", side).texture("north", texture + "_off").texture("east", valve).texture("south", power).texture("west", valve).texture("particle", texture + "_off");
-        ModelFile on = models().withExistingParent(ItemUtil.getRegString(block) + "_on", new ResourceLocation("block/cube"))
-                .texture("up", ventilator).texture("down", side).texture("north", texture + "_on").texture("east", valve).texture("south", power).texture("west", valve).texture("particle", texture + "_on");
-       getVariantBuilder(block).forAllStates(state -> {
-           int rot = getRotForDir(state.getValue(MachineElectrolyticSaltSeparatorBlock.FACING));
-           return ConfiguredModel.builder().modelFile(state.getValue(MachineElectrolyticSaltSeparatorBlock.POWERED) ? on : off).rotationY(rot).build();
-       });
+        if (onOffState) {
+            ModelFile off = models().withExistingParent(ItemUtil.getRegString(block) + "_off", new ResourceLocation("block/cube"))
+                    .texture("up", vent).texture("down", bottom).texture("north", texture + "_off").texture("east", valveLeft).texture("south", power).texture("west", valveRight).texture("particle", texture + "_off");
+            ModelFile on = models().withExistingParent(ItemUtil.getRegString(block) + "_on", new ResourceLocation("block/cube"))
+                    .texture("up", vent).texture("down", bottom).texture("north", texture + "_on").texture("east", valveLeft).texture("south", power).texture("west", valveRight).texture("particle", texture + "_on");
+            getVariantBuilder(block).forAllStates(state -> {
+                int rot = getRotForDir(state.getValue(MachineElectrolyticSaltSeparatorBlock.FACING));
+                return ConfiguredModel.builder().modelFile(state.getValue(MachineElectrolyticSaltSeparatorBlock.POWERED) ? on : off).rotationY(rot).build();
+            });
+        } else {
+            ModelFile model = models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation("block/cube"))
+                    .texture("up", vent).texture("down", bottom).texture("north", texture).texture("east", valveLeft).texture("south", power).texture("west", valveRight).texture("particle", texture);
+            getVariantBuilder(block).forAllStates(state -> {
+                int rot = getRotForDir(state.getValue(MachineElectrolyticSaltSeparatorBlock.FACING));
+                return ConfiguredModel.builder().modelFile(model).rotationY(rot).build();
+            });
+        }
     }
 
     public void coreBlock(Block block, ResourceLocation texture, ResourceLocation down) {
@@ -115,7 +115,7 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
                 .texture("north", texture).texture("east", main).texture("south", main).texture("west", main).texture("up", main).texture("down", main).texture("particle", texture);
         getVariantBuilder(block).forAllStates(state -> {
             int rot = getRotForDir(state.getValue(ThermalControllerBlock.FACING));
-            return ConfiguredModel.builder().modelFile(state.getValue(ThermalControllerBlock.POWERED) ? on : off).rotationY(0).build();
+            return ConfiguredModel.builder().modelFile(state.getValue(ThermalControllerBlock.POWERED) ? on : off).rotationY(rot).build();
         });
     }
 

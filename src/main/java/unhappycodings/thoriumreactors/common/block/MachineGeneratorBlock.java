@@ -2,10 +2,7 @@ package unhappycodings.thoriumreactors.common.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,8 +28,6 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.blockentity.MachineGeneratorBlockEntity;
-import unhappycodings.thoriumreactors.common.network.PacketHandler;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientGeneratorDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.util.ParticleUtil;
 
@@ -63,6 +58,7 @@ public class MachineGeneratorBlock extends BaseEntityBlock {
                 NetworkHooks.openScreen(serverPlayerEntity, namedContainerProvider, pos);
             return InteractionResult.SUCCESS;
         }
+
         return super.use(state, levelIn, pos, player, interactionHand, hitResult);
     }
 

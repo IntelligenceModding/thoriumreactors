@@ -24,13 +24,15 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModBlocks.THERMAL_HEAT_SINK.get(), "Thermal Sink");
         add(ModItems.GRAPHITE.get(), "Graphite");
         add(ModItems.RAW_URANIUM.get(), "Raw Uranium");
-        add(ModItems.RAW_THORIUM.get(), "Raw Thorium");
+        add(ModItems.THORIUM.get(), "Raw Thorium");
         add(ModItems.ENRICHED_URANIUM.get(), "Enriched Uranium");
 
         add(ModItems.STEEL_COMPOUND.get(), "Steel Compound");
         add(ModItems.GRAPHITE_TUBE.get(), "Graphite Tube");
-
         add(ModItems.REDSTONE_PROCESSOR.get(), "Redstone Processor");
+        add(ModItems.POTASSIUM.get(), "Potassium");
+        add(ModItems.SODIUM.get(), "Sodium");
+        add(ModItems.URAN_THREE_CHLORIDE.get(), "Uran(III)-Chloride");
 
         add(ModItems.GRAPHITE_INGOT.get(), "Graphite Ingot");
         add(ModItems.BLASTED_IRON_INGOT.get(), "Blasted Iron Ingot");

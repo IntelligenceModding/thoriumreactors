@@ -33,6 +33,9 @@ public class MachineGeneratorScreen extends BaseScreen<MachineGeneratorContainer
 
         blit(matrixStack, getGuiLeft() + 18, getGuiTop() + 64 + 13 - burnBlitSize, 176, 13 - burnBlitSize, 14, burnBlitSize + (burnBlitSize > 0 ? 1 : 0));
         blit(matrixStack, getGuiLeft() + 146, getGuiTop() + 22 + (38 - energyBlitSize), 176, 14, 9, energyBlitSize);
+
+        if (entity.getState()) blit(matrixStack, getGuiLeft() + 81, getGuiTop() + 81, 185, 14, 6, 1); // Power Indicator - Green
+        else blit(matrixStack, getGuiLeft() + 88, getGuiTop() + 81, 185, 15, 6, 1); // Power Indicator - Green
     }
 
     public boolean mouseInArea(int x1, int y1, int x2, int y2, int mouseX, int mouseY) {
@@ -58,12 +61,12 @@ public class MachineGeneratorScreen extends BaseScreen<MachineGeneratorContainer
         MachineGeneratorBlockEntity entity = this.container.getTile();
         SimpleDateFormat format = new SimpleDateFormat("mm'm' ss's'");
         float fuel = entity.getFuel() / 20 * 1000 + (entity.getFuel() > 0 ? 1000 : 0);
-        drawText(Component.literal("Generator").getString(), pPoseStack, 62, 6);
-        drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 94);
-        drawText(Component.literal("Fuel: " + format.format(fuel)).getString(), pPoseStack, 52, 28, 4182051);
-        drawText(Component.literal("Tank: " + (int) entity.getEnergy() + " FE").getString(), pPoseStack, 52, 39, 4182051);
-        drawText(Component.literal("Gen: " + entity.getCurrentProduction() + " FE/t").getString(), pPoseStack, 52, 50, 4182051);
-        drawText(Component.literal("     " + (entity.getCurrentProduction() * 20) + " FE/s").getString(), pPoseStack, 52, 61, 4182051);
+        drawText(Component.literal("Generator").getString(), pPoseStack, 62, 4);
+        drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 92);
+        drawText(Component.literal("Fuel: " + format.format(fuel)).getString(), pPoseStack, 52, 26, 4182051);
+        drawText(Component.literal("Tank: " + (int) entity.getEnergy() + " FE").getString(), pPoseStack, 52, 37, 4182051);
+        drawText(Component.literal("Gen: " + entity.getCurrentProduction() + " FE/t").getString(), pPoseStack, 52, 48, 4182051);
+        drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 70, 4182051);
 
         if (mouseInArea(getGuiLeft() + 146, getGuiTop() + 22, getGuiLeft() + 154, getGuiTop() + 59, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();

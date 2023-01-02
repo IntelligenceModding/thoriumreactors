@@ -12,10 +12,13 @@
   "item.thoriumreactors.graphite": "Graphite",
   "item.thoriumreactors.graphite_ingot": "Graphite Ingot",
   "item.thoriumreactors.graphite_tube": "Graphite Tube",
-  "item.thoriumreactors.raw_thorium": "Raw Thorium",
+  "item.thoriumreactors.potassium": "Potassium",
   "item.thoriumreactors.raw_uranium": "Raw Uranium",
   "item.thoriumreactors.redstone_processor": "Redstone Processor",
+  "item.thoriumreactors.sodium": "Sodium",
   "item.thoriumreactors.steel_compound": "Steel Compound",
   "item.thoriumreactors.steel_ingot": "Steel Ingot",
+  "item.thoriumreactors.thorium": "Raw Thorium",
+  "item.thoriumreactors.uran_three_chloride": "Uran(III)-Chloride",
   "itemGroup.thoriumreactors.items": "Thorium Reactors"
 }

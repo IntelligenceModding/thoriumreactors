@@ -10,12 +10,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import unhappycodings.thoriumreactors.common.ItemCreativeTab;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
-import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
+import unhappycodings.thoriumreactors.common.registration.*;
 import unhappycodings.thoriumreactors.common.container.util.ContainerTypes;
-import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.recipe.ModRecipes;
-import unhappycodings.thoriumreactors.common.registration.Registration;
 
 @Mod(ThoriumReactors.MOD_ID)
 public class ThoriumReactors {
@@ -33,6 +30,7 @@ public class ThoriumReactors {
         ModItems.register();
         ModBlocks.register();
         ModBlockEntities.register();
+        ModSounds.register();
 
         ContainerTypes.register();
         ModRecipes.register();

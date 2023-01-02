@@ -44,7 +44,7 @@ public class JEIModIntegration implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(@NotNull IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(ThoriumCraftingTableScreen.class, 109, 53, 22, 15, THORIUM_RECIPE_TYPE);
+        registration.addRecipeClickArea(ThoriumCraftingTableScreen.class, 107, 54, 26, 19, THORIUM_RECIPE_TYPE);
     }
 
     @Override

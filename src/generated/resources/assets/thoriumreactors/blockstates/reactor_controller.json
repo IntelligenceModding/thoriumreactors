@@ -1,10 +1,12 @@
 {
   "variants": {
     "facing=east,powered=false": {
-      "model": "thoriumreactors:block/reactor_controller_off"
+      "model": "thoriumreactors:block/reactor_controller_off",
+      "y": 90
     },
     "facing=east,powered=true": {
-      "model": "thoriumreactors:block/reactor_controller"
+      "model": "thoriumreactors:block/reactor_controller",
+      "y": 90
     },
     "facing=north,powered=false": {
       "model": "thoriumreactors:block/reactor_controller_off"
@@ -13,16 +15,20 @@
       "model": "thoriumreactors:block/reactor_controller"
     },
     "facing=south,powered=false": {
-      "model": "thoriumreactors:block/reactor_controller_off"
+      "model": "thoriumreactors:block/reactor_controller_off",
+      "y": 180
     },
     "facing=south,powered=true": {
-      "model": "thoriumreactors:block/reactor_controller"
+      "model": "thoriumreactors:block/reactor_controller",
+      "y": 180
     },
     "facing=west,powered=false": {
-      "model": "thoriumreactors:block/reactor_controller_off"
+      "model": "thoriumreactors:block/reactor_controller_off",
+      "y": 270
     },
     "facing=west,powered=true": {
-      "model": "thoriumreactors:block/reactor_controller"
+      "model": "thoriumreactors:block/reactor_controller",
+      "y": 270
     }
   }
 }

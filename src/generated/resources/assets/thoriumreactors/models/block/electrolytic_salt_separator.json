@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "thoriumreactors:block/machine_valve_yellow",
+    "east": "thoriumreactors:block/machine_valve_red",
+    "north": "thoriumreactors:block/electrolytic_salt_separator_block",
+    "particle": "thoriumreactors:block/electrolytic_salt_separator_block",
+    "south": "thoriumreactors:block/machine_power",
+    "up": "thoriumreactors:block/machine_vent",
+    "west": "thoriumreactors:block/machine_valve_blue"
+  }
+}

@@ -18,16 +18,9 @@ public class ThoriumCraftingTableScreen extends BaseScreen<ThoriumCraftingTableC
     }
 
     @Override
-    protected void renderBg(@NotNull PoseStack matrixStack, float partialTicks, int x, int y) {
-        super.renderBg(matrixStack, partialTicks, x, y);
-        if (this.container.getSlot(61).hasItem())
-            blit(matrixStack, getGuiLeft() + 109, getGuiTop() + 53, 176, 0, 22, 15);
-    }
-
-    @Override
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        drawText(Component.literal("Thorium Crafting").getString(), pPoseStack, 16, 6);
-        drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 111);
+        drawCenteredText(Component.literal("Thorium Crafting").getString(), pPoseStack, getSizeX() / 2, 4);
+        drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 117);
     }
 
     @Override
@@ -43,7 +36,7 @@ public class ThoriumCraftingTableScreen extends BaseScreen<ThoriumCraftingTableC
 
     @Override
     public int getSizeY() {
-        return 202;
+        return 209;
     }
 
     @Override

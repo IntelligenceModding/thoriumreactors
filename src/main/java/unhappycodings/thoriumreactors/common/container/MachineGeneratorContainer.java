@@ -24,7 +24,7 @@ public class MachineGeneratorContainer extends BaseContainer {
     public MachineGeneratorContainer(int id, Inventory inventory, BlockPos pos, Level level, int containerSize) {
         super(ContainerTypes.GENERATOR_CONTAINER.get(), id, inventory, pos, level, containerSize);
         this.inventory = inventory;
-        layoutPlayerInventorySlots(8, 104);
+        layoutPlayerInventorySlots(8, 102);
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
                 addSlot(new SlotItemHandler(handler, 0, 17, 44)); //Output

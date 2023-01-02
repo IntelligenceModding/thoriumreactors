@@ -24,10 +24,10 @@ public class ThoriumCraftingTableContainer extends BaseContainer {
 
     public ThoriumCraftingTableContainer(int id, Inventory inventory, BlockPos pos, Level level, int containerSize) {
         super(ContainerTypes.THORIUM_CRAFTING_TABLE_CONTAINER.get(), id, inventory, pos, level, containerSize);
-        layoutPlayerInventorySlots(8, 121);
+        layoutPlayerInventorySlots(8, 127);
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-                byte[] columnNumbers = {17, 35, 53, 71, 89};
+                byte[] columnNumbers = {20, 38, 56, 74, 92};
                 byte[] rowNumbers = {13, 31, 49, 67, 85};
                 byte index = 0;
                 for (byte column : columnNumbers) {
@@ -36,7 +36,7 @@ public class ThoriumCraftingTableContainer extends BaseContainer {
                         index++;
                     }
                 }
-                addSlot(new OutputSlot(tileEntity, this, handler, inventory, index, 143, 53)); //Output
+                addSlot(new OutputSlot(tileEntity, this, handler, inventory, index, 143, 56)); //Output
             });
         }
     }

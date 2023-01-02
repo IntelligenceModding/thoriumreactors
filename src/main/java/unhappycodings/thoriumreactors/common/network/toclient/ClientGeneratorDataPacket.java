@@ -11,12 +11,12 @@ import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
 public class ClientGeneratorDataPacket implements IPacket {
     private final BlockPos pos;
-    private final float currentProduction;
-    private final float energy;
-    private final float maxFuel;
-    private final float fuel;
+    private final int currentProduction;
+    private final int energy;
+    private final int maxFuel;
+    private final int fuel;
 
-    public ClientGeneratorDataPacket(BlockPos pos, float currentProduction, float energy, float fuel, float maxFuel) {
+    public ClientGeneratorDataPacket(BlockPos pos, int currentProduction, int energy, int fuel, int maxFuel) {
         this.pos = pos;
         this.currentProduction = currentProduction;
         this.energy = energy;
@@ -25,7 +25,7 @@ public class ClientGeneratorDataPacket implements IPacket {
     }
 
     public static ClientGeneratorDataPacket decode(FriendlyByteBuf buffer) {
-        return new ClientGeneratorDataPacket(buffer.readBlockPos(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat());
+        return new ClientGeneratorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -41,9 +41,9 @@ public class ClientGeneratorDataPacket implements IPacket {
 
     public void encode(FriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
-        buffer.writeFloat(currentProduction);
-        buffer.writeFloat(energy);
-        buffer.writeFloat(fuel);
-        buffer.writeFloat(maxFuel);
+        buffer.writeInt(currentProduction);
+        buffer.writeInt(energy);
+        buffer.writeInt(fuel);
+        buffer.writeInt(maxFuel);
     }
 }

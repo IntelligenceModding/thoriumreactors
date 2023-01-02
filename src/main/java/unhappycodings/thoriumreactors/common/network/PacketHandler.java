@@ -10,7 +10,12 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.ClientElectrolyticSaltSeparatorDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.ClientFluidEvaporatorDataPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.ClientGeneratorDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.MachineClientDumpModePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -25,6 +30,12 @@ public class PacketHandler {
 
     public static void init() {
         registerServerToClient(ClientGeneratorDataPacket.class, ClientGeneratorDataPacket::decode);
+        registerServerToClient(ClientElectrolyticSaltSeparatorDataPacket.class, ClientElectrolyticSaltSeparatorDataPacket::decode);
+        registerServerToClient(ClientFluidEvaporatorDataPacket.class, ClientFluidEvaporatorDataPacket::decode);
+        registerServerToClient(MachineClientDumpModePacket.class, MachineClientDumpModePacket::decode);
+
+        registerClientToServer(MachineChangedPacket.class, MachineChangedPacket::decode);
+        registerClientToServer(MachineDumpModePacket.class, MachineDumpModePacket::decode);
     }
 
     public static <MSG extends IPacket> void registerServerToClient(Class<MSG> packet, Function<FriendlyByteBuf, MSG> decode) {

@@ -3,6 +3,8 @@ package unhappycodings.thoriumreactors.common.registration;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.RegistryObject;
@@ -22,6 +24,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> REACTOR_CASING = register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> GRAPHITE_ORE = register("graphite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
     public static final RegistryObject<Block> GRAPHITE_BLOCK = register("graphite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> THORIUM_BLOCK = register("thorium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
 
     public static final RegistryObject<ThermalControllerBlock> THERMAL_CONTROLLER = register("thermal_controller", ThermalControllerBlock::new);
     public static final RegistryObject<ThermalConductorBlock> THERMAL_CONDUCTOR = register("thermal_conductor", ThermalConductorBlock::new);
@@ -38,6 +41,10 @@ public class ModBlocks {
     public static final RegistryObject<MachineElectrolyticSaltSeparatorBlock> ELECTROLYTIC_SALT_SEPARATOR_BLOCK = register("electrolytic_salt_separator", MachineElectrolyticSaltSeparatorBlock::new);
     public static final RegistryObject<MachineFluidEvaporationBlock> FLUID_EVAPORATION_BLOCK = register("fluid_evaporation_block", MachineFluidEvaporationBlock::new);
     public static final RegistryObject<MachineGeneratorBlock> GENERATOR_BLOCK = register("generator_block", MachineGeneratorBlock::new);
+    public static final RegistryObject<MachineSaltMelterBlock> SAlT_MELTER_BLOCK = register("salt_melter_block", MachineSaltMelterBlock::new);
+
+    public static final RegistryObject<LiquidBlock> MOLTEN_SALT_BLOCK = Registration.BLOCKS.register("molten_salt_block",
+            () -> new LiquidBlock(ModFluids.SOURCE_MOLTEN_SALT, BlockBehaviour.Properties.of(Material.LAVA).noCollission().strength(100.0F)));
 
     public static void register() {
     }

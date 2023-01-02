@@ -1,33 +1,33 @@
 {
   "variants": {
     "facing=east,powered=false": {
-      "model": "thoriumreactors:block/electrolytic_salt_separator_off",
+      "model": "thoriumreactors:block/electrolytic_salt_separator",
       "y": 90
     },
     "facing=east,powered=true": {
-      "model": "thoriumreactors:block/electrolytic_salt_separator_on",
+      "model": "thoriumreactors:block/electrolytic_salt_separator",
       "y": 90
     },
     "facing=north,powered=false": {
-      "model": "thoriumreactors:block/electrolytic_salt_separator_off"
+      "model": "thoriumreactors:block/electrolytic_salt_separator"
     },
     "facing=north,powered=true": {
-      "model": "thoriumreactors:block/electrolytic_salt_separator_on"
+      "model": "thoriumreactors:block/electrolytic_salt_separator"
     },
     "facing=south,powered=false": {
-      "model": "thoriumreactors:block/electrolytic_salt_separator_off",
+      "model": "thoriumreactors:block/electrolytic_salt_separator",
       "y": 180
     },
     "facing=south,powered=true": {
-      "model": "thoriumreactors:block/electrolytic_salt_separator_on",
+      "model": "thoriumreactors:block/electrolytic_salt_separator",
       "y": 180
     },
     "facing=west,powered=false": {
-      "model": "thoriumreactors:block/electrolytic_salt_separator_off",
+      "model": "thoriumreactors:block/electrolytic_salt_separator",
       "y": 270
     },
     "facing=west,powered=true": {
-      "model": "thoriumreactors:block/electrolytic_salt_separator_on",
+      "model": "thoriumreactors:block/electrolytic_salt_separator",
       "y": 270
     }
   }

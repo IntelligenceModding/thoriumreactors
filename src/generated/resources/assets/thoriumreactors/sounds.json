@@ -1,0 +1,27 @@
+{
+  "machine_click": {
+    "sounds": [
+      "thoriumreactors:machine_click"
+    ]
+  },
+  "machine_electrolytic_salt_separator": {
+    "sounds": [
+      "thoriumreactors:machine_electrolytic_salt_separator"
+    ]
+  },
+  "machine_fluid_evaporation": {
+    "sounds": [
+      "thoriumreactors:machine_fluid_evaporation"
+    ]
+  },
+  "machine_generator": {
+    "sounds": [
+      "thoriumreactors:machine_generator"
+    ]
+  },
+  "machine_salt_melter": {
+    "sounds": [
+      "thoriumreactors:machine_salt_melter"
+    ]
+  }
+}
