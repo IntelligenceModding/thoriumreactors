@@ -10,10 +10,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientElectrolyticSaltSeparatorDataPacket;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientFluidEvaporatorDataPacket;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientGeneratorDataPacket;
-import unhappycodings.thoriumreactors.common.network.toclient.MachineClientDumpModePacket;
+import unhappycodings.thoriumreactors.common.network.toclient.*;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
 
@@ -32,6 +29,7 @@ public class PacketHandler {
         registerServerToClient(ClientGeneratorDataPacket.class, ClientGeneratorDataPacket::decode);
         registerServerToClient(ClientElectrolyticSaltSeparatorDataPacket.class, ClientElectrolyticSaltSeparatorDataPacket::decode);
         registerServerToClient(ClientFluidEvaporatorDataPacket.class, ClientFluidEvaporatorDataPacket::decode);
+        registerServerToClient(ClientSaltMelterDataPacket.class, ClientSaltMelterDataPacket::decode);
         registerServerToClient(MachineClientDumpModePacket.class, MachineClientDumpModePacket::decode);
 
         registerClientToServer(MachineChangedPacket.class, MachineChangedPacket::decode);

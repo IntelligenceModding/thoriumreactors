@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.container;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -10,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.MachineSaltMelterBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.BaseContainer;
 import unhappycodings.thoriumreactors.common.container.util.ContainerTypes;
+import unhappycodings.thoriumreactors.common.network.PacketHandler;
+import unhappycodings.thoriumreactors.common.network.toclient.ClientSaltMelterDataPacket;
 
 public class MachineSaltMelterContainer extends BaseContainer {
     public final Inventory inventory;
@@ -30,7 +33,7 @@ public class MachineSaltMelterContainer extends BaseContainer {
     @Override
     public void broadcastChanges() {
         MachineSaltMelterBlockEntity entity = (MachineSaltMelterBlockEntity) this.tileEntity;
-        //PacketHandler.sendToClient(new ClientFluidEvaporatorDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getWaterIn()), (ServerPlayer) inventory.player);
+        PacketHandler.sendToClient(new ClientSaltMelterDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getMoltenSaltOut()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();
     }

@@ -125,10 +125,10 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
             return lazyEnergyHandler.cast();
         }
         if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
-            if (facing.getClockWise() == side) return lazyFluidInHandler.cast();
+            if (side == Direction.DOWN) return lazyFluidInHandler.cast();
         }
         if (cap == ForgeCapabilities.ITEM_HANDLER && !isRemoved() && side != null) {
-            if (side == facing.getCounterClockWise())
+            if (side == facing.getCounterClockWise() || side == facing.getClockWise())
                 return itemHandler[side.get3DDataValue()].cast();
             return LazyOptional.empty();
         }
@@ -165,24 +165,22 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         items.get(2).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
         int neededEnergy = 3500;
-        int neededWater = 1500;
 
-        if (hasRecipeNeeds(neededWater / MAX_RECIPE_TIME, neededEnergy / MAX_RECIPE_TIME)) {
-            if (getMaxRecipeTime() == 0) {
+        if (hasRecipeNeeds(neededEnergy / MAX_RECIPE_TIME) || getMaxRecipeTime() > 0) {
+            if (getMaxRecipeTime() == 0 && hasRecipeNeeds(0)) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
                 setRecipeTime(MAX_RECIPE_TIME);
+                items.get(0).shrink(1);
+                items.get(1).shrink(1);
                 if (!getState()) setState(true);
             }
-            ItemStack outputSlot = getItem(1);
-            if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() &&
-                    (outputSlot.isEmpty() || outputSlot.is(ModItems.SODIUM.get()))) {
+            if (getRecipeTime() > 0 && getMaxRecipeTime() > 0) {
                 if (!getState()) setState(true);
                 setEnergy(getEnergy() - neededEnergy / MAX_RECIPE_TIME);
-                setMoltenSaltOut(getMoltenSaltOut() - neededWater / MAX_RECIPE_TIME);
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);
-                    setItem(1, new ItemStack(ModItems.SODIUM.get(), outputSlot.getCount() + 1));
+                    setMoltenSaltOut(getMoltenSaltOut() + 50);
                 }
             } else {
                 if (getState())
@@ -205,8 +203,8 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         if (hasCraftingRemainder) items.set(0, new ItemStack(items.get(0).getItem().getCraftingRemainingItem()));
     }
 
-    public boolean hasRecipeNeeds(int water, int energy) {
-        return getMoltenSaltOut() >= water && getEnergy() >= energy;
+    public boolean hasRecipeNeeds(int neededEnergy) {
+        return items.get(0).is(ModItems.SODIUM.get()) && items.get(1).is(ModItems.POTASSIUM.get()) && getEnergy() - neededEnergy >= 0;
     }
 
     public void setState(boolean state) {
@@ -432,20 +430,19 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
 
     @Override
     public int[] getSlotsForFace(Direction pSide) {
-        return switch (pSide) {
-            case NORTH, EAST, SOUTH, WEST -> new int[]{1};
-            default -> new int[]{};
-        };
-    }
+        if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getClockWise()) return new int[]{1};
+        if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getCounterClockWise()) return new int[]{0};
+        return new int[]{};
+    };
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        return false;
+        Direction facing = this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING);
+        return facing.getCounterClockWise() == pDirection || facing.getClockWise() == pDirection;
     }
 
     @Override
     public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
-        Direction facing = this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING);
-        return facing.getCounterClockWise() == pDirection;
+        return false;
     }
 }
