@@ -46,13 +46,13 @@ import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
     public static final int MAX_POWER = 100000;
     public static final int MAX_TRANSFER = 250;
-    public static final int MAX_RECIPE_TIME = 200;
+    public static final int MAX_RECIPE_TIME = 400;
     public static final int PRODUCTION = 135;
     public static final int MAX_MOLTEN_SALT_OUT = 10000;
     public static final int MAX_MOLTEN_SALT_TRANSFER = 100;
 
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
-    private LazyOptional<FluidTank> lazyFluidInHandler = LazyOptional.empty();
+    private LazyOptional<FluidTank> lazyFluidOutHandler = LazyOptional.empty();
     private final LazyOptional<? extends IItemHandler>[] itemHandler = SidedInvWrapper.create(this, Direction.values());
     public NonNullList<ItemStack> items;
     int recipeTime = 0;
@@ -68,7 +68,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
     public void onLoad() {
         super.onLoad();
         this.lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
-        this.lazyFluidInHandler = LazyOptional.of(() -> FLUID_TANK_OUT);
+        this.lazyFluidOutHandler = LazyOptional.of(() -> FLUID_TANK_OUT);
     }
 
     private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
@@ -88,7 +88,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
 
         @Override
         public @NotNull FluidStack getFluid() {
-            return new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), moltenSaltOut);
+            return new FluidStack(ModFluids.FLOWING_MOLTEN_SALT.get(), moltenSaltOut);
         }
 
         @Override
@@ -107,8 +107,17 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         }
 
         @Override
+        public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
+            int canDrain = getMoltenSaltOut();
+            int filled = Math.min(canDrain, MAX_MOLTEN_SALT_OUT);
+            if (action == FluidAction.EXECUTE) setMoltenSaltOut(getMoltenSaltOut() - filled);
+            return new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), filled);
+        }
+
+        @Override
         public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
-            return FluidStack.EMPTY;
+            int canDrain = getMoltenSaltOut() - MAX_MOLTEN_SALT_TRANSFER > 0 ? MAX_MOLTEN_SALT_TRANSFER : getMoltenSaltOut();
+            return new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), canDrain);
         }
 
         @Override
@@ -125,7 +134,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
             return lazyEnergyHandler.cast();
         }
         if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
-            if (side == Direction.DOWN) return lazyFluidInHandler.cast();
+            if (side == Direction.DOWN) return lazyFluidOutHandler.cast();
         }
         if (cap == ForgeCapabilities.ITEM_HANDLER && !isRemoved() && side != null) {
             if (side == facing.getCounterClockWise() || side == facing.getClockWise())
@@ -164,9 +173,9 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         // Energy Input Slot
         items.get(2).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
-        int neededEnergy = 3500;
+        int neededEnergy = 100;
 
-        if (hasRecipeNeeds(neededEnergy / MAX_RECIPE_TIME) || getMaxRecipeTime() > 0) {
+        if (hasRecipeNeeds(neededEnergy) || getMaxRecipeTime() > 0) {
             if (getMaxRecipeTime() == 0 && hasRecipeNeeds(0)) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
                 setRecipeTime(MAX_RECIPE_TIME);
@@ -176,7 +185,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
             }
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0) {
                 if (!getState()) setState(true);
-                setEnergy(getEnergy() - neededEnergy / MAX_RECIPE_TIME);
+                setEnergy(getEnergy() - neededEnergy);
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);

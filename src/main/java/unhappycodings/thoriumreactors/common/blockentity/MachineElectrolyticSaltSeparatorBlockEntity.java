@@ -231,10 +231,10 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         // Energy Input Slot
         items.get(3).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
-        int neededEnergy = 2000;
+        int neededEnergy = 65;
         int neededWater = 1000;
 
-        if (hasRecipeNeeds(neededWater / MAX_RECIPE_TIME, neededEnergy / MAX_RECIPE_TIME)) {
+        if (hasRecipeNeeds(neededWater / MAX_RECIPE_TIME, neededEnergy)) {
             if (getMaxRecipeTime() == 0) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
                 setRecipeTime(MAX_RECIPE_TIME);
@@ -244,7 +244,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && getWaterOut() + (neededWater / MAX_RECIPE_TIME) / 2 <= getMaxWaterOut() && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() &&
             (outputSlot.isEmpty() || outputSlot.is(ModItems.POTASSIUM.get()))) {
                 if (!getState()) setState(true);
-                setEnergy(getEnergy() - neededEnergy / MAX_RECIPE_TIME);
+                setEnergy(getEnergy() - neededEnergy);
                 setWaterIn(getWaterIn() - neededWater / MAX_RECIPE_TIME);
                 setWaterOut(getWaterOut() + neededWater / MAX_RECIPE_TIME / 2);
                 setRecipeTime(getRecipeTime() - 1);

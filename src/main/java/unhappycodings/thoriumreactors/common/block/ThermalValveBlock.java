@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.enums.HeatSinkEnum;
 
 import java.util.List;
 

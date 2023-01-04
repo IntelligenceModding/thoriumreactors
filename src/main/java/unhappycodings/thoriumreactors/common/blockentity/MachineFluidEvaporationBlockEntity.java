@@ -176,10 +176,10 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
         // Energy Input Slot
         items.get(2).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
-        int neededEnergy = 3500;
+        int neededEnergy = 65;
         int neededWater = 1500;
 
-        if (hasRecipeNeeds(neededWater / MAX_RECIPE_TIME, neededEnergy / MAX_RECIPE_TIME)) {
+        if (hasRecipeNeeds(neededWater / MAX_RECIPE_TIME, neededEnergy)) {
             if (getMaxRecipeTime() == 0) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
                 setRecipeTime(MAX_RECIPE_TIME);
@@ -189,7 +189,7 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() &&
                     (outputSlot.isEmpty() || outputSlot.is(ModItems.SODIUM.get()))) {
                 if (!getState()) setState(true);
-                setEnergy(getEnergy() - neededEnergy / MAX_RECIPE_TIME);
+                setEnergy(getEnergy() - neededEnergy);
                 setWaterIn(getWaterIn() - neededWater / MAX_RECIPE_TIME);
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
