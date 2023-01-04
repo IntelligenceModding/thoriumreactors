@@ -15,9 +15,16 @@ public class ModFluids {
             () -> new ForgeFlowingFluid.Source(ModFluids.MOLTEN_SALT_PROPERTIES));
     public static final RegistryObject<FlowingFluid> FLOWING_MOLTEN_SALT = Registration.FLUIDS.register("flowing_molten_salt",
             () -> new ForgeFlowingFluid.Flowing(ModFluids.MOLTEN_SALT_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> SOURCE_HEATED_MOLTEN_SALT = Registration.FLUIDS.register("heated_molten_salt_fluid",
+            () -> new ForgeFlowingFluid.Source(ModFluids.HEATED_MOLTEN_SALT_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> FLOWING_HEATED_MOLTEN_SALT = Registration.FLUIDS.register("flowing_heated_molten_salt",
+            () -> new ForgeFlowingFluid.Flowing(ModFluids.HEATED_MOLTEN_SALT_PROPERTIES));
 
     public static final ForgeFlowingFluid.Properties MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOLTEN_SALT, SOURCE_MOLTEN_SALT, FLOWING_MOLTEN_SALT)
-            .slopeFindDistance(2).levelDecreasePerBlock(3).block(ModBlocks.MOLTEN_SALT_BLOCK);
+            .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.MOLTEN_SALT_BLOCK);
+    public static final ForgeFlowingFluid.Properties HEATED_MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
+            ModFluidTypes.HEATED_MOLTEN_SALT, SOURCE_HEATED_MOLTEN_SALT, FLOWING_HEATED_MOLTEN_SALT)
+            .slopeFindDistance(2).levelDecreasePerBlock(3).block(ModBlocks.HEATED_MOLTEN_SALT_BLOCK);
 
 }

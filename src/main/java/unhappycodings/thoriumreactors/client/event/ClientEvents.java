@@ -24,6 +24,8 @@ public class ClientEvents {
         MenuScreens.register(ContainerTypes.SALT_MELTER_CONTAINER.get(), MachineSaltMelterScreen::new);
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MOLTEN_SALT.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_HEATED_MOLTEN_SALT.get(), RenderType.translucent());
     }
 
 }

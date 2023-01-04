@@ -46,6 +46,9 @@ public class ModBlocks {
     public static final RegistryObject<LiquidBlock> MOLTEN_SALT_BLOCK = Registration.BLOCKS.register("molten_salt_block",
             () -> new LiquidBlock(ModFluids.SOURCE_MOLTEN_SALT, BlockBehaviour.Properties.of(Material.LAVA).noCollission().strength(100.0F)));
 
+    public static final RegistryObject<LiquidBlock> HEATED_MOLTEN_SALT_BLOCK = Registration.BLOCKS.register("heated_molten_salt_block",
+            () -> new LiquidBlock(ModFluids.SOURCE_HEATED_MOLTEN_SALT, BlockBehaviour.Properties.of(Material.LAVA).noCollission().strength(100.0F)));
+
     public static void register() {
     }
 

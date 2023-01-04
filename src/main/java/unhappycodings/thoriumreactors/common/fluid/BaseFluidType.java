@@ -84,7 +84,6 @@ public class BaseFluidType extends FluidType {
                 RenderSystem.setShaderFogEnd(1f); // distance when the fog starts
             }
 
-
         });
     }
 }

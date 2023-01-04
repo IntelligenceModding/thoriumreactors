@@ -2,7 +2,9 @@ package unhappycodings.thoriumreactors.common.data;
 
 import net.minecraft.data.DataGenerator;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.common.fluid.ModFluidTypes;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
+import unhappycodings.thoriumreactors.common.registration.ModFluids;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 
 public class LanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
@@ -37,6 +39,9 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModItems.GRAPHITE_INGOT.get(), "Graphite Ingot");
         add(ModItems.BLASTED_IRON_INGOT.get(), "Blasted Iron Ingot");
         add(ModItems.STEEL_INGOT.get(), "Steel Ingot");
+
+        add("fluid_type.thoriumreactors.molten_salt", "Molten Salt (142°C)");
+        add("fluid_type.thoriumreactors.heated_molten_salt", "Heated Molten Salt (654°C)");
 
         add("itemGroup.thoriumreactors.items", "Thorium Reactors");
     }

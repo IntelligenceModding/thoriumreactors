@@ -7,6 +7,8 @@
   "block.thoriumreactors.thermal_heat_sink": "Thermal Sink",
   "block.thoriumreactors.thermal_valve": "Thermal Valve",
   "block.thoriumreactors.thorium_crafting_table": "Thorium Crafting Table",
+  "fluid_type.thoriumreactors.heated_molten_salt": "Heated Molten Salt (654°C)",
+  "fluid_type.thoriumreactors.molten_salt": "Molten Salt (142°C)",
   "item.thoriumreactors.blasted_iron_ingot": "Blasted Iron Ingot",
   "item.thoriumreactors.enriched_uranium": "Enriched Uranium",
   "item.thoriumreactors.graphite": "Graphite",
