@@ -26,6 +26,7 @@ public class MachineSaltMelterContainer extends BaseContainer {
                 addSlot(new SlotItemHandler(handler, 0, 39, 70));
                 addSlot(new SlotItemHandler(handler, 1, 39, 20));
                 addSlot(new SlotItemHandler(handler, 2, 150, 70));
+                addSlot(new SlotItemHandler(handler, 3, 17, 46));
             });
         }
     }

@@ -47,7 +47,7 @@ import unhappycodings.thoriumreactors.common.util.ParticleUtil;
 public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
     public static final int MAX_POWER = 100000;
     public static final int MAX_TRANSFER = 250;
-    public static final int MAX_RECIPE_TIME = 200;
+    public static final int MAX_RECIPE_TIME = 400;
     public static final int PRODUCTION = 135;
     public static final int MAX_WATER_IN = 6000;
     public static final int MAX_WATER_TRANSFER = 100;

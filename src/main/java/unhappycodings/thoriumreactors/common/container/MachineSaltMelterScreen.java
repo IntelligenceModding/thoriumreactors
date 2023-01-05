@@ -88,7 +88,7 @@ public class MachineSaltMelterScreen extends BaseScreen<MachineSaltMelterContain
         for (int xIndex = 0; xIndex < positionList.length; xIndex++) {
             for (int yIndex = 0; yIndex < positionList[xIndex].length; yIndex++) {
                 if (positionList[xIndex][yIndex] <= height && positionList[xIndex][yIndex] != 0) {
-                    blit(matrixStack, getGuiLeft() + 67 + yIndex, getGuiTop() + 23 + xIndex, 184, 26, 1, 1);
+                    blit(matrixStack, getGuiLeft() + 67 + yIndex, getGuiTop() + 23 + xIndex, 184, 0, 1, 1);
                 }
             }
         }

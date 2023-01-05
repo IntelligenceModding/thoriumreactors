@@ -46,7 +46,7 @@ import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
     public static final int MAX_POWER = 100000;
     public static final int MAX_TRANSFER = 250;
-    public static final int MAX_RECIPE_TIME = 400;
+    public static final int MAX_RECIPE_TIME = 800;
     public static final int PRODUCTION = 135;
     public static final int MAX_MOLTEN_SALT_OUT = 10000;
     public static final int MAX_MOLTEN_SALT_TRANSFER = 100;
@@ -174,13 +174,15 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         items.get(2).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
         int neededEnergy = 100;
+        int outputMoltenSalt = 330;
 
-        if (hasRecipeNeeds(neededEnergy) || getMaxRecipeTime() > 0) {
-            if (getMaxRecipeTime() == 0 && hasRecipeNeeds(0)) {
+        if (hasRecipeNeeds(neededEnergy, outputMoltenSalt) || getMaxRecipeTime() > 0) {
+            if (getMaxRecipeTime() == 0 && hasRecipeNeeds(0, 0)) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
                 setRecipeTime(MAX_RECIPE_TIME);
                 items.get(0).shrink(1);
                 items.get(1).shrink(1);
+                items.get(3).shrink(1);
                 if (!getState()) setState(true);
             }
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0) {
@@ -189,7 +191,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);
-                    setMoltenSaltOut(getMoltenSaltOut() + 50);
+                    setMoltenSaltOut(getMoltenSaltOut() + outputMoltenSalt);
                 }
             } else {
                 if (getState())
@@ -212,8 +214,8 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         if (hasCraftingRemainder) items.set(0, new ItemStack(items.get(0).getItem().getCraftingRemainingItem()));
     }
 
-    public boolean hasRecipeNeeds(int neededEnergy) {
-        return items.get(0).is(ModItems.SODIUM.get()) && items.get(1).is(ModItems.POTASSIUM.get()) && getEnergy() - neededEnergy >= 0;
+    public boolean hasRecipeNeeds(int neededEnergy, int outputMoltenSalt) {
+        return items.get(0).is(ModItems.SODIUM.get()) && items.get(3).is(ModItems.ENRICHED_URANIUM.get()) && items.get(1).is(ModItems.POTASSIUM.get()) && getEnergy() - neededEnergy >= 0 && getMoltenSaltOut() + outputMoltenSalt <= getMaxMoltenSaltOut();
     }
 
     public void setState(boolean state) {
@@ -348,7 +350,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
 
     @Override
     public int getContainerSize() {
-        return 3;
+        return 4;
     }
 
     @Override
