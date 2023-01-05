@@ -16,17 +16,32 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
     @Override
     protected void addTranslations() {
         add(ModBlocks.THORIUM_CRAFTING_TABLE.get(), "Thorium Crafting Table");
+
         add(ModBlocks.HARDENED_STONE.get(), "Hardened Smooth Stone");
-        add(ModBlocks.REACTOR_CASING.get(), "Reactor Casing");
         add(ModBlocks.GRAPHITE_ORE.get(), "Graphite Ore");
+        add(ModBlocks.THORIUM_BLOCK.get(), "Thorium");
+        add(ModBlocks.GRAPHITE_BLOCK.get(), "Graphite");
+
+        add(ModBlocks.GENERATOR_BLOCK.get(), "Fuel Generator");
+        add(ModBlocks.ELECTROLYTIC_SALT_SEPARATOR_BLOCK.get(), "Electrolytic Separator");
+        add(ModBlocks.FLUID_EVAPORATION_BLOCK.get(), "Fluid Evaporator");
+        add(ModBlocks.SAlT_MELTER_BLOCK.get(), "Salt Melter");
+
+        add(ModBlocks.REACTOR_CASING.get(), "Reactor Casing");
+        add(ModBlocks.REACTOR_CONTROLLER_BLOCK.get(), "Reactor Controller");
+        add(ModBlocks.REACTOR_VALVE.get(), "Reactor Valve");
+        add(ModBlocks.REACTOR_ROD_CONTROLLER.get(), "Reactor Rod Controller");
+        add(ModBlocks.REACTOR_CORE.get(), "Reactor Core");
+        add(ModBlocks.REACTOR_GLASS.get(), "Reactor Glass");
 
         add(ModBlocks.THERMAL_CONDUCTOR.get(), "Thermal Conductor");
         add(ModBlocks.THERMAL_CONTROLLER.get(), "Thermal Controller");
         add(ModBlocks.THERMAL_VALVE.get(), "Thermal Valve");
         add(ModBlocks.THERMAL_HEAT_SINK.get(), "Thermal Sink");
+
         add(ModItems.GRAPHITE.get(), "Graphite");
         add(ModItems.RAW_URANIUM.get(), "Raw Uranium");
-        add(ModItems.THORIUM.get(), "Raw Thorium");
+        add(ModItems.THORIUM.get(), "Thorium");
         add(ModItems.ENRICHED_URANIUM.get(), "Enriched Uranium");
 
         add(ModItems.STEEL_COMPOUND.get(), "Steel Compound");

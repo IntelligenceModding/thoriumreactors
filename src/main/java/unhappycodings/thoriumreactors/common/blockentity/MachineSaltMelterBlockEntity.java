@@ -109,7 +109,8 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         @Override
         public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
             int canDrain = getMoltenSaltOut();
-            int filled = Math.min(canDrain, MAX_MOLTEN_SALT_OUT);
+            int filled = Math.min(canDrain, MAX_MOLTEN_SALT_TRANSFER);
+            System.out.println(filled);
             if (action == FluidAction.EXECUTE) setMoltenSaltOut(getMoltenSaltOut() - filled);
             return new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), filled);
         }
@@ -117,6 +118,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         @Override
         public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
             int canDrain = getMoltenSaltOut() - MAX_MOLTEN_SALT_TRANSFER > 0 ? MAX_MOLTEN_SALT_TRANSFER : getMoltenSaltOut();
+            System.out.println("CanDrain: " + canDrain);
             return new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), canDrain);
         }
 

@@ -57,20 +57,13 @@ public class MachineFluidEvaporatorScreen extends BaseScreen<MachineFluidEvapora
         renderFluid(getGuiLeft() + 36, getGuiTop() + 64, 45, 16, entity.getWaterIn(), entity.getMaxWaterIn());
         renderFluid(getGuiLeft() + 36 + 16, getGuiTop() + 64, 45, 2, entity.getWaterIn(), entity.getMaxWaterIn());
 
-        if (entity.getState()) {
-            renderFluid(getGuiLeft() + 54, getGuiTop() + 48, 1, 15, 1, 1);
-            renderFluid(getGuiLeft() + 69, getGuiTop() + 55, 9, 16, 1, 1);
-            renderFluid(getGuiLeft() + 69 + 16, getGuiTop() + 55, 9, 16, 1, 1);
-            renderFluid(getGuiLeft() + 69 + 32, getGuiTop() + 55, 9, 2, 1, 1);
-        }
-
         resetGuiTextures();
         int energyBlitSize = (int) Math.floor(38 / ((double) entity.getEnergyCapacity() / entity.getEnergy()));
         blit(matrixStack, getGuiLeft() + 153, getGuiTop() + 25 + (38 - energyBlitSize), 176, 14, 8, energyBlitSize); // Energy Tank
         blit(matrixStack, getGuiLeft() + 37, getGuiTop() + 20, 176, 52, 4, 45); // Left Tank
 
         int height = entity.getMaxRecipeTime() != 0 ? 22 - (int) Math.floor((entity.getRecipeTime() / (float) entity.getMaxRecipeTime()) * 22) : 0;
-        blit(matrixStack, getGuiLeft() + 71, getGuiTop() + 19 + (22 - height), 184, 15 + (22 - height), 32, height); // Process
+        blit(matrixStack, getGuiLeft() + 71, getGuiTop() + 30 + (22 - height), 184, 15 + (22 - height), 32, height); // Process
 
         if (entity.getState()) blit(matrixStack, getGuiLeft() + 66, getGuiTop() + 59, 184, 0, 42, 15); // Heat Spiral
 
