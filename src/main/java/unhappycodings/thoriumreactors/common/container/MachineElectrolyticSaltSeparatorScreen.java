@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.gui.GuiUtil;
 import unhappycodings.thoriumreactors.client.gui.widgets.ModButton;
@@ -25,13 +27,23 @@ import unhappycodings.thoriumreactors.common.container.base.BaseScreen;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachinePowerablePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachineRedstoneModePacket;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MachineElectrolyticSaltSeparatorScreen extends BaseScreen<MachineElectrolyticSaltSeparatorContainer> {
+    public static final ResourceLocation POWER_OFF = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/power_off.png");
+    public static final ResourceLocation POWER_ON = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/power_on.png");
+    public static final ResourceLocation REDSTONE_NORMAL = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/redstone_normal.png");
+    public static final ResourceLocation REDSTONE_INVERTED = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/redstone_inverted.png");
+    public static final ResourceLocation REDSTONE_IGNORED = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/redstone_ignored.png");
+    public static final ResourceLocation INFORMATION = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/information.png");
     private MachineElectrolyticSaltSeparatorContainer container;
+    boolean lastPowerable;
+    int lastRedstoneMode;
 
     public MachineElectrolyticSaltSeparatorScreen(MachineElectrolyticSaltSeparatorContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
@@ -53,12 +65,30 @@ public class MachineElectrolyticSaltSeparatorScreen extends BaseScreen<MachineEl
         // Dump Right
         addWidget(new ModButton(116, 90, 3, 8, null, () -> changeDumpMode("output"), null, tile, this, 0, 0, true));
         addWidget(new ModButton(119, 90, 19, 8, null, () -> changeDumpMode("dumpOutput"), null, tile, this, 0, 0, true));
+
+        // Information
+        addRenderableOnly(new ModButton(-18, 6, 16, 16, INFORMATION, null, null, tile, this, 16, 32, false));
+
+        // Power Button
+        lastPowerable = tile.isPowerable();
+        addRenderableWidget(new ModButton(-18, 24, 16, 16, lastPowerable ? POWER_ON : POWER_OFF, () -> changePowerable(!tile.isPowerable()), null, tile, this, 16, 32, true));
+
+        System.out.println("button");
+        // Redstone Button
+        lastRedstoneMode = tile.getRedstoneMode();
+        addRenderableWidget(new ModButton(-18, 42, 16, 16, lastRedstoneMode == 0 ? REDSTONE_IGNORED : lastRedstoneMode == 1 ? REDSTONE_NORMAL : REDSTONE_INVERTED, this::changeRedstoneMode, null, tile, this, 16, 32, true));
+    }
+
+    public void refreshWidgets() {
+        clearWidgets();
+        addElements();
     }
 
     @Override
     protected void renderBg(@NotNull PoseStack matrixStack, float partialTicks, int x, int y) {
         super.renderBg(matrixStack, partialTicks, x, y);
         MachineElectrolyticSaltSeparatorBlockEntity entity = this.container.getTile();
+        if (lastPowerable != entity.isPowerable() || lastRedstoneMode != entity.getRedstoneMode()) refreshWidgets();
         renderFluid(getGuiLeft() + 36, getGuiTop() + 64, 45, 16, entity.getWaterIn(), entity.getMaxWaterIn());
         renderFluid(getGuiLeft() + 36 + 16, getGuiTop() + 64, 45, 2, entity.getWaterIn(), entity.getMaxWaterIn());
         renderFluid(getGuiLeft() + 118, getGuiTop() + 64, 23, 16, entity.getWaterOut(), entity.getMaxWaterOut());
@@ -157,8 +187,8 @@ public class MachineElectrolyticSaltSeparatorScreen extends BaseScreen<MachineEl
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         MachineElectrolyticSaltSeparatorBlockEntity entity = this.container.getTile();
 
-        drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 106);
-        drawCenteredText(Component.literal("Electrolytic Salt Separator").getString(), pPoseStack, 87, 4);
+        drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 102);
+        drawCenteredText(Component.literal("Electrolytic Salt Separator").getString(), pPoseStack, 90, 7);
         drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 78, 4182051);
 
         if (mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY)) {
@@ -209,6 +239,29 @@ public class MachineElectrolyticSaltSeparatorScreen extends BaseScreen<MachineEl
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
+        if (mouseInArea(getGuiLeft() + -18, getGuiTop() + 6, getGuiLeft() + -3, getGuiTop() + 21, pMouseX, pMouseY)) {
+            List<Component> list = new ArrayList<>();
+            list.add(Component.literal("Usage: " + formatEnergy(entity.getState() ? entity.getNeededEnergy() : 0) + "/t"));
+            list.add(Component.literal("Needs: " + formatEnergy(entity.getEnergyCapacity() - entity.getEnergy())));
+            this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
+        }
+
+        if (mouseInArea(getGuiLeft() + -18, getGuiTop() + 42, getGuiLeft() + -3, getGuiTop() + 57, pMouseX, pMouseY)) {
+            List<Component> list = new ArrayList<>();
+            list.add(Component.literal("Redstone: " + (lastRedstoneMode == 0 ? "Ignore" : lastRedstoneMode == 1 ? "Normal" : "Inverted")));
+            this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
+        }
+
+    }
+
+    private void changeRedstoneMode() {
+        PacketHandler.sendToServer(new MachineRedstoneModePacket(this.getMenu().getTile().getBlockPos()));
+        sendChangedPacket();
+    }
+
+    private void changePowerable(boolean state) {
+        PacketHandler.sendToServer(new MachinePowerablePacket(this.getMenu().getTile().getBlockPos(), state));
+        sendChangedPacket();
     }
 
     private void changeDumpMode(String tag) {
@@ -247,7 +300,7 @@ public class MachineElectrolyticSaltSeparatorScreen extends BaseScreen<MachineEl
 
     @Override
     public int getSizeY() {
-        return 195;
+        return 194;
     }
 
     @Override

@@ -16,18 +16,22 @@ public class ClientElectrolyticSaltSeparatorDataPacket implements IPacket {
     private final int recipeTime;
     private final int waterIn;
     private final int waterOut;
+    private final int redstoneMode;
+    private final boolean powerable;
 
-    public ClientElectrolyticSaltSeparatorDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int waterIn, int waterOut) {
+    public ClientElectrolyticSaltSeparatorDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int waterIn, int waterOut, boolean powerable, int redstoneMode) {
         this.pos = pos;
         this.energy = energy;
         this.maxRecipeTime = maxRecipeTime;
         this.recipeTime = recipeTime;
         this.waterIn = waterIn;
         this.waterOut = waterOut;
+        this.powerable = powerable;
+        this.redstoneMode = redstoneMode;
     }
 
     public static ClientElectrolyticSaltSeparatorDataPacket decode(FriendlyByteBuf buffer) {
-        return new ClientElectrolyticSaltSeparatorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt());
+        return new ClientElectrolyticSaltSeparatorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -40,6 +44,8 @@ public class ClientElectrolyticSaltSeparatorDataPacket implements IPacket {
         blockEntity.setRecipeTime(recipeTime);
         blockEntity.setWaterIn(waterIn);
         blockEntity.setWaterOut(waterOut);
+        blockEntity.setPowerable(powerable);
+        blockEntity.setRedstoneMode(redstoneMode);
     }
 
     public void encode(FriendlyByteBuf buffer) {
@@ -49,5 +55,7 @@ public class ClientElectrolyticSaltSeparatorDataPacket implements IPacket {
         buffer.writeInt(recipeTime);
         buffer.writeInt(waterIn);
         buffer.writeInt(waterOut);
+        buffer.writeBoolean(powerable);
+        buffer.writeInt(redstoneMode);
     }
 }

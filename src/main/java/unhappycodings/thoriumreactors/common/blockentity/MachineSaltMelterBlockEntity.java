@@ -25,6 +25,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -37,6 +38,7 @@ import unhappycodings.thoriumreactors.common.block.MachineSaltMelterBlock;
 import unhappycodings.thoriumreactors.common.container.MachineSaltMelterContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
+import unhappycodings.thoriumreactors.common.fluid.ModFluidTypes;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModFluids;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
@@ -58,6 +60,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
     int recipeTime = 0;
     int maxRecipeTime = 0;
     int moltenSaltOut = 0;
+    boolean powerable = false;
 
     public MachineSaltMelterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.SALT_MELTER_BLOCK.get(), pPos, pBlockState);
@@ -101,6 +104,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
             int canFill = getMaxMoltenSaltOut() - getMoltenSaltOut();
             int filled = Math.min(canFill, MAX_MOLTEN_SALT_TRANSFER);
 
+            if (!resource.getFluid().isSame(ModFluids.SOURCE_MOLTEN_SALT.get())) return 0;
             if (action == FluidAction.EXECUTE)
                 setMoltenSaltOut(getMoltenSaltOut() + Math.min(filled, resource.getAmount()));
             return Math.min(filled, resource.getAmount());
@@ -232,6 +236,14 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         return MAX_MOLTEN_SALT_TRANSFER;
     }
 
+    public void setPowerable(boolean powerable) {
+        this.powerable = powerable;
+    }
+
+    public boolean isPowerable() {
+        return powerable;
+    }
+
     public int getRecipeTime() {
         return recipeTime;
     }
@@ -308,6 +320,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         nbt.putInt("RecipeTime", getRecipeTime());
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
         nbt.putInt("MoltenSaltOut", getMoltenSaltOut());
+        nbt.putBoolean("Powerable", isPowerable());
         return nbt;
     }
 
@@ -317,6 +330,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         setRecipeTime(tag.getInt("RecipeTime"));
         setMaxRecipeTime(tag.getInt("MaxRecipeTime"));
         setMoltenSaltOut(tag.getInt("MoltenSaltOut"));
+        setPowerable(tag.getBoolean("Powerable"));
     }
 
     @Override
@@ -325,6 +339,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         nbt.putInt("RecipeTime", getRecipeTime());
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
         nbt.putInt("MoltenSaltOut", getMoltenSaltOut());
+        nbt.putBoolean("Powerable", isPowerable());
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -336,6 +351,7 @@ public class MachineSaltMelterBlockEntity extends BaseContainerBlockEntity imple
         setRecipeTime(nbt.getInt("RecipeTime"));
         setMaxRecipeTime(nbt.getInt("MaxRecipeTime"));
         setMoltenSaltOut(nbt.getInt("MoltenSaltOut"));
+        setPowerable(nbt.getBoolean("Powerable"));
     }
 
     @NotNull

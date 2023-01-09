@@ -13,6 +13,8 @@ import unhappycodings.thoriumreactors.common.network.base.IPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.*;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachinePowerablePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachineRedstoneModePacket;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -26,14 +28,16 @@ public class PacketHandler {
     private static int index = 0;
 
     public static void init() {
-        registerServerToClient(ClientGeneratorDataPacket.class, ClientGeneratorDataPacket::decode);
         registerServerToClient(ClientElectrolyticSaltSeparatorDataPacket.class, ClientElectrolyticSaltSeparatorDataPacket::decode);
         registerServerToClient(ClientFluidEvaporatorDataPacket.class, ClientFluidEvaporatorDataPacket::decode);
-        registerServerToClient(ClientSaltMelterDataPacket.class, ClientSaltMelterDataPacket::decode);
         registerServerToClient(MachineClientDumpModePacket.class, MachineClientDumpModePacket::decode);
+        registerServerToClient(ClientSaltMelterDataPacket.class, ClientSaltMelterDataPacket::decode);
+        registerServerToClient(ClientGeneratorDataPacket.class, ClientGeneratorDataPacket::decode);
 
-        registerClientToServer(MachineChangedPacket.class, MachineChangedPacket::decode);
+        registerClientToServer(MachineRedstoneModePacket.class, MachineRedstoneModePacket::decode);
+        registerClientToServer(MachinePowerablePacket.class, MachinePowerablePacket::decode);
         registerClientToServer(MachineDumpModePacket.class, MachineDumpModePacket::decode);
+        registerClientToServer(MachineChangedPacket.class, MachineChangedPacket::decode);
     }
 
     public static <MSG extends IPacket> void registerServerToClient(Class<MSG> packet, Function<FriendlyByteBuf, MSG> decode) {

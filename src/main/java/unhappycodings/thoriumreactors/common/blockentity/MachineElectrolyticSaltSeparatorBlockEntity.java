@@ -10,17 +10,13 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
@@ -34,7 +30,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import team.chisel.ctm.client.util.Dir;
 import unhappycodings.thoriumreactors.common.block.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.MachineGeneratorBlock;
 import unhappycodings.thoriumreactors.common.container.MachineElectrolyticSaltSeparatorContainer;
@@ -52,18 +47,22 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
     public static final int MAX_POWER = 25000;
     public static final int MAX_TRANSFER = 170;
     public static final int MAX_RECIPE_TIME = 200;
+    public static final int NEEDED_ENERGY = 65;
+    public static final int NEEDED_WATER = 4;
 
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
     private LazyOptional<FluidTank> lazyFluidInHandler = LazyOptional.empty();
     private LazyOptional<FluidTank> lazyFluidOutHandler = LazyOptional.empty();
     private final LazyOptional<? extends IItemHandler>[] itemHandler = SidedInvWrapper.create(this, Direction.values());
     public NonNullList<ItemStack> items;
+    boolean inputDump;
+    boolean outputDump;
+    boolean powerable;
     int recipeTime = 0;
     int maxRecipeTime = 0;
     int waterIn = 0;
     int waterOut = 0;
-    boolean inputDump;
-    boolean outputDump;
+    int redstoneMode = 0;
 
     public MachineElectrolyticSaltSeparatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.ELECTROLYTIC_SALT_SEPARATOR_BLOCK.get(), pPos, pBlockState);
@@ -171,7 +170,6 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
 
     };
 
-
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         Direction facing = this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING);
@@ -188,6 +186,14 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
             return LazyOptional.empty();
         }
         return super.getCapability(cap, side);
+    }
+
+    public int getRedstoneMode() {
+        return redstoneMode;
+    }
+
+    public void setRedstoneMode(int redstoneMode) {
+        this.redstoneMode = redstoneMode;
     }
 
     @Override
@@ -222,31 +228,30 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
                 tryFillTank(storage, FLUID_TANK_IN, items.get(0).hasCraftingRemainingItem() ? storage.getTankCapacity(0) : getMaxWaterTransfer(), items.get(0).hasCraftingRemainingItem());
             }
         });
+
         // Fluid Output Slot
         items.get(2).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(storage -> {
             if ((storage.getFluidInTank(0).getFluid() == Fluids.WATER || storage.getFluidInTank(0).getFluid() == Fluids.EMPTY) && storage.getTankCapacity(0) > 0) {
                 tryDrainTank(storage, FLUID_TANK_OUT, getMaxWaterTransfer());
             }
         });
+
         // Energy Input Slot
         items.get(3).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
-        int neededEnergy = 65;
-        int neededWater = 1000;
-
-        if (hasRecipeNeeds(neededWater / MAX_RECIPE_TIME, neededEnergy)) {
+        if (hasRecipeNeeds(NEEDED_WATER, NEEDED_ENERGY)) {
             if (getMaxRecipeTime() == 0) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
                 setRecipeTime(MAX_RECIPE_TIME);
                 if (!getState()) setState(true);
             }
             ItemStack outputSlot = getItem(1);
-            if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && getWaterOut() + (neededWater / MAX_RECIPE_TIME) / 2 <= getMaxWaterOut() && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() &&
+            if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && getWaterOut() + (NEEDED_WATER) / 2 <= getMaxWaterOut() && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() &&
             (outputSlot.isEmpty() || outputSlot.is(ModItems.POTASSIUM.get()))) {
                 if (!getState()) setState(true);
-                setEnergy(getEnergy() - neededEnergy);
-                setWaterIn(getWaterIn() - neededWater / MAX_RECIPE_TIME);
-                setWaterOut(getWaterOut() + neededWater / MAX_RECIPE_TIME / 2);
+                setEnergy(getEnergy() - NEEDED_ENERGY);
+                setWaterIn(getWaterIn() - NEEDED_WATER);
+                setWaterOut(getWaterOut() + NEEDED_WATER / 2);
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);
@@ -292,6 +297,19 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
 
     public boolean getState() {
         return getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.POWERED);
+    }
+
+    public void setPowerable(boolean powerable) {
+        this.powerable = powerable;
+    }
+
+    public boolean isPowerable() {
+        return powerable;
+    }
+
+
+    public int getNeededEnergy() {
+        return NEEDED_ENERGY;
     }
 
     public int getMaxWaterTransfer() {
@@ -403,8 +421,10 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
         nbt.putInt("WaterIn", getWaterIn());
         nbt.putInt("WaterOut", getWaterOut());
+        nbt.putInt("RedstoneMode", getRedstoneMode());
         nbt.putBoolean("InputDump", isInputDump());
         nbt.putBoolean("OutputDump", isOutputDump());
+        nbt.putBoolean("Powerable", isPowerable());
         return nbt;
     }
 
@@ -415,8 +435,10 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         setMaxRecipeTime(tag.getInt("MaxRecipeTime"));
         setWaterIn(tag.getInt("WaterIn"));
         setWaterOut(tag.getInt("WaterOut"));
+        setRedstoneMode(tag.getInt("RedstoneMode"));
         setInputDump(tag.getBoolean("InputDump"));
         setOutputDump(tag.getBoolean("OutputDump"));
+        setPowerable(tag.getBoolean("Powerable"));
     }
 
     @Override
@@ -426,8 +448,10 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
         nbt.putInt("WaterIn", getWaterIn());
         nbt.putInt("WaterOut", getWaterOut());
+        nbt.putInt("RedstoneMode", getRedstoneMode());
         nbt.putBoolean("InputDump", isInputDump());
         nbt.putBoolean("OutputDump", isOutputDump());
+        nbt.putBoolean("Powerable", isPowerable());
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -440,8 +464,10 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         setMaxRecipeTime(nbt.getInt("MaxRecipeTime"));
         setWaterIn(nbt.getInt("WaterIn"));
         setWaterOut(nbt.getInt("WaterOut"));
+        setRedstoneMode(nbt.getInt("RedstoneMode"));
         setInputDump(nbt.getBoolean("InputDump"));
         setOutputDump(nbt.getBoolean("OutputDump"));
+        setPowerable(nbt.getBoolean("Powerable"));
     }
 
     @Override

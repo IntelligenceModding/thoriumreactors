@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
@@ -20,7 +21,7 @@ public class MachineElectrolyticSaltSeparatorContainer extends BaseContainer {
     public MachineElectrolyticSaltSeparatorContainer(int id, Inventory inventory, BlockPos pos, Level level, int containerSize) {
         super(ContainerTypes.ELECTROLYTIC_SALT_SEPARATOR_CONTAINER.get(), id, inventory, pos, level, containerSize);
         this.inventory = inventory;
-        layoutPlayerInventorySlots(8, 116);
+        layoutPlayerInventorySlots(8, 112);
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
                 addSlot(new SlotItemHandler(handler, 0, 38, 70));
@@ -34,7 +35,7 @@ public class MachineElectrolyticSaltSeparatorContainer extends BaseContainer {
     @Override
     public void broadcastChanges() {
         MachineElectrolyticSaltSeparatorBlockEntity entity = (MachineElectrolyticSaltSeparatorBlockEntity) this.tileEntity;
-        PacketHandler.sendToClient(new ClientElectrolyticSaltSeparatorDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getWaterIn(), entity.getWaterOut()), (ServerPlayer) inventory.player);
+        PacketHandler.sendToClient(new ClientElectrolyticSaltSeparatorDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getWaterIn(), entity.getWaterOut(), entity.isPowerable(), entity.getRedstoneMode()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();
     }
