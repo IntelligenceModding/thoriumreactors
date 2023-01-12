@@ -16,17 +16,21 @@ public class ClientFluidEvaporatorDataPacket implements IPacket {
     private final int maxRecipeTime;
     private final int recipeTime;
     private final int waterIn;
+    private final int redstoneMode;
+    private final boolean powerable;
 
-    public ClientFluidEvaporatorDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int waterIn) {
+    public ClientFluidEvaporatorDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int waterIn, boolean powerable, int redstoneMode) {
         this.pos = pos;
         this.energy = energy;
         this.maxRecipeTime = maxRecipeTime;
         this.recipeTime = recipeTime;
         this.waterIn = waterIn;
+        this.powerable = powerable;
+        this.redstoneMode = redstoneMode;
     }
 
     public static ClientFluidEvaporatorDataPacket decode(FriendlyByteBuf buffer) {
-        return new ClientFluidEvaporatorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt());
+        return new ClientFluidEvaporatorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -38,6 +42,8 @@ public class ClientFluidEvaporatorDataPacket implements IPacket {
         blockEntity.setMaxRecipeTime(maxRecipeTime);
         blockEntity.setRecipeTime(recipeTime);
         blockEntity.setWaterIn(waterIn);
+        blockEntity.setPowerable(powerable);
+        blockEntity.setRedstoneMode(redstoneMode);
     }
 
     public void encode(FriendlyByteBuf buffer) {
@@ -46,5 +52,7 @@ public class ClientFluidEvaporatorDataPacket implements IPacket {
         buffer.writeInt(maxRecipeTime);
         buffer.writeInt(recipeTime);
         buffer.writeInt(waterIn);
+        buffer.writeBoolean(powerable);
+        buffer.writeInt(redstoneMode);
     }
 }

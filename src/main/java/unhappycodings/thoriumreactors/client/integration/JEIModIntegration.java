@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableScreen;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.container.util.ContainerTypes;
+import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.recipe.ModRecipes;
 import unhappycodings.thoriumreactors.common.recipe.ThoriumCraftingRecipe;
@@ -56,7 +56,7 @@ public class JEIModIntegration implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(ThoriumCraftingTableContainer.class, ContainerTypes.THORIUM_CRAFTING_TABLE_CONTAINER.get(), THORIUM_RECIPE_TYPE,
+        registration.addRecipeTransferHandler(ThoriumCraftingTableContainer.class, ModContainerTypes.THORIUM_CRAFTING_TABLE_CONTAINER.get(), THORIUM_RECIPE_TYPE,
                 SLOT_GRID + PLAYER_INVENTORY_COUNT, ThoriumCraftingRecipe.MAX_WIDTH * ThoriumCraftingRecipe.MAX_HEIGHT, SLOT_GRID, PLAYER_INVENTORY_COUNT);
     }
 }

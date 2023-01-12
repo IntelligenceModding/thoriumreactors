@@ -1,4 +1,4 @@
-package unhappycodings.thoriumreactors.common.container.base;
+package unhappycodings.thoriumreactors.common.container.base.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -7,9 +7,10 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
+import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 
-// CREDIT GOES TO: Sr_endi  | https://github.com/Seniorendi
 public abstract class BaseScreen<T extends BaseContainer> extends AbstractContainerScreen<T> {
 
     public BaseScreen(T screenContainer, Inventory inv, Component titleIn) {
@@ -41,4 +42,8 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
     public abstract int getSizeY();
 
     public abstract ResourceLocation getTexture();
+
+    public BlockEntity getTile() {
+        return this.menu.getTile();
+    }
 }

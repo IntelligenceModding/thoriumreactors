@@ -2,19 +2,15 @@ package unhappycodings.thoriumreactors.common.container;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.MachineGeneratorBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
-import unhappycodings.thoriumreactors.common.container.base.BaseContainer;
-import unhappycodings.thoriumreactors.common.container.util.ContainerTypes;
+import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
+import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.ClientGeneratorDataPacket;
 
@@ -22,7 +18,7 @@ public class MachineGeneratorContainer extends BaseContainer {
     public final Inventory inventory;
 
     public MachineGeneratorContainer(int id, Inventory inventory, BlockPos pos, Level level, int containerSize) {
-        super(ContainerTypes.GENERATOR_CONTAINER.get(), id, inventory, pos, level, containerSize);
+        super(ModContainerTypes.GENERATOR_CONTAINER.get(), id, inventory, pos, level, containerSize);
         this.inventory = inventory;
         layoutPlayerInventorySlots(8, 102);
         if (tileEntity != null) {
@@ -36,7 +32,7 @@ public class MachineGeneratorContainer extends BaseContainer {
     @Override
     public void broadcastChanges() {
         MachineGeneratorBlockEntity entity = (MachineGeneratorBlockEntity) this.tileEntity;
-        PacketHandler.sendToClient(new ClientGeneratorDataPacket(entity.getBlockPos(), entity.getCurrentProduction(), entity.getEnergy(), entity.getFuel(), entity.getMaxFuel()), (ServerPlayer) inventory.player);
+        PacketHandler.sendToClient(new ClientGeneratorDataPacket(entity.getBlockPos(), entity.getCurrentProduction(), entity.getEnergy(), entity.getFuel(), entity.getMaxFuel(), entity.isPowerable(), entity.getRedstoneMode()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();
     }

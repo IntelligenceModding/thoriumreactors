@@ -35,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.MachineFluidEvaporationBlock;
+import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.MachineFluidEvaporatorContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
@@ -44,13 +45,15 @@ import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 import unhappycodings.thoriumreactors.common.util.ParticleUtil;
 
-public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
+public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
+    public static final int MAX_WATER_IN = 6000;
+    public static final int MAX_WATER_TRANSFER = 100;
     public static final int MAX_POWER = 100000;
     public static final int MAX_TRANSFER = 250;
     public static final int MAX_RECIPE_TIME = 400;
     public static final int PRODUCTION = 135;
-    public static final int MAX_WATER_IN = 6000;
-    public static final int MAX_WATER_TRANSFER = 100;
+    public static final int NEEDED_ENERGY = 65;
+    public static final int NEEDED_WATER = 6;
 
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
     private LazyOptional<FluidTank> lazyFluidInHandler = LazyOptional.empty();
@@ -60,6 +63,9 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
     int maxRecipeTime = 0;
     int waterIn = 0;
     boolean inputDump;
+
+    boolean powerable = true;
+    int redstoneMode = 0;
 
     public MachineFluidEvaporationBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.FLUID_EVAPORATION_BLOCK.get(), pPos, pBlockState);
@@ -100,6 +106,7 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
 
         @Override
         public int fill(FluidStack resource, FluidAction action) {
+            if (!resource.getFluid().isSame(Fluids.WATER)) return 0;
             int canFill = getMaxWaterIn() - getWaterIn();
             int filled = Math.min(canFill, MAX_WATER_TRANSFER); // canFill > MAX_WATER_TRANSFER ? MAX_WATER_TRANSFER : canFill
 
@@ -126,15 +133,10 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         Direction facing = this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING);
-        if (cap == ForgeCapabilities.ENERGY && supportsEnergy() && side != null && this.getBlockState().getValue(MachineFluidEvaporationBlock.FACING).getOpposite() == side) {
-            return lazyEnergyHandler.cast();
-        }
-        if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
-            if (facing.getClockWise() == side) return lazyFluidInHandler.cast();
-        }
+        if (cap == ForgeCapabilities.ENERGY && supportsEnergy() && side != null && this.getBlockState().getValue(MachineFluidEvaporationBlock.FACING).getOpposite() == side) return lazyEnergyHandler.cast();
+        if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) if (facing.getClockWise() == side) return lazyFluidInHandler.cast();
         if (cap == ForgeCapabilities.ITEM_HANDLER && !isRemoved() && side != null) {
-            if (side == facing.getCounterClockWise())
-                return itemHandler[side.get3DDataValue()].cast();
+            if (side == facing.getCounterClockWise()) return itemHandler[side.get3DDataValue()].cast();
             return LazyOptional.empty();
         }
         return super.getCapability(cap, side);
@@ -176,10 +178,25 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
         // Energy Input Slot
         items.get(2).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
-        int neededEnergy = 65;
-        int neededWater = 1500;
+        if (isPowerable()) {
+            switch (getRedstoneMode()) {
+                case 0 -> operate(); // Ignored
+                case 1 -> { // Normal
+                    if (level.hasNeighborSignal(getBlockPos())) operate();
+                    else if (getState()) setState(false);
+                }
+                case 2 -> { // Inverted
+                    if (!level.hasNeighborSignal(getBlockPos())) operate();
+                    else if (getState()) setState(false);
+                }
+            }
+        } else if (getState()) {
+            setState(false);
+        }
+    }
 
-        if (hasRecipeNeeds(neededWater / MAX_RECIPE_TIME, neededEnergy)) {
+    public void operate() {
+        if (hasRecipeNeeds(NEEDED_WATER, NEEDED_ENERGY)) {
             if (getMaxRecipeTime() == 0) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
                 setRecipeTime(MAX_RECIPE_TIME);
@@ -189,8 +206,8 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() &&
                     (outputSlot.isEmpty() || outputSlot.is(ModItems.SODIUM.get()))) {
                 if (!getState()) setState(true);
-                setEnergy(getEnergy() - neededEnergy);
-                setWaterIn(getWaterIn() - neededWater / MAX_RECIPE_TIME);
+                setEnergy(getEnergy() - NEEDED_ENERGY);
+                setWaterIn(getWaterIn() - NEEDED_WATER);
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);
@@ -229,6 +246,34 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
         return getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.POWERED);
     }
 
+    @Override
+    public int getRedstoneMode() {
+        return redstoneMode;
+    }
+
+    @Override
+    public void setRedstoneMode(int redstoneMode) {
+        this.redstoneMode = redstoneMode;
+    }
+
+    @Override
+    public void setPowerable(boolean powerable) {
+        this.powerable = powerable;
+    }
+
+    @Override
+    public boolean isPowerable() {
+        return powerable;
+    }
+
+    public int getNeededEnergy() {
+        return NEEDED_ENERGY;
+    }
+
+    public int getNeededWater() {
+        return NEEDED_WATER;
+    }
+
     public int getMaxWaterTransfer() {
         return MAX_WATER_TRANSFER;
     }
@@ -259,14 +304,6 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
 
     public int getMaxWaterIn() {
         return MAX_WATER_IN;
-    }
-
-    public void setFluid(FluidStack stack) {
-        FLUID_TANK_IN.setFluid(stack);
-    }
-
-    public FluidStack getFluid() {
-        return FLUID_TANK_IN.getFluidInTank(0);
     }
 
     @Override
@@ -317,7 +354,9 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
         nbt.putInt("RecipeTime", getRecipeTime());
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
         nbt.putInt("WaterIn", getWaterIn());
+        nbt.putInt("RedstoneMode", getRedstoneMode());
         nbt.putBoolean("InputDump", isInputDump());
+        nbt.putBoolean("Powerable", isPowerable());
         return nbt;
     }
 
@@ -327,7 +366,9 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
         setRecipeTime(tag.getInt("RecipeTime"));
         setMaxRecipeTime(tag.getInt("MaxRecipeTime"));
         setWaterIn(tag.getInt("WaterIn"));
+        setRedstoneMode(tag.getInt("RedstoneMode"));
         setInputDump(tag.getBoolean("InputDump"));
+        setPowerable(tag.getBoolean("Powerable"));
     }
 
     @Override
@@ -336,7 +377,9 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
         nbt.putInt("RecipeTime", getRecipeTime());
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
         nbt.putInt("WaterIn", getWaterIn());
+        nbt.putInt("RedstoneMode", getRedstoneMode());
         nbt.putBoolean("InputDump", isInputDump());
+        nbt.putBoolean("Powerable", isPowerable());
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -348,7 +391,9 @@ public class MachineFluidEvaporationBlockEntity extends BaseContainerBlockEntity
         setRecipeTime(nbt.getInt("RecipeTime"));
         setMaxRecipeTime(nbt.getInt("MaxRecipeTime"));
         setWaterIn(nbt.getInt("WaterIn"));
+        setRedstoneMode(nbt.getInt("RedstoneMode"));
         setInputDump(nbt.getBoolean("InputDump"));
+        setPowerable(nbt.getBoolean("Powerable"));
     }
 
     @NotNull

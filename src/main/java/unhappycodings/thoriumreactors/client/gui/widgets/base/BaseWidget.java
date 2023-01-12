@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.gui.GuiUtil;
 import unhappycodings.thoriumreactors.client.gui.widgets.ModButton;
-import unhappycodings.thoriumreactors.common.container.base.BaseScreen;
+import unhappycodings.thoriumreactors.common.container.base.screen.BaseScreen;
 
 import java.util.ArrayList;
 import java.util.List;

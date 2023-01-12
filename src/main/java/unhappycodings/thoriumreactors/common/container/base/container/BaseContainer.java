@@ -1,4 +1,4 @@
-package unhappycodings.thoriumreactors.common.container.base;
+package unhappycodings.thoriumreactors.common.container.base.container;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 
-// CREDIT GOES TO: Sr_endi  | https://github.com/Seniorendi
 public abstract class BaseContainer extends AbstractContainerMenu {
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     private static final int HOTBAR_SLOT_COUNT = 9;
@@ -79,6 +78,10 @@ public abstract class BaseContainer extends AbstractContainerMenu {
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;
         }
+    }
+
+    public BlockEntity getTile() {
+        return this.tileEntity;
     }
 
     public void layoutPlayerInventorySlots(int leftCol, int topRow) {

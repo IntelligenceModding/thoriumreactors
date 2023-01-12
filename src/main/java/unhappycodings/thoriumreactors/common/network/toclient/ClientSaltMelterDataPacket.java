@@ -6,9 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
-import unhappycodings.thoriumreactors.common.blockentity.MachineFluidEvaporationBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.MachineSaltMelterBlockEntity;
-import unhappycodings.thoriumreactors.common.container.MachineSaltMelterScreen;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
 public class ClientSaltMelterDataPacket implements IPacket {
@@ -17,17 +15,21 @@ public class ClientSaltMelterDataPacket implements IPacket {
     private final int maxRecipeTime;
     private final int recipeTime;
     private final int moltenSaltOut;
+    private final boolean powerable;
+    private final int redstoneMode;
 
-    public ClientSaltMelterDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int moltenSaltOut) {
+    public ClientSaltMelterDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int moltenSaltOut, boolean powerable, int redstoneMode) {
         this.pos = pos;
         this.energy = energy;
         this.maxRecipeTime = maxRecipeTime;
         this.recipeTime = recipeTime;
         this.moltenSaltOut = moltenSaltOut;
+        this.powerable = powerable;
+        this.redstoneMode = redstoneMode;
     }
 
     public static ClientSaltMelterDataPacket decode(FriendlyByteBuf buffer) {
-        return new ClientSaltMelterDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt());
+        return new ClientSaltMelterDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -39,6 +41,8 @@ public class ClientSaltMelterDataPacket implements IPacket {
         blockEntity.setMaxRecipeTime(maxRecipeTime);
         blockEntity.setRecipeTime(recipeTime);
         blockEntity.setMoltenSaltOut(moltenSaltOut);
+        blockEntity.setPowerable(powerable);
+        blockEntity.setRedstoneMode(redstoneMode);
     }
 
     public void encode(FriendlyByteBuf buffer) {
@@ -47,5 +51,7 @@ public class ClientSaltMelterDataPacket implements IPacket {
         buffer.writeInt(maxRecipeTime);
         buffer.writeInt(recipeTime);
         buffer.writeInt(moltenSaltOut);
+        buffer.writeBoolean(powerable);
+        buffer.writeInt(redstoneMode);
     }
 }

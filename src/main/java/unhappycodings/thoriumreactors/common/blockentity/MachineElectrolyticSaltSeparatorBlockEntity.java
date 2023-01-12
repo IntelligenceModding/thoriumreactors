@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
@@ -32,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.MachineGeneratorBlock;
+import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.MachineElectrolyticSaltSeparatorContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
@@ -40,14 +40,14 @@ import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
-public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, IEnergyCapable {
+public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, IEnergyCapable {
     public static final int MAX_WATER_IN = 6000;
     public static final int MAX_WATER_OUT = 3000;
     public static final int MAX_WATER_TRANSFER = 100;
     public static final int MAX_POWER = 25000;
     public static final int MAX_TRANSFER = 170;
     public static final int MAX_RECIPE_TIME = 200;
-    public static final int NEEDED_ENERGY = 65;
+    public static final int NEEDED_ENERGY = 40;
     public static final int NEEDED_WATER = 4;
 
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
@@ -57,11 +57,12 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
     public NonNullList<ItemStack> items;
     boolean inputDump;
     boolean outputDump;
-    boolean powerable;
     int recipeTime = 0;
     int maxRecipeTime = 0;
     int waterIn = 0;
     int waterOut = 0;
+
+    boolean powerable = true;
     int redstoneMode = 0;
 
     public MachineElectrolyticSaltSeparatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -89,7 +90,6 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         @Override
         protected void onContentsChanged() {
             setChanged();
-            waterIn = FLUID_TANK_IN.getFluidAmount();
         }
 
         @Override
@@ -104,14 +104,13 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
 
         @Override
         public int fill(FluidStack resource, FluidAction action) {
+            if (!resource.getFluid().isSame(Fluids.WATER)) return 0;
             int canFill = getMaxWaterIn() - getWaterIn();
             int filled = Math.min(canFill, MAX_WATER_TRANSFER); // canFill > MAX_WATER_TRANSFER ? MAX_WATER_TRANSFER : canFill
 
             if (action == FluidAction.EXECUTE)
-                if (items.get(0).hasCraftingRemainingItem())
-                    setWaterIn(getWaterIn() + 1000);
-                else
-                    setWaterIn(getWaterIn() + Math.min(filled, resource.getAmount()));
+                if (items.get(0).hasCraftingRemainingItem()) setWaterIn(getWaterIn() + 1000);
+                else setWaterIn(getWaterIn() + Math.min(filled, resource.getAmount()));
             return Math.min(filled, resource.getAmount());
         }
 
@@ -131,7 +130,6 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         @Override
         protected void onContentsChanged() {
             setChanged();
-            waterOut = FLUID_TANK_OUT.getFluidAmount();
         }
 
         @Override
@@ -146,6 +144,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
 
         @Override
         public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
+            if (!resource.getFluid().isSame(Fluids.WATER)) return FluidStack.EMPTY;
             int canDrain = getWaterOut();
             int filled = Math.min(canDrain, MAX_WATER_TRANSFER);
             if (action == FluidAction.EXECUTE) setWaterOut(getWaterOut() - filled);
@@ -173,27 +172,16 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         Direction facing = this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING);
-        if (cap == ForgeCapabilities.ENERGY && supportsEnergy() && side != null && facing.getOpposite() == side) {
-            return lazyEnergyHandler.cast();
-        }
+        if (cap == ForgeCapabilities.ENERGY && supportsEnergy() && side != null && facing.getOpposite() == side) return lazyEnergyHandler.cast();
         if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
             if (facing.getCounterClockWise() == side) return lazyFluidOutHandler.cast();
             if (facing.getClockWise() == side) return lazyFluidInHandler.cast();
         }
         if (cap == ForgeCapabilities.ITEM_HANDLER && !isRemoved() && side != null) {
-            if (side == Direction.DOWN)
-                return itemHandler[side.get3DDataValue()].cast();
+            if (side == Direction.DOWN) return itemHandler[side.get3DDataValue()].cast();
             return LazyOptional.empty();
         }
         return super.getCapability(cap, side);
-    }
-
-    public int getRedstoneMode() {
-        return redstoneMode;
-    }
-
-    public void setRedstoneMode(int redstoneMode) {
-        this.redstoneMode = redstoneMode;
     }
 
     @Override
@@ -225,7 +213,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         // Fluid Input Slot
         items.get(0).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(storage -> {
             if (storage.getFluidInTank(0).getFluid() == Fluids.WATER && storage.getTankCapacity(0) > 0) {
-                tryFillTank(storage, FLUID_TANK_IN, items.get(0).hasCraftingRemainingItem() ? storage.getTankCapacity(0) : getMaxWaterTransfer(), items.get(0).hasCraftingRemainingItem());
+                fillTankFromItemInput(storage, FLUID_TANK_IN, items.get(0).hasCraftingRemainingItem() ? storage.getTankCapacity(0) : getMaxWaterTransfer(), items.get(0).hasCraftingRemainingItem());
             }
         });
 
@@ -239,6 +227,27 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         // Energy Input Slot
         items.get(3).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
+        if (isPowerable()) {
+            switch (getRedstoneMode()) {
+                case 0 -> operate(); // Ignored
+                case 1 -> { // Normal
+                    if (level.hasNeighborSignal(getBlockPos())) operate();
+                    else if (getState()) setState(false);
+                }
+                case 2 -> { // Inverted
+                    if (!level.hasNeighborSignal(getBlockPos())) operate();
+                    else if (getState()) setState(false);
+                }
+            }
+        } else if (getState()) {
+            setState(false);
+        }
+
+        if (isOutputDump() && getWaterOut() > 0) setWaterOut(Math.max(getWaterOut() - MAX_WATER_TRANSFER, 0));
+        if (isInputDump() && getWaterIn() > 0) setWaterIn(Math.max(getWaterIn() - MAX_WATER_TRANSFER, 0));
+    }
+
+    public void operate() {
         if (hasRecipeNeeds(NEEDED_WATER, NEEDED_ENERGY)) {
             if (getMaxRecipeTime() == 0) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
@@ -247,7 +256,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
             }
             ItemStack outputSlot = getItem(1);
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && getWaterOut() + (NEEDED_WATER) / 2 <= getMaxWaterOut() && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() &&
-            (outputSlot.isEmpty() || outputSlot.is(ModItems.POTASSIUM.get()))) {
+                    (outputSlot.isEmpty() || outputSlot.is(ModItems.POTASSIUM.get()))) {
                 if (!getState()) setState(true);
                 setEnergy(getEnergy() - NEEDED_ENERGY);
                 setWaterIn(getWaterIn() - NEEDED_WATER);
@@ -265,9 +274,6 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
             if (getState())
                 setState(false);
         }
-
-        if (isOutputDump() && getWaterOut() > 0) setWaterOut(Math.max(getWaterOut() - MAX_WATER_TRANSFER, 0));
-        if (isInputDump() && getWaterIn() > 0) setWaterIn(Math.max(getWaterIn() - MAX_WATER_TRANSFER, 0));
     }
 
     public boolean hasRecipeNeeds(int water, int energy) {
@@ -280,7 +286,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         if (sent > 0) fluidTank.drain(new FluidStack(Fluids.WATER, sent), IFluidHandler.FluidAction.EXECUTE);
     }
 
-    public void tryFillTank(IFluidHandlerItem other, FluidTank fluidTank, int transferRate, boolean hasCraftingRemainder) {
+    public void fillTankFromItemInput(IFluidHandlerItem other, FluidTank fluidTank, int transferRate, boolean hasCraftingRemainder) {
         int toSend = fluidTank.fill(new FluidStack(Fluids.WATER, transferRate), IFluidHandler.FluidAction.SIMULATE);
         FluidStack sent = other.drain(toSend, IFluidHandler.FluidAction.EXECUTE);
         if (hasCraftingRemainder) {
@@ -299,17 +305,32 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         return getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.POWERED);
     }
 
+    @Override
+    public int getRedstoneMode() {
+        return redstoneMode;
+    }
+
+    @Override
+    public void setRedstoneMode(int redstoneMode) {
+        this.redstoneMode = redstoneMode;
+    }
+
+    @Override
     public void setPowerable(boolean powerable) {
         this.powerable = powerable;
     }
 
+    @Override
     public boolean isPowerable() {
         return powerable;
     }
 
-
     public int getNeededEnergy() {
         return NEEDED_ENERGY;
+    }
+
+    public int getNeededWater() {
+        return NEEDED_WATER;
     }
 
     public int getMaxWaterTransfer() {
@@ -356,14 +377,6 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         return MAX_WATER_OUT;
     }
 
-    public void setFluid(FluidStack stack) {
-        FLUID_TANK_IN.setFluid(stack);
-    }
-
-    public FluidStack getFluid() {
-        return FLUID_TANK_IN.getFluidInTank(0);
-    }
-
     @Override
     public void setEnergy(int energy) {
         ENERGY_STORAGE.setEnergy(energy);
@@ -385,18 +398,22 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends BaseContainerBl
         return getEnergyCapacity() > 0;
     }
 
+    @Override
     public boolean isInputDump() {
         return inputDump;
     }
 
+    @Override
     public void setInputDump(boolean inputDump) {
         this.inputDump = inputDump;
     }
 
+    @Override
     public boolean isOutputDump() {
         return outputDump;
     }
 
+    @Override
     public void setOutputDump(boolean outputDump) {
         this.outputDump = outputDump;
     }

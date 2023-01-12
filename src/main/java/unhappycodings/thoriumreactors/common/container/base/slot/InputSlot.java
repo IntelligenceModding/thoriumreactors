@@ -1,4 +1,4 @@
-package unhappycodings.thoriumreactors.common.container.base;
+package unhappycodings.thoriumreactors.common.container.base.slot;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;

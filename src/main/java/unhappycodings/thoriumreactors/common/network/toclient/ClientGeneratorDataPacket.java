@@ -15,17 +15,21 @@ public class ClientGeneratorDataPacket implements IPacket {
     private final int energy;
     private final int maxFuel;
     private final int fuel;
+    private final boolean powerable;
+    private final int redstoneMode;
 
-    public ClientGeneratorDataPacket(BlockPos pos, int currentProduction, int energy, int fuel, int maxFuel) {
+    public ClientGeneratorDataPacket(BlockPos pos, int currentProduction, int energy, int fuel, int maxFuel, boolean powerable, int redstoneMode) {
         this.pos = pos;
         this.currentProduction = currentProduction;
         this.energy = energy;
         this.fuel = fuel;
         this.maxFuel = maxFuel;
+        this.powerable = powerable;
+        this.redstoneMode = redstoneMode;
     }
 
     public static ClientGeneratorDataPacket decode(FriendlyByteBuf buffer) {
-        return new ClientGeneratorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt());
+        return new ClientGeneratorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -37,6 +41,8 @@ public class ClientGeneratorDataPacket implements IPacket {
         blockEntity.setEnergy(energy);
         blockEntity.setFuel(fuel);
         blockEntity.setMaxFuel(maxFuel);
+        blockEntity.setRedstoneMode(redstoneMode);
+        blockEntity.setPowerable(powerable);
     }
 
     public void encode(FriendlyByteBuf buffer) {
@@ -45,5 +51,7 @@ public class ClientGeneratorDataPacket implements IPacket {
         buffer.writeInt(energy);
         buffer.writeInt(fuel);
         buffer.writeInt(maxFuel);
+        buffer.writeBoolean(powerable);
+        buffer.writeInt(redstoneMode);
     }
 }

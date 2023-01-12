@@ -1,21 +1,21 @@
 package unhappycodings.thoriumreactors.common.container;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.blockentity.MachineGeneratorBlockEntity;
-import unhappycodings.thoriumreactors.common.container.base.BaseScreen;
+import unhappycodings.thoriumreactors.common.container.base.screen.MachineScreen;
+import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.util.RenderUtil;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MachineGeneratorScreen extends BaseScreen<MachineGeneratorContainer> {
+public class MachineGeneratorScreen extends MachineScreen<MachineGeneratorContainer> {
     MachineGeneratorContainer container;
 
     public MachineGeneratorScreen(MachineGeneratorContainer screenContainer, Inventory inv, Component titleIn) {
@@ -38,55 +38,22 @@ public class MachineGeneratorScreen extends BaseScreen<MachineGeneratorContainer
         else blit(matrixStack, getGuiLeft() + 88, getGuiTop() + 81, 185, 15, 6, 1); // Power Indicator - Green
     }
 
-    public boolean mouseInArea(int x1, int y1, int x2, int y2, int mouseX, int mouseY) {
-        int differenceX = x2 - x1 + 1;
-        int differenceY = y2 - y1 + 1;
-        boolean isXOver = false;
-        boolean isYOver = false;
-        for (int i = x1; i < x1 + differenceX; i++)
-            for (int e = y1; e < y1 + differenceY; e++) {
-                if (i == mouseX && !isXOver) isXOver = true;
-                if (e == mouseY && !isYOver) isYOver = true;
-            }
-        return isXOver && isYOver;
-    }
-
-    @Override
-    protected void containerTick() {
-        super.containerTick();
-    }
-
     @Override
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        super.renderLabels(pPoseStack, pMouseX, pMouseY);
         MachineGeneratorBlockEntity entity = this.container.getTile();
+
         SimpleDateFormat format = new SimpleDateFormat("mm'm' ss's'");
         float fuel = entity.getFuel() / 20 * 1000 + (entity.getFuel() > 0 ? 1000 : 0);
-        drawText(Component.literal("Generator").getString(), pPoseStack, 62, 4);
-        drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 92);
-        drawText(Component.literal("Fuel: " + format.format(fuel)).getString(), pPoseStack, 52, 26, 4182051);
-        drawText(Component.literal("Tank: " + (int) entity.getEnergy() + " FE").getString(), pPoseStack, 52, 37, 4182051);
-        drawText(Component.literal("Gen: " + entity.getCurrentProduction() + " FE/t").getString(), pPoseStack, 52, 48, 4182051);
-        drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 70, 4182051);
+        RenderUtil.drawText(Component.literal("Generator").getString(), pPoseStack, 62, 4);
+        RenderUtil.drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 92);
+        RenderUtil.drawText(Component.literal("Fuel: " + format.format(fuel)).getString(), pPoseStack, 52, 26, 4182051);
+        RenderUtil.drawText(Component.literal("Tank: " + (int) entity.getEnergy() + " FE").getString(), pPoseStack, 52, 37, 4182051);
+        RenderUtil.drawText(Component.literal("Gen: " + entity.getCurrentProduction() + " FE/t").getString(), pPoseStack, 52, 48, 4182051);
+        RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 70, 4182051);
 
-        if (mouseInArea(getGuiLeft() + 146, getGuiTop() + 22, getGuiLeft() + 154, getGuiTop() + 59, pMouseX, pMouseY)) {
-            List<Component> list = new ArrayList<>();
-            list.add(Component.literal(formatNum(entity.getEnergy()) + "/" + formatNum(entity.getCapacity())));
-            list.add(Component.literal(formatPercentNum(entity.getEnergy(), entity.getCapacity())));
-            this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
-        }
-    }
-
-    public String formatNum(float num) {
-        DecimalFormat formatter = new DecimalFormat("0.00");
-        if (num >= 1000000000) return formatter.format(num / 1000).replaceAll(",", ".") + " GFE";
-        if (num >= 1000000) return formatter.format(num / 1000).replaceAll(",", ".") + " MFE";
-        if (num >= 1000) return formatter.format(num / 1000).replaceAll(",", ".") + " kFE";
-        return (int) num + " FE";
-    }
-
-    public String formatPercentNum(float num, float max) {
-        DecimalFormat formatter = new DecimalFormat("0.00");
-        return formatter.format(num / max * 100).replaceAll(",", ".") + " %";
+        if (RenderUtil.mouseInArea(getGuiLeft() + 146, getGuiTop() + 22, getGuiLeft() + 154, getGuiTop() + 59, pMouseX, pMouseY))
+            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatNum(entity.getEnergy()) + "/" + FormattingUtil.formatNum(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity())});
     }
 
     @Override
@@ -108,22 +75,6 @@ public class MachineGeneratorScreen extends BaseScreen<MachineGeneratorContainer
     @Override
     public ResourceLocation getTexture() {
         return new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/generator_gui.png");
-    }
-
-    public void drawCenteredText(String text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, 1315860);
-    }
-
-    public void drawCenteredText(String text, PoseStack stack, int x, int y, int color) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, color);
-    }
-
-    public void drawText(String text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, x, y, 1315860);
-    }
-
-    public void drawText(String text, PoseStack stack, int x, int y, int color) {
-        Minecraft.getInstance().font.draw(stack, text, x, y, color);
     }
 
 }

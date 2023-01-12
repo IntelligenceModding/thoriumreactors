@@ -33,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.MachineGeneratorBlock;
+import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.MachineGeneratorContainer;
 import unhappycodings.thoriumreactors.common.energy.EnergyHandler;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
@@ -41,7 +42,7 @@ import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
-public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
+public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
     public static final int MAX_POWER = 75000;
     public static final int MAX_TRANSFER = 250;
     public static final int PRODUCTION = 140;
@@ -52,6 +53,9 @@ public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implem
     int currentProduction = 0;
     int maxFuel = 1;
     int fuel = 0;
+
+    boolean powerable = true;
+    int redstoneMode = 0;
 
     public MachineGeneratorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.GENERATOR_BLOCK.get(), pPos, pBlockState);
@@ -106,6 +110,27 @@ public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implem
             this.level.playSound(null, getBlockPos(), ModSounds.MACHINE_GENERATOR.get(), SoundSource.BLOCKS, 0.18f,1f);
         }
 
+        if (isPowerable()) {
+            switch (getRedstoneMode()) {
+                case 0 -> operate(); // Ignored
+                case 1 -> { // Normal
+                    if (level.hasNeighborSignal(getBlockPos())) operate();
+                    else if (getState()) setState(false);
+                }
+                case 2 -> { // Inverted
+                    if (!level.hasNeighborSignal(getBlockPos())) operate();
+                    else if (getState()) setState(false);
+                }
+            }
+        } else if (getState()) {
+            setState(false);
+        }
+
+        items.get(1).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryChargeItem(storage, ENERGY_STORAGE, getMaxOutput()));
+        EnergyUtil.trySendToNeighbors(level, getBlockPos(), ENERGY_STORAGE, getEnergy(), (int) getMaxEnergyTransfer());
+    }
+
+    public void operate() {
         ItemStack input = getItem(getInputSlot());
         if (getFuel() <= 0 && ForgeHooks.getBurnTime(input, null) > 0 && getEnergy() != MAX_POWER) {
             addFuel(input);
@@ -124,32 +149,8 @@ public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implem
             if (getState()) setState(false);
             currentProduction = 0;
         }
-        items.get(1).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryChargeItem(storage, ENERGY_STORAGE, getMaxOutput()));
-        trySendToNeighbors(level, getBlockPos());
     }
 
-    public void trySendToNeighbors(Level world, BlockPos pos) {
-        for (Direction side : Direction.values()) {
-            if (getEnergy() == 0)
-                return;
-            trySendTo(world, pos, side);
-        }
-    }
-
-    public void trySendTo(Level world, BlockPos pos, Direction side) {
-        BlockEntity tileEntity = world.getBlockEntity(pos.relative(side));
-        if (tileEntity != null) {
-            tileEntity.getCapability(ForgeCapabilities.ENERGY, side.getOpposite()).ifPresent(this::trySendEnergy);
-        }
-    }
-
-    private void trySendEnergy(IEnergyStorage other) {
-        if (other.canReceive()) {
-            long toSend = ENERGY_STORAGE.extractEnergy(getMaxOutput(), true);
-            int sent = other.receiveEnergy((int) toSend, false);
-            if (sent > 0) ENERGY_STORAGE.extractEnergy(sent, false);
-        }
-    }
 
     public void addFuel(ItemStack stack) {
         setFuel(getFuel() + ForgeHooks.getBurnTime(stack, null));
@@ -161,6 +162,26 @@ public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implem
 
     public boolean getState() {
         return getBlockState().getValue(MachineGeneratorBlock.POWERED);
+    }
+
+    @Override
+    public int getRedstoneMode() {
+        return redstoneMode;
+    }
+
+    @Override
+    public void setRedstoneMode(int redstoneMode) {
+        this.redstoneMode = redstoneMode;
+    }
+
+    @Override
+    public void setPowerable(boolean powerable) {
+        this.powerable = powerable;
+    }
+
+    @Override
+    public boolean isPowerable() {
+        return powerable;
     }
 
     public int getMaxFuel() {
@@ -235,6 +256,8 @@ public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implem
         nbt.putInt("MaxFuel", getMaxFuel());
         nbt.putInt("Energy", getEnergy());
         nbt.putInt("Production", getCurrentProduction());
+        nbt.putInt("RedstoneMode", getRedstoneMode());
+        nbt.putBoolean("Powerable", isPowerable());
         return nbt;
     }
 
@@ -244,6 +267,8 @@ public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implem
         setMaxFuel(tag.getInt("MaxFuel"));
         setEnergy(tag.getInt("Energy"));
         setCurrentProduction(tag.getInt("Production"));
+        setRedstoneMode(tag.getInt("RedstoneMode"));
+        setPowerable(tag.getBoolean("Powerable"));
     }
 
     @Override
@@ -252,6 +277,8 @@ public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implem
         nbt.putInt("MaxFuel", getMaxFuel());
         nbt.putInt("Energy", getEnergy());
         nbt.putInt("Production", getCurrentProduction());
+        nbt.putInt("RedstoneMode", getRedstoneMode());
+        nbt.putBoolean("Powerable", isPowerable());
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -263,6 +290,8 @@ public class MachineGeneratorBlockEntity extends BaseContainerBlockEntity implem
         setMaxFuel(nbt.getInt("MaxFuel"));
         setEnergy(nbt.getInt("Energy"));
         setCurrentProduction(nbt.getInt("Production"));
+        setRedstoneMode(nbt.getInt("RedstoneMode"));
+        setPowerable(nbt.getBoolean("Powerable"));
     }
 
     @NotNull

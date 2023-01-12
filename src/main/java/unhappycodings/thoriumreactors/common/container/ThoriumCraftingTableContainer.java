@@ -8,22 +8,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
-import unhappycodings.thoriumreactors.common.container.base.*;
+import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
+import unhappycodings.thoriumreactors.common.container.base.slot.InputSlot;
+import unhappycodings.thoriumreactors.common.container.base.slot.OutputSlot;
 import unhappycodings.thoriumreactors.common.container.util.ContainerCapability;
-import unhappycodings.thoriumreactors.common.container.util.ContainerTypes;
-import unhappycodings.thoriumreactors.common.recipe.ThoriumCraftingRecipe;
+import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 import java.util.Objects;
 
 public class ThoriumCraftingTableContainer extends BaseContainer {
-    private static final int MAX = ThoriumCraftingRecipe.MAX_WIDTH * ThoriumCraftingRecipe.MAX_HEIGHT;
-    public static SlotItemHandler inputSlot;
 
     public ThoriumCraftingTableContainer(int id, Inventory inventory, BlockPos pos, Level level, int containerSize) {
-        super(ContainerTypes.THORIUM_CRAFTING_TABLE_CONTAINER.get(), id, inventory, pos, level, containerSize);
+        super(ModContainerTypes.THORIUM_CRAFTING_TABLE_CONTAINER.get(), id, inventory, pos, level, containerSize);
         layoutPlayerInventorySlots(8, 127);
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
@@ -44,11 +42,11 @@ public class ThoriumCraftingTableContainer extends BaseContainer {
     public static <T extends ThoriumCraftingTableContainer> MenuType<ThoriumCraftingTableContainer> createContainerType() {
         MenuType<ThoriumCraftingTableContainer> containerType = IForgeMenuType.create((windowId, inv, data) -> {
             BlockPos pos = data.readBlockPos();
-            BlockEntity te = inv.player.getCommandSenderWorld().getBlockEntity(pos);
-            if (te == null) {
+            BlockEntity entity = inv.player.getCommandSenderWorld().getBlockEntity(pos);
+            if (entity == null) {
                 throw new IllegalStateException("Something went wrong getting the GUI");
             } else {
-                return (ThoriumCraftingTableContainer) te.getCapability(ContainerCapability.CONTAINER_PROVIDER_CAPABILITY).map((h) -> {
+                return (ThoriumCraftingTableContainer) entity.getCapability(ContainerCapability.CONTAINER_PROVIDER_CAPABILITY).map((h) -> {
                     return (ThoriumCraftingTableContainer) Objects.requireNonNull(h.createMenu(windowId, inv, inv.player));
                 }).orElseThrow(RuntimeException::new);
             }
@@ -58,10 +56,6 @@ public class ThoriumCraftingTableContainer extends BaseContainer {
 
     public ThoriumCraftingTableBlockEntity getTile() {
         return (ThoriumCraftingTableBlockEntity) this.tileEntity;
-    }
-
-    public SlotItemHandler getInputSlot() {
-        return inputSlot;
     }
 
     @Override
