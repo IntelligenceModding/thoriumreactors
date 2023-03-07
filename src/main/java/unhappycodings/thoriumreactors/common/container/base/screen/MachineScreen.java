@@ -70,7 +70,7 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
             list.add(Component.literal("Usage: " + FormattingUtil.formatEnergy(entity.getState() ? entity.getNeededEnergy() : 0) + "/t"));
             list.add(Component.literal("Needs: "));
             if (entity.getEnergy() < entity.getNeededEnergy()) list.add(Component.literal("- " + FormattingUtil.formatEnergy(entity.getNeededEnergy() - entity.getEnergy()) + " Energy"));
-            if (entity.getWaterIn() < entity.getNeededWater()) list.add(Component.literal("- " + (entity.getNeededWater() - entity.getWaterIn()) + " mb Water"));
+            if (entity.getWaterIn() < entity.getFluidAmountNeeded()) list.add(Component.literal("- " + (entity.getFluidAmountNeeded() - entity.getWaterIn()) + " mb Water"));
             if (entity.getItem(1).getCount() == entity.getItem(1).getMaxStackSize()) list.add(Component.literal("- Output Space"));
             if (list.size() == 2) list.remove(1);
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);

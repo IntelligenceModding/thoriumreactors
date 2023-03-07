@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
-import unhappycodings.thoriumreactors.common.blockentity.MachineSaltMelterBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.machine.MachineSaltMelterBlockEntity;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
 public class ClientSaltMelterDataPacket implements IPacket {

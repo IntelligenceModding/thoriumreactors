@@ -3,13 +3,14 @@ package unhappycodings.thoriumreactors.common.registration;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.*;
+import unhappycodings.thoriumreactors.common.block.machine.*;
+import unhappycodings.thoriumreactors.common.block.reactor.*;
 
 import java.util.function.Supplier;
 
@@ -43,11 +44,17 @@ public class ModBlocks {
     public static final RegistryObject<MachineGeneratorBlock> GENERATOR_BLOCK = register("generator_block", MachineGeneratorBlock::new);
     public static final RegistryObject<MachineSaltMelterBlock> SAlT_MELTER_BLOCK = register("salt_melter_block", MachineSaltMelterBlock::new);
 
+    public static final RegistryObject<MachineConcentratorBlock> CONCENTRATOR_BLOCK = register("concentrator_block", MachineConcentratorBlock::new);
+    public static final RegistryObject<MachineDecomposerBlock> DECOMPOSER_BLOCK = register("decomposer_block", MachineDecomposerBlock::new);
+
     public static final RegistryObject<LiquidBlock> MOLTEN_SALT_BLOCK = Registration.BLOCKS.register("molten_salt_block",
             () -> new LiquidBlock(ModFluids.SOURCE_MOLTEN_SALT, BlockBehaviour.Properties.of(Material.LAVA).noCollission().strength(100.0F)));
 
     public static final RegistryObject<LiquidBlock> HEATED_MOLTEN_SALT_BLOCK = Registration.BLOCKS.register("heated_molten_salt_block",
             () -> new LiquidBlock(ModFluids.SOURCE_HEATED_MOLTEN_SALT, BlockBehaviour.Properties.of(Material.LAVA).noCollission().strength(100.0F)));
+
+    public static final RegistryObject<LiquidBlock> HYDROFLUORIDE_BLOCK = Registration.BLOCKS.register("hydrofluoride_block",
+            () -> new LiquidBlock(ModFluids.SOURCE_HYDROFLUORIDE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
 
     public static void register() {
     }

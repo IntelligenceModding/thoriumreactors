@@ -33,6 +33,8 @@ public class PacketHandler {
         registerServerToClient(MachineClientDumpModePacket.class, MachineClientDumpModePacket::decode);
         registerServerToClient(ClientSaltMelterDataPacket.class, ClientSaltMelterDataPacket::decode);
         registerServerToClient(ClientGeneratorDataPacket.class, ClientGeneratorDataPacket::decode);
+        registerServerToClient(ClientConcentratorDataPacket.class, ClientConcentratorDataPacket::decode);
+        registerServerToClient(ClientDecomposerDataPacket.class, ClientDecomposerDataPacket::decode);
 
         registerClientToServer(MachineRedstoneModePacket.class, MachineRedstoneModePacket::decode);
         registerClientToServer(MachinePowerablePacket.class, MachinePowerablePacket::decode);

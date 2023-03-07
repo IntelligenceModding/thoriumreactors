@@ -36,8 +36,8 @@ public class Registration {
         SERIALIZERS.register(eventBus);
         TYPES.register(eventBus);
         SOUND_EVENTS.register(eventBus);
-        FLUIDS.register(eventBus);
         FLUID_TYPES.register(eventBus);
+        FLUIDS.register(eventBus);
     }
 
 }

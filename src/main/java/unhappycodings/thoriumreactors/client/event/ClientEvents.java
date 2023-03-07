@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.container.*;
+import unhappycodings.thoriumreactors.common.container.machine.*;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 import unhappycodings.thoriumreactors.common.registration.ModFluids;
 
@@ -22,10 +23,14 @@ public class ClientEvents {
         MenuScreens.register(ModContainerTypes.ELECTROLYTIC_SALT_SEPARATOR_CONTAINER.get(), MachineElectrolyticSaltSeparatorScreen::new);
         MenuScreens.register(ModContainerTypes.FLUID_EVAPORATION_CONTAINER.get(), MachineFluidEvaporatorScreen::new);
         MenuScreens.register(ModContainerTypes.SALT_MELTER_CONTAINER.get(), MachineSaltMelterScreen::new);
+        MenuScreens.register(ModContainerTypes.CONCENTRATOR_CONTAINER.get(), MachineConcentratorScreen::new);
+        MenuScreens.register(ModContainerTypes.DECOMPOSER_CONTAINER.get(), MachineDecomposerScreen::new);
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_HEATED_MOLTEN_SALT.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_HYDROFLUORIDE.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_HYDROFLUORIDE.get(), RenderType.translucent());
     }
 
 }

@@ -10,6 +10,9 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.*;
+import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
+import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
+import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.util.ItemUtil;
 
@@ -44,6 +47,7 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         machineBlock(ModBlocks.FLUID_EVAPORATION_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_evaporation_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_red"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), true);
         machineBlock(ModBlocks.GENERATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/generator_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_red"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), true);
         machineBlock(ModBlocks.SAlT_MELTER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/salt_melter_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_red"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), false);
+        machineBlock(ModBlocks.CONCENTRATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_no_front"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_red"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), false);
     }
 
     public void machineBlock(Block block, ResourceLocation texture, ResourceLocation valveLeft, ResourceLocation valveRight, ResourceLocation bottom, boolean onOffState) {

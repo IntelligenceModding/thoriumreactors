@@ -19,6 +19,7 @@
   "block.thoriumreactors.thorium_block": "Thorium",
   "block.thoriumreactors.thorium_crafting_table": "Thorium Crafting Table",
   "fluid_type.thoriumreactors.heated_molten_salt": "Heated Molten Salt (654°C)",
+  "fluid_type.thoriumreactors.hydrofluorite": "Hydrofluorite",
   "fluid_type.thoriumreactors.molten_salt": "Molten Salt (142°C)",
   "item.thoriumreactors.blasted_iron_ingot": "Blasted Iron Ingot",
   "item.thoriumreactors.enriched_uranium": "Enriched Uranium",

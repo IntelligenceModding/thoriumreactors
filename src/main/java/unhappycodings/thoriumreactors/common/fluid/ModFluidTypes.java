@@ -151,9 +151,47 @@ public class ModFluidTypes {
                     });
                 }
             });
+    public static final RegistryObject<FluidType> HYDROFLUORIDE = Registration.FLUID_TYPES.register("hydrofluoride", () ->
+            new FluidType(FluidType.Properties.create()) {
 
-    private static RegistryObject<FluidType> register(String name, FluidType.Properties properties) {
-        return Registration.FLUID_TYPES.register(name, () -> new BaseFluidType(WATER_STILL_RL, WATER_FLOWING_RL, SOAP_OVERLAY_RL, 0xFF8C8E6A, new Vector3f(140f / 255f, 142f / 255f, 106f / 255f), properties));
-    }
+                @Override
+                public boolean canDrownIn(LivingEntity entity) {
+                    return true;
+                }
+
+                @Override
+                public boolean canHydrate(Entity entity) {
+                    return true;
+                }
+
+                @Override
+                public float getFallDistanceModifier(Entity entity) {
+                    return Fluids.WATER.getFluidType().getFallDistanceModifier(entity);
+                }
+
+                @Override
+                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                    consumer.accept(new IClientFluidTypeExtensions() {
+                        private static final ResourceLocation WATER_STILL = new ResourceLocation("block/water_still"), WATER_FLOW = new ResourceLocation("block/water_flow");
+
+                        @Override
+                        public ResourceLocation getStillTexture() {
+                            return WATER_STILL;
+                        }
+
+                        @Override
+                        public ResourceLocation getFlowingTexture() {
+                            return WATER_FLOW;
+                        }
+
+                        @Override
+                        public int getTintColor() {
+                            return 0xE64395D8;
+                        }
+
+                    });
+                }
+            });
+
 
 }

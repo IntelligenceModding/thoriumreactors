@@ -30,6 +30,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.ENRICHED_URANIUM.get());
         simpleItem(ModItems.REDSTONE_PROCESSOR.get());
         simpleItem(ModItems.THORIUM.get());
+        simpleItem(ModItems.YELLOW_CAKE.get());
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.THORIUM_CRAFTING_TABLE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.HARDENED_STONE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/hardened_stone"));
@@ -54,6 +55,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.FLUID_EVAPORATION_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_evaporation_block_off"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.GENERATOR_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/generator_block_off"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.SAlT_MELTER_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/salt_melter_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.CONCENTRATOR_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/concentrator_block"));
 
     }
 

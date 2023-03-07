@@ -23,6 +23,8 @@ public class ModItems {
     public static final RegistryObject<Item> THORIUM = Registration.ITEMS.register("thorium", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
     public static final RegistryObject<Item> RAW_URANIUM = Registration.ITEMS.register("raw_uranium", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
     public static final RegistryObject<Item> ENRICHED_URANIUM = Registration.ITEMS.register("enriched_uranium", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
+    public static final RegistryObject<Item> YELLOW_CAKE = Registration.ITEMS.register("yellow_cake", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
+    public static final RegistryObject<Item> FLUORIDE = Registration.ITEMS.register("fluoride", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
 
     public static void register() {
     }

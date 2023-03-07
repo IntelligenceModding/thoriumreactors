@@ -26,7 +26,7 @@ public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
         return 0;
     }
 
-    public int getNeededWater() {
+    public int getFluidAmountNeeded() {
         return 0;
     }
 

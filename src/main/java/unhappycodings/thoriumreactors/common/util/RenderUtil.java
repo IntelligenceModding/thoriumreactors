@@ -52,7 +52,7 @@ public class RenderUtil {
 
     // FLUID SECTION!
 
-    public static void renderFluid(int x, int y, int h, int w, int volumeFilled, int volumeTotal, FlowingFluid fluid) {
+    public static void renderFluid(int x, int y, int h, int w, int volumeFilled, int volumeTotal, Fluid fluid) {
         FluidStack stack = new FluidStack(fluid, 1);
         TextureAtlasSprite icon = getStillFluidSprite(stack);
 
