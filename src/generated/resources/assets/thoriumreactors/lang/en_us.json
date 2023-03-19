@@ -1,4 +1,6 @@
 {
+  "block.thoriumreactors.concentrator_block": "Concentrator",
+  "block.thoriumreactors.decomposer_block": "Decomposer",
   "block.thoriumreactors.electrolytic_salt_separator": "Electrolytic Separator",
   "block.thoriumreactors.fluid_evaporation_block": "Fluid Evaporator",
   "block.thoriumreactors.generator_block": "Fuel Generator",
@@ -9,6 +11,7 @@
   "block.thoriumreactors.reactor_controller": "Reactor Controller",
   "block.thoriumreactors.reactor_core": "Reactor Core",
   "block.thoriumreactors.reactor_glass": "Reactor Glass",
+  "block.thoriumreactors.reactor_graphite_moderator": "Graphite Moderator",
   "block.thoriumreactors.reactor_rod_controller": "Reactor Rod Controller",
   "block.thoriumreactors.reactor_valve": "Reactor Valve",
   "block.thoriumreactors.salt_melter_block": "Salt Melter",
@@ -18,11 +21,12 @@
   "block.thoriumreactors.thermal_valve": "Thermal Valve",
   "block.thoriumreactors.thorium_block": "Thorium",
   "block.thoriumreactors.thorium_crafting_table": "Thorium Crafting Table",
-  "fluid_type.thoriumreactors.heated_molten_salt": "Heated Molten Salt (654°C)",
-  "fluid_type.thoriumreactors.hydrofluorite": "Hydrofluorite",
-  "fluid_type.thoriumreactors.molten_salt": "Molten Salt (142°C)",
+  "fluid_type.thoriumreactors.heated_molten_salt": "Heated Molten Salt (654°)",
+  "fluid_type.thoriumreactors.hydrofluoride": "Hydrofluorite",
+  "fluid_type.thoriumreactors.molten_salt": "Molten Salt (142°)",
   "item.thoriumreactors.blasted_iron_ingot": "Blasted Iron Ingot",
   "item.thoriumreactors.enriched_uranium": "Enriched Uranium",
+  "item.thoriumreactors.fluoride": "Fluorite",
   "item.thoriumreactors.graphite": "Graphite",
   "item.thoriumreactors.graphite_ingot": "Graphite Ingot",
   "item.thoriumreactors.graphite_tube": "Graphite Tube",
@@ -34,5 +38,6 @@
   "item.thoriumreactors.steel_ingot": "Steel Ingot",
   "item.thoriumreactors.thorium": "Thorium",
   "item.thoriumreactors.uran_three_chloride": "Uran(III)-Chloride",
+  "item.thoriumreactors.yellow_cake": "Yellow Cake",
   "itemGroup.thoriumreactors.items": "Thorium Reactors"
 }

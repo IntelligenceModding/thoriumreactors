@@ -71,7 +71,7 @@ public class MachineDecomposerScreen extends MachineScreen<MachineDecomposerCont
         MachineDecomposerBlockEntity entity = this.container.getTile();
 
         RenderUtil.drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 102);
-        RenderUtil.drawCenteredText(Component.literal("Decomposing").getString(), pPoseStack, 90, 7);
+        RenderUtil.drawCenteredText(Component.literal("Decomposing").getString(), pPoseStack, getSizeX() / 2, 7);
         RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 78, 4182051);
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))

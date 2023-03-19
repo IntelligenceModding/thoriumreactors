@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube",
   "textures": {
     "down": "thoriumreactors:block/machine_valve_yellow",
-    "east": "thoriumreactors:block/machine_valve_red",
+    "east": "thoriumreactors:block/machine_valve_cyan",
     "north": "thoriumreactors:block/salt_melter_block",
     "particle": "thoriumreactors:block/salt_melter_block",
     "south": "thoriumreactors:block/machine_power",

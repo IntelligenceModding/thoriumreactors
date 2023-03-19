@@ -290,10 +290,9 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
         setPowerable(nbt.getBoolean("Powerable"));
     }
 
-    @NotNull
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("block.thoriumreactors.generator_block");
+        return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
     }
 
     @NotNull

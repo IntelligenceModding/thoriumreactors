@@ -1,9 +1,11 @@
-// 1.19.2	2023-01-15T20:36:15.0757091	Item Models: thoriumreactors
+// 1.19.2	2023-03-19T15:32:18.3449013	Item Models: thoriumreactors
 2f0890464bb3423830b9a4a8850ed0d921b0954b assets/thoriumreactors/models/item/blasted_iron_ingot.json
 205eff03fb9e932bd4e9f8b281a732feb10e59fe assets/thoriumreactors/models/item/concentrator_block.json
+81f240c8843c592b7f704c2126b09896ad3e0ab0 assets/thoriumreactors/models/item/decomposer_block.json
 0c7bd345bb54ca6bd1a9c2d6af8f43fa11512a49 assets/thoriumreactors/models/item/electrolytic_salt_separator.json
 cb55f61327b4fd6ba275f556b0768ff3aaee2d3a assets/thoriumreactors/models/item/enriched_uranium.json
 0acadf5c6902d59cab33627a87124cf82df8bd6e assets/thoriumreactors/models/item/fluid_evaporation_block.json
+fca7e3edf306fae2c9607c030914ea804ece0d10 assets/thoriumreactors/models/item/fluoride.json
 80207409351333961f63719a4d01150923fe482e assets/thoriumreactors/models/item/generator_block.json
 5aa757cbe68aa9f7c98d65d4ec67c68b96e52c4f assets/thoriumreactors/models/item/graphite.json
 cafad6e101fa39114df2de50ac24d3bd34947102 assets/thoriumreactors/models/item/graphite_block.json

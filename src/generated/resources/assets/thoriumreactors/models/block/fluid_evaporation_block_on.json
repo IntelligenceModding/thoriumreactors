@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube",
   "textures": {
     "down": "thoriumreactors:block/machine_base",
-    "east": "thoriumreactors:block/machine_valve_red",
+    "east": "thoriumreactors:block/machine_valve_cyan",
     "north": "thoriumreactors:block/fluid_evaporation_block_on",
     "particle": "thoriumreactors:block/fluid_evaporation_block_on",
     "south": "thoriumreactors:block/machine_power",

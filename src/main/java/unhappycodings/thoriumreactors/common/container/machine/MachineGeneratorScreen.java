@@ -27,7 +27,7 @@ public class MachineGeneratorScreen extends MachineScreen<MachineGeneratorContai
         MachineGeneratorBlockEntity entity = this.container.getTile();
 
         int energyBlitSize = (int) Math.floor(38 / ((double) 75000 / entity.getEnergy()));
-        int burnBlitSize = (int) Math.floor(14 * (entity.getFuel() / entity.getMaxFuel()));
+        int burnBlitSize = (int) Math.floor(14 * ((float) entity.getFuel() / entity.getMaxFuel()));
 
         blit(matrixStack, getGuiLeft() + 18, getGuiTop() + 64 + 13 - burnBlitSize, 176, 13 - burnBlitSize, 14, burnBlitSize + (burnBlitSize > 0 ? 1 : 0));
         blit(matrixStack, getGuiLeft() + 146, getGuiTop() + 22 + (38 - energyBlitSize), 176, 14, 9, energyBlitSize);
@@ -43,7 +43,7 @@ public class MachineGeneratorScreen extends MachineScreen<MachineGeneratorContai
 
         SimpleDateFormat format = new SimpleDateFormat("mm'm' ss's'");
         float fuel = entity.getFuel() / 20 * 1000 + (entity.getFuel() > 0 ? 1000 : 0);
-        RenderUtil.drawText(Component.literal("Generator").getString(), pPoseStack, 62, 4);
+        RenderUtil.drawCenteredText(Component.literal("Generator").getString(), pPoseStack, getSizeX() / 2, 7);
         RenderUtil.drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 92);
         RenderUtil.drawText(Component.literal("Fuel: " + format.format(fuel)).getString(), pPoseStack, 52, 26, 4182051);
         RenderUtil.drawText(Component.literal("Tank: " + (int) entity.getEnergy() + " FE").getString(), pPoseStack, 52, 37, 4182051);

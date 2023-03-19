@@ -597,7 +597,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("block.thoriumreactors.electrolytic_separator_block");
+        return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
     }
 
     @Override

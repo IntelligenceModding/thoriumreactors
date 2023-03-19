@@ -98,6 +98,14 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "Intelligence Space repository"
+        url = "https://maven.pkg.jetbrains.space/intelligence/p/advancedperipherals/ap-repository"
+        credentials {
+            username = spaceUsername
+            password = spacePassword
+        }
+    }
     flatDir {
         dirs 'lib'
     }
@@ -106,7 +114,7 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    implementation fg.deobf("team.chisel.ctm:ctm-dev:1.1.523a9b31")
+    implementation fg.deobf("team.chisel.ctm:CTM:${ctm_version}")
 
     implementation fg.deobf("curse.maven:mek-${mek_version}")
     implementation fg.deobf("curse.maven:mekgen-${mekgen_version}")

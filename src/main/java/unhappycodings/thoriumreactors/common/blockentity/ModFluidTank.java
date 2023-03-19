@@ -23,7 +23,7 @@ public class ModFluidTank extends FluidTank {
 
     @Override
     public int fill(FluidStack resource, FluidAction action) {
-        return canInput ? super.fill(resource, action) : 0;
+        return canInput ? super.fill(resource.getAmount() > getMaxFluidTransfer() ? new FluidStack(resource.getFluid(), (int) getMaxFluidTransfer()) : resource, action) : 0;
     }
 
     @Override
@@ -34,6 +34,10 @@ public class ModFluidTank extends FluidTank {
     @Override
     public boolean isFluidValid(FluidStack stack) {
         return filter.isSame(stack.getFluid());
+    }
+
+    public int getMaxFluidTransfer() {
+        return 50;
     }
 
 }

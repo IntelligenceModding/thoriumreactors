@@ -54,7 +54,7 @@ public class MachineSaltMelterScreen extends MachineScreen<MachineSaltMelterCont
         MachineSaltMelterBlockEntity entity = this.container.getTile();
 
         RenderUtil.drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 106);
-        RenderUtil.drawCenteredText(Component.literal("Salt Melter").getString(), pPoseStack, 90, 7);
+        RenderUtil.drawCenteredText(Component.literal("Salt Melting").getString(), pPoseStack, getSizeX() / 2, 7);
         RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 78, 4182051);
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))

@@ -305,7 +305,6 @@ public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity im
         this.inputDump = inputDump;
     }
 
-
     public boolean supportsEnergy() {
         return getEnergyCapacity() > 0;
     }
@@ -469,17 +468,17 @@ public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity im
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        return false;
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
         return pDirection == Direction.DOWN;
     }
 
     @Override
+    public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
+        return false;
+    }
+
+    @Override
     protected Component getDefaultName() {
-        return Component.translatable("block.thoriumreactors.decomposer_block");
+        return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
     }
 
     @Override

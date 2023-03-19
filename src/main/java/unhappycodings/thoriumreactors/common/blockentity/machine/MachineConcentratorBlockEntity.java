@@ -26,11 +26,13 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.machine.MachineConcentratorBlock;
+import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.machine.MachineConcentratorContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
+import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
@@ -211,6 +213,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         ENERGY_STORAGE.setEnergy(energy);
     }
 
+    @Override
     public int getEnergy() {
         return ENERGY_STORAGE.getEnergyStored();
     }
@@ -225,17 +228,6 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
 
     public boolean supportsEnergy() {
         return getEnergyCapacity() > 0;
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        if (getLevel().isClientSide && net.getDirection() == PacketFlow.CLIENTBOUND) handleUpdateTag(pkt.getTag());
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @NotNull
@@ -372,23 +364,26 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
 
     @Override
     public int[] getSlotsForFace(Direction pSide) {
-        if (pSide == Direction.DOWN) return new int[]{1};
+        if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getClockWise()) return new int[]{0};
+        if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getCounterClockWise()) return new int[]{1};
         return new int[]{};
-    }
+    };
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
-        return false;
+        Direction facing = this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING);
+        return facing.getClockWise() == pDirection;
     }
 
     @Override
     public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
-        return pDirection == Direction.DOWN;
+        Direction facing = this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING);
+        return facing.getCounterClockWise() == pDirection;
     }
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("block.thoriumreactors.electrolytic_separator_block");
+        return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
     }
 
     @Override
