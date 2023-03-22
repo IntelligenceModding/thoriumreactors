@@ -4,8 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineElectrolyticSaltSeparatorBlockEntity;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
@@ -14,24 +17,28 @@ public class ClientElectrolyticSaltSeparatorDataPacket implements IPacket {
     private final int energy;
     private final int maxRecipeTime;
     private final int recipeTime;
-    private final int waterIn;
-    private final int waterOut;
+    private final int fluidIn;
+    private final int fluidOut;
     private final int redstoneMode;
     private final boolean powerable;
+    private final String fluidTypeIn;
+    private final String fluidTypeOut;
 
-    public ClientElectrolyticSaltSeparatorDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int waterIn, int waterOut, boolean powerable, int redstoneMode) {
+    public ClientElectrolyticSaltSeparatorDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int fluidIn, int fluidOut, String fluidTypeIn, String fluidTypeOut, boolean powerable, int redstoneMode) {
         this.pos = pos;
         this.energy = energy;
         this.maxRecipeTime = maxRecipeTime;
         this.recipeTime = recipeTime;
-        this.waterIn = waterIn;
-        this.waterOut = waterOut;
+        this.fluidIn = fluidIn;
+        this.fluidOut = fluidOut;
         this.powerable = powerable;
         this.redstoneMode = redstoneMode;
+        this.fluidTypeIn = fluidTypeIn;
+        this.fluidTypeOut = fluidTypeOut;
     }
 
     public static ClientElectrolyticSaltSeparatorDataPacket decode(FriendlyByteBuf buffer) {
-        return new ClientElectrolyticSaltSeparatorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), buffer.readInt());
+        return new ClientElectrolyticSaltSeparatorDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readUtf(), buffer.readUtf(), buffer.readBoolean(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -42,8 +49,8 @@ public class ClientElectrolyticSaltSeparatorDataPacket implements IPacket {
         blockEntity.setEnergy(energy);
         blockEntity.setMaxRecipeTime(maxRecipeTime);
         blockEntity.setRecipeTime(recipeTime);
-        blockEntity.setWaterIn(waterIn);
-        blockEntity.setWaterOut(waterOut);
+        blockEntity.setFluidIn(new FluidStack(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidTypeIn)), fluidIn));
+        blockEntity.setFluidOut(new FluidStack(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidTypeOut)), fluidOut));
         blockEntity.setPowerable(powerable);
         blockEntity.setRedstoneMode(redstoneMode);
     }
@@ -53,8 +60,10 @@ public class ClientElectrolyticSaltSeparatorDataPacket implements IPacket {
         buffer.writeInt(energy);
         buffer.writeInt(maxRecipeTime);
         buffer.writeInt(recipeTime);
-        buffer.writeInt(waterIn);
-        buffer.writeInt(waterOut);
+        buffer.writeInt(fluidIn);
+        buffer.writeInt(fluidOut);
+        buffer.writeUtf(fluidTypeIn);
+        buffer.writeUtf(fluidTypeOut);
         buffer.writeBoolean(powerable);
         buffer.writeInt(redstoneMode);
     }

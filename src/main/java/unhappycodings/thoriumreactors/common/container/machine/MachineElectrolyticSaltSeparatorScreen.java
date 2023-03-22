@@ -43,10 +43,10 @@ public class MachineElectrolyticSaltSeparatorScreen extends MachineScreen<Machin
     protected void renderBg(@NotNull PoseStack matrixStack, float partialTicks, int x, int y) {
         super.renderBg(matrixStack, partialTicks, x, y);
         MachineElectrolyticSaltSeparatorBlockEntity entity = this.container.getTile();
-        RenderUtil.renderFluid(getGuiLeft() + 36, getGuiTop() + 64, 45, 16, entity.getWaterIn(), entity.getMaxWaterIn(), Fluids.WATER);
-        RenderUtil.renderFluid(getGuiLeft() + 36 + 16, getGuiTop() + 64, 45, 2, entity.getWaterIn(), entity.getMaxWaterIn(), Fluids.WATER);
-        RenderUtil.renderFluid(getGuiLeft() + 118, getGuiTop() + 64, 23, 16, entity.getWaterOut(), entity.getMaxWaterOut(), Fluids.WATER);
-        RenderUtil.renderFluid(getGuiLeft() + 118 + 16, getGuiTop() + 64, 23, 2, entity.getWaterOut(), entity.getMaxWaterOut(), Fluids.WATER);
+        RenderUtil.renderFluid(getGuiLeft() + 36, getGuiTop() + 64, 45, 16, entity.getFluidAmountIn(), entity.getFluidCapacityIn(), Fluids.WATER);
+        RenderUtil.renderFluid(getGuiLeft() + 36 + 16, getGuiTop() + 64, 45, 2, entity.getFluidAmountIn(), entity.getFluidCapacityIn(), Fluids.WATER);
+        RenderUtil.renderFluid(getGuiLeft() + 118, getGuiTop() + 64, 23, 16, entity.getFluidAmountOut(), entity.getFluidCapacityOut(), Fluids.WATER);
+        RenderUtil.renderFluid(getGuiLeft() + 118 + 16, getGuiTop() + 64, 23, 2, entity.getFluidAmountOut(), entity.getFluidCapacityOut(), Fluids.WATER);
         if (entity.getState()) for (int i = 0; i < 64; i += 16)
             RenderUtil.renderFluid(getGuiLeft() + 54 + i, getGuiTop() + 48, 1, 16, 1, 1, Fluids.WATER);
 
@@ -90,9 +90,9 @@ public class MachineElectrolyticSaltSeparatorScreen extends MachineScreen<Machin
         if (RenderUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});
         if (RenderUtil.mouseInArea(getGuiLeft() + 37, getGuiTop() + 20, getGuiLeft() + 54, getGuiTop() + 64, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getWaterIn() > 0 ? "Fluid: Water" : "", entity.getWaterIn() + " mb / " + entity.getMaxWaterIn() + " mb", FormattingUtil.formatPercentNum(entity.getWaterIn(), entity.getMaxWaterIn(), true)});
+            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getFluidAmountIn() > 0 ? "Fluid: Water" : "", entity.getFluidAmountIn() + " mb / " + entity.getFluidCapacityIn() + " mb", FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true)});
         if (RenderUtil.mouseInArea(getGuiLeft() + 119, getGuiTop() + 42, getGuiLeft() + 136, getGuiTop() + 64, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getWaterOut() > 0 ? "Fluid: Water" : "", entity.getWaterOut() + " mb / " + entity.getMaxWaterOut() + " mb", FormattingUtil.formatPercentNum(entity.getWaterOut(), entity.getMaxWaterOut(), true)});
+            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getFluidAmountOut() > 0 ? "Fluid: Water" : "", entity.getFluidAmountOut() + " mb / " + entity.getFluidCapacityOut() + " mb", FormattingUtil.formatPercentNum(entity.getFluidAmountOut(), entity.getFluidCapacityOut(), true)});
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 34, getGuiTop() + 90, getGuiLeft() + 36, getGuiTop() + 97, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Auto Dump: " + entity.isInputDump()});

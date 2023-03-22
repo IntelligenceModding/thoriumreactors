@@ -34,7 +34,7 @@ public class MachineElectrolyticSaltSeparatorContainer extends BaseContainer {
     @Override
     public void broadcastChanges() {
         MachineElectrolyticSaltSeparatorBlockEntity entity = (MachineElectrolyticSaltSeparatorBlockEntity) this.tileEntity;
-        PacketHandler.sendToClient(new ClientElectrolyticSaltSeparatorDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getWaterIn(), entity.getWaterOut(), entity.isPowerable(), entity.getRedstoneMode()), (ServerPlayer) inventory.player);
+        PacketHandler.sendToClient(new ClientElectrolyticSaltSeparatorDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getFluidAmountIn(), entity.getFluidAmountOut(), entity.getFluidIn().getFluid().getFluidType().toString(), entity.getFluidOut().getFluid().getFluidType().toString(), entity.isPowerable(), entity.getRedstoneMode()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();
     }

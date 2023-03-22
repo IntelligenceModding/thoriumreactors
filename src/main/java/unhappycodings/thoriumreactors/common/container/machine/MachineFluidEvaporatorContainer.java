@@ -33,7 +33,7 @@ public class MachineFluidEvaporatorContainer extends BaseContainer {
     @Override
     public void broadcastChanges() {
         MachineFluidEvaporationBlockEntity entity = (MachineFluidEvaporationBlockEntity) this.tileEntity;
-        PacketHandler.sendToClient(new ClientFluidEvaporatorDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getWaterIn(), entity.isPowerable(), entity.getRedstoneMode()), (ServerPlayer) inventory.player);
+        PacketHandler.sendToClient(new ClientFluidEvaporatorDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getFluidAmountIn(), entity.getFluidIn().getFluid().getFluidType().toString(), entity.isPowerable(), entity.getRedstoneMode()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();
     }

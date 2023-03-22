@@ -165,7 +165,7 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
                     (outputSlot.isEmpty() || outputSlot.is(ModItems.SODIUM.get()))) {
                 if (!getState()) setState(true);
                 setEnergy(getEnergy() - NEEDED_ENERGY);
-                setWaterIn(getWaterIn() - NEEDED_FLUID);
+                getFluidIn().shrink(getFluidAmountNeeded());
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);
@@ -193,7 +193,7 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
     }
 
     public boolean hasRecipeNeeds(int water, int energy) {
-        return getWaterIn() >= water && getEnergy() >= energy;
+        return getFluidAmountIn() >= water && getEnergy() >= energy;
     }
 
     public void setState(boolean state) {
@@ -339,7 +339,6 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
         nbt.putInt("Energy", getEnergy());
         nbt.putInt("RecipeTime", getRecipeTime());
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
-        nbt.putInt("WaterIn", getWaterIn());
         nbt.putInt("RedstoneMode", getRedstoneMode());
         nbt.putBoolean("InputDump", isInputDump());
         nbt.putBoolean("Powerable", isPowerable());
@@ -354,7 +353,6 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
         setEnergy(nbt.getInt("Energy"));
         setRecipeTime(nbt.getInt("RecipeTime"));
         setMaxRecipeTime(nbt.getInt("MaxRecipeTime"));
-        setWaterIn(nbt.getInt("WaterIn"));
         setRedstoneMode(nbt.getInt("RedstoneMode"));
         setInputDump(nbt.getBoolean("InputDump"));
         setPowerable(nbt.getBoolean("Powerable"));
