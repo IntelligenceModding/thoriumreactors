@@ -151,6 +151,8 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
         } else if (getState()) {
             setState(false);
         }
+
+        if (isInputDump() && getFluidAmountIn() > 0) getFluidIn().shrink(getFluidAmountIn() - MAX_FLUID_TRANSFER < MAX_FLUID_TRANSFER ? getFluidAmountIn() : MAX_FLUID_TRANSFER);
     }
 
     public void operate() {

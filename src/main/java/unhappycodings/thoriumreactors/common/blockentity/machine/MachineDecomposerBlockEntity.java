@@ -42,6 +42,7 @@ import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, IEnergyCapable {
     public static final int MAX_FLUID_IN = 3000;
     public static final int MAX_FLUID_OUT = 10000;
+    public static final int MAX_FLUID_TRANSFER = 100;
     public static final int MAX_POWER = 25000;
     public static final int MAX_TRANSFER = 170;
     public static final int MAX_RECIPE_TIME = 500;
@@ -147,6 +148,8 @@ public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity im
         } else if (getState()) {
             setState(false);
         }
+
+        if (isInputDump() && getFluidAmountIn() > 0) getFluidIn().shrink(getFluidAmountIn() - MAX_FLUID_TRANSFER < MAX_FLUID_TRANSFER ? getFluidAmountIn() : MAX_FLUID_TRANSFER);
 
     }
 

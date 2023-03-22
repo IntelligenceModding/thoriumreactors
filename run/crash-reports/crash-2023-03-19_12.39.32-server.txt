@@ -1,0 +1,150 @@
+---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 2023-03-19 12:39:32
+Description: Ticking block entity
+
+java.lang.IllegalStateException: Can't modify the empty stack.
+	at net.minecraftforge.fluids.FluidStack.setAmount(FluidStack.java:175) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23182%23189!/:?] {re:classloading}
+	at net.minecraftforge.fluids.FluidStack.grow(FluidStack.java:181) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23182%23189!/:?] {re:classloading}
+	at unhappycodings.thoriumreactors.common.blockentity.machine.MachineDecomposerBlockEntity.operate(MachineDecomposerBlockEntity.java:167) ~[%23188!/:?] {re:classloading}
+	at unhappycodings.thoriumreactors.common.blockentity.machine.MachineDecomposerBlockEntity.tick(MachineDecomposerBlockEntity.java:137) ~[%23188!/:?] {re:classloading}
+	at unhappycodings.thoriumreactors.common.block.machine.MachineDecomposerBlock.lambda$getTicker$0(MachineDecomposerBlock.java:77) ~[%23188!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:687) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$RebindableTickingBlockEntityWrapper.tick(LevelChunk.java:780) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.tickBlockEntities(Level.java:483) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:334) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:896) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:836) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:90) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:672) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:244) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) [?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Stacktrace:
+	at net.minecraftforge.fluids.FluidStack.setAmount(FluidStack.java:175) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23182%23189!/:?] {re:classloading}
+	at net.minecraftforge.fluids.FluidStack.grow(FluidStack.java:181) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23182%23189!/:?] {re:classloading}
+	at unhappycodings.thoriumreactors.common.blockentity.machine.MachineDecomposerBlockEntity.operate(MachineDecomposerBlockEntity.java:167) ~[%23188!/:?] {re:classloading}
+	at unhappycodings.thoriumreactors.common.blockentity.machine.MachineDecomposerBlockEntity.tick(MachineDecomposerBlockEntity.java:137) ~[%23188!/:?] {re:classloading}
+	at unhappycodings.thoriumreactors.common.block.machine.MachineDecomposerBlock.lambda$getTicker$0(MachineDecomposerBlock.java:77) ~[%23188!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:687) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$RebindableTickingBlockEntityWrapper.tick(LevelChunk.java:780) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.tickBlockEntities(Level.java:483) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:334) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+-- Block entity being ticked --
+Details:
+	Name: thoriumreactors:decomposer_block // unhappycodings.thoriumreactors.common.blockentity.machine.MachineDecomposerBlockEntity
+	Block: Block{thoriumreactors:decomposer_block}[facing=east,powered=true]
+	Block location: World: (-3,63,8), Section: (at 13,15,8 in -1,3,0; chunk contains blocks -16,-64,0 to -1,319,15), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,-64,0 to -1,319,511)
+	Block: Block{thoriumreactors:decomposer_block}[facing=east,powered=true]
+	Block location: World: (-3,63,8), Section: (at 13,15,8 in -1,3,0; chunk contains blocks -16,-64,0 to -1,319,15), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,-64,0 to -1,319,511)
+Stacktrace:
+	at net.minecraft.world.level.chunk.LevelChunk$BoundTickingBlockEntity.tick(LevelChunk.java:687) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading}
+	at net.minecraft.world.level.chunk.LevelChunk$RebindableTickingBlockEntityWrapper.tick(LevelChunk.java:780) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading}
+	at net.minecraft.world.level.Level.tickBlockEntities(Level.java:483) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:334) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:896) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:836) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:90) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:672) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:244) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) [?:?] {}
+
+
+-- Affected level --
+Details:
+	All players: 1 total; [ServerPlayer['Dev'/222, l='ServerLevel[New World]', x=0.09, y=63.00, z=9.33]]
+	Chunk stats: 2809
+	Level dimension: minecraft:overworld
+	Level spawn location: World: (0,66,-32), Section: (at 0,2,0 in 0,4,-2; chunk contains blocks 0,-64,-32 to 15,319,-17), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,-64,-512 to 511,319,-1)
+	Level time: 190459 game time, 1111 day time
+	Level name: New World
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: true
+	Level weather: Rain time: 33296 (now: false), thunder time: 3053 (now: true)
+	Known server brands: forge
+	Level was modded: true
+	Level storage version: 0x04ABD - Anvil
+Stacktrace:
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:896) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:836) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:90) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:672) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:244) ~[forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1.19.2-recomp.jar%23183!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) [?:?] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.19.2
+	Minecraft Version ID: 1.19.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 17.0.6, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Amazon.com Inc.
+	Memory: 588322504 bytes (561 MiB) / 4362076160 bytes (4160 MiB) up to 8577351680 bytes (8180 MiB)
+	CPUs: 12
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 5 5600X 6-Core Processor             
+	Identifier: AuthenticAMD Family 25 Model 33 Stepping 0
+	Microarchitecture: Zen 3
+	Frequency (GHz): 3.69
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: Radeon RX Vega
+	Graphics card #0 vendor: Advanced Micro Devices, Inc. (0x1002)
+	Graphics card #0 VRAM (MB): 4095.00
+	Graphics card #0 deviceId: 0x687f
+	Graphics card #0 versionInfo: DriverVersion=31.0.12027.7000
+	Memory slot #0 capacity (MB): 16384.00
+	Memory slot #0 clockSpeed (GHz): 3.20
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MB): 16384.00
+	Memory slot #1 clockSpeed (GHz): 3.20
+	Memory slot #1 type: DDR4
+	Virtual memory max (MB): 37576.20
+	Virtual memory used (MB): 23756.61
+	Swap memory total (MB): 4864.00
+	Swap memory used (MB): 19.11
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/222, l='ServerLevel[New World]', x=0.09, y=63.00, z=9.33]]
+	Data Packs: vanilla, mod:forge, mod:thoriumreactors, mod:ctm (incompatible), mod:jei (incompatible), mod:mekanism, mod:mekanismgenerators
+	World Generation: Experimental
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	Launched Version: MOD_DEV
+	ModLauncher: 10.0.8+10.0.8+main.0ef7e830
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		mixin-0.8.5.jar mixin PLUGINSERVICE 
+		eventbus-6.0.3.jar eventbus PLUGINSERVICE 
+		fmlloader-1.19.2-43.1.58.jar slf4jfixer PLUGINSERVICE 
+		fmlloader-1.19.2-43.1.58.jar object_holder_definalize PLUGINSERVICE 
+		fmlloader-1.19.2-43.1.58.jar runtime_enum_extender PLUGINSERVICE 
+		fmlloader-1.19.2-43.1.58.jar capability_token_subclass PLUGINSERVICE 
+		accesstransformers-8.0.4.jar accesstransformer PLUGINSERVICE 
+		fmlloader-1.19.2-43.1.58.jar runtimedistcleaner PLUGINSERVICE 
+		modlauncher-10.0.8.jar mixin TRANSFORMATIONSERVICE 
+		modlauncher-10.0.8.jar fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		lowcodefml@null
+		javafml@null
+	Mod List: 
+		forge-1.19.2-43.1.58_mapped_parchment_2022.09.04-1|Minecraft                     |minecraft                     |1.19.2              |DONE      |Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		                                                  |Forge                         |forge                         |43.1.58             |DONE      |Manifest: NOSIGNATURE
+		main                                              |ThoriumReactors               |thoriumreactors               |0.0NONE             |DONE      |Manifest: NOSIGNATURE
+		CTM-1.19.2-1.1.7+a465767_mapped_parchment_2022.09.|ConnectedTexturesMod          |ctm                           |1.19.2-1.1.7+a465767|DONE      |Manifest: NOSIGNATURE
+		jei-238222-4145222_mapped_parchment_2022.09.04-1.1|Just Enough Items             |jei                           |11.4.0.288          |DONE      |Manifest: NOSIGNATURE
+		mek-268560-4041164_mapped_parchment_2022.09.04-1.1|Mekanism                      |mekanism                      |10.3.5              |DONE      |Manifest: NOSIGNATURE
+		mekgen-268566-4041168_mapped_parchment_2022.09.04-|Mekanism: Generators          |mekanismgenerators            |10.3.5              |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: 869f5bd4-034f-4b73-86a4-66d7f772a793
+	FML: 43.1
+	Forge: net.minecraftforge:43.1.58

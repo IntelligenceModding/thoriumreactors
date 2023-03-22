@@ -169,7 +169,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
         }
 
         if (isOutputDump() && getFluidAmountOut() > 0) getFluidOut().shrink(getFluidAmountOut() - MAX_FLUID_TRANSFER < MAX_FLUID_TRANSFER ? getFluidAmountOut() : MAX_FLUID_TRANSFER);
-        if (isInputDump() && getFluidAmountIn() > 0) getFluidIn().shrink(Math.max(getFluidAmountOut() - MAX_FLUID_TRANSFER, 0));
+        if (isInputDump() && getFluidAmountIn() > 0) getFluidIn().shrink(getFluidAmountIn() - MAX_FLUID_TRANSFER < MAX_FLUID_TRANSFER ? getFluidAmountIn() : MAX_FLUID_TRANSFER);
     }
 
     public void operate() {
