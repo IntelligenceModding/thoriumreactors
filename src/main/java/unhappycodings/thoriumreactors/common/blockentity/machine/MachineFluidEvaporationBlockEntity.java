@@ -45,14 +45,14 @@ import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
 public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
-    public static final int MAX_FLUID_IN = 6000;
-    public static final int MAX_FLUID_TRANSFER = 100;
     public static final int MAX_POWER = 100000;
     public static final int MAX_TRANSFER = 250;
     public static final int MAX_RECIPE_TIME = 400;
-    public static final int GENERATION = 135;
+    public static final int MAX_FLUID_IN = 6000;
+    public static final int MAX_FLUID_TRANSFER = 100;
     public static final int NEEDED_ENERGY = 65;
     public static final int NEEDED_FLUID = 6;
+    public static final int PRODUCTION = 135;
 
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
     private LazyOptional<FluidTank> lazyFluidInHandler = LazyOptional.empty();
@@ -60,9 +60,7 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
     public NonNullList<ItemStack> items;
     int recipeTime = 0;
     int maxRecipeTime = 0;
-    int waterIn = 0;
     boolean inputDump;
-
     boolean powerable = true;
     int redstoneMode = 0;
 
@@ -163,11 +161,12 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
                 if (!getState()) setState(true);
             }
             ItemStack outputSlot = getItem(1);
-            if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() &&
-                    (outputSlot.isEmpty() || outputSlot.is(ModItems.SODIUM.get()))) {
+            if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() && (outputSlot.isEmpty() || outputSlot.is(ModItems.SODIUM.get()))) {
                 if (!getState()) setState(true);
+                // Consumption of Energy, Fluids, Items etc
                 setEnergy(getEnergy() - NEEDED_ENERGY);
                 getFluidIn().shrink(getFluidAmountNeeded());
+
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);
@@ -440,7 +439,7 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
 
     @Override
     public long getMaxEnergyTransfer() {
-        return GENERATION;
+        return PRODUCTION;
     }
 
     @Override

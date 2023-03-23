@@ -24,8 +24,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
@@ -33,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.machine.MachineSaltMelterBlock;
+import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.machine.MachineSaltMelterContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
@@ -47,11 +46,11 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
     public static final int MAX_POWER = 100000;
     public static final int MAX_TRANSFER = 250;
     public static final int MAX_RECIPE_TIME = 800;
-    public static final int PRODUCTION = 135;
-    public static final int MAX_MOLTEN_SALT_OUT = 10000;
-    public static final int MAX_MOLTEN_SALT_TRANSFER = 100;
+    public static final int MAX_FLUID_OUT = 10000;
+    public static final int MAX_FLUID_TRANSFER = 100;
+    public static final int NEEDED_FLUID = 6;
     public static final int NEEDED_ENERGY = 65;
-    public static final int NEEDED_WATER = 6;
+    public static final int PRODUCTION = 135;
 
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
     private LazyOptional<FluidTank> lazyFluidOutHandler = LazyOptional.empty();
@@ -84,57 +83,7 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         }
     };
 
-    private final FluidTank FLUID_TANK_OUT = new FluidTank(MAX_MOLTEN_SALT_OUT) {
-        @Override
-        protected void onContentsChanged() {
-            setChanged();
-            moltenSaltOut = FLUID_TANK_OUT.getFluidAmount();
-        }
-
-        @Override
-        public @NotNull FluidStack getFluid() {
-            return new FluidStack(ModFluids.FLOWING_MOLTEN_SALT.get(), moltenSaltOut);
-        }
-
-        @Override
-        public int getFluidAmount() {
-            return moltenSaltOut;
-        }
-
-        @Override
-        public int fill(FluidStack resource, FluidAction action) {
-            if (!resource.getFluid().isSame(Fluids.WATER)) return 0;
-            int canFill = getMaxMoltenSaltOut() - getMoltenSaltOut();
-            int filled = Math.min(canFill, MAX_MOLTEN_SALT_TRANSFER);
-
-            if (!resource.getFluid().isSame(ModFluids.SOURCE_MOLTEN_SALT.get())) return 0;
-            if (action == FluidAction.EXECUTE)
-                setMoltenSaltOut(getMoltenSaltOut() + Math.min(filled, resource.getAmount()));
-            return Math.min(filled, resource.getAmount());
-        }
-
-        @Override
-        public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
-            if (!resource.getFluid().isSame(Fluids.WATER)) return FluidStack.EMPTY;
-            int canDrain = getMoltenSaltOut();
-            int filled = Math.min(canDrain, MAX_MOLTEN_SALT_TRANSFER);
-            System.out.println(filled);
-            if (action == FluidAction.EXECUTE) setMoltenSaltOut(getMoltenSaltOut() - filled);
-            return new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), filled);
-        }
-
-        @Override
-        public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
-            int canDrain = getMoltenSaltOut() - MAX_MOLTEN_SALT_TRANSFER > 0 ? MAX_MOLTEN_SALT_TRANSFER : getMoltenSaltOut();
-            return new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), canDrain);
-        }
-
-        @Override
-        public boolean isFluidValid(FluidStack stack) {
-            return stack.getFluid() == ModFluids.SOURCE_MOLTEN_SALT.get();
-        }
-
-    };
+    private final ModFluidTank FLUID_TANK_OUT = new ModFluidTank(MAX_FLUID_OUT, false, true, -1, FluidStack.EMPTY, ModFluids.FLOWING_MOLTEN_SALT.get());
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -196,7 +145,7 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
     }
 
     public void operate() {
-        if (hasRecipeNeeds(NEEDED_ENERGY, NEEDED_WATER) || getMaxRecipeTime() > 0) {
+        if (hasRecipeNeeds(NEEDED_ENERGY, NEEDED_FLUID) || getMaxRecipeTime() > 0) {
             if (getMaxRecipeTime() == 0 && hasRecipeNeeds(0, 0)) {
                 setMaxRecipeTime(MAX_RECIPE_TIME);
                 setRecipeTime(MAX_RECIPE_TIME);
@@ -208,10 +157,15 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0) {
                 if (!getState()) setState(true);
                 setEnergy(getEnergy() - NEEDED_ENERGY);
+                if (getRecipeTime() % 4 == 0) { // 200 times per run (800/40=20)
+                    if (getFluidOut().isEmpty())
+                        setFluidOut(new FluidStack(ModFluids.FLOWING_MOLTEN_SALT.get(), 0));
+                    getFluidOut().grow(1);
+
+                }
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);
-                    setMoltenSaltOut(getMoltenSaltOut() + 330);
                 }
             } else {
                 if (getState())
@@ -223,19 +177,8 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         }
     }
 
-    public void tryFillTank(IFluidHandlerItem other, FluidTank fluidTank, int transferRate, boolean hasCraftingRemainder) {
-        int toSend = fluidTank.fill(new FluidStack(Fluids.WATER, transferRate), IFluidHandler.FluidAction.SIMULATE);
-        FluidStack sent = other.drain(toSend, IFluidHandler.FluidAction.EXECUTE);
-        if (hasCraftingRemainder) {
-            if (fluidTank.getFluidInTank(0).getAmount() + transferRate > fluidTank.getTankCapacity(0)) return;
-            sent = new FluidStack(Fluids.WATER, transferRate);
-        }
-        if (sent.getAmount() > 0) fluidTank.fill(sent, IFluidHandler.FluidAction.EXECUTE);
-        if (hasCraftingRemainder) items.set(0, new ItemStack(items.get(0).getItem().getCraftingRemainingItem()));
-    }
-
     public boolean hasRecipeNeeds(int neededEnergy, int outputMoltenSalt) {
-        return items.get(0).is(ModItems.SODIUM.get()) && items.get(3).is(ModItems.ENRICHED_URANIUM.get()) && items.get(1).is(ModItems.POTASSIUM.get()) && getEnergy() - neededEnergy >= 0 && getMoltenSaltOut() + outputMoltenSalt <= getMaxMoltenSaltOut();
+        return items.get(0).is(ModItems.SODIUM.get()) && items.get(3).is(ModItems.ENRICHED_URANIUM.get()) && items.get(1).is(ModItems.POTASSIUM.get()) && getEnergy() - neededEnergy >= 0 && getFluidAmountOut() + outputMoltenSalt <= getMaxFluidOut();
     }
 
     public void setState(boolean state) {
@@ -246,8 +189,29 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         return getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.POWERED);
     }
 
-    public int getMaxWaterTransfer() {
-        return MAX_MOLTEN_SALT_TRANSFER;
+
+    public void setFluidOut(FluidStack stack) {
+        FLUID_TANK_OUT.setFluid(stack);
+    }
+
+    public FluidStack getFluidOut() {
+        return FLUID_TANK_OUT.getFluid();
+    }
+
+    public int getFluidCapacityOut() {
+        return FLUID_TANK_OUT.getCapacity();
+    }
+
+    public int getFluidSpaceOut() {
+        return FLUID_TANK_OUT.getSpace();
+    }
+
+    public int getFluidAmountOut() {
+        return FLUID_TANK_OUT.getFluidAmount();
+    }
+
+    public int getMaxFluidTransfer() {
+        return MAX_FLUID_TRANSFER;
     }
 
     @Override
@@ -286,16 +250,8 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         this.maxRecipeTime = maxRecipeTime;
     }
 
-    public int getMoltenSaltOut() {
-        return moltenSaltOut;
-    }
-
-    public void setMoltenSaltOut(int moltenSaltOut) {
-        this.moltenSaltOut = moltenSaltOut;
-    }
-
-    public int getMaxMoltenSaltOut() {
-        return MAX_MOLTEN_SALT_OUT;
+    public int getMaxFluidOut() {
+        return MAX_FLUID_OUT;
     }
 
     @Override
@@ -337,9 +293,9 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         nbt.putInt("Energy", getEnergy());
         nbt.putInt("RecipeTime", getRecipeTime());
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
-        nbt.putInt("MoltenSaltOut", getMoltenSaltOut());
         nbt.putInt("RedstoneMode", getRedstoneMode());
         nbt.putBoolean("Powerable", isPowerable());
+        nbt.put("FluidOut", FLUID_TANK_OUT.writeToNBT(new CompoundTag()));
         return nbt;
     }
 
@@ -348,9 +304,9 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         setEnergy(tag.getInt("Energy"));
         setRecipeTime(tag.getInt("RecipeTime"));
         setMaxRecipeTime(tag.getInt("MaxRecipeTime"));
-        setMoltenSaltOut(tag.getInt("MoltenSaltOut"));
         setRedstoneMode(tag.getInt("RedstoneMode"));
         setPowerable(tag.getBoolean("Powerable"));
+        FLUID_TANK_OUT.readFromNBT(tag.getCompound("FluidOut"));
     }
 
     @Override
@@ -358,9 +314,9 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         nbt.putInt("Energy", getEnergy());
         nbt.putInt("RecipeTime", getRecipeTime());
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
-        nbt.putInt("MoltenSaltOut", getMoltenSaltOut());
         nbt.putInt("RedstoneMode", getRedstoneMode());
         nbt.putBoolean("Powerable", isPowerable());
+        nbt.put("FluidOut", FLUID_TANK_OUT.writeToNBT(new CompoundTag()));
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -371,9 +327,9 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         setEnergy(nbt.getInt("Energy"));
         setRecipeTime(nbt.getInt("RecipeTime"));
         setMaxRecipeTime(nbt.getInt("MaxRecipeTime"));
-        setMoltenSaltOut(nbt.getInt("MoltenSaltOut"));
         setRedstoneMode(nbt.getInt("RedstoneMode"));
         setPowerable(nbt.getBoolean("Powerable"));
+        FLUID_TANK_OUT.readFromNBT(nbt.getCompound("FluidOut"));
     }
 
     @Override

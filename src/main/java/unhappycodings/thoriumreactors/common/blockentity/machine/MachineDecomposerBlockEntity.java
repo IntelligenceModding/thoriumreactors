@@ -164,12 +164,14 @@ public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity im
             }
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0) {
                 if (!getState()) setState(true);
+                // Consumption of Energy, Fluids, Items etc
                 setEnergy(getEnergy() - getNeededEnergy());
-                setRecipeTime(getRecipeTime() - 1);
                 getFluidIn().shrink(getFluidAmountNeeded());
                 if (getFluidOut().isEmpty())
                     setFluidOut(new FluidStack(ModFluids.SOURCE_HYDROFLUORIDE.get(), 0));
                 getFluidOut().grow(getFluidAmountNeeded());
+
+                setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);
                 }

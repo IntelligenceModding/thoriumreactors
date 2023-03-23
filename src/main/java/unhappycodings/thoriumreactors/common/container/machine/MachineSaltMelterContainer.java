@@ -34,7 +34,7 @@ public class MachineSaltMelterContainer extends BaseContainer {
     @Override
     public void broadcastChanges() {
         MachineSaltMelterBlockEntity entity = (MachineSaltMelterBlockEntity) this.tileEntity;
-        PacketHandler.sendToClient(new ClientSaltMelterDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getMoltenSaltOut(), entity.isPowerable(), entity.getRedstoneMode()), (ServerPlayer) inventory.player);
+        PacketHandler.sendToClient(new ClientSaltMelterDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.getFluidAmountOut(), entity.getFluidOut().getFluid().getFluidType().toString(), entity.isPowerable(), entity.getRedstoneMode()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();
     }

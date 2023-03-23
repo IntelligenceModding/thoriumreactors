@@ -112,7 +112,16 @@ gradle-app.setting
 **/build/
 
 # Common working directory
-# run/
+run/logs
+run/mods
+run/resourcepacks
+run/usercache.json
+run/usernamecache.json
+run/saves/Testing World/advancements
+run/saves/Testing World/datapacks
+run/saves/Testing World/serverconfig
+run/saves/Testing World/icon.png
+run/saves/Testing World/session.lock
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar

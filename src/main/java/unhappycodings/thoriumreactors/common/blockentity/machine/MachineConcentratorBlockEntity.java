@@ -142,6 +142,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
             ItemStack outputSlot = getItem(1);
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() && (outputSlot.isEmpty() || outputSlot.is(ModItems.YELLOW_CAKE.get()))) {
                 if (!getState()) setState(true);
+                // Consumption of Energy, Fluids, Items etc
                 setEnergy(getEnergy() - NEEDED_ENERGY);
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {

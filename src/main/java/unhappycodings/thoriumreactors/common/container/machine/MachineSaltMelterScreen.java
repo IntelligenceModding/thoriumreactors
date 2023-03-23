@@ -25,8 +25,8 @@ public class MachineSaltMelterScreen extends MachineScreen<MachineSaltMelterCont
     protected void renderBg(@NotNull PoseStack matrixStack, float partialTicks, int x, int y) {
         super.renderBg(matrixStack, partialTicks, x, y);
         MachineSaltMelterBlockEntity entity = this.container.getTile();
-        RenderUtil.renderFluid(getGuiLeft() + 118, getGuiTop() + 85, 66, 16, entity.getMoltenSaltOut(), entity.getMaxMoltenSaltOut(), ModFluids.FLOWING_MOLTEN_SALT.get());
-        RenderUtil.renderFluid(getGuiLeft() + 118 + 16, getGuiTop() + 85, 66, 2, entity.getMoltenSaltOut(), entity.getMaxMoltenSaltOut(), ModFluids.FLOWING_MOLTEN_SALT.get());
+        RenderUtil.renderFluid(getGuiLeft() + 118, getGuiTop() + 85, 66, 16, entity.getFluidAmountOut(), entity.getFluidCapacityOut(), ModFluids.FLOWING_MOLTEN_SALT.get());
+        RenderUtil.renderFluid(getGuiLeft() + 118 + 16, getGuiTop() + 85, 66, 2, entity.getFluidAmountOut(), entity.getFluidCapacityOut(), ModFluids.FLOWING_MOLTEN_SALT.get());
 
         RenderUtil.resetGuiTextures(getTexture());
         int energyBlitSize = (int) Math.floor(38 / ((double) entity.getEnergyCapacity() / entity.getEnergy()));
@@ -60,7 +60,7 @@ public class MachineSaltMelterScreen extends MachineScreen<MachineSaltMelterCont
         if (RenderUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});
         if (RenderUtil.mouseInArea(getGuiLeft() + 119, getGuiTop() + 20, getGuiLeft() + 136, getGuiTop() + 85, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getMoltenSaltOut() > 0 ? "Fluid: Molten Salt" : "", entity.getMoltenSaltOut() + " mb / " + entity.getMaxMoltenSaltOut() + " mb", FormattingUtil.formatPercentNum(entity.getMoltenSaltOut(), entity.getMaxMoltenSaltOut(), true)});
+            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getFluidAmountOut() > 0 ? "Fluid: Molten Salt" : "", entity.getFluidAmountOut() + " mb / " + entity.getFluidCapacityOut() + " mb", FormattingUtil.formatPercentNum(entity.getFluidAmountOut(), entity.getFluidCapacityOut(), true)});
 
     }
 

@@ -134,8 +134,9 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
             input.shrink(1);
         }
         if (getFuel() > 0) {
-            setCurrentProduction(PRODUCTION);
             if (!getState()) setState(true);
+            // Consumption of Energy, Fluids, Items AND Production
+            setCurrentProduction(PRODUCTION);
             if ((getEnergy() + PRODUCTION <= MAX_POWER))
                 setEnergy(getEnergy() + getCurrentProduction());
             else if (getEnergy() > 0)

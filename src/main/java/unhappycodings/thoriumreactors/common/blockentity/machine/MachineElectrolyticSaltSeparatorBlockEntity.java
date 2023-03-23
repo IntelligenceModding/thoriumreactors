@@ -182,11 +182,13 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
             ItemStack outputSlot = getItem(1);
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && getFluidAmountOut() + (NEEDED_WATER) / 2 <= getFluidCapacityOut() && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() && (outputSlot.isEmpty() || outputSlot.is(ModItems.POTASSIUM.get()))) {
                 if (!getState()) setState(true);
+                // Consumption of Energy, Fluids, Items etc
                 setEnergy(getEnergy() - NEEDED_ENERGY);
                 getFluidIn().shrink(getFluidAmountNeeded());
                 if (getFluidOut().isEmpty())
                     setFluidOut(new FluidStack(Fluids.WATER, 0));
                 getFluidOut().grow(getFluidAmountNeeded() / 2);
+
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
                     setMaxRecipeTime(0);

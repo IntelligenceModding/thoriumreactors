@@ -4,8 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineSaltMelterBlockEntity;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
@@ -14,22 +17,24 @@ public class ClientSaltMelterDataPacket implements IPacket {
     private final int energy;
     private final int maxRecipeTime;
     private final int recipeTime;
-    private final int moltenSaltOut;
+    private final int fluidOut;
     private final boolean powerable;
     private final int redstoneMode;
+    private final String fluidTypeOut;
 
-    public ClientSaltMelterDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int moltenSaltOut, boolean powerable, int redstoneMode) {
+    public ClientSaltMelterDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int fluidOut, String fluidTypeOut, boolean powerable, int redstoneMode) {
         this.pos = pos;
         this.energy = energy;
         this.maxRecipeTime = maxRecipeTime;
         this.recipeTime = recipeTime;
-        this.moltenSaltOut = moltenSaltOut;
+        this.fluidOut = fluidOut;
         this.powerable = powerable;
         this.redstoneMode = redstoneMode;
+        this.fluidTypeOut = fluidTypeOut;
     }
 
     public static ClientSaltMelterDataPacket decode(FriendlyByteBuf buffer) {
-        return new ClientSaltMelterDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), buffer.readInt());
+        return new ClientSaltMelterDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readUtf(), buffer.readBoolean(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -40,7 +45,7 @@ public class ClientSaltMelterDataPacket implements IPacket {
         blockEntity.setEnergy(energy);
         blockEntity.setMaxRecipeTime(maxRecipeTime);
         blockEntity.setRecipeTime(recipeTime);
-        blockEntity.setMoltenSaltOut(moltenSaltOut);
+        blockEntity.setFluidOut(new FluidStack(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidTypeOut)), fluidOut));
         blockEntity.setPowerable(powerable);
         blockEntity.setRedstoneMode(redstoneMode);
     }
@@ -50,7 +55,8 @@ public class ClientSaltMelterDataPacket implements IPacket {
         buffer.writeInt(energy);
         buffer.writeInt(maxRecipeTime);
         buffer.writeInt(recipeTime);
-        buffer.writeInt(moltenSaltOut);
+        buffer.writeInt(fluidOut);
+        buffer.writeUtf(fluidTypeOut);
         buffer.writeBoolean(powerable);
         buffer.writeInt(redstoneMode);
     }
