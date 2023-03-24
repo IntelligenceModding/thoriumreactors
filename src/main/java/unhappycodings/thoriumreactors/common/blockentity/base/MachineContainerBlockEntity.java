@@ -22,12 +22,6 @@ public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
         super(pType, pPos, pBlockState);
     }
 
-    public void setWaterIn(int amount) {
-    }
-
-    public void setWaterOut(int amount) {
-    }
-
     public int getNeededEnergy() {
         return 0;
     }
@@ -42,14 +36,6 @@ public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
 
     public boolean getState() {
         return true;
-    }
-
-    public int getWaterIn() {
-        return 0;
-    }
-
-    public int getWaterOut() {
-        return 0;
     }
 
     public int getRedstoneMode() {
@@ -115,7 +101,6 @@ public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public void setItem(int pSlot, ItemStack pStack) {
-
     }
 
     @Override

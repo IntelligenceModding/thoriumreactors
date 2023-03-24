@@ -62,8 +62,6 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
     boolean outputDump;
     int recipeTime = 0;
     int maxRecipeTime = 0;
-    int waterIn = 0;
-    int waterOut = 0;
 
     boolean powerable = true;
     int redstoneMode = 0;

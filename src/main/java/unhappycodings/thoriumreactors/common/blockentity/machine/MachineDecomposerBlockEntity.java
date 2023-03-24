@@ -40,12 +40,12 @@ import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
 public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, IEnergyCapable {
-    public static final int MAX_FLUID_IN = 3000;
-    public static final int MAX_FLUID_OUT = 10000;
-    public static final int MAX_FLUID_TRANSFER = 100;
     public static final int MAX_POWER = 25000;
     public static final int MAX_TRANSFER = 170;
     public static final int MAX_RECIPE_TIME = 500;
+    public static final int MAX_FLUID_IN = 3000;
+    public static final int MAX_FLUID_OUT = 10000;
+    public static final int MAX_FLUID_TRANSFER = 100;
     public static final int NEEDED_ENERGY = 20;
     public static final int NEEDED_FLUID = 2;
     public static final int FLUID_PRODUCTION = 2;

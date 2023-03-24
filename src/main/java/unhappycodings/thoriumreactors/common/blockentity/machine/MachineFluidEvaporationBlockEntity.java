@@ -328,7 +328,6 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
         setEnergy(tag.getInt("Energy"));
         setRecipeTime(tag.getInt("RecipeTime"));
         setMaxRecipeTime(tag.getInt("MaxRecipeTime"));
-        setWaterIn(tag.getInt("WaterIn"));
         setRedstoneMode(tag.getInt("RedstoneMode"));
         setInputDump(tag.getBoolean("InputDump"));
         setPowerable(tag.getBoolean("Powerable"));

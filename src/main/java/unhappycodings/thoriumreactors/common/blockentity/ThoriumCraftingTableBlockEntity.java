@@ -43,20 +43,6 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @NotNull
-    @Override
-    public CompoundTag getUpdateTag() {
-        super.getUpdateTag();
-        CompoundTag nbt = new CompoundTag();
-        //nbt.putInt("BurnTime", getBurnTime());
-        return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(final CompoundTag tag) {
-        //setBurnTime(tag.getInt("BurnTime"));
-    }
-
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         super.saveAdditional(nbt);

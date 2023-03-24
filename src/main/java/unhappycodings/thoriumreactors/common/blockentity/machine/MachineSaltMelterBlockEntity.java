@@ -50,7 +50,7 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
     public static final int MAX_FLUID_TRANSFER = 100;
     public static final int NEEDED_FLUID = 6;
     public static final int NEEDED_ENERGY = 65;
-    public static final int PRODUCTION = 135;
+    public static final int PRODUCTION = 100;
 
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
     private LazyOptional<FluidTank> lazyFluidOutHandler = LazyOptional.empty();
@@ -157,10 +157,10 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
             if (getRecipeTime() > 0 && getMaxRecipeTime() > 0) {
                 if (!getState()) setState(true);
                 setEnergy(getEnergy() - NEEDED_ENERGY);
-                if (getRecipeTime() % 4 == 0) { // 200 times per run (800/40=20)
+                if (getRecipeTime() % 8 == 0) { // 100 times per run (800/80=10)
                     if (getFluidOut().isEmpty())
                         setFluidOut(new FluidStack(ModFluids.FLOWING_MOLTEN_SALT.get(), 0));
-                    getFluidOut().grow(1);
+                    getFluidOut().grow(PRODUCTION / 100);
 
                 }
                 setRecipeTime(getRecipeTime() - 1);
