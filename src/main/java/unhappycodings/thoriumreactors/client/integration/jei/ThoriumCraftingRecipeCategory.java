@@ -1,4 +1,4 @@
-package unhappycodings.thoriumreactors.client.integration;
+package unhappycodings.thoriumreactors.client.integration.jei;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

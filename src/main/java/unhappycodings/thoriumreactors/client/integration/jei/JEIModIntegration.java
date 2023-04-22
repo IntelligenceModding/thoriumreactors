@@ -1,6 +1,5 @@
-package unhappycodings.thoriumreactors.client.integration;
+package unhappycodings.thoriumreactors.client.integration.jei;
 
-import jdk.jshell.EvalException;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
@@ -8,7 +7,6 @@ import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;

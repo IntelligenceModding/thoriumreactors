@@ -1,4 +1,4 @@
-package unhappycodings.thoriumreactors.client.integration;
+package unhappycodings.thoriumreactors.client.integration.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;

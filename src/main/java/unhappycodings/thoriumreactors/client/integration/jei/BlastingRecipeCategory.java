@@ -1,4 +1,4 @@
-package unhappycodings.thoriumreactors.client.integration;
+package unhappycodings.thoriumreactors.client.integration.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
@@ -17,9 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.BlastingRecipe;
-import unhappycodings.thoriumreactors.common.recipe.ConcentratingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import unhappycodings.thoriumreactors.common.util.RenderUtil;
 
 import java.util.ArrayList;
