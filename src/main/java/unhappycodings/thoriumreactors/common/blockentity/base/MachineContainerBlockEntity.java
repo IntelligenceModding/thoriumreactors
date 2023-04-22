@@ -11,15 +11,59 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
 public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
 
     protected MachineContainerBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
         super(pType, pPos, pBlockState);
+    }
+
+    public boolean isSpaceAbove() {
+        return this.getLevel().getBlockState(this.getBlockPos().above()).is(Blocks.AIR);
+    }
+
+    public FluidStack getFluidIn() {
+        return FluidStack.EMPTY;
+    }
+
+    public void setFluidIn(FluidStack stack) {
+    }
+
+    public int getFluidCapacityIn() {
+        return 0;
+    }
+
+    public int getFluidSpaceIn() {
+        return 0;
+    }
+
+    public int getFluidAmountIn() {
+        return 0;
+    }
+
+    public FluidStack getFluidOut() {
+        return FluidStack.EMPTY;
+    }
+
+    public void setFluidOut(FluidStack stack) {
+    }
+
+    public int getFluidCapacityOut() {
+        return 0;
+    }
+
+    public int getFluidSpaceOut() {
+        return 0;
+    }
+
+    public int getFluidAmountOut() {
+        return 0;
     }
 
     public int getNeededEnergy() {
@@ -45,23 +89,25 @@ public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
     public void setRedstoneMode(int amount) {
     }
 
-    public void setPowerable(boolean powerable) {
-    }
-
     public boolean isPowerable() {
         return false;
     }
 
-    public void setInputDump(boolean inputDump) {}
+    public void setPowerable(boolean powerable) {
+    }
 
     public boolean isInputDump() {
         return false;
     }
 
-    public void setOutputDump(boolean inputDump) {}
+    public void setInputDump(boolean inputDump) {
+    }
 
     public boolean isOutputDump() {
         return false;
+    }
+
+    public void setOutputDump(boolean inputDump) {
     }
 
     @Override

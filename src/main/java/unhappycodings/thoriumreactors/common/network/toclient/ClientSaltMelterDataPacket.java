@@ -19,10 +19,11 @@ public class ClientSaltMelterDataPacket implements IPacket {
     private final int recipeTime;
     private final int fluidOut;
     private final boolean powerable;
+    private final int degree;
     private final int redstoneMode;
     private final String fluidTypeOut;
 
-    public ClientSaltMelterDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int fluidOut, String fluidTypeOut, boolean powerable, int redstoneMode) {
+    public ClientSaltMelterDataPacket(BlockPos pos, int energy, int maxRecipeTime, int recipeTime, int fluidOut, String fluidTypeOut, boolean powerable, int redstoneMode, int degree) {
         this.pos = pos;
         this.energy = energy;
         this.maxRecipeTime = maxRecipeTime;
@@ -31,10 +32,11 @@ public class ClientSaltMelterDataPacket implements IPacket {
         this.powerable = powerable;
         this.redstoneMode = redstoneMode;
         this.fluidTypeOut = fluidTypeOut;
+        this.degree = degree;
     }
 
     public static ClientSaltMelterDataPacket decode(FriendlyByteBuf buffer) {
-        return new ClientSaltMelterDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readUtf(), buffer.readBoolean(), buffer.readInt());
+        return new ClientSaltMelterDataPacket(buffer.readBlockPos(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readUtf(), buffer.readBoolean(), buffer.readInt(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -48,6 +50,7 @@ public class ClientSaltMelterDataPacket implements IPacket {
         blockEntity.setFluidOut(new FluidStack(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidTypeOut)), fluidOut));
         blockEntity.setPowerable(powerable);
         blockEntity.setRedstoneMode(redstoneMode);
+        blockEntity.setDegree(degree);
     }
 
     public void encode(FriendlyByteBuf buffer) {
@@ -59,5 +62,6 @@ public class ClientSaltMelterDataPacket implements IPacket {
         buffer.writeUtf(fluidTypeOut);
         buffer.writeBoolean(powerable);
         buffer.writeInt(redstoneMode);
+        buffer.writeInt(degree);
     }
 }

@@ -9,21 +9,19 @@ public class ModFluidTank extends FluidTank {
     public final int slotId;
     public boolean canInput;
     public boolean canOutput;
-    public final Fluid filter;
 
-    public ModFluidTank(int capacity, boolean canInput, boolean canOuput, int slotId, FluidStack fluid, Fluid filter) {
+    public ModFluidTank(int capacity, boolean canInput, boolean canOuput, int slotId, FluidStack fluid) {
         super(capacity);
         this.capacity = capacity;
         this.canInput = canInput;
         this.canOutput = canOuput;
         this.slotId = slotId;
         this.fluid = fluid;
-        this.filter = filter;
     }
 
     @Override
     public int fill(FluidStack resource, FluidAction action) {
-        return canInput ? super.fill(resource.getAmount() > getMaxFluidTransfer() ? new FluidStack(resource.getFluid(), (int) getMaxFluidTransfer()) : resource, action) : 0;
+        return canInput ? super.fill(resource.getAmount() > getMaxFluidTransfer() ? new FluidStack(resource.getFluid(), getMaxFluidTransfer()) : resource, action) : 0;
     }
 
     @Override
@@ -33,7 +31,7 @@ public class ModFluidTank extends FluidTank {
 
     @Override
     public boolean isFluidValid(FluidStack stack) {
-        return filter.isSame(stack.getFluid());
+        return true;
     }
 
     public int getMaxFluidTransfer() {

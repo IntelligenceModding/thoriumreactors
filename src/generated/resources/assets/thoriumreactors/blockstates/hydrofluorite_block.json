@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=1": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=10": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=11": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=12": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=13": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=14": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=15": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=2": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=3": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=4": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=5": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=6": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=7": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=8": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    },
+    "level=9": {
+      "model": "thoriumreactors:block/hydrofluorite_block"
+    }
+  }
+}

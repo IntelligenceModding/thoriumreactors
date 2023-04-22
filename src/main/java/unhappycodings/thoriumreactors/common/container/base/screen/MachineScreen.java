@@ -1,9 +1,11 @@
 package unhappycodings.thoriumreactors.common.container.base.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
@@ -28,6 +30,7 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     public static final ResourceLocation REDSTONE_INVERTED = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/redstone_inverted.png");
     public static final ResourceLocation REDSTONE_IGNORED = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/redstone_ignored.png");
     public static final ResourceLocation INFORMATION = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/information.png");
+    public static final ResourceLocation WARNING = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/warning.png");
 
     boolean lastPowerable;
     int lastRedstoneMode;
@@ -60,6 +63,10 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
         lastRedstoneMode = tile.getRedstoneMode();
         addRenderableWidget(new ModButton(-18, 42, 16, 16, lastRedstoneMode == 0 ? REDSTONE_IGNORED : lastRedstoneMode == 1 ? REDSTONE_NORMAL : REDSTONE_INVERTED, this::changeRedstoneMode, null, tile, this, 16, 32, true));
 
+        // Warning
+        if (!isSpaceAbove())
+            addRenderableWidget(new ModButton(getSizeX() + 2, 6, 16, 16, WARNING, null, null, tile, this, 16, 32, false));
+
     }
 
     @Override
@@ -68,11 +75,6 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
         if (RenderUtil.mouseInArea(getGuiLeft() + -18, getGuiTop() + 6, getGuiLeft() + -3, getGuiTop() + 21, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
             list.add(Component.literal("Usage: " + FormattingUtil.formatEnergy(entity.getState() ? entity.getNeededEnergy() : 0) + "/t"));
-            list.add(Component.literal("Needs: "));
-            if (entity.getEnergy() < entity.getNeededEnergy()) list.add(Component.literal("- " + FormattingUtil.formatEnergy(entity.getNeededEnergy() - entity.getEnergy()) + " Energy"));
-            if (entity.getWaterIn() < entity.getFluidAmountNeeded()) list.add(Component.literal("- " + (entity.getFluidAmountNeeded() - entity.getWaterIn()) + " mb Water"));
-            if (entity.getItem(1).getCount() == entity.getItem(1).getMaxStackSize()) list.add(Component.literal("- Output Space"));
-            if (list.size() == 2) list.remove(1);
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
@@ -87,6 +89,18 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
             list.add(Component.literal("Redstone: " + (lastRedstoneMode == 0 ? "Ignore" : lastRedstoneMode == 1 ? "Normal" : "Inverted")));
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
+
+        if (RenderUtil.mouseInArea(getGuiLeft() + getSizeX() + 2, getGuiTop() + 6, getGuiLeft() + getSizeX() + 17, getGuiTop() + 21, pMouseX, pMouseY) && !isSpaceAbove()) {
+            List<Component> list = new ArrayList<>();
+            list.add(Component.literal("Warning!").withStyle(ChatFormatting.RED));
+            list.add(Component.literal("Machine needs air to ventilate!"));
+            list.add(Component.literal("Make space above it!"));
+            this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
+        }
+    }
+
+    public boolean isSpaceAbove() {
+        return this.getTile().getLevel().getBlockState(this.getTile().getBlockPos().above()).is(Blocks.AIR);
     }
 
     protected void changeRedstoneMode() {

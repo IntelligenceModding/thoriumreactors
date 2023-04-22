@@ -47,8 +47,7 @@ public class MachineConcentratorScreen extends MachineScreen<MachineConcentrator
         blit(matrixStack, getGuiLeft() + 153, getGuiTop() + 25 + (38 - energyBlitSize), 176, 14, 9, energyBlitSize); // Energy Tank
 
         int height = entity.getMaxRecipeTime() != 0 ? 41 - (int) Math.floor((entity.getRecipeTime() / (float) entity.getMaxRecipeTime()) * 41) : 0;
-        if (entity.getState())
-            blit(matrixStack, getGuiLeft() + 67, getGuiTop() + 42, 184, 0, height, 11); // Energy Tank
+        blit(matrixStack, getGuiLeft() + 67, getGuiTop() + 42, 184, 0, height, 11); // Progress
 
         if (entity.getState())
             blit(matrixStack, getGuiLeft() + 81, getGuiTop() + 89, 185, 25, 6, 1); // Power Indicator - Green

@@ -32,7 +32,8 @@ public class MachineGeneratorScreen extends MachineScreen<MachineGeneratorContai
         blit(matrixStack, getGuiLeft() + 18, getGuiTop() + 64 + 13 - burnBlitSize, 176, 13 - burnBlitSize, 14, burnBlitSize + (burnBlitSize > 0 ? 1 : 0));
         blit(matrixStack, getGuiLeft() + 146, getGuiTop() + 22 + (38 - energyBlitSize), 176, 14, 9, energyBlitSize);
 
-        if (entity.getState()) blit(matrixStack, getGuiLeft() + 81, getGuiTop() + 81, 185, 14, 6, 1); // Power Indicator - Green
+        if (entity.getState())
+            blit(matrixStack, getGuiLeft() + 81, getGuiTop() + 81, 185, 14, 6, 1); // Power Indicator - Green
         else blit(matrixStack, getGuiLeft() + 88, getGuiTop() + 81, 185, 15, 6, 1); // Power Indicator - Green
     }
 
@@ -67,7 +68,7 @@ public class MachineGeneratorScreen extends MachineScreen<MachineGeneratorContai
 
     @Override
     public int getSizeY() {
-        return 186;
+        return 184;
     }
 
     @Override

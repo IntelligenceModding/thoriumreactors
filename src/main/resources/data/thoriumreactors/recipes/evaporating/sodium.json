@@ -1,0 +1,16 @@
+{
+  "type": "thoriumreactors:evaporating",
+  "ticks": 400,
+  "operationAfterTicks": 1,
+  "input": {
+    "tank-0": {
+      "FluidName": "minecraft:water",
+      "Amount": 1
+    }
+  },
+  "output": {
+    "slot-0": {
+      "item": "thoriumreactors:sodium"
+    }
+  }
+}

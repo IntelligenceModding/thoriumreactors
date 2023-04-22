@@ -3,8 +3,6 @@ package unhappycodings.thoriumreactors.common.network.toserver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;

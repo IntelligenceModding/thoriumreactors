@@ -14,16 +14,16 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
+    public static final int MAX_WIDTH = 5;
+    public static final int MAX_HEIGHT = 5;
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
-    public static final int MAX_WIDTH = 5;
-    public static final int MAX_HEIGHT = 5;
 
     public ThoriumCraftingRecipe(ResourceLocation id, NonNullList<Ingredient> recipeItems, ItemStack output) {
         this.id = id;
@@ -36,7 +36,7 @@ public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
         if (level.isClientSide()) return false;
         NonNullList<ItemStack> currentItems = NonNullList.withSize(MAX_WIDTH * MAX_HEIGHT, ItemStack.EMPTY);
         for (int i = 0; i < MAX_WIDTH * MAX_HEIGHT; i++)
-                currentItems.set(i, container.getItem(i).is(Items.AIR) ? ItemStack.EMPTY : container.getItem(i));
+            currentItems.set(i, container.getItem(i).is(Items.AIR) ? ItemStack.EMPTY : container.getItem(i));
         return isRecipe(currentItems);
     }
 
@@ -101,15 +101,19 @@ public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
             NonNullList<Ingredient> recipeItems = NonNullList.withSize(MAX_WIDTH * MAX_HEIGHT, Ingredient.EMPTY);
 
             if (pattern.size() == 0) throw new IllegalArgumentException("Invalid pattern: Recipe height cannot be 0!");
-            if (pattern.size() > MAX_HEIGHT) throw new IllegalArgumentException("Invalid pattern: Recipe height cannot be bigger than 5! (Value: " + pattern.size() + ")");
+            if (pattern.size() > MAX_HEIGHT)
+                throw new IllegalArgumentException("Invalid pattern: Recipe height cannot be bigger than 5! (Value: " + pattern.size() + ")");
             int index = 0;
 
             for (int i = 0; i < pattern.size(); i++) {
                 String[] current = pattern.get(i).getAsString().split("");
-                if (Objects.equals(current[0], "")) throw new IllegalArgumentException("Invalid pattern: Recipe width cannot be 0!");
-                if (current.length > MAX_WIDTH) throw new IllegalArgumentException("Invalid pattern: Recipe width cannot be bigger than 5! (Value: " + current.length + ")");
+                if (Objects.equals(current[0], ""))
+                    throw new IllegalArgumentException("Invalid pattern: Recipe width cannot be 0!");
+                if (current.length > MAX_WIDTH)
+                    throw new IllegalArgumentException("Invalid pattern: Recipe width cannot be bigger than 5! (Value: " + current.length + ")");
                 for (int e = 0; e < current.length; e++) {
-                    if (!ingredients.has(current[e]) && !Objects.equals(current[e], " ")) throw new IllegalArgumentException("Invalid pattern: Recipe key not existing! (Value: " + current[e] + ")");
+                    if (!ingredients.has(current[e]) && !Objects.equals(current[e], " "))
+                        throw new IllegalArgumentException("Invalid pattern: Recipe key not existing! (Value: " + current[e] + ")");
                     recipeItems.set(index, !Objects.equals(current[e], " ") ? Ingredient.fromJson(ingredients.get(current[e])) : Ingredient.EMPTY);
                     index++;
                 }
@@ -122,7 +126,7 @@ public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
         public @Nullable ThoriumCraftingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             NonNullList<Ingredient> nonnulllist = NonNullList.withSize(MAX_WIDTH * MAX_HEIGHT, Ingredient.EMPTY);
 
-            for(int k = 0; k < nonnulllist.size(); ++k) {
+            for (int k = 0; k < nonnulllist.size(); ++k) {
                 nonnulllist.set(k, Ingredient.fromNetwork(buf));
             }
 
@@ -132,7 +136,7 @@ public class ThoriumCraftingRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public void toNetwork(FriendlyByteBuf buf, ThoriumCraftingRecipe recipe) {
-            for(Ingredient ingredient : recipe.recipeItems) {
+            for (Ingredient ingredient : recipe.recipeItems) {
                 ingredient.toNetwork(buf);
             }
 

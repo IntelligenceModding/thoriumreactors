@@ -40,8 +40,8 @@ import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
 public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
     public static final int MAX_POWER = 75000;
-    public static final int MAX_TRANSFER = 250;
-    public static final int GENERATION = 140;
+    public static final int MAX_TRANSFER = MAX_POWER / 100;
+    public static final int GENERATION = 144;
 
     private final LazyOptional<EnergyHandler>[] lazyEnergyHandler = EnergyHandler.createEnergyHandlers(this, Direction.values());
     private final LazyOptional<? extends IItemHandler>[] itemHandler = SidedInvWrapper.create(this, Direction.values());
@@ -57,14 +57,6 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
         super(ModBlockEntities.GENERATOR_BLOCK.get(), pPos, pBlockState);
         items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
     }
-
-    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
-        @Override
-        public void onEnergyChanged() {
-            setChanged();
-            energy = ENERGY_STORAGE.getEnergyStored();
-        }
-    };
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -83,7 +75,13 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
     @Override
     public boolean canInputEnergy() {
         return false;
-    }
+    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+        @Override
+        public void onEnergyChanged() {
+            setChanged();
+            energy = ENERGY_STORAGE.getEnergyStored();
+        }
+    };
 
     @Override
     public boolean canInputEnergy(Direction direction) {
@@ -103,10 +101,10 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
     public void tick() {
         // Play Sounds
         if (getState() && getFuel() % 20 == 0) {
-            this.level.playSound(null, getBlockPos(), ModSounds.MACHINE_GENERATOR.get(), SoundSource.BLOCKS, 0.18f,1f);
+            this.level.playSound(null, getBlockPos(), ModSounds.MACHINE_GENERATOR.get(), SoundSource.BLOCKS, 0.18f, 1f);
         }
 
-        if (isPowerable()) {
+        if (isPowerable() && isSpaceAbove()) {
             switch (getRedstoneMode()) {
                 case 0 -> operate(); // Ignored
                 case 1 -> { // Normal
@@ -148,17 +146,16 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
         }
     }
 
-
     public void addFuel(ItemStack stack) {
         setFuel(getFuel() + ForgeHooks.getBurnTime(stack, null));
     }
 
-    public void setState(boolean state) {
-        level.setBlock(getBlockPos(), getBlockState().setValue(MachineGeneratorBlock.POWERED, state), 3);
-    }
-
     public boolean getState() {
         return getBlockState().getValue(MachineGeneratorBlock.POWERED);
+    }
+
+    public void setState(boolean state) {
+        level.setBlock(getBlockPos(), getBlockState().setValue(MachineGeneratorBlock.POWERED, state), 3);
     }
 
     @Override
@@ -172,13 +169,13 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
     }
 
     @Override
-    public void setPowerable(boolean powerable) {
-        this.powerable = powerable;
+    public boolean isPowerable() {
+        return powerable;
     }
 
     @Override
-    public boolean isPowerable() {
-        return powerable;
+    public void setPowerable(boolean powerable) {
+        this.powerable = powerable;
     }
 
     public int getMaxFuel() {
@@ -197,17 +194,22 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
         this.fuel = fuel;
     }
 
+    public int getEnergy() {
+        return ENERGY_STORAGE.getEnergyStored();
+    }
+
     @Override
     public void setEnergy(int energy) {
         ENERGY_STORAGE.setEnergy(energy);
     }
 
-    public int getEnergy() {
-        return ENERGY_STORAGE.getEnergyStored();
-    }
-
     public int getCapacity() {
         return ENERGY_STORAGE.getMaxEnergyStored();
+    }
+
+    @Override
+    public void setCapacity(int capacity) {
+
     }
 
     public int getMaxProduction() {
@@ -389,11 +391,6 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
     }
 
     @Override
-    public void setCapacity(int capacity) {
-
-    }
-
-    @Override
     public int[] getSlotsForFace(Direction pSide) {
         return switch (pSide) {
             case NORTH, EAST, SOUTH, WEST -> new int[]{0};
@@ -411,4 +408,8 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
     public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
         return false;
     }
+
+
+
+
 }

@@ -2,6 +2,8 @@ package unhappycodings.thoriumreactors.common.block;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -24,10 +26,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.machine.MachineBlastFurnaceBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
+import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
+import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
 import java.util.List;
 
@@ -40,8 +47,10 @@ public class ThoriumCraftingTableBlock extends BaseEntityBlock {
         super(Properties.of(Material.WOOD));
     }
 
+    @SuppressWarnings("deprecation")
+    @NotNull
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public VoxelShape getShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         return ALL;
     }
 
@@ -58,12 +67,24 @@ public class ThoriumCraftingTableBlock extends BaseEntityBlock {
         return super.use(state, levelIn, pos, player, interactionHand, hitResult);
     }
 
+
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(Component.literal("5x5 crafting area for most recipes."));
-        pTooltip.add(Component.literal("Just Enough Items is highly recommended!").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.DARK_GRAY));
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
+        CompoundTag tag = pStack.getOrCreateTag().getCompound("BlockEntityTag");
+        if (ModKeyBindings.SHOW_DETAILS.isDown()) {
+            ListTag listtag = tag.getList("Items", 10);
+            if (!listtag.isEmpty()) {
+                pTooltip.add(Component.literal("Inventory contains items!").withStyle(ChatFormatting.GRAY));
+            }
+        } else if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
+            pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
+        } else {
+            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.literal(" for further details.").withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.literal(" for a block description.").withStyle(ChatFormatting.GRAY)));
+        }
     }
 
+    @SuppressWarnings("deprecation")
     @NotNull
     @Override
     public RenderShape getRenderShape(@NotNull BlockState state) {
@@ -73,6 +94,6 @@ public class ThoriumCraftingTableBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return ModBlockEntities.CRAFTING_TABLE.get().create(pos, state);
+        return new ThoriumCraftingTableBlockEntity(pos, state);
     }
 }

@@ -1,0 +1,22 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "minecraft:copper_block"
+    },
+    "B": {
+      "item": "thoriumreactors:steel_ingot"
+    }
+  },
+  "pattern": [
+    "     ",
+    "  B  ",
+    " BAB ",
+    "  B  ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:thermal_conductor",
+    "count": 2
+  }
+}

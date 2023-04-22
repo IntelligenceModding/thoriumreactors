@@ -1,0 +1,20 @@
+{
+  "type": "thoriumreactors:decomposing",
+  "ticks": 100,
+  "operationAfterTicks": 1,
+  "input": {
+    "slot-0": {
+      "item": "thoriumreactors:fluorite"
+    },
+    "tank-0": {
+      "FluidName": "minecraft:water",
+      "Amount": 2
+    }
+  },
+  "output": {
+    "tank-0": {
+      "FluidName": "thoriumreactors:hydrofluorite",
+      "Amount": 2
+    }
+  }
+}

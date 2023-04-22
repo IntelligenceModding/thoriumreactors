@@ -13,12 +13,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.recipe.ThoriumCraftingRecipe;
+import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 
 public class ThoriumCraftingRecipeCategory implements IRecipeCategory<ThoriumCraftingRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(ThoriumReactors.MOD_ID, "thorium_crafting");
-    public final static ResourceLocation TEXTURE = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/workbench_gui_jei.png");
+    public final static ResourceLocation TEXTURE = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/gui_jei.png");
 
     private final IDrawable background;
     private final IDrawable icon;

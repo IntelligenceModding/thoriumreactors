@@ -3,7 +3,6 @@ package unhappycodings.thoriumreactors.common.util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -13,14 +12,14 @@ import net.minecraft.world.level.Level;
 public class ParticleUtil {
 
     public static void renderSmokeParticles(BlockPos pos, RandomSource randomSource, Level level) {
-        renderSmokeParticles(pos, randomSource, level, ParticleTypes.SMOKE);
+        renderParticles(pos, randomSource, level, ParticleTypes.SMOKE);
     }
 
-    public static void renderSmokeParticles(BlockPos pos, RandomSource randomSource, Level level, ParticleOptions types) {
-        for(int j2 = 0; j2 < 5; ++j2) {
-            double d12 = (double)pos.getX() + randomSource.nextDouble() * 0.6D + 0.2D;
-            double d18 = (double)pos.getY() + 1D;
-            double d25 = (double)pos.getZ() + randomSource.nextDouble() * 0.6D + 0.2D;
+    public static void renderParticles(BlockPos pos, RandomSource randomSource, Level level, ParticleOptions types) {
+        for (int j2 = 0; j2 < 5; ++j2) {
+            double d12 = (double) pos.getX() + randomSource.nextDouble() * 0.6D + 0.2D;
+            double d18 = (double) pos.getY() + 1D;
+            double d25 = (double) pos.getZ() + randomSource.nextDouble() * 0.6D + 0.2D;
             level.addParticle(types, d12, d18, d25, 0.0D, 0.0D, 0.0D);
         }
     }
@@ -29,7 +28,8 @@ public class ParticleUtil {
         double d0 = pos.getX() + 0.5D;
         double d1 = pos.getY();
         double d2 = pos.getZ() + 0.5D;
-        if (randomSource.nextDouble() < 0.1D) level.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
+        if (randomSource.nextDouble() < 0.1D)
+            level.playLocalSound(d0, d1, d2, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.0F, 1.0F, false);
         Direction.Axis directionAxis = direction.getAxis();
         double d4 = randomSource.nextDouble() * 0.6D - 0.3D;
         double d5 = directionAxis == Direction.Axis.X ? (double) direction.getStepX() * 0.52D : d4;

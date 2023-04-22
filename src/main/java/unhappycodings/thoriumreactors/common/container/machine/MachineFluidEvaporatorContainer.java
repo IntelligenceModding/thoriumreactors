@@ -10,9 +10,9 @@ import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineFluidEvaporationBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
-import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.ClientFluidEvaporatorDataPacket;
+import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class MachineFluidEvaporatorContainer extends BaseContainer {
     public final Inventory inventory;

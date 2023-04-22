@@ -9,6 +9,7 @@ import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
+import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 
 import java.util.function.Predicate;
 
@@ -16,13 +17,13 @@ import java.util.function.Predicate;
 public class BaseSlot extends SlotItemHandler {
     public static final ResourceLocation GHOST_OVERLAY = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/slot/ghost_overlay.png");
 
-    public final ThoriumCraftingTableContainer container;
+    public final BaseContainer container;
     public final BlockEntity entity;
     public final Inventory inventory;
     public final Predicate<ItemStack> canPlace;
     public boolean isEnabled = true;
 
-    public BaseSlot(BlockEntity entity, ThoriumCraftingTableContainer container, IItemHandler itemHandler, Inventory inventory, int index, int xPosition, int yPosition, Predicate<ItemStack> canPlace) {
+    public BaseSlot(BlockEntity entity, BaseContainer container, IItemHandler itemHandler, Inventory inventory, int index, int xPosition, int yPosition, Predicate<ItemStack> canPlace) {
         super(itemHandler, index, xPosition, yPosition);
         this.inventory = inventory;
         this.canPlace = canPlace;

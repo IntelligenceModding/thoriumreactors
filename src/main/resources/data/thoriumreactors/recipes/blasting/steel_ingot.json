@@ -1,0 +1,16 @@
+{
+  "type": "thoriumreactors:blasting",
+  "ticks": 900,
+  "temperature": 1150,
+  "input": {
+    "slot-0": {
+      "item": "minecraft:coal"
+    },
+    "slot-1": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    }
+  },
+  "output": {
+    "item": "thoriumreactors:steel_ingot"
+  }
+}

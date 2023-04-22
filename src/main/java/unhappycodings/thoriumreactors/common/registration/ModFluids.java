@@ -15,23 +15,41 @@ public class ModFluids {
             () -> new ForgeFlowingFluid.Source(ModFluids.MOLTEN_SALT_PROPERTIES));
     public static final RegistryObject<FlowingFluid> FLOWING_MOLTEN_SALT = Registration.FLUIDS.register("flowing_molten_salt",
             () -> new ForgeFlowingFluid.Flowing(ModFluids.MOLTEN_SALT_PROPERTIES));
+
     public static final RegistryObject<FlowingFluid> SOURCE_HEATED_MOLTEN_SALT = Registration.FLUIDS.register("heated_molten_salt",
             () -> new ForgeFlowingFluid.Source(ModFluids.HEATED_MOLTEN_SALT_PROPERTIES));
     public static final RegistryObject<FlowingFluid> FLOWING_HEATED_MOLTEN_SALT = Registration.FLUIDS.register("flowing_heated_molten_salt",
             () -> new ForgeFlowingFluid.Flowing(ModFluids.HEATED_MOLTEN_SALT_PROPERTIES));
-    public static final RegistryObject<FlowingFluid> SOURCE_HYDROFLUORIDE = Registration.FLUIDS.register("hydrofluoride",
-            () -> new ForgeFlowingFluid.Source(ModFluids.HYDROFLUORIDE_PROPERTIES));
-    public static final RegistryObject<FlowingFluid> FLOWING_HYDROFLUORIDE = Registration.FLUIDS.register("flowing_hydrofluoride",
-            () -> new ForgeFlowingFluid.Flowing(ModFluids.HYDROFLUORIDE_PROPERTIES));
+
+    public static final RegistryObject<FlowingFluid> SOURCE_HYDROFLUORITE = Registration.FLUIDS.register("hydrofluorite",
+            () -> new ForgeFlowingFluid.Source(ModFluids.HYDROFLUORITE_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> FLOWING_HYDROFLUORITE = Registration.FLUIDS.register("flowing_hydrofluorite",
+            () -> new ForgeFlowingFluid.Flowing(ModFluids.HYDROFLUORITE_PROPERTIES));
+
+    public static final RegistryObject<FlowingFluid> SOURCE_URANIUM_HEXAFLUORITE = Registration.FLUIDS.register("uranium_hexafluorite",
+            () -> new ForgeFlowingFluid.Source(ModFluids.URANIUM_HEXAFLUORITE_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> FLOWING_URANIUM_HEXAFLUORITE = Registration.FLUIDS.register("flowing_uranium_hexafluorite",
+            () -> new ForgeFlowingFluid.Flowing(ModFluids.URANIUM_HEXAFLUORITE_PROPERTIES));
+
+    public static final RegistryObject<FlowingFluid> SOURCE_ENRICHED_URANIUM_HEXAFLUORITE = Registration.FLUIDS.register("enriched_uranium_hexafluorite",
+            () -> new ForgeFlowingFluid.Source(ModFluids.ENRICHED_URANIUM_HEXAFLUORITE_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> FLOWING_ENRICHED_URANIUM_HEXAFLUORITE = Registration.FLUIDS.register("flowing_enriched_uranium_hexafluorite",
+            () -> new ForgeFlowingFluid.Flowing(ModFluids.ENRICHED_URANIUM_HEXAFLUORITE_PROPERTIES));
 
     public static final ForgeFlowingFluid.Properties MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOLTEN_SALT, SOURCE_MOLTEN_SALT, FLOWING_MOLTEN_SALT)
-            .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.MOLTEN_SALT_BLOCK);
+            .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.MOLTEN_SALT_BLOCK).bucket(ModItems.MOLTEN_SALT_BUCKET);
     public static final ForgeFlowingFluid.Properties HEATED_MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.HEATED_MOLTEN_SALT, SOURCE_HEATED_MOLTEN_SALT, FLOWING_HEATED_MOLTEN_SALT)
-            .slopeFindDistance(2).levelDecreasePerBlock(3).block(ModBlocks.HEATED_MOLTEN_SALT_BLOCK);
-    public static final ForgeFlowingFluid.Properties HYDROFLUORIDE_PROPERTIES = new ForgeFlowingFluid.Properties(
-            ModFluidTypes.HYDROFLUORIDE, SOURCE_HYDROFLUORIDE, FLOWING_HYDROFLUORIDE)
-            .slopeFindDistance(2).levelDecreasePerBlock(1).block(ModBlocks.HYDROFLUORIDE_BLOCK);
+            .slopeFindDistance(2).levelDecreasePerBlock(3).block(ModBlocks.HEATED_MOLTEN_SALT_BLOCK).bucket(ModItems.HEATED_MOLTEN_SALT_BUCKET);
+    public static final ForgeFlowingFluid.Properties HYDROFLUORITE_PROPERTIES = new ForgeFlowingFluid.Properties(
+            ModFluidTypes.HYDROFLUORITE, SOURCE_HYDROFLUORITE, FLOWING_HYDROFLUORITE)
+            .slopeFindDistance(2).levelDecreasePerBlock(1).block(ModBlocks.HYDROFLUORITE_BLOCK).bucket(ModItems.HYDROFLUORITE_BUCKET);
+    public static final ForgeFlowingFluid.Properties URANIUM_HEXAFLUORITE_PROPERTIES = new ForgeFlowingFluid.Properties(
+            ModFluidTypes.URANIUM_HEXAFLUORITE, SOURCE_URANIUM_HEXAFLUORITE, FLOWING_URANIUM_HEXAFLUORITE)
+            .slopeFindDistance(2).levelDecreasePerBlock(1).block(ModBlocks.URANIUM_HEXAFLUORITE_BLOCK).bucket(ModItems.URANIUM_HEXAFLUORITE_BUCKET);
+    public static final ForgeFlowingFluid.Properties ENRICHED_URANIUM_HEXAFLUORITE_PROPERTIES = new ForgeFlowingFluid.Properties(
+            ModFluidTypes.ENRICHED_URANIUM_HEXAFLUORITE, SOURCE_ENRICHED_URANIUM_HEXAFLUORITE, FLOWING_ENRICHED_URANIUM_HEXAFLUORITE)
+            .slopeFindDistance(2).levelDecreasePerBlock(1).block(ModBlocks.ENRICHED_URANIUM_HEXAFLUORITE_BLOCK).bucket(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET);
 
 }

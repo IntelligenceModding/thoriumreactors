@@ -24,7 +24,6 @@ import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableConta
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 
 public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity implements MenuProvider {
-    public LootContext.Builder lootcontextBuilder;
     public NonNullList<ItemStack> items;
 
     public ThoriumCraftingTableBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -44,6 +43,25 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
     }
 
     @Override
+    public void onLoad() {
+        super.onLoad();
+        updateBlock(); // TESTING
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag nbt = super.getUpdateTag();
+        ContainerHelper.saveAllItems(nbt, this.items, true);
+        return nbt;
+    }
+
+    @Override
+    public void handleUpdateTag( CompoundTag tag) {
+        super.handleUpdateTag(tag);
+        ContainerHelper.loadAllItems(tag, this.items);
+    }
+
+    @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         super.saveAdditional(nbt);
         ContainerHelper.saveAllItems(nbt, this.items, true);
@@ -51,8 +69,8 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
-        ContainerHelper.loadAllItems(nbt, this.items);
         super.load(nbt);
+        ContainerHelper.loadAllItems(nbt, this.items);
     }
 
     @NotNull
@@ -65,6 +83,14 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
     @Override
     protected AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory) {
         return new ThoriumCraftingTableContainer(pContainerId, pInventory, getBlockPos(), getLevel(), getContainerSize());
+    }
+
+    public void updateBlock() {
+        if(level != null && !level.isClientSide) {
+            BlockState state = level.getBlockState(worldPosition);
+            level.sendBlockUpdated(worldPosition, state, state, 2);
+            setChanged(level, getBlockPos(), state);
+        }
     }
 
     @Override

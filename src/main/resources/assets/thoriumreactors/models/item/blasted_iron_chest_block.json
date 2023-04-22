@@ -1,0 +1,6 @@
+{
+  "parent": "thoriumreactors:block/chest_template",
+  "textures": {
+    "chest": "thoriumreactors:block/blasted_iron_chest"
+  }
+}

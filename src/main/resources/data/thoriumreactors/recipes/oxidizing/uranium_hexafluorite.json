@@ -1,0 +1,20 @@
+{
+  "type": "thoriumreactors:oxidizing",
+  "ticks": 800,
+  "operationAfterTicks": 2,
+  "input": {
+    "slot-0": {
+      "item": "thoriumreactors:yellow_cake"
+    },
+    "tank-0": {
+      "FluidName": "thoriumreactors:hydrofluorite",
+      "Amount": 1
+    }
+  },
+  "output": {
+    "tank-0": {
+      "FluidName": "thoriumreactors:uranium_hexafluorite",
+      "Amount": 1
+    }
+  }
+}

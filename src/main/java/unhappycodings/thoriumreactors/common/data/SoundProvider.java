@@ -6,8 +6,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.registration.ModSounds;
-import unhappycodings.thoriumreactors.common.registration.Registration;
 
 public class SoundProvider extends SoundDefinitionsProvider {
 
@@ -30,5 +28,9 @@ public class SoundProvider extends SoundDefinitionsProvider {
         add("machine_fluid_evaporation", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "machine_fluid_evaporation"), SoundDefinition.SoundType.SOUND)));
         add("machine_electrolytic_salt_separator", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "machine_electrolytic_salt_separator"), SoundDefinition.SoundType.SOUND)));
         add("machine_salt_melter", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "machine_salt_melter"), SoundDefinition.SoundType.SOUND)));
+        add("machine_uranium_oxidizer", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "machine_uranium_oxidizer"), SoundDefinition.SoundType.SOUND)));
+        add("machine_fluid_centrifuge", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "machine_fluid_centrifuge"), SoundDefinition.SoundType.SOUND)));
+        add("machine_crystalizer", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "machine_crystalizer"), SoundDefinition.SoundType.SOUND)));
+        add("machine_blast_furnace", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "machine_blast_furnace"), SoundDefinition.SoundType.SOUND)));
     }
 }

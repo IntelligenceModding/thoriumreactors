@@ -7,15 +7,19 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.minecraftforge.common.SoundAction;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.Registration;
 
@@ -45,9 +49,14 @@ public class ModFluidTypes {
                 }
 
                 @Override
+                public @Nullable SoundEvent getSound(SoundAction action) {
+                    return action.name() == "bucket_empty" ? SoundEvents.BUCKET_EMPTY : SoundEvents.BUCKET_FILL;
+                }
+
+                @Override
                 public void setItemMovement(ItemEntity entity) {
                     Vec3 vec3 = entity.getDeltaMovement();
-                    entity.setDeltaMovement(vec3.x * (double)0.95F, vec3.y + (double)(vec3.y < (double)0.06F ? 5.0E-4F : 0.0F), vec3.z * (double)0.95F);
+                    entity.setDeltaMovement(vec3.x * (double) 0.95F, vec3.y + (double) (vec3.y < (double) 0.06F ? 5.0E-4F : 0.0F), vec3.z * (double) 0.95F);
                 }
 
                 @Override
@@ -108,9 +117,14 @@ public class ModFluidTypes {
                 }
 
                 @Override
+                public @Nullable SoundEvent getSound(SoundAction action) {
+                    return action.name() == "bucket_empty" ? SoundEvents.BUCKET_EMPTY : SoundEvents.BUCKET_FILL;
+                }
+
+                @Override
                 public void setItemMovement(ItemEntity entity) {
                     Vec3 vec3 = entity.getDeltaMovement();
-                    entity.setDeltaMovement(vec3.x * (double)0.95F, vec3.y + (double)(vec3.y < (double)0.06F ? 5.0E-4F : 0.0F), vec3.z * (double)0.95F);
+                    entity.setDeltaMovement(vec3.x * (double) 0.95F, vec3.y + (double) (vec3.y < (double) 0.06F ? 5.0E-4F : 0.0F), vec3.z * (double) 0.95F);
                 }
 
                 @Override
@@ -135,7 +149,7 @@ public class ModFluidTypes {
 
                         @Override
                         public int getTintColor() {
-                            return 0xE68C8E6A;
+                            return 0xE6808258;
                         }
 
                         @Override
@@ -151,7 +165,8 @@ public class ModFluidTypes {
                     });
                 }
             });
-    public static final RegistryObject<FluidType> HYDROFLUORIDE = Registration.FLUID_TYPES.register("hydrofluoride", () ->
+
+    public static final RegistryObject<FluidType> HYDROFLUORITE = Registration.FLUID_TYPES.register("hydrofluorite", () ->
             new FluidType(FluidType.Properties.create()) {
 
                 @Override
@@ -162,6 +177,11 @@ public class ModFluidTypes {
                 @Override
                 public boolean canHydrate(Entity entity) {
                     return true;
+                }
+
+                @Override
+                public @Nullable SoundEvent getSound(SoundAction action) {
+                    return action.name() == "bucket_empty" ? SoundEvents.BUCKET_EMPTY : SoundEvents.BUCKET_FILL;
                 }
 
                 @Override
@@ -187,6 +207,100 @@ public class ModFluidTypes {
                         @Override
                         public int getTintColor() {
                             return 0xE64395D8;
+                        }
+
+                    });
+                }
+            });
+
+    public static final RegistryObject<FluidType> URANIUM_HEXAFLUORITE = Registration.FLUID_TYPES.register("uranium_hexafluorite", () ->
+            new FluidType(FluidType.Properties.create()) {
+
+                @Override
+                public boolean canDrownIn(LivingEntity entity) {
+                    return true;
+                }
+
+                @Override
+                public boolean canHydrate(Entity entity) {
+                    return true;
+                }
+
+                @Override
+                public @Nullable SoundEvent getSound(SoundAction action) {
+                    return action.name() == "bucket_empty" ? SoundEvents.BUCKET_EMPTY : SoundEvents.BUCKET_FILL;
+                }
+
+                @Override
+                public float getFallDistanceModifier(Entity entity) {
+                    return Fluids.WATER.getFluidType().getFallDistanceModifier(entity);
+                }
+
+                @Override
+                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                    consumer.accept(new IClientFluidTypeExtensions() {
+                        private static final ResourceLocation WATER_STILL = new ResourceLocation("block/water_still"), WATER_FLOW = new ResourceLocation("block/water_flow");
+
+                        @Override
+                        public ResourceLocation getStillTexture() {
+                            return WATER_STILL;
+                        }
+
+                        @Override
+                        public ResourceLocation getFlowingTexture() {
+                            return WATER_FLOW;
+                        }
+
+                        @Override
+                        public int getTintColor() {
+                            return 0xE6395744;
+                        }
+
+                    });
+                }
+            });
+
+    public static final RegistryObject<FluidType> ENRICHED_URANIUM_HEXAFLUORITE = Registration.FLUID_TYPES.register("enriched_uranium_hexafluorite", () ->
+            new FluidType(FluidType.Properties.create()) {
+
+                @Override
+                public boolean canDrownIn(LivingEntity entity) {
+                    return true;
+                }
+
+                @Override
+                public boolean canHydrate(Entity entity) {
+                    return true;
+                }
+
+                @Override
+                public @Nullable SoundEvent getSound(SoundAction action) {
+                    return action.name() == "bucket_empty" ? SoundEvents.BUCKET_EMPTY : SoundEvents.BUCKET_FILL;
+                }
+
+                @Override
+                public float getFallDistanceModifier(Entity entity) {
+                    return Fluids.WATER.getFluidType().getFallDistanceModifier(entity);
+                }
+
+                @Override
+                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                    consumer.accept(new IClientFluidTypeExtensions() {
+                        private static final ResourceLocation WATER_STILL = new ResourceLocation("block/water_still"), WATER_FLOW = new ResourceLocation("block/water_flow");
+
+                        @Override
+                        public ResourceLocation getStillTexture() {
+                            return WATER_STILL;
+                        }
+
+                        @Override
+                        public ResourceLocation getFlowingTexture() {
+                            return WATER_FLOW;
+                        }
+
+                        @Override
+                        public int getTintColor() {
+                            return 0xE6396644;
                         }
 
                     });

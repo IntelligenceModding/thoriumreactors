@@ -9,7 +9,9 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.block.*;
+import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
+import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
+import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
 import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
@@ -26,11 +28,17 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        simpleBlock(ModBlocks.HARDENED_STONE.get());
+        simpleBlock(ModBlocks.BLASTED_STONE.get());
         simpleBlock(ModBlocks.REACTOR_CASING.get());
+        simpleBlock(ModBlocks.URANIUM_ORE.get());
         simpleBlock(ModBlocks.GRAPHITE_ORE.get());
+        simpleBlock(ModBlocks.FLUORITE_ORE.get());
+        simpleBlock(ModBlocks.BLASTED_IRON_BLOCK.get());
+        simpleBlock(ModBlocks.STEEL_BLOCK.get());
         simpleBlock(ModBlocks.GRAPHITE_BLOCK.get());
         simpleBlock(ModBlocks.THORIUM_BLOCK.get());
+        simpleBlock(ModBlocks.FLUORITE_BLOCK.get());
+        simpleBlock(ModBlocks.URANIUM_BLOCK.get());
 
         heatSinkBlock(ModBlocks.THERMAL_HEAT_SINK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
         allSideBlock(ModBlocks.THERMAL_CONDUCTOR.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
@@ -46,9 +54,26 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         machineBlock(ModBlocks.ELECTROLYTIC_SALT_SEPARATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/electrolytic_salt_separator_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), false);
         machineBlock(ModBlocks.FLUID_EVAPORATION_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_evaporation_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), true);
         machineBlock(ModBlocks.GENERATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/generator_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), true);
-        machineBlock(ModBlocks.SAlT_MELTER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/salt_melter_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), false);
-        machineBlock(ModBlocks.CONCENTRATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_no_front"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), false);
-        machineBlock(ModBlocks.DECOMPOSER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_no_front"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), false);
+        machineBlock(ModBlocks.SALT_MELTER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/salt_melter_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), true);
+        machineBlock(ModBlocks.CONCENTRATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/concentrator_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), false);
+        machineBlock(ModBlocks.DECOMPOSER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/decomposer_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), false);
+        machineBlock(ModBlocks.URANIUM_OXIDIZER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/uranium_oxidizer_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), false);
+        machineBlock(ModBlocks.FLUID_CENTRIFUGE_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_centrifuge_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), false);
+        machineBlock(ModBlocks.CRYSTALLIZER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/crystallizer_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), false);
+        machineBlock(ModBlocks.BLAST_FURNACE_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/blast_furnace_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), true);
+
+        liquidBlock(ModBlocks.HYDROFLUORITE_BLOCK.get());
+        liquidBlock(ModBlocks.MOLTEN_SALT_BLOCK.get());
+        liquidBlock(ModBlocks.HEATED_MOLTEN_SALT_BLOCK.get());
+        liquidBlock(ModBlocks.URANIUM_HEXAFLUORITE_BLOCK.get());
+        liquidBlock(ModBlocks.ENRICHED_URANIUM_HEXAFLUORITE_BLOCK.get());
+
+    }
+
+    public void liquidBlock(Block block) {
+        getVariantBuilder(block).forAllStates(state -> {
+            return ConfiguredModel.builder().modelFile(models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation("block/water"))).build();
+        });
     }
 
     public void machineBlock(Block block, ResourceLocation texture, ResourceLocation valveLeft, ResourceLocation valveRight, ResourceLocation bottom, boolean onOffState) {

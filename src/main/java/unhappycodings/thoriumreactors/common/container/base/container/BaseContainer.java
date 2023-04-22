@@ -14,7 +14,6 @@ import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 
 public abstract class BaseContainer extends AbstractContainerMenu {
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons

@@ -1,0 +1,17 @@
+{
+  "type": "thoriumreactors:centrifuging",
+  "ticks": 20,
+  "operationAfterTicks": 20,
+  "input": {
+    "tank-0": {
+      "FluidName": "thoriumreactors:uranium_hexafluorite",
+      "Amount": 1
+    }
+  },
+  "output": {
+    "tank-0": {
+      "FluidName": "thoriumreactors:enriched_uranium_hexafluorite",
+      "Amount": 1
+    }
+  }
+}

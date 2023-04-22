@@ -1,12 +1,27 @@
 {
+  "machine_blast_furnace": {
+    "sounds": [
+      "thoriumreactors:machine_blast_furnace"
+    ]
+  },
   "machine_click": {
     "sounds": [
       "thoriumreactors:machine_click"
     ]
   },
+  "machine_crystalizer": {
+    "sounds": [
+      "thoriumreactors:machine_crystalizer"
+    ]
+  },
   "machine_electrolytic_salt_separator": {
     "sounds": [
       "thoriumreactors:machine_electrolytic_salt_separator"
+    ]
+  },
+  "machine_fluid_centrifuge": {
+    "sounds": [
+      "thoriumreactors:machine_fluid_centrifuge"
     ]
   },
   "machine_fluid_evaporation": {
@@ -22,6 +37,11 @@
   "machine_salt_melter": {
     "sounds": [
       "thoriumreactors:machine_salt_melter"
+    ]
+  },
+  "machine_uranium_oxidizer": {
+    "sounds": [
+      "thoriumreactors:machine_uranium_oxidizer"
     ]
   }
 }

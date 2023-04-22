@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
@@ -37,8 +38,8 @@ public class MachineDumpModePacket implements IPacket {
             blockEntity.setOutputDump(!blockEntity.isOutputDump());
             targetBool = blockEntity.isOutputDump();
         }
-        if (tag.equals("dumpInput")) blockEntity.setWaterIn(0);
-        if (tag.equals("dumpOutput")) blockEntity.setWaterOut(0);
+        if (tag.equals("dumpInput")) blockEntity.setFluidIn(FluidStack.EMPTY);
+        if (tag.equals("dumpOutput")) blockEntity.setFluidOut(FluidStack.EMPTY);
 
         PacketHandler.sendToClient(new MachineClientDumpModePacket(pos, tag, targetBool), player);
     }

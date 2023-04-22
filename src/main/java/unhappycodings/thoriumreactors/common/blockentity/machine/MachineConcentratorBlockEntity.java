@@ -4,19 +4,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.PacketFlow;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -31,26 +28,27 @@ import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBl
 import unhappycodings.thoriumreactors.common.container.machine.MachineConcentratorContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
+import unhappycodings.thoriumreactors.common.recipe.ConcentratingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
-import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.registration.ModItems;
+import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
+import java.util.List;
+
 public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, IEnergyCapable {
     public static final int MAX_POWER = 25000;
-    public static final int MAX_TRANSFER = 170;
-    public static final int MAX_RECIPE_TIME = 500;
-    public static final int NEEDED_ENERGY = 40;
-
-    private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
+    public static final int MAX_TRANSFER = MAX_POWER / 100;
+    public static final int NEEDED_ENERGY = 46;
     private final LazyOptional<? extends IItemHandler>[] itemHandler = SidedInvWrapper.create(this, Direction.values());
+    private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
+    public ItemStack outputItem = new ItemStack(Items.AIR);
     public NonNullList<ItemStack> items;
-    int recipeTime = 0;
-    int maxRecipeTime = 0;
-
     boolean powerable = true;
     int redstoneMode = 0;
+    int recipeTime = 0;
+    int maxRecipeTime = 0;
+    int recipeDefinedTicks;
 
     public MachineConcentratorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.CONCENTRATOR_BLOCK.get(), pPos, pBlockState);
@@ -62,14 +60,6 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         super.onLoad();
         this.lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
     }
-
-    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
-        @Override
-        public void onEnergyChanged() {
-            setChanged();
-            this.energy = ENERGY_STORAGE.getEnergyStored();
-        }
-    };
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -87,7 +77,13 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
     @Override
     public boolean canInputEnergy() {
         return true;
-    }
+    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+        @Override
+        public void onEnergyChanged() {
+            setChanged();
+            this.energy = ENERGY_STORAGE.getEnergyStored();
+        }
+    };
 
     @Override
     public boolean canInputEnergy(Direction direction) {
@@ -113,7 +109,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         // Energy Input Slot
         items.get(2).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
-        if (isPowerable()) {
+        if (isPowerable() && isSpaceAbove()) {
             switch (getRedstoneMode()) {
                 case 0 -> operate(); // Ignored
                 case 1 -> { // Normal
@@ -128,26 +124,30 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         } else if (getState()) {
             setState(false);
         }
-
     }
 
     public void operate() {
         if (hasRecipeNeeds(NEEDED_ENERGY)) {
             if (getMaxRecipeTime() == 0) {
-                setMaxRecipeTime(MAX_RECIPE_TIME);
-                setRecipeTime(MAX_RECIPE_TIME);
+                setMaxRecipeTime(getRecipeDefinedTicks());
+                setRecipeTime(getRecipeDefinedTicks());
                 getItem(0).shrink(1);
                 if (!getState()) setState(true);
             }
+            
             ItemStack outputSlot = getItem(1);
-            if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize() && (outputSlot.isEmpty() || outputSlot.is(ModItems.YELLOW_CAKE.get()))) {
+            if (outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize()) {
                 if (!getState()) setState(true);
                 // Consumption of Energy, Fluids, Items etc
                 setEnergy(getEnergy() - NEEDED_ENERGY);
                 setRecipeTime(getRecipeTime() - 1);
                 if (getRecipeTime() == 0) {
+                    setItem(1, new ItemStack(getOutputItem().getItem(), outputSlot.getCount() + 1));
+                    setRecipeDefinedTicks(0);
                     setMaxRecipeTime(0);
-                    setItem(1, new ItemStack(ModItems.YELLOW_CAKE.get(), outputSlot.getCount() + 1));
+                    setRecipeTime(0);
+                    setOutputItem(ItemStack.EMPTY);
+
                 }
             } else {
                 if (getState()) setState(false);
@@ -158,15 +158,29 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
     }
 
     public boolean hasRecipeNeeds(int energy) {
-        return energy <= getEnergy() && items.get(0).is(ModItems.RAW_URANIUM.get());
-    }
+        if (energy > getEnergy()) return false;
+        ItemStack outputSlot = getItem(1);
+        SimpleContainer container = new SimpleContainer(getItem(0));
+        List<ConcentratingRecipe> recipe = level.getRecipeManager().getAllRecipesFor(ModRecipes.CONCENTRATING_RECIPE_TYPE.get());
+        for (ConcentratingRecipe concentratingRecipe : recipe) {
+            if (concentratingRecipe.matches(container, getLevel()) && getOutputItem().isEmpty() && recipeTime == 0 && maxRecipeTime == 0) {
+                setOutputItem(concentratingRecipe.getResultItem());
+                setRecipeDefinedTicks(concentratingRecipe.getTicks());
+                return outputSlot.is(Items.AIR) || outputSlot.is(getOutputItem().getItem());
+            } else if (recipeTime != 0 && maxRecipeTime != 0) {
+                return true;
+            }
+        }
 
-    public void setState(boolean state) {
-        level.setBlock(getBlockPos(), getBlockState().setValue(MachineConcentratorBlock.POWERED, state), 3);
+        return false;
     }
 
     public boolean getState() {
         return getBlockState().getValue(MachineConcentratorBlock.POWERED);
+    }
+
+    public void setState(boolean state) {
+        level.setBlock(getBlockPos(), getBlockState().setValue(MachineConcentratorBlock.POWERED, state), 3);
     }
 
     @Override
@@ -180,13 +194,13 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
     }
 
     @Override
-    public void setPowerable(boolean powerable) {
-        this.powerable = powerable;
+    public boolean isPowerable() {
+        return powerable;
     }
 
     @Override
-    public boolean isPowerable() {
-        return powerable;
+    public void setPowerable(boolean powerable) {
+        this.powerable = powerable;
     }
 
     public int getNeededEnergy() {
@@ -210,17 +224,21 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
     }
 
     @Override
-    public void setEnergy(int energy) {
-        ENERGY_STORAGE.setEnergy(energy);
-    }
-
-    @Override
     public int getEnergy() {
         return ENERGY_STORAGE.getEnergyStored();
     }
 
+    @Override
+    public void setEnergy(int energy) {
+        ENERGY_STORAGE.setEnergy(energy);
+    }
+
     public int getCapacity() {
         return ENERGY_STORAGE.getMaxEnergyStored();
+    }
+
+    @Override
+    public void setCapacity(int capacity) {
     }
 
     public int getMaxInput() {
@@ -229,6 +247,22 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
 
     public boolean supportsEnergy() {
         return getEnergyCapacity() > 0;
+    }
+
+    public ItemStack getOutputItem() {
+        return outputItem;
+    }
+
+    public void setOutputItem(ItemStack outputItem) {
+        this.outputItem = outputItem;
+    }
+
+    public void setRecipeDefinedTicks(int recipeDefinedTicks) {
+        this.recipeDefinedTicks = recipeDefinedTicks;
+    }
+
+    public int getRecipeDefinedTicks() {
+        return recipeDefinedTicks;
     }
 
     @NotNull
@@ -259,6 +293,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         nbt.putInt("MaxRecipeTime", getMaxRecipeTime());
         nbt.putInt("RedstoneMode", getRedstoneMode());
         nbt.putBoolean("Powerable", isPowerable());
+        nbt.put("OutputItem", getOutputItem().save(new CompoundTag()));
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -271,6 +306,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         setMaxRecipeTime(nbt.getInt("MaxRecipeTime"));
         setRedstoneMode(nbt.getInt("RedstoneMode"));
         setPowerable(nbt.getBoolean("Powerable"));
+        setOutputItem(ItemStack.of(nbt.getCompound("OutputItem")));
     }
 
     @Override
@@ -360,15 +396,13 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
     }
 
     @Override
-    public void setCapacity(int capacity) {
-    }
-
-    @Override
     public int[] getSlotsForFace(Direction pSide) {
-        if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getClockWise()) return new int[]{0};
-        if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getCounterClockWise()) return new int[]{1};
+        if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getClockWise())
+            return new int[]{0};
+        if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getCounterClockWise())
+            return new int[]{1};
         return new int[]{};
-    };
+    }
 
     @Override
     public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
@@ -382,6 +416,8 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         return facing.getCounterClockWise() == pDirection;
     }
 
+    ;
+
     @Override
     protected Component getDefaultName() {
         return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
@@ -391,4 +427,8 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
         return new MachineConcentratorContainer(pContainerId, pInventory, getBlockPos(), getLevel(), getContainerSize());
     }
+
+
+
+
 }

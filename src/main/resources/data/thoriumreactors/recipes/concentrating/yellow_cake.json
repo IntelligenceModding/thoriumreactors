@@ -1,0 +1,14 @@
+{
+  "type": "thoriumreactors:concentrating",
+  "ticks": 500,
+  "input": {
+    "slot-0": {
+      "item": "thoriumreactors:raw_uranium"
+    }
+  },
+  "output": {
+    "slot-0": {
+      "item": "thoriumreactors:yellow_cake"
+    }
+  }
+}

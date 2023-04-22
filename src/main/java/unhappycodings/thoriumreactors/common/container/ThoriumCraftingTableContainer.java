@@ -8,13 +8,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
+import unhappycodings.thoriumreactors.common.container.base.ContainerCapability;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.container.base.slot.InputSlot;
 import unhappycodings.thoriumreactors.common.container.base.slot.OutputSlot;
-import unhappycodings.thoriumreactors.common.container.base.ContainerCapability;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 import java.util.Objects;

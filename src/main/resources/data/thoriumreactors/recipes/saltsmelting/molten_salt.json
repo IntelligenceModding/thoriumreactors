@@ -1,0 +1,23 @@
+{
+  "type": "thoriumreactors:salt_smelting",
+  "ticks": 800,
+  "operationAfterTicks": 8,
+  "temperature": 700,
+  "input": {
+    "slot-0": {
+      "item": "thoriumreactors:potassium"
+    },
+    "slot-1": {
+      "item": "thoriumreactors:enriched_uranium"
+    },
+    "slot-2": {
+      "item": "thoriumreactors:sodium"
+    }
+  },
+  "output": {
+    "tank-0": {
+      "FluidName": "thoriumreactors:molten_salt",
+      "Amount": 1
+    }
+  }
+}

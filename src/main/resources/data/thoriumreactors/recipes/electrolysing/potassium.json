@@ -1,0 +1,20 @@
+{
+  "type": "thoriumreactors:electrolysing",
+  "ticks": 300,
+  "operationAfterTicks": 1,
+  "input": {
+    "tank-0": {
+      "FluidName": "minecraft:water",
+      "Amount": 1
+    }
+  },
+  "output": {
+    "tank-0": {
+      "FluidName": "minecraft:water",
+      "Amount": 1
+    },
+    "slot-0": {
+      "item": "thoriumreactors:potassium"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "thoriumreactors:crystallizing",
+  "ticks": 500,
+  "operationAfterTicks": 2,
+  "input": {
+    "tank-0": {
+      "FluidName": "thoriumreactors:enriched_uranium_hexafluorite",
+      "Amount": 1
+    }
+  },
+  "output": {
+    "slot-0": {
+      "item": "thoriumreactors:enriched_uranium"
+    }
+  }
+}
