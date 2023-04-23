@@ -8,12 +8,14 @@ import unhappycodings.thoriumreactors.common.blockentity.chest.SteelChestBlockEn
 import unhappycodings.thoriumreactors.common.blockentity.chest.ThoriumChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.machine.*;
+import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 
 public final class ModBlockEntities {
     public static void register() {
     }
 
     public static final RegistryObject<BlockEntityType<ThoriumCraftingTableBlockEntity>> CRAFTING_TABLE = Registration.BLOCK_ENTITIES.register("thorium_crafting_table", () -> BlockEntityType.Builder.of(ThoriumCraftingTableBlockEntity::new, ModBlocks.THORIUM_CRAFTING_TABLE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ReactorControllerBlockEntity>> REACTOR_CONTROLLER = Registration.BLOCK_ENTITIES.register("reactor_controller", () -> BlockEntityType.Builder.of(ReactorControllerBlockEntity::new, ModBlocks.REACTOR_CONTROLLER_BLOCK.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<MachineGeneratorBlockEntity>> GENERATOR_BLOCK = Registration.BLOCK_ENTITIES.register("generator_block", () -> BlockEntityType.Builder.of(MachineGeneratorBlockEntity::new, ModBlocks.GENERATOR_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<MachineFluidEvaporationBlockEntity>> FLUID_EVAPORATION_BLOCK = Registration.BLOCK_ENTITIES.register("fluid_evaporation_block", () -> BlockEntityType.Builder.of(MachineFluidEvaporationBlockEntity::new, ModBlocks.FLUID_EVAPORATION_BLOCK.get()).build(null));
@@ -30,6 +32,5 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ThoriumChestBlockEntity>> THORIUM_CHEST_BLOCK = Registration.BLOCK_ENTITIES.register("thorium_chest_block", () -> BlockEntityType.Builder.of(ThoriumChestBlockEntity::new, ModBlocks.THORIUM_CHEST_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<SteelChestBlockEntity>> STEEL_CHEST_BLOCK = Registration.BLOCK_ENTITIES.register("steel_chest_block", () -> BlockEntityType.Builder.of(SteelChestBlockEntity::new, ModBlocks.STEEL_CHEST_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<BlastedIronChestBlockEntity>> BLASTED_IRON_CHEST_BLOCK = Registration.BLOCK_ENTITIES.register("blasted_iron_chest_block", () -> BlockEntityType.Builder.of(BlastedIronChestBlockEntity::new, ModBlocks.BLASTED_IRON_CHEST_BLOCK.get()).build(null));
-
 
 }
