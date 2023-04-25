@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.client.gui.widgets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +25,7 @@ public class ModButton extends BaseWidget {
     int tY = 0;
     private Supplier<Component> hoverText;
 
-    public ModButton(int x, int y, int width, int height, ResourceLocation texture, Runnable onClick, Runnable onClickReverse, BlockEntity tile, BaseScreen<?> screen, int tX, int tY, boolean playSound) {
+    public ModButton(int x, int y, int width, int height, ResourceLocation texture, Runnable onClick, Runnable onClickReverse, BlockEntity tile, AbstractContainerScreen<?> screen, int tX, int tY, boolean playSound) {
         super(x, y, width, height, tile, screen);
         this.onClick = onClick;
         this.onClickReverse = onClickReverse;

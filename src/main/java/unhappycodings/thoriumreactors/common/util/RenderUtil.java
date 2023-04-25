@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
@@ -28,6 +30,22 @@ public class RenderUtil {
         return isXOver && isYOver;
     }
 
+    public static void drawRightboundText(String text, PoseStack stack, int x, int y) {
+        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text)), y, 1315860);
+    }
+
+    public static void drawRightboundText(String text, PoseStack stack, int x, int y, int color) {
+        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text)), y, color);
+    }
+
+    public static void drawRightboundText(MutableComponent text, PoseStack stack, int x, int y) {
+        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text)), y, 1315860);
+    }
+
+    public static void drawRightboundText(MutableComponent text, PoseStack stack, int x, int y, int color) {
+        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text)), y, color);
+    }
+
     public static void drawCenteredText(String text, PoseStack stack, int x, int y) {
         Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, 1315860);
     }
@@ -36,11 +54,27 @@ public class RenderUtil {
         Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, color);
     }
 
+    public static void drawCenteredText(MutableComponent text, PoseStack stack, int x, int y) {
+        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, 1315860);
+    }
+
+    public static void drawCenteredText(MutableComponent text, PoseStack stack, int x, int y, int color) {
+        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, color);
+    }
+
     public static void drawText(String text, PoseStack stack, int x, int y) {
         Minecraft.getInstance().font.draw(stack, text, x, y, 1315860);
     }
 
+    public static void drawText(MutableComponent text, PoseStack stack, int x, int y) {
+        Minecraft.getInstance().font.draw(stack, text, x, y, 1315860);
+    }
+
     public static void drawText(String text, PoseStack stack, int x, int y, int color) {
+        Minecraft.getInstance().font.draw(stack, text, x, y, color);
+    }
+
+    public static void drawText(MutableComponent text, PoseStack stack, int x, int y, int color) {
         Minecraft.getInstance().font.draw(stack, text, x, y, color);
     }
 

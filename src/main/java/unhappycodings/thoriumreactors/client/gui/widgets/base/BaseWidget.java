@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,14 +18,14 @@ import java.util.List;
 
 public abstract class BaseWidget extends AbstractWidget {
 
-    public final BaseScreen<?> screen;
+    public final AbstractContainerScreen<?> screen;
     protected final List<BaseWidget> children = new ArrayList<>();
     protected BlockEntity tile;
     protected Minecraft minecraft = Minecraft.getInstance();
     protected int leftPos;
     protected int topPos;
 
-    public BaseWidget(int x, int y, int width, int height, BlockEntity tile, BaseScreen<?> screen) {
+    public BaseWidget(int x, int y, int width, int height, BlockEntity tile, AbstractContainerScreen<?> screen) {
         super(screen.getGuiLeft() + x, screen.getGuiTop() + y, width, height, Component.empty());
         this.tile = tile;
         this.screen = screen;

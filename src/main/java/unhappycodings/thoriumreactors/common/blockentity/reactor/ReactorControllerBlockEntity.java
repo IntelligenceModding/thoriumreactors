@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBlock;
+import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.util.CalculationUtil;
@@ -334,9 +335,8 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public void resetAssembled(String text) {
-        if (warning != null) {
+        if (warning != null)
             warning = text;
-        }
         resetAssembled();
     }
 
@@ -396,7 +396,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory, @NotNull Player pPlayer) {
-        return null;
+        return new ReactorControllerContainer(pContainerId, pInventory, getBlockPos(), getLevel(), 0);
     }
 
     public void updateBlock() {

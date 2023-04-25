@@ -9,6 +9,7 @@ import unhappycodings.thoriumreactors.common.container.chest.SteelChestContainer
 import unhappycodings.thoriumreactors.common.container.chest.ThoriumChestContainer;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.container.machine.*;
+import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
 
 public class ModContainerTypes {
 
@@ -24,6 +25,8 @@ public class ModContainerTypes {
     public static final RegistryObject<MenuType<MachineFluidCentrifugeContainer>> FLUID_CENTRIFUGE_CONTAINER = Registration.CONTAINER_TYPES.register("fluid_centrifuge_container", () -> IForgeMenuType.create((windowId, inv, data) -> new MachineFluidCentrifugeContainer(windowId, inv, data.readBlockPos(), inv.player.getCommandSenderWorld(), 0)));
     public static final RegistryObject<MenuType<MachineCrystallizerContainer>> CRYSTALLIZER_CONTAINER = Registration.CONTAINER_TYPES.register("crystallizer_container", () -> IForgeMenuType.create((windowId, inv, data) -> new MachineCrystallizerContainer(windowId, inv, data.readBlockPos(), inv.player.getCommandSenderWorld(), 0)));
     public static final RegistryObject<MenuType<MachineBlastFurnaceContainer>> BLAST_FURNACE_CONTAINER = Registration.CONTAINER_TYPES.register("blast_furnace_container", () -> IForgeMenuType.create((windowId, inv, data) -> new MachineBlastFurnaceContainer(windowId, inv, data.readBlockPos(), inv.player.getCommandSenderWorld(), 0)));
+
+    public static final RegistryObject<MenuType<ReactorControllerContainer>> REACTOR_CONTROLLER_CONTAINER = Registration.CONTAINER_TYPES.register("reactor_controller_container", () -> IForgeMenuType.create((windowId, inv, data) -> new ReactorControllerContainer(windowId, inv, data.readBlockPos(), inv.player.getCommandSenderWorld(), 0)));
 
     public static final RegistryObject<MenuType<ThoriumChestContainer>> THORIUM_CHEST_CONTAINER = Registration.CONTAINER_TYPES.register("thorium_chest_container", () -> IForgeMenuType.create((windowId, inv, data) -> new ThoriumChestContainer(windowId, inv, data.readBlockPos(), inv.player.getCommandSenderWorld(), 0)));
     public static final RegistryObject<MenuType<SteelChestContainer>> STEEL_CHEST_CONTAINER = Registration.CONTAINER_TYPES.register("steel_chest_container", () -> IForgeMenuType.create((windowId, inv, data) -> new SteelChestContainer(windowId, inv, data.readBlockPos(), inv.player.getCommandSenderWorld(), 0)));

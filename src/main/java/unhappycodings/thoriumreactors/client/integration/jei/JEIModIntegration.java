@@ -2,9 +2,11 @@ package unhappycodings.thoriumreactors.client.integration.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
@@ -12,11 +14,16 @@ import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableScreen;
 import unhappycodings.thoriumreactors.common.container.machine.*;
+import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
+import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerScreen;
 import unhappycodings.thoriumreactors.common.recipe.*;
 import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @JeiPlugin
@@ -82,6 +89,26 @@ public class JEIModIntegration implements IModPlugin {
         registration.addRecipeClickArea(MachineElectrolyticSaltSeparatorScreen.class, 67, 33, 41, 31, ELECTROLYSING_RECIPE_TYPE);
         registration.addRecipeClickArea(MachineSaltMelterScreen.class, 74, 31, 24, 35, SMELTING_RECIPE_TYPE);
         registration.addRecipeClickArea(MachineFluidEvaporatorScreen.class, 71, 32, 32, 22, EVAPORATING_RECIPE_TYPE);
+
+        registration.addGenericGuiContainerHandler(ReactorControllerScreen.class, new Handler<ReactorControllerScreen>());
+
+    }
+
+    static class Handler<T extends ReactorControllerScreen> implements IGuiContainerHandler<T> {
+
+        @NotNull
+        @Override
+        public List<Rect2i> getGuiExtraAreas(@NotNull ReactorControllerScreen screen) {
+            int xPos = screen.width - (screen.getMainSizeX() / 2);
+            int yPos = screen.height - (screen.getMainSizeY() / 2);
+
+            List<Rect2i> collection = new ArrayList<>();
+            collection.add(new Rect2i((xPos - screen.getLeftSideX() + 1 ) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //left
+            collection.add(new Rect2i(xPos / 2, yPos / 2, screen.getMainSizeX() / 2, screen.getMainSizeY() / 2)); //mid
+            collection.add(new Rect2i((xPos + screen.getMainSizeX() + 1) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //right
+
+            return collection;
+        }
     }
 
     @Override

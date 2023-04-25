@@ -19,6 +19,7 @@ import unhappycodings.thoriumreactors.common.container.chest.SteelChestScreen;
 import unhappycodings.thoriumreactors.common.container.chest.ThoriumChestScreen;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableScreen;
 import unhappycodings.thoriumreactors.common.container.machine.*;
+import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerScreen;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 import unhappycodings.thoriumreactors.common.registration.ModFluids;
@@ -46,9 +47,12 @@ public class ClientEvents {
         MenuScreens.register(ModContainerTypes.FLUID_CENTRIFUGE_CONTAINER.get(), MachineFluidCentrifugeScreen::new);
         MenuScreens.register(ModContainerTypes.CRYSTALLIZER_CONTAINER.get(), MachineCrystallizerScreen::new);
         MenuScreens.register(ModContainerTypes.BLAST_FURNACE_CONTAINER.get(), MachineBlastFurnaceScreen::new);
+
         MenuScreens.register(ModContainerTypes.THORIUM_CHEST_CONTAINER.get(), ThoriumChestScreen::new);
         MenuScreens.register(ModContainerTypes.STEEL_CHEST_CONTAINER.get(), SteelChestScreen::new);
         MenuScreens.register(ModContainerTypes.BLASTED_IRON_CHEST_CONTAINER.get(), BlastedIronChestScreen::new);
+
+        MenuScreens.register(ModContainerTypes.REACTOR_CONTROLLER_CONTAINER.get(), ReactorControllerScreen::new);
 
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MOLTEN_SALT.get(), RenderType.translucent());
