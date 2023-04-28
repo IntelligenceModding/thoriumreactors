@@ -39,6 +39,7 @@ public class PacketHandler {
         registerServerToClient(ClientFluidCentrifugeDataPacket.class, ClientFluidCentrifugeDataPacket::decode);
         registerServerToClient(ClientCrystallizerDataPacket.class, ClientCrystallizerDataPacket::decode);
         registerServerToClient(ClientBlastFurnaceDataPacket.class, ClientBlastFurnaceDataPacket::decode);
+        registerServerToClient(ClientReactorControllerDataPacket.class, ClientReactorControllerDataPacket::decode);
 
         registerClientToServer(MachineRedstoneModePacket.class, MachineRedstoneModePacket::decode);
         registerClientToServer(MachinePowerablePacket.class, MachinePowerablePacket::decode);

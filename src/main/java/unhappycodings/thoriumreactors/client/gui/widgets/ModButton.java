@@ -24,6 +24,7 @@ public class ModButton extends BaseWidget {
     int tX = 0;
     int tY = 0;
     private Supplier<Component> hoverText;
+    private float scale;
 
     public ModButton(int x, int y, int width, int height, ResourceLocation texture, Runnable onClick, Runnable onClickReverse, BlockEntity tile, AbstractContainerScreen<?> screen, int tX, int tY, boolean playSound) {
         super(x, y, width, height, tile, screen);
@@ -34,6 +35,19 @@ public class ModButton extends BaseWidget {
         this.tX = tX;
         this.tY = tY;
         this.playSound = playSound;
+        this.scale = 1f;
+    }
+
+    public ModButton(int x, int y, int width, int height, ResourceLocation texture, Runnable onClick, Runnable onClickReverse, BlockEntity tile, AbstractContainerScreen<?> screen, int tX, int tY, boolean playSound, float scale) {
+        super(x, y, width, height, tile, screen);
+        this.onClick = onClick;
+        this.onClickReverse = onClickReverse;
+        this.isValid = () -> true;
+        this.texture = texture;
+        this.tX = tX;
+        this.tY = tY;
+        this.playSound = playSound;
+        this.scale = scale;
     }
 
     @Override
@@ -59,10 +73,17 @@ public class ModButton extends BaseWidget {
         super.render(matrixStack, x, y, partialTicks);
         GuiUtil.bind(texture);
 
+        matrixStack.pushPose();
+        matrixStack.scale(scale, scale, scale);
         if (!isMouseOver(x, y) || (isValid != null && !isValid.get()))
-            blit(matrixStack, this.x, this.y, 0, 0, width, height, tX, tY);
+            blit(matrixStack, (int) (getReciprocal(scale) * this.x), (int) (getReciprocal(scale) * this.y), 0, 0, width, height, tX, tY);
         if (isMouseOver(x, y) && (isValid != null && isValid.get()))
-            blit(matrixStack, this.x, this.y, 0, tY / 2f, width, height, tX, tY);
+            blit(matrixStack, (int) (getReciprocal(scale) * this.x), (int) (getReciprocal(scale) * this.y), 0, tY / 2f, width, height, tX, tY);
+        matrixStack.popPose();
+    }
+
+    public float getReciprocal(float value) {
+        return 1 / value;
     }
 
     @Override

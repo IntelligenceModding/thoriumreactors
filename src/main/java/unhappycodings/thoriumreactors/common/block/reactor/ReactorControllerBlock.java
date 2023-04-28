@@ -58,8 +58,7 @@ public class ReactorControllerBlock extends BaseEntityBlock {
         ReactorControllerBlockEntity entity = (ReactorControllerBlockEntity) levelIn.getBlockEntity(pos);
         if (!entity.isAssembled() && player instanceof ServerPlayer serverPlayerEntity) {
             serverPlayerEntity.sendSystemMessage(entity.warning == null ? Component.literal("Unknown problem, check the reactor casing") : Component.literal("" + entity.warning));
-        }
-        if (namedContainerProvider != null) {
+        } else if (namedContainerProvider != null) {
             if (player instanceof ServerPlayer serverPlayerEntity)
                 NetworkHooks.openScreen(serverPlayerEntity, namedContainerProvider, pos);
             return InteractionResult.SUCCESS;

@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.common.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBlock;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
@@ -42,20 +43,30 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     public boolean assembled;
     public String warning = "";
 
+    // Reactor
+    private short reactorCurrentTemperature; // 0-3000
+    private short reactorTargetTemperature; // 0-3000
+    private byte reactorTargetLoadSet; // 0-100%
+    private byte reactorCurrentLoadSet; // 0-100%
+    private long reactorRunningSince; // timestamp
+    private byte reactorStatus; // 0-100%
+    private float reactorContainment; // 0-100%
+    private float reactorRadiation; // uSv per hour
+    private float reactorPressure; // in PSI
+    private ReactorStateEnum reactorState = ReactorStateEnum.STOP; // STARTING - RUNNING - STOP
+    // Turbine
+    private short turbineTargetSpeed; // RPM
+    private short turbineCurrentSpeed; // RPM
+    private byte turbineTargetOverflowSet; // 0-100%
+    private byte turbineCurrentOverflowSet; // 0-100%
+    private byte turbineTargetLoadSet; // 0-100%
+    private byte turbineCurrentLoadSet; // 0-100%
+    private boolean turbineCoilsEngaged; // true-false
+    private short turbineCurrentFlow; // Buckets per second
+    private long turbinePowerGeneration; // FE per tick
+
     public ReactorControllerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.REACTOR_CONTROLLER.get(), pPos, pBlockState);
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        if (getLevel().isClientSide && net.getDirection() == PacketFlow.CLIENTBOUND)
-            handleUpdateTag(pkt.getTag());
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
@@ -98,13 +109,158 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
             System.out.println("Reactor build up!");
 
         }
+        if (isAssembled()) {
+            if (Math.random() > 0.5f ) setReactorCurrentTemperature((short) (getReactorCurrentTemperature() + 1));
+            else if (getReactorCurrentTemperature() > 0) setReactorCurrentTemperature((short) (getReactorCurrentTemperature() - 1));
+
+            setReactorState(ReactorStateEnum.RUNNING);
+        }
+    }
+
+    @NotNull
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag nbt = new CompoundTag();
+        nbt.putBoolean("Assembled", isAssembled());
+        // Reactor
+        nbt.putShort("ReactorTargetTemperature", getReactorTargetTemperature());
+        nbt.putShort("ReactorCurrentTemperature", getReactorCurrentTemperature());
+        nbt.putByte("ReactorTargetLoadSet", getReactorTargetLoadSet());
+        nbt.putByte("ReactorCurrentLoadSet", getReactorCurrentLoadSet());
+        nbt.putLong("ReactorRunningSince", getReactorRunningSince());
+        nbt.putByte("ReactorStatus", getReactorStatus());
+        nbt.putFloat("ReactorContainment", getReactorContainment());
+        nbt.putFloat("ReactorRadiation", getReactorRadiation());
+        nbt.putFloat("ReactorPressure", getReactorPressure());
+        nbt.putString("ReactorState", getReactorState().toString());
+        // Turbine
+        nbt.putShort("TurbineTargetSpeed", getTurbineTargetSpeed());
+        nbt.putShort("TurbineCurrentSpeed", getTurbineCurrentSpeed());
+        nbt.putByte("TurbineTargetOverflowSet", getTurbineTargetOverflowSet());
+        nbt.putByte("TurbineCurrentOverflowSet", getTurbineCurrentOverflowSet());
+        nbt.putByte("TurbineTargetLoadSet", getTurbineTargetLoadSet());
+        nbt.putByte("TurbineCurrentLoadSet", getTurbineCurrentLoadSet());
+        nbt.putBoolean("TurbineCoilsEngaged", isTurbineCoilsEngaged());
+        nbt.putShort("TurbineCurrentFlow", getTurbineCurrentFlow());
+        nbt.putLong("TurbinePowerGeneration", getTurbinePowerGeneration());
+        return nbt;
+    }
+
+    @Override
+    public void handleUpdateTag(final CompoundTag tag) {
+        setAssembled(tag.getBoolean("Assembled"));
+        // Reactor
+        setReactorTargetTemperature(tag.getShort("ReactorTargetTemperature"));
+        setReactorCurrentTemperature(tag.getShort("ReactorCurrentTemperature"));
+        setReactorTargetLoadSet(tag.getByte("ReactorTargetLoadSet"));
+        setReactorCurrentLoadSet(tag.getByte("ReactorCurrentLoadSet"));
+        setReactorRunningSince(tag.getLong("ReactorRunningSince"));
+        setReactorStatus(tag.getByte("ReactorStatus"));
+        setReactorContainment(tag.getFloat("ReactorContainment"));
+        setReactorRadiation(tag.getFloat("ReactorRadiation"));
+        setReactorPressure(tag.getFloat("ReactorPressure"));
+        setReactorState(ReactorStateEnum.valueOf(tag.getString("ReactorState")));
+        // Turbine
+        setTurbineTargetSpeed(tag.getShort("TurbineTargetSpeed"));
+        setTurbineCurrentSpeed(tag.getShort("TurbineCurrentSpeed"));
+        setTurbineTargetOverflowSet(tag.getByte("TurbineTargetOverflowSet"));
+        setTurbineCurrentOverflowSet(tag.getByte("TurbineCurrentOverflowSet"));
+        setTurbineTargetLoadSet(tag.getByte("TurbineTargetLoadSet"));
+        setTurbineCurrentLoadSet(tag.getByte("TurbineCurrentLoadSet"));
+        setTurbineCoilsEngaged(tag.getBoolean("TurbineCoilsEngaged"));
+        setTurbineCurrentFlow(tag.getShort("TurbineCurrentFlow"));
+        setTurbinePowerGeneration(tag.getLong("TurbinePowerGeneration"));
+    }
+
+    @Override
+    public void saveAdditional(@NotNull CompoundTag nbt) {
+        nbt.putBoolean("Assembled", isAssembled());
+
+        // Reactor
+        nbt.putShort("ReactorTargetTemperature", getReactorTargetTemperature());
+        nbt.putShort("ReactorCurrentTemperature", getReactorCurrentTemperature());
+        nbt.putByte("ReactorTargetLoadSet", getReactorTargetLoadSet());
+        nbt.putByte("ReactorCurrentLoadSet", getReactorCurrentLoadSet());
+        nbt.putLong("ReactorRunningSince", getReactorRunningSince());
+        nbt.putByte("ReactorStatus", getReactorStatus());
+        nbt.putFloat("ReactorContainment", getReactorContainment());
+        nbt.putFloat("ReactorRadiation", getReactorRadiation());
+        nbt.putFloat("ReactorPressure", getReactorPressure());
+        nbt.putString("ReactorState", getReactorState().toString());
+        // Turbine
+        nbt.putShort("TurbineTargetSpeed", getTurbineTargetSpeed());
+        nbt.putShort("TurbineCurrentSpeed", getTurbineCurrentSpeed());
+        nbt.putByte("TurbineTargetOverflowSet", getTurbineTargetOverflowSet());
+        nbt.putByte("TurbineCurrentOverflowSet", getTurbineCurrentOverflowSet());
+        nbt.putByte("TurbineTargetLoadSet", getTurbineTargetLoadSet());
+        nbt.putByte("TurbineCurrentLoadSet", getTurbineCurrentLoadSet());
+        nbt.putBoolean("TurbineCoilsEngaged", isTurbineCoilsEngaged());
+        nbt.putShort("TurbineCurrentFlow", getTurbineCurrentFlow());
+        nbt.putLong("TurbinePowerGeneration", getTurbinePowerGeneration());
+    }
+
+    @Override
+    public void load(@NotNull CompoundTag nbt) {
+        setAssembled(nbt.getBoolean("Assembled"));
+        // Reactor
+        setReactorTargetTemperature(nbt.getShort("ReactorTargetTemperature"));
+        setReactorCurrentTemperature(nbt.getShort("ReactorCurrentTemperature"));
+        setReactorTargetLoadSet(nbt.getByte("ReactorTargetLoadSet"));
+        setReactorCurrentLoadSet(nbt.getByte("ReactorCurrentLoadSet"));
+        setReactorRunningSince(nbt.getLong("ReactorRunningSince"));
+        setReactorStatus(nbt.getByte("ReactorStatus"));
+        setReactorContainment(nbt.getFloat("ReactorContainment"));
+        setReactorRadiation(nbt.getFloat("ReactorRadiation"));
+        setReactorPressure(nbt.getFloat("ReactorPressure"));
+        setReactorState(ReactorStateEnum.valueOf(nbt.getString("ReactorState")));
+        // Turbine
+        setTurbineTargetSpeed(nbt.getShort("TurbineTargetSpeed"));
+        setTurbineCurrentSpeed(nbt.getShort("TurbineCurrentSpeed"));
+        setTurbineTargetOverflowSet(nbt.getByte("TurbineTargetOverflowSet"));
+        setTurbineCurrentOverflowSet(nbt.getByte("TurbineCurrentOverflowSet"));
+        setTurbineTargetLoadSet(nbt.getByte("TurbineTargetLoadSet"));
+        setTurbineCurrentLoadSet(nbt.getByte("TurbineCurrentLoadSet"));
+        setTurbineCoilsEngaged(nbt.getBoolean("TurbineCoilsEngaged"));
+        setTurbineCurrentFlow(nbt.getShort("TurbineCurrentFlow"));
+        setTurbinePowerGeneration(nbt.getLong("TurbinePowerGeneration"));
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        if (getLevel().isClientSide && net.getDirection() == PacketFlow.CLIENTBOUND) handleUpdateTag(pkt.getTag());
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @NotNull
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("block.thoriumreactors.reactor_controller");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory, @NotNull Player pPlayer) {
+        return new ReactorControllerContainer(pContainerId, pInventory, getBlockPos(), getLevel(), 0);
+    }
+
+    public void updateBlock() {
+        if(level != null && !level.isClientSide) {
+            BlockState state = level.getBlockState(worldPosition);
+            level.sendBlockUpdated(worldPosition, state, state, 2);
+            setChanged(level, getBlockPos(), state);
+        }
     }
 
     public void updateWallPositions() {
         valvePos = new ArrayList<>();
         List<BlockPos> blockListBack = CalculationUtil.getBlockStates(floorPosA, ceilingPosARight, level); // Back
         List<BlockPos> blockListLeft = CalculationUtil.getBlockStates(floorPosBLeft, ceilingPosA, level); // Left
-        List<BlockPos> blockListRight = CalculationUtil.getBlockStates(floorPosB, ceilingPosARight, level); // Left
+        List<BlockPos> blockListRight = CalculationUtil.getBlockStates(floorPosB, ceilingPosARight, level); // Right
         List<BlockPos> blockListFront = CalculationUtil.getBlockStates(floorPosBLeft, ceilingPosB, level); // Front
 
         checkWallArea(blockListBack);
@@ -112,8 +268,8 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         checkWallArea(blockListRight);
         checkWallArea(blockListFront);
 
-        if (valvePos.size() != 2) {
-            resetAssembled("Reactor is in need of two valves. Currently " + valvePos.size());
+        if (valvePos.size() != 3) {
+            resetAssembled("Reactor is in need of three valves. Currently " + valvePos.size());
         }
     }
 
@@ -356,29 +512,6 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         return state.is(ModBlocks.REACTOR_VALVE.get());
     }
 
-    @NotNull
-    @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag nbt = new CompoundTag();
-        nbt.putBoolean("Assembled", isAssembled());
-        return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(final CompoundTag tag) {
-        setAssembled(tag.getBoolean("Assembled"));
-    }
-
-    @Override
-    public void saveAdditional(@NotNull CompoundTag nbt) {
-        nbt.putBoolean("Assembled", isAssembled());
-    }
-
-    @Override
-    public void load(@NotNull CompoundTag nbt) {
-        setAssembled(nbt.getBoolean("Assembled"));
-    }
-
     public boolean isAssembled() {
         return assembled;
     }
@@ -387,23 +520,155 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         this.assembled = canBeAssembled;
     }
 
-    @NotNull
-    @Override
-    public Component getDisplayName() {
-        return Component.translatable("block.thoriumreactors.reactor_controller");
+    public short getReactorCurrentTemperature() {
+        return reactorCurrentTemperature;
     }
 
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory, @NotNull Player pPlayer) {
-        return new ReactorControllerContainer(pContainerId, pInventory, getBlockPos(), getLevel(), 0);
+    public void setReactorCurrentTemperature(short reactorCurrentTemperature) {
+        this.reactorCurrentTemperature = reactorCurrentTemperature;
     }
 
-    public void updateBlock() {
-        if(level != null && !level.isClientSide) {
-            BlockState state = level.getBlockState(worldPosition);
-            level.sendBlockUpdated(worldPosition, state, state, 2);
-            setChanged(level, getBlockPos(), state);
-        }
+    public short getReactorTargetTemperature() {
+        return reactorTargetTemperature;
+    }
+
+    public void setReactorTargetTemperature(short reactorTargetTemperature) {
+        this.reactorTargetTemperature = reactorTargetTemperature;
+    }
+
+    public byte getReactorTargetLoadSet() {
+        return reactorTargetLoadSet;
+    }
+
+    public void setReactorTargetLoadSet(byte reactorTargetLoadSet) {
+        this.reactorTargetLoadSet = reactorTargetLoadSet;
+    }
+
+    public byte getReactorCurrentLoadSet() {
+        return reactorCurrentLoadSet;
+    }
+
+    public void setReactorCurrentLoadSet(byte reactorCurrentLoadSet) {
+        this.reactorCurrentLoadSet = reactorCurrentLoadSet;
+    }
+
+    public long getReactorRunningSince() {
+        return reactorRunningSince;
+    }
+
+    public void setReactorRunningSince(long reactorRunningSince) {
+        this.reactorRunningSince = reactorRunningSince;
+    }
+
+    public byte getReactorStatus() {
+        return reactorStatus;
+    }
+
+    public void setReactorStatus(byte reactorStatus) {
+        this.reactorStatus = reactorStatus;
+    }
+
+    public float getReactorContainment() {
+        return reactorContainment;
+    }
+
+    public void setReactorContainment(float reactorContainment) {
+        this.reactorContainment = reactorContainment;
+    }
+
+    public float getReactorRadiation() {
+        return reactorRadiation;
+    }
+
+    public void setReactorRadiation(float reactorRadiation) {
+        this.reactorRadiation = reactorRadiation;
+    }
+
+    public float getReactorPressure() {
+        return reactorPressure;
+    }
+
+    public void setReactorPressure(float reactorPressure) {
+        this.reactorPressure = reactorPressure;
+    }
+
+    public ReactorStateEnum getReactorState() {
+        return reactorState;
+    }
+
+    public void setReactorState(ReactorStateEnum reactorState) {
+        this.reactorState = reactorState;
+    }
+
+    public short getTurbineTargetSpeed() {
+        return turbineTargetSpeed;
+    }
+
+    public void setTurbineTargetSpeed(short turbineTargetSpeed) {
+        this.turbineTargetSpeed = turbineTargetSpeed;
+    }
+
+    public short getTurbineCurrentSpeed() {
+        return turbineCurrentSpeed;
+    }
+
+    public void setTurbineCurrentSpeed(short turbineCurrentSpeed) {
+        this.turbineCurrentSpeed = turbineCurrentSpeed;
+    }
+
+    public byte getTurbineTargetOverflowSet() {
+        return turbineTargetOverflowSet;
+    }
+
+    public void setTurbineTargetOverflowSet(byte turbineTargetOverflowSet) {
+        this.turbineTargetOverflowSet = turbineTargetOverflowSet;
+    }
+
+    public byte getTurbineCurrentOverflowSet() {
+        return turbineCurrentOverflowSet;
+    }
+
+    public void setTurbineCurrentOverflowSet(byte turbineCurrentOverflowSet) {
+        this.turbineCurrentOverflowSet = turbineCurrentOverflowSet;
+    }
+
+    public byte getTurbineTargetLoadSet() {
+        return turbineTargetLoadSet;
+    }
+
+    public void setTurbineTargetLoadSet(byte turbineTargetLoadSet) {
+        this.turbineTargetLoadSet = turbineTargetLoadSet;
+    }
+
+    public byte getTurbineCurrentLoadSet() {
+        return turbineCurrentLoadSet;
+    }
+
+    public void setTurbineCurrentLoadSet(byte turbineCurrentLoadSet) {
+        this.turbineCurrentLoadSet = turbineCurrentLoadSet;
+    }
+
+    public boolean isTurbineCoilsEngaged() {
+        return turbineCoilsEngaged;
+    }
+
+    public void setTurbineCoilsEngaged(boolean turbineCoilsEngaged) {
+        this.turbineCoilsEngaged = turbineCoilsEngaged;
+    }
+
+    public short getTurbineCurrentFlow() {
+        return turbineCurrentFlow;
+    }
+
+    public void setTurbineCurrentFlow(short turbineCurrentFlow) {
+        this.turbineCurrentFlow = turbineCurrentFlow;
+    }
+
+    public long getTurbinePowerGeneration() {
+        return turbinePowerGeneration;
+    }
+
+    public void setTurbinePowerGeneration(long turbinePowerGeneration) {
+        this.turbinePowerGeneration = turbinePowerGeneration;
     }
 }

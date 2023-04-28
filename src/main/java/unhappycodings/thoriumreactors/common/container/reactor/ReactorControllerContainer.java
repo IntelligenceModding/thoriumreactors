@@ -13,6 +13,7 @@ import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControll
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.ClientBlastFurnaceDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.ClientReactorControllerDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class ReactorControllerContainer extends BaseContainer {
@@ -27,7 +28,12 @@ public class ReactorControllerContainer extends BaseContainer {
     @Override
     public void broadcastChanges() {
         ReactorControllerBlockEntity entity = (ReactorControllerBlockEntity) this.tileEntity;
-        //PacketHandler.sendToClient(new ClientBlastFurnaceDataPacket(entity.getBlockPos(), entity.getEnergy(), entity.getMaxRecipeTime(), entity.getRecipeTime(), entity.isPowerable(), entity.getRedstoneMode(), entity.getDegree(), entity.getMaxFuel(), entity.getFuel()), (ServerPlayer) inventory.player);
+
+        PacketHandler.sendToClient(new ClientReactorControllerDataPacket(entity.getBlockPos(), entity.getReactorTargetTemperature(), entity.getReactorCurrentTemperature(), entity.getReactorTargetLoadSet(), entity.getReactorCurrentLoadSet(),
+                entity.getReactorRunningSince(), entity.getReactorStatus(), entity.getReactorContainment(), entity.getReactorRadiation(),
+                entity.getReactorPressure(), entity.getReactorState(), entity.getTurbineTargetSpeed(), entity.getTurbineCurrentSpeed(),
+                entity.getTurbineTargetOverflowSet(), entity.getTurbineCurrentOverflowSet(), entity.getTurbineTargetLoadSet(), entity.getTurbineCurrentLoadSet(),
+                entity.isTurbineCoilsEngaged(), entity.getTurbineCurrentFlow(), entity.getTurbinePowerGeneration()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();
     }
