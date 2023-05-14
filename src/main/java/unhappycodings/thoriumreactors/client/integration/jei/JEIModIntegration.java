@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableScreen;
 import unhappycodings.thoriumreactors.common.container.machine.*;
@@ -103,9 +104,9 @@ public class JEIModIntegration implements IModPlugin {
             int yPos = screen.height - (screen.getMainSizeY() / 2);
 
             List<Rect2i> collection = new ArrayList<>();
-            collection.add(new Rect2i((xPos - screen.getLeftSideX() + 1 ) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //left
             collection.add(new Rect2i(xPos / 2, yPos / 2, screen.getMainSizeX() / 2, screen.getMainSizeY() / 2)); //mid
-            collection.add(new Rect2i((xPos + screen.getMainSizeX() + 1) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //right
+            if (ClientConfig.showLeftReactorScreenArea.get()) collection.add(new Rect2i((xPos - screen.getLeftSideX() + 1 ) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //left
+            if (ClientConfig.showRightReactorScreenArea.get()) collection.add(new Rect2i((xPos + screen.getMainSizeX() + 1) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //right
 
             return collection;
         }

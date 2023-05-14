@@ -1,0 +1,7 @@
+
+["Reactor Control Screen"]
+	#Should the left area of the reactor control screen be rendered.
+	showLeftReactorScreenArea = true
+	#Should the right area of the reactor control screen be rendered.
+	showRightReactorScreenArea = true
+

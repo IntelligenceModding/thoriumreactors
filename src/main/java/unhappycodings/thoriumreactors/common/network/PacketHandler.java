@@ -11,10 +11,10 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.*;
-import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
-import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
-import unhappycodings.thoriumreactors.common.network.toserver.MachinePowerablePacket;
-import unhappycodings.thoriumreactors.common.network.toserver.MachineRedstoneModePacket;
+import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
+import unhappycodings.thoriumreactors.common.network.toserver.*;
+import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerChangedPacket;
+import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerStatePacket;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -41,6 +41,15 @@ public class PacketHandler {
         registerServerToClient(ClientBlastFurnaceDataPacket.class, ClientBlastFurnaceDataPacket::decode);
         registerServerToClient(ClientReactorControllerDataPacket.class, ClientReactorControllerDataPacket::decode);
 
+        registerClientToServer(ReactorControllerTurbineCoilsPacket.class, ReactorControllerTurbineCoilsPacket::decode);
+        registerClientToServer(ReactorControllerTurbineSpeedPacket.class, ReactorControllerTurbineSpeedPacket::decode);
+        registerClientToServer(ReactorControllerTurbineOverflowPacket.class, ReactorControllerTurbineOverflowPacket::decode);
+        registerClientToServer(ReactorControllerTurbineLoadPacket.class, ReactorControllerTurbineLoadPacket::decode);
+        registerClientToServer(ReactorControllerRodInsertPacket.class, ReactorControllerRodInsertPacket::decode);
+        registerClientToServer(ReactorControllerLoadPacket.class, ReactorControllerLoadPacket::decode);
+        registerClientToServer(ReactorControllerTemperaturePacket.class, ReactorControllerTemperaturePacket::decode);
+        registerClientToServer(ReactorControllerStatePacket.class, ReactorControllerStatePacket::decode);
+        registerClientToServer(ReactorControllerChangedPacket.class, ReactorControllerChangedPacket::decode);
         registerClientToServer(MachineRedstoneModePacket.class, MachineRedstoneModePacket::decode);
         registerClientToServer(MachinePowerablePacket.class, MachinePowerablePacket::decode);
         registerClientToServer(MachineDumpModePacket.class, MachineDumpModePacket::decode);

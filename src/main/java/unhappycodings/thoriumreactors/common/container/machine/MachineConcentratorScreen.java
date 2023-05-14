@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.container.machine;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -28,14 +29,11 @@ public class MachineConcentratorScreen extends MachineScreen<MachineConcentrator
 
     protected void addElements() {
         MachineConcentratorBlockEntity tile = this.getMenu().getTile();
-        // Dump Left
-        addWidget(new ModButton(34, 90, 3, 8, null, () -> changeDumpMode("input"), null, tile, this, 0, 0, true));
-        addWidget(new ModButton(37, 90, 19, 8, null, () -> changeDumpMode("dumpInput"), null, tile, this, 0, 0, true));
 
-        // Dump Right
-        addWidget(new ModButton(116, 90, 3, 8, null, () -> changeDumpMode("output"), null, tile, this, 0, 0, true));
-        addWidget(new ModButton(119, 90, 19, 8, null, () -> changeDumpMode("dumpOutput"), null, tile, this, 0, 0, true));
+    }
 
+    public Style notoSans(Style style) {
+        return style.withFont(new ResourceLocation(ThoriumReactors.MOD_ID, "notosans"));
     }
 
     @Override
@@ -59,9 +57,13 @@ public class MachineConcentratorScreen extends MachineScreen<MachineConcentrator
         super.renderLabels(pPoseStack, pMouseX, pMouseY);
         MachineConcentratorBlockEntity entity = this.container.getTile();
 
-        RenderUtil.drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 102);
-        RenderUtil.drawCenteredText(Component.literal("Concentrating").getString(), pPoseStack, getSizeX() / 2, 7);
-        RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 78, 4182051);
+        RenderUtil.drawText(Component.literal("Inventory").withStyle(this::notoSans), pPoseStack, 8, 102);
+        pPoseStack.pushPose();
+        pPoseStack.scale(0.7f, 0.7f, 0.7f);
+        RenderUtil.drawCenteredText(Component.literal("Concentrating").withStyle(this::notoSans), pPoseStack, 38, 2, 11184810);
+        RenderUtil.drawRightboundText(Component.literal("UnhappyWithoutU").withStyle(this::notoSans), pPoseStack, 242, 2, 11184810);
+        pPoseStack.popPose();
+        RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").withStyle(this::notoSans), pPoseStack, 87, 78, 4182051);
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});

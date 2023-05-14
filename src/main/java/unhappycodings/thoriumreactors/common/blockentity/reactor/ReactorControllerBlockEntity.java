@@ -16,6 +16,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.ReactorStateEnum;
@@ -27,6 +28,7 @@ import unhappycodings.thoriumreactors.common.util.CalculationUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ReactorControllerBlockEntity extends BlockEntity implements MenuProvider {
     public List<BlockPos> framePosList = new ArrayList<>();
@@ -54,6 +56,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     private float reactorRadiation; // uSv per hour
     private float reactorPressure; // in PSI
     private ReactorStateEnum reactorState = ReactorStateEnum.STOP; // STARTING - RUNNING - STOP
+    // Rods
+    public byte[] fuelRodStatus = new byte[81];
+    public byte[] controlRodStatus = new byte[64];
     // Turbine
     private short turbineTargetSpeed; // RPM
     private short turbineCurrentSpeed; // RPM
@@ -110,10 +115,17 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
 
         }
         if (isAssembled()) {
-            if (Math.random() > 0.5f ) setReactorCurrentTemperature((short) (getReactorCurrentTemperature() + 1));
-            else if (getReactorCurrentTemperature() > 0) setReactorCurrentTemperature((short) (getReactorCurrentTemperature() - 1));
+            Random random = new Random();
+            for (int i = 0; i < 40; i++) {
+                int randomNumber = random.nextInt(81);
 
-            setReactorState(ReactorStateEnum.RUNNING);
+                if (getFuelRodStatus((byte) randomNumber) < getReactorTargetLoadSet()) {
+                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) + 1)) ;
+                } else if (getFuelRodStatus((byte) randomNumber) > getReactorTargetLoadSet()) {
+                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) - 1)) ;
+                }
+            }
+
         }
     }
 
@@ -133,6 +145,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         nbt.putFloat("ReactorRadiation", getReactorRadiation());
         nbt.putFloat("ReactorPressure", getReactorPressure());
         nbt.putString("ReactorState", getReactorState().toString());
+        // Rod
+        nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
+        nbt.putByteArray("ControlRodStatus", getControlRodStatus());
         // Turbine
         nbt.putShort("TurbineTargetSpeed", getTurbineTargetSpeed());
         nbt.putShort("TurbineCurrentSpeed", getTurbineCurrentSpeed());
@@ -160,6 +175,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         setReactorRadiation(tag.getFloat("ReactorRadiation"));
         setReactorPressure(tag.getFloat("ReactorPressure"));
         setReactorState(ReactorStateEnum.valueOf(tag.getString("ReactorState")));
+        // Rod
+        setFuelRodStatus(tag.getByteArray("FuelRodStatus"));
+        setControlRodStatus(tag.getByteArray("ControlRodStatus"));
         // Turbine
         setTurbineTargetSpeed(tag.getShort("TurbineTargetSpeed"));
         setTurbineCurrentSpeed(tag.getShort("TurbineCurrentSpeed"));
@@ -175,7 +193,6 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         nbt.putBoolean("Assembled", isAssembled());
-
         // Reactor
         nbt.putShort("ReactorTargetTemperature", getReactorTargetTemperature());
         nbt.putShort("ReactorCurrentTemperature", getReactorCurrentTemperature());
@@ -187,6 +204,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         nbt.putFloat("ReactorRadiation", getReactorRadiation());
         nbt.putFloat("ReactorPressure", getReactorPressure());
         nbt.putString("ReactorState", getReactorState().toString());
+        // Rod
+        nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
+        nbt.putByteArray("ControlRodStatus", getControlRodStatus());
         // Turbine
         nbt.putShort("TurbineTargetSpeed", getTurbineTargetSpeed());
         nbt.putShort("TurbineCurrentSpeed", getTurbineCurrentSpeed());
@@ -213,6 +233,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         setReactorRadiation(nbt.getFloat("ReactorRadiation"));
         setReactorPressure(nbt.getFloat("ReactorPressure"));
         setReactorState(ReactorStateEnum.valueOf(nbt.getString("ReactorState")));
+        // Rod
+        setFuelRodStatus(nbt.getByteArray("FuelRodStatus"));
+        setControlRodStatus(nbt.getByteArray("ControlRodStatus"));
         // Turbine
         setTurbineTargetSpeed(nbt.getShort("TurbineTargetSpeed"));
         setTurbineCurrentSpeed(nbt.getShort("TurbineCurrentSpeed"));
@@ -494,6 +517,40 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         if (warning != null)
             warning = text;
         resetAssembled();
+    }
+
+    public byte[] getFuelRodStatus() {
+        return fuelRodStatus;
+    }
+
+    public byte getFuelRodStatus(byte index) {
+        return getFuelRodStatus()[index];
+    }
+
+    public void setFuelRodStatus(byte[] fuelRodStatus) {
+        this.fuelRodStatus = fuelRodStatus;
+        setChanged();
+    }
+
+    public void setFuelRodStatus(byte index, byte value) {
+        getFuelRodStatus()[index] = value;
+        setChanged();
+    }
+
+    public byte[] getControlRodStatus() {
+        return controlRodStatus;
+    }
+
+    public int getControlRodStatus(byte index) {
+        return getControlRodStatus()[index];
+    }
+
+    public void setControlRodStatus(byte[] fuelRodStatus) {
+        this.controlRodStatus = fuelRodStatus;
+    }
+
+    public int setControlRodStatus(byte index, byte value) {
+        return getControlRodStatus()[index] = value;
     }
 
     public BlockState getState(BlockPos pos) {
