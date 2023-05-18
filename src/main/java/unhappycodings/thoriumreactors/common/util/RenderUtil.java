@@ -8,11 +8,13 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.gui.GuiUtil;
 
 public class RenderUtil {
@@ -28,6 +30,10 @@ public class RenderUtil {
                 if (e == mouseY && !isYOver) isYOver = true;
             }
         return isXOver && isYOver;
+    }
+
+    public static Style notoSans(Style style) {
+        return style.withFont(new ResourceLocation(ThoriumReactors.MOD_ID, "notosans"));
     }
 
     public static void drawRightboundText(String text, PoseStack stack, int x, int y) {

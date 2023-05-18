@@ -23,7 +23,7 @@ public class FormattingUtil {
     public static String formatPercentNum(float num, float max, boolean showDecimals) {
         DecimalFormat formatter = new DecimalFormat(showDecimals ? "0.00" : "0");
         String formatted = formatter.format(num / max * 100).replaceAll(",", ".") + " %";
-        return formatted.equals("NaN %") ? "0 %" : formatted;
+        return formatted.equals("NaN %") ? "0 %" : formatted.replaceAll("-", "");
     }
 
     public static String formatEnergy(float num) {

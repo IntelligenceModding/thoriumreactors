@@ -51,7 +51,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     private byte reactorTargetLoadSet; // 0-100%
     private byte reactorCurrentLoadSet; // 0-100%
     private long reactorRunningSince; // timestamp
-    private byte reactorStatus; // 0-100%
+    private byte reactorStatus = 100; // 0-100%
     private float reactorContainment; // 0-100%
     private float reactorRadiation; // uSv per hour
     private float reactorPressure; // in PSI

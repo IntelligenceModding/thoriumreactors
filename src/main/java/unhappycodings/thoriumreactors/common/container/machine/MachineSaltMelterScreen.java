@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.container.machine;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -62,7 +63,7 @@ public class MachineSaltMelterScreen extends MachineScreen<MachineSaltMelterCont
         blit(matrixStack, getGuiLeft() + 153, getGuiTop() + 25 + (38 - energyBlitSize), 176, 14, 8, energyBlitSize); // Energy Tank
         blit(matrixStack, getGuiLeft() + 119, getGuiTop() + 22, 176, 52, 4, 63); // Left Tank
 
-        int fanBlitSize = (int) Math.floor(16 / ((double) entity.getWorkingDegree() / entity.getDegree()));
+        int fanBlitSize = entity.getWorkingDegree() == 0 ? 0 : (int) Math.floor(16 / ((double) entity.getWorkingDegree() / entity.getDegree()));
         blit(matrixStack, getGuiLeft() + 39, getGuiTop() + 45 + (16 - fanBlitSize), 190, 0 + (16 - fanBlitSize), 16, fanBlitSize); // Degree
 
         int height = entity.getMaxRecipeTime() != 0 ? 78 - (int) Math.floor((entity.getRecipeTime() / (float) entity.getMaxRecipeTime()) * 78) : 0;
@@ -85,9 +86,13 @@ public class MachineSaltMelterScreen extends MachineScreen<MachineSaltMelterCont
         super.renderLabels(pPoseStack, pMouseX, pMouseY);
         MachineSaltMelterBlockEntity entity = this.container.getTile();
 
-        RenderUtil.drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 106);
-        RenderUtil.drawCenteredText(Component.literal("Salt Melting").getString(), pPoseStack, getSizeX() / 2, 7);
-        RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 78, 4182051);
+        RenderUtil.drawText(Component.literal("Inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 106, 11184810);
+        pPoseStack.pushPose();
+        pPoseStack.scale(0.7f, 0.7f, 0.7f);
+        RenderUtil.drawText(Component.literal("Salt Melting").withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 242, 2, 11184810);
+        pPoseStack.popPose();
+        RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").withStyle(RenderUtil::notoSans), pPoseStack, 87, 78, 4182051);
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 39, getGuiTop() + 45, getGuiLeft() + 54, getGuiTop() + 60, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getDegree() + "°C (" + FormattingUtil.formatPercentNum(entity.getDegree() - 25, entity.getWorkingDegree() - 25, false) + ")"});

@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.container.machine;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -75,9 +76,13 @@ public class MachineDecomposerScreen extends MachineScreen<MachineDecomposerCont
         super.renderLabels(pPoseStack, pMouseX, pMouseY);
         MachineDecomposerBlockEntity entity = this.container.getTile();
 
-        RenderUtil.drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 102);
-        RenderUtil.drawCenteredText(Component.literal("Decomposing").getString(), pPoseStack, getSizeX() / 2, 7);
-        RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").getString(), pPoseStack, 87, 78, 4182051);
+        RenderUtil.drawText(Component.literal("Inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 102, 11184810);
+        pPoseStack.pushPose();
+        pPoseStack.scale(0.7f, 0.7f, 0.7f);
+        RenderUtil.drawText(Component.literal("Decomposing").withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 242, 2, 11184810);
+        pPoseStack.popPose();
+        RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").withStyle(RenderUtil::notoSans), pPoseStack, 87, 78, 4182051);
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});

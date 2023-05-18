@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.container.chest;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,8 +22,12 @@ public class BlastedIronChestScreen extends BaseScreen<BlastedIronChestContainer
 
     @Override
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        RenderUtil.drawCenteredText(Component.literal("Blasted Iron Chest").getString(), pPoseStack, getSizeX() / 2, 7);
-        RenderUtil.drawText(Component.literal("Inventory").getString(), pPoseStack, 8, 127);
+        pPoseStack.pushPose();
+        pPoseStack.scale(0.7f, 0.7f, 0.7f);
+        RenderUtil.drawText(Component.literal("Blasted Iron Chest").withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 242, 2, 11184810);
+        pPoseStack.popPose();
+        RenderUtil.drawText(Component.literal("Inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 127, 11184810);
     }
 
     @Override
