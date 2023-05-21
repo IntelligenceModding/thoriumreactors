@@ -8,7 +8,7 @@
       "item": "thoriumreactors:potassium"
     },
     "slot-1": {
-      "item": "thoriumreactors:enriched_uranium"
+      "item": "thoriumreactors:thorium"
     },
     "slot-2": {
       "item": "thoriumreactors:sodium"

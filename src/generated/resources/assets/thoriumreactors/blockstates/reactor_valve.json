@@ -1,25 +1,94 @@
 {
   "variants": {
-    "facing=down": {
+    "facing=down,type=fluid_input": {
       "model": "thoriumreactors:block/reactor_valve",
       "y": 90
     },
-    "facing=east": {
+    "facing=down,type=fluid_output": {
       "model": "thoriumreactors:block/reactor_valve",
       "y": 90
     },
-    "facing=north": {
+    "facing=down,type=item_input": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 90
+    },
+    "facing=down,type=item_output": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 90
+    },
+    "facing=east,type=fluid_input": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 90
+    },
+    "facing=east,type=fluid_output": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 90
+    },
+    "facing=east,type=item_input": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 90
+    },
+    "facing=east,type=item_output": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 90
+    },
+    "facing=north,type=fluid_input": {
       "model": "thoriumreactors:block/reactor_valve"
     },
-    "facing=south": {
+    "facing=north,type=fluid_output": {
+      "model": "thoriumreactors:block/reactor_valve"
+    },
+    "facing=north,type=item_input": {
+      "model": "thoriumreactors:block/reactor_valve"
+    },
+    "facing=north,type=item_output": {
+      "model": "thoriumreactors:block/reactor_valve"
+    },
+    "facing=south,type=fluid_input": {
       "model": "thoriumreactors:block/reactor_valve",
       "y": 180
     },
-    "facing=up": {
+    "facing=south,type=fluid_output": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 180
+    },
+    "facing=south,type=item_input": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 180
+    },
+    "facing=south,type=item_output": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 180
+    },
+    "facing=up,type=fluid_input": {
       "model": "thoriumreactors:block/reactor_valve",
       "y": 270
     },
-    "facing=west": {
+    "facing=up,type=fluid_output": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 270
+    },
+    "facing=up,type=item_input": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 270
+    },
+    "facing=up,type=item_output": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 270
+    },
+    "facing=west,type=fluid_input": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 270
+    },
+    "facing=west,type=fluid_output": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 270
+    },
+    "facing=west,type=item_input": {
+      "model": "thoriumreactors:block/reactor_valve",
+      "y": 270
+    },
+    "facing=west,type=item_output": {
       "model": "thoriumreactors:block/reactor_valve",
       "y": 270
     }

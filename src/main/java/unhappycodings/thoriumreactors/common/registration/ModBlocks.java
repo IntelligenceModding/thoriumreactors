@@ -26,22 +26,22 @@ public class ModBlocks {
     public static final RegistryObject<ThoriumCraftingTableBlock> THORIUM_CRAFTING_TABLE = register("thorium_crafting_table", ThoriumCraftingTableBlock::new);
 
     // Ores
-    public static final RegistryObject<Block> URANIUM_ORE = register("uranium_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final RegistryObject<Block> GRAPHITE_ORE = register("graphite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final RegistryObject<Block> FLUORITE_ORE = register("fluorite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> URANIUM_ORE = register("uranium_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> GRAPHITE_ORE = register("graphite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> FLUORITE_ORE = register("fluorite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
 
     // Blocks
-    public static final RegistryObject<Block> BLASTED_STONE = register("blasted_stone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final RegistryObject<Block> GRAPHITE_BLOCK = register("graphite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final RegistryObject<Block> THORIUM_BLOCK = register("thorium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final RegistryObject<Block> FLUORITE_BLOCK = register("fluoride_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final RegistryObject<Block> URANIUM_BLOCK = register("uranium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
-    public static final RegistryObject<Block> BLASTED_IRON_BLOCK = register("blasted_iron_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL)));
-    public static final RegistryObject<Block> STEEL_BLOCK = register("steel_block", () -> new Block(BlockBehaviour.Properties.of(Material.HEAVY_METAL)));
+    public static final RegistryObject<Block> BLASTED_STONE = register("blasted_stone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
+    public static final RegistryObject<Block> GRAPHITE_BLOCK = register("graphite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
+    public static final RegistryObject<Block> THORIUM_BLOCK = register("thorium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
+    public static final RegistryObject<Block> FLUORITE_BLOCK = register("fluoride_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
+    public static final RegistryObject<Block> URANIUM_BLOCK = register("uranium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
+    public static final RegistryObject<Block> BLASTED_IRON_BLOCK = register("blasted_iron_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(6f)));
+    public static final RegistryObject<Block> STEEL_BLOCK = register("steel_block", () -> new Block(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f)));
 
-    public static final RegistryObject<ThoriumChestBlock> THORIUM_CHEST_BLOCK = register("thorium_chest_block", () -> new ThoriumChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), ModBlockEntities.THORIUM_CHEST_BLOCK::get));
-    public static final RegistryObject<SteelChestBlock> STEEL_CHEST_BLOCK = register("steel_chest_block", () -> new SteelChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), ModBlockEntities.STEEL_CHEST_BLOCK::get));
-    public static final RegistryObject<BlastedIronChestBlock> BLASTED_IRON_CHEST_BLOCK = register("blasted_iron_chest_block", () -> new BlastedIronChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL), ModBlockEntities.BLASTED_IRON_CHEST_BLOCK::get));
+    public static final RegistryObject<ThoriumChestBlock> THORIUM_CHEST_BLOCK = register("thorium_chest_block", () -> new ThoriumChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.THORIUM_CHEST_BLOCK::get));
+    public static final RegistryObject<SteelChestBlock> STEEL_CHEST_BLOCK = register("steel_chest_block", () -> new SteelChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.STEEL_CHEST_BLOCK::get));
+    public static final RegistryObject<BlastedIronChestBlock> BLASTED_IRON_CHEST_BLOCK = register("blasted_iron_chest_block", () -> new BlastedIronChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.BLASTED_IRON_CHEST_BLOCK::get));
 
     // Thermal
     public static final RegistryObject<ThermalControllerBlock> THERMAL_CONTROLLER = register("thermal_controller", ThermalControllerBlock::new);
@@ -50,7 +50,7 @@ public class ModBlocks {
     public static final RegistryObject<ThermalSinkBlock> THERMAL_HEAT_SINK = register("thermal_heat_sink", ThermalSinkBlock::new);
 
     // Reactor
-    public static final RegistryObject<Block> REACTOR_CASING = register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
+    public static final RegistryObject<Block> REACTOR_CASING = register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
     public static final RegistryObject<ReactorGraphiteModeratorBlock> REACTOR_GRAPHITE_MODERATOR = register("reactor_graphite_moderator", ReactorGraphiteModeratorBlock::new);
     public static final RegistryObject<ReactorControllerBlock> REACTOR_CONTROLLER_BLOCK = register("reactor_controller", ReactorControllerBlock::new);
     public static final RegistryObject<ReactorControlRodBlock> REACTOR_ROD_CONTROLLER = register("reactor_rod_controller", ReactorControlRodBlock::new);

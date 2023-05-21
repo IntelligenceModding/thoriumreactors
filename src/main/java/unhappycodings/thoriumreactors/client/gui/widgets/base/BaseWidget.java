@@ -5,16 +5,20 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.gui.GuiUtil;
 import unhappycodings.thoriumreactors.client.gui.widgets.ModButton;
-import unhappycodings.thoriumreactors.common.container.base.screen.BaseScreen;
+import unhappycodings.thoriumreactors.common.registration.ModSounds;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class BaseWidget extends AbstractWidget {
 
@@ -78,7 +82,8 @@ public abstract class BaseWidget extends AbstractWidget {
 
     @Override
     public void playDownSound(@NotNull SoundManager pHandler) {
-        if (this instanceof ModButton) super.playDownSound(pHandler);
+        SoundEvent sound = this.x < (this.screen.width / 3) ? ModSounds.DIGITALBEEP_1.get() : this.x > ((this.screen.width / 3) * 2) ? ModSounds.DIGITALBEEP_1.get() : ModSounds.DIGITALBEEP_3.get();
+        if (this instanceof ModButton) pHandler.play(SimpleSoundInstance.forUI(sound, 1.0F));
     }
 
     public <ELEMENT extends BaseWidget> ELEMENT addChild(ELEMENT child) {

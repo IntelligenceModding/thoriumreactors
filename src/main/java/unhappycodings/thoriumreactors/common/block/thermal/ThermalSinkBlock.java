@@ -44,7 +44,7 @@ public class ThermalSinkBlock extends Block {
     private static final Map<Direction, VoxelShape> AABBS = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, NORTH_SOUTH, Direction.SOUTH, NORTH_SOUTH, Direction.WEST, EAST_WEST, Direction.EAST, EAST_WEST));
 
     public ThermalSinkBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL));
+        super(BlockBehaviour.Properties.of(Material.METAL).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 

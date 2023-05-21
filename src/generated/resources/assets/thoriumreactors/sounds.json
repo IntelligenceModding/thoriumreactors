@@ -1,45 +1,75 @@
 {
-  "machine_blast_furnace": {
+  "digitalbeep.0": {
+    "sounds": [
+      "thoriumreactors:beep_0"
+    ]
+  },
+  "digitalbeep.1": {
+    "sounds": [
+      "thoriumreactors:beep_1"
+    ]
+  },
+  "digitalbeep.2": {
+    "sounds": [
+      "thoriumreactors:beep_2"
+    ]
+  },
+  "digitalbeep.3": {
+    "sounds": [
+      "thoriumreactors:beep_3"
+    ]
+  },
+  "digitalbeep.4": {
+    "sounds": [
+      "thoriumreactors:beep_4"
+    ]
+  },
+  "digitalbeep.5": {
+    "sounds": [
+      "thoriumreactors:beep_5"
+    ]
+  },
+  "machine.blast_furnace": {
     "sounds": [
       "thoriumreactors:machine_blast_furnace"
     ]
   },
-  "machine_click": {
+  "machine.click": {
     "sounds": [
       "thoriumreactors:machine_click"
     ]
   },
-  "machine_crystalizer": {
+  "machine.crystalizer": {
     "sounds": [
       "thoriumreactors:machine_crystalizer"
     ]
   },
-  "machine_electrolytic_salt_separator": {
+  "machine.electrolytic_salt_separator": {
     "sounds": [
       "thoriumreactors:machine_electrolytic_salt_separator"
     ]
   },
-  "machine_fluid_centrifuge": {
+  "machine.fluid_centrifuge": {
     "sounds": [
       "thoriumreactors:machine_fluid_centrifuge"
     ]
   },
-  "machine_fluid_evaporation": {
+  "machine.fluid_evaporation": {
     "sounds": [
       "thoriumreactors:machine_fluid_evaporation"
     ]
   },
-  "machine_generator": {
+  "machine.generator": {
     "sounds": [
       "thoriumreactors:machine_generator"
     ]
   },
-  "machine_salt_melter": {
+  "machine.salt_melter": {
     "sounds": [
       "thoriumreactors:machine_salt_melter"
     ]
   },
-  "machine_uranium_oxidizer": {
+  "machine.uranium_oxidizer": {
     "sounds": [
       "thoriumreactors:machine_uranium_oxidizer"
     ]

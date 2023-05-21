@@ -17,7 +17,7 @@ import java.util.List;
 public class ThermalConductorBlock extends Block {
 
     public ThermalConductorBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL));
+        super(BlockBehaviour.Properties.of(Material.METAL).strength(5f));
     }
 
     @Override

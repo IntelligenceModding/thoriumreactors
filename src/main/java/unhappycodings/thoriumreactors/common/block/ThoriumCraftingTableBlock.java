@@ -44,7 +44,7 @@ public class ThoriumCraftingTableBlock extends BaseEntityBlock {
             Block.box(0, 0, 13, 3, 12, 16));
 
     public ThoriumCraftingTableBlock() {
-        super(Properties.of(Material.WOOD));
+        super(Properties.of(Material.STONE).strength(5f));
     }
 
     @SuppressWarnings("deprecation")

@@ -17,6 +17,7 @@ public class DataProvider {
 
         generator.addProvider(true, new ModelAndBlockStatesProvider(generator, existingFileHelper));
         generator.addProvider(true, new ItemModelProvider(generator, existingFileHelper));
+        generator.addProvider(true, new TagsProvider(generator, existingFileHelper));
         generator.addProvider(true, new RecipeProvider(generator));
         generator.addProvider(true, new LanguageProvider(generator, "en_us"));
         generator.addProvider(true, new SoundProvider(generator, ThoriumReactors.MOD_ID, existingFileHelper));

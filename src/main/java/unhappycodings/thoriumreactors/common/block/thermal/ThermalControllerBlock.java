@@ -27,7 +27,7 @@ public class ThermalControllerBlock extends Block {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public ThermalControllerBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL));
+        super(BlockBehaviour.Properties.of(Material.METAL).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false));
     }
 

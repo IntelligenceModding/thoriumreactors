@@ -13,7 +13,7 @@ public class ReactorCoreBlock extends Block {
     public static final BooleanProperty FUELED = BooleanProperty.create("fueled");
 
     public ReactorCoreBlock() {
-        super(Properties.of(Material.METAL));
+        super(Properties.of(Material.METAL).strength(6f));
         this.registerDefaultState(this.stateDefinition.any().setValue(HEATING, false).setValue(FUELED, false));
     }
 

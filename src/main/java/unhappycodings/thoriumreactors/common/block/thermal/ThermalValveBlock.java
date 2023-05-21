@@ -23,7 +23,7 @@ public class ThermalValveBlock extends Block {
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
 
     public ThermalValveBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL));
+        super(BlockBehaviour.Properties.of(Material.METAL).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 

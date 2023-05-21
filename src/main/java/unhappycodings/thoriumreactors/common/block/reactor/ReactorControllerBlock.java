@@ -34,7 +34,7 @@ public class ReactorControllerBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public ReactorControllerBlock() {
-        super(Properties.of(Material.METAL));
+        super(Properties.of(Material.METAL).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false));
     }
 

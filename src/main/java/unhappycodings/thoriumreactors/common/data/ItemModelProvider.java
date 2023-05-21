@@ -35,6 +35,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.THORIUM.get());
         simpleItem(ModItems.YELLOW_CAKE.get());
         simpleItem(ModItems.FLUORITE.get());
+        simpleItem(ModItems.CONFIGURATOR.get());
 
         simpleItem(ModItems.MOLTEN_SALT_BUCKET.get());
         simpleItem(ModItems.HEATED_MOLTEN_SALT_BUCKET.get());

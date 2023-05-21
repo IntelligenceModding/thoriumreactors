@@ -1,0 +1,73 @@
+name: Bug Report
+description: Report bugs and problems
+body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: markdown
+    attributes:
+      value: "Please use the search function before submitting an issue!"
+  - type: textarea
+    attributes:
+      label: Description
+      description: Give us some informations about your problem
+      placeholder:
+        I have found...
+        And you can reproduce it by...
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Multiplayer?
+      description: Where are you playing?
+      multiple: false
+      options:
+        - "Singleplayer"
+        - "Multiplayer"
+        - "LAN"
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Operating System?
+      description: On which OS are you playing on?
+      multiple: false
+      options:
+        - "Windows"
+        - "MacOS"
+        - "Linux"
+        - "Other"
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Version
+      description: Which mod version are you using?
+      multiple: false
+      options:
+        - 0.1a
+        - other
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Minecraft Version
+      description: Which Minecraft version are you playing on?
+      placeholder: e.g. 1.19.2
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Forge Version
+      description: Which Forge version is installed?
+      placeholder: e.g. 40.1.79
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Links
+      description: Maybe videos or images will explain you problem better.

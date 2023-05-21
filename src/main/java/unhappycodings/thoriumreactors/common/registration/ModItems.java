@@ -21,6 +21,7 @@ public class ModItems {
     public static final RegistryObject<Item> POTASSIUM = Registration.ITEMS.register("potassium", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
     public static final RegistryObject<Item> URAN_THREE_CHLORIDE = Registration.ITEMS.register("uran_three_chloride", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
 
+    public static final RegistryObject<Item> CONFIGURATOR = Registration.ITEMS.register("configurator", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
     public static final RegistryObject<Item> REDSTONE_PROCESSOR = Registration.ITEMS.register("redstone_processor", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));
 
     public static final RegistryObject<Item> BLASTED_IRON_INGOT = Registration.ITEMS.register("blasted_iron_ingot", () -> new Item(new Item.Properties().tab(ThoriumReactors.creativeTab)));

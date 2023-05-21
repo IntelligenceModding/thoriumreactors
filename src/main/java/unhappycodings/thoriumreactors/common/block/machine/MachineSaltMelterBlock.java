@@ -54,7 +54,7 @@ public class MachineSaltMelterBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public MachineSaltMelterBlock() {
-        super(Properties.of(Material.STONE));
+        super(Properties.of(Material.STONE).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false));
     }
 

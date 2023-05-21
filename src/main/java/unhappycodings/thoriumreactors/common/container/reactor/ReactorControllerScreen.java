@@ -3,12 +3,16 @@ package unhappycodings.thoriumreactors.common.container.reactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
@@ -16,12 +20,12 @@ import unhappycodings.thoriumreactors.client.gui.widgets.ModButton;
 import unhappycodings.thoriumreactors.common.ReactorButtonTypeEnum;
 import unhappycodings.thoriumreactors.common.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
-import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.container.base.editbox.ModEditBox;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerStatePacket;
+import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import unhappycodings.thoriumreactors.common.util.RenderUtil;
 
@@ -36,25 +40,31 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     public Integer[] flowGraphValues = new Integer[93];
     public Integer[] speedGraphValues = new Integer[93];
     public Integer[] pressureGraphValues = new Integer[93];
+    public boolean leftSideButtonsAdded;
+    public boolean rightSideButtonsAdded;
     public int tempIntegers = 0;
     public int flowIntegers = 0;
     public int speedIntegers = 0;
     public int pressureIntegers = 0;
-    public ModEditBox set1;
-    public ModEditBox set2;
-    public ModEditBox set3;
-    public ModEditBox[] positionInputs;
+    public int selectedRod = -1;
+    public int curMouseX = 0;
+    public int curMouseY = 0;
+
+    public ModButton[] controlRodsButtons = new ModButton[64];
     public ModButton incrementerSpeed;
     public ModButton incrementerOverflow;
     public ModButton incrementerLoad;
     public ModButton coilEngageButton;
     public ModButton coilDisengageButton;
-    public boolean leftSideButtonsAdded;
-    public boolean rightSideButtonsAdded;
-    public ModButton[] buttons = new ModButton[64];
-    public int selectedRod = -1;
-    int curMouseX = 0;
-    int curMouseY = 0;
+    public ModButton scramButton;
+    public ModButton rodSetButton;
+    public ModButton loadSetButton;
+    public ModButton tempSetButton;
+
+    public ModEditBox[] positionInputs;
+    public ModEditBox inputBox1;
+    public ModEditBox inputBox2;
+    public ModEditBox inputBox3;
 
     public ReactorControllerScreen(ReactorControllerContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);
@@ -68,27 +78,27 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     }
 
     public void addElements() {
-        ReactorControllerBlockEntity tile = container.getTile();
-        addWidget(new ModButton(-36, 20, 6, 25, null, () -> ClientConfig.showLeftReactorScreenArea.set(!ClientConfig.showLeftReactorScreenArea.get()), null, tile, this, 0, 0, true));
-        addWidget(new ModButton(206, 20, 6, 25, null, () -> ClientConfig.showRightReactorScreenArea.set(!ClientConfig.showRightReactorScreenArea.get()), null, tile, this, 0, 0, true));
+        ReactorControllerBlockEntity entity = container.getTile();
+        addWidget(new ModButton(-36, 20, 6, 25, null, () -> ClientConfig.showLeftReactorScreenArea.set(!ClientConfig.showLeftReactorScreenArea.get()), null, entity, this, 0, 0, true));
+        addWidget(new ModButton(206, 20, 6, 25, null, () -> ClientConfig.showRightReactorScreenArea.set(!ClientConfig.showRightReactorScreenArea.get()), null, entity, this, 0, 0, true));
 
-        for (int i = 0; i < buttons.length; i++) {
+        for (int i = 0; i < controlRodsButtons.length; i++) {
             int row = i / 8;
             int index = i;
-            buttons[i] = new ModButton((64 - (row * 7)) + (i % 8 * 7), (14 + (row * 7)) + (i % 8 * 7), 4, 4, null, () -> {
+            controlRodsButtons[i] = new ModButton((64 - (row * 7)) + (i % 8 * 7), (14 + (row * 7)) + (i % 8 * 7), 4, 4, null, () -> {
                 selectedRod = index;
-                set3.setValue(tile.getControlRodStatus((byte) index) + "");
-            }, null, tile, this, 0, 0, true);
-            addWidget(buttons[i]);
+                inputBox3.setValue(entity.getControlRodStatus((byte) index) + "");
+            }, null, entity, this, 0, 0, true);
+            addWidget(controlRodsButtons[i]);
         }
 
     }
 
     public void trySetValue(ReactorButtonTypeEnum typeEnum) {
         ReactorControllerBlockEntity entity = container.getTile();
-        if (typeEnum == ReactorButtonTypeEnum.TEMP) PacketHandler.sendToServer(new ReactorControllerTemperaturePacket(entity.getBlockPos(), Short.parseShort(set1.getValue())));
-        if (typeEnum == ReactorButtonTypeEnum.LOAD && Integer.parseInt(set2.getValue()) <= 100 && Integer.parseInt(set2.getValue()) >= 0) PacketHandler.sendToServer(new ReactorControllerLoadPacket(entity.getBlockPos(), Byte.parseByte(set2.getValue())));
-        if (typeEnum == ReactorButtonTypeEnum.RODS && Integer.parseInt(set3.getValue()) <= 100 && Integer.parseInt(set3.getValue()) >= 0) PacketHandler.sendToServer(new ReactorControllerRodInsertPacket(entity.getBlockPos(), Byte.parseByte(set3.getValue()), (byte) selectedRod, hasShiftDown()));
+        if (typeEnum == ReactorButtonTypeEnum.TEMP) PacketHandler.sendToServer(new ReactorControllerTemperaturePacket(entity.getBlockPos(), Short.parseShort(inputBox1.getValue())));
+        if (typeEnum == ReactorButtonTypeEnum.LOAD && Integer.parseInt(inputBox2.getValue()) <= 100 && Integer.parseInt(inputBox2.getValue()) >= 0) PacketHandler.sendToServer(new ReactorControllerLoadPacket(entity.getBlockPos(), Byte.parseByte(inputBox2.getValue())));
+        if (typeEnum == ReactorButtonTypeEnum.RODS && Integer.parseInt(inputBox3.getValue()) <= 100 && Integer.parseInt(inputBox3.getValue()) >= 0) PacketHandler.sendToServer(new ReactorControllerRodInsertPacket(entity.getBlockPos(), Byte.parseByte(inputBox3.getValue()), (byte) selectedRod, hasShiftDown()));
     }
 
     public void setTurbineCoils(boolean value) {
@@ -120,6 +130,30 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         PacketHandler.sendToServer(new ReactorControllerTurbineLoadPacket(entity.getBlockPos(), (byte) (incrementerLoad.isMouseOver(curMouseX, curMouseY) && mouseOver ? -1 * (hasShiftDown() ? 10 : 1) : 1 * (hasShiftDown() ? 10 : 1))));
     }
 
+    @Override
+    public void resize(Minecraft pMinecraft, int pWidth, int pHeight) {
+        super.resize(pMinecraft, pWidth, pHeight);
+        pMinecraft.player.closeContainer();
+        pMinecraft.player.sendSystemMessage(Component.literal("Window size has changed. Please open the menu again!").withStyle(ChatFormatting.GREEN));
+    }
+
+    @Override
+    public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
+        ReactorControllerBlockEntity entity = this.getMenu().getTile();
+        for (int i = 0; i < controlRodsButtons.length; i++) {
+            if (controlRodsButtons[i].isMouseOver(pMouseX, pMouseY)) {
+                int inputValue = entity.getControlRodStatus((byte) i);
+                byte finalValue = (byte) (inputValue + (hasShiftDown() ? pDelta * 10 : pDelta));
+                if (finalValue <= 100 && finalValue >= 0) {
+                    if (i == selectedRod) inputBox3.setValue(String.valueOf(finalValue));
+                    PacketHandler.sendToServer(new ReactorControllerRodInsertPacket(entity.getBlockPos(), finalValue, (byte) i, false));
+                    minecraft.getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.DIGITALBEEP_0.get(), pDelta > 0 ? 1F : 0.99f));
+                }
+            }
+        }
+        return super.mouseScrolled(pMouseX, pMouseY, pDelta);
+    }
+
     protected void subInit() {
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
         for (ModEditBox editBox : positionInputs) {
@@ -131,9 +165,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         }
 
         ReactorControllerBlockEntity entity = container.getTile();
-        set3.setValue("0");
-        set2.setValue(String.valueOf(entity.getReactorTargetLoadSet()));
-        set1.setValue(String.valueOf(entity.getReactorTargetTemperature()));
+        inputBox3.setValue("0");
+        inputBox2.setValue(String.valueOf(entity.getReactorTargetLoadSet()));
+        inputBox1.setValue(String.valueOf(entity.getReactorTargetTemperature()));
     }
 
     @Override
@@ -159,20 +193,20 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     public void renderRods(PoseStack matrixStack) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, getBackgroundTexture());
-        ReactorControllerBlockEntity tile = this.getMenu().getTile();
+        ReactorControllerBlockEntity entity = this.getMenu().getTile();
         int xPos = width - (getMainSizeX() / 2);
         int yPos = height - (getMainSizeY() / 2);
 
         // Fuel rods
-        for (int i = 0; i < tile.getFuelRodStatus().length; i++) {
+        for (int i = 0; i < entity.getFuelRodStatus().length; i++) {
             int row = i / 9;
-            blit(matrixStack, xPos + (200 - (row * 14)) + (i % 9 * 14), yPos + (68 + (row * 14)) + (i % 9 * 14), 993, 140 - (getBlitOffset(tile.getFuelRodStatus((byte) i)) * 14), 14, 14, 1024, 1024); //left
+            blit(matrixStack, xPos + (200 - (row * 14)) + (i % 9 * 14), yPos + (68 + (row * 14)) + (i % 9 * 14), 993, 140 - (getBlitOffset(entity.getFuelRodStatus((byte) i)) * 14), 14, 14, 1024, 1024); //left
         }
 
         // Control rods
-        for (int i = 0; i < tile.getControlRodStatus().length; i++) {
+        for (int i = 0; i < entity.getControlRodStatus().length; i++) {
             int row = i / 8;
-            blit(matrixStack, xPos + (200 - (row * 14)) + (i % 8 * 14), yPos + (82 + (row * 14)) + (i % 8 * 14), buttons[i].isMouseOver(curMouseX, curMouseY) || selectedRod == i ? 965 : 979, 140 - (getBlitOffset(tile.getControlRodStatus((byte) i)) * 14), 14, 14, 1024, 1024); //left
+            blit(matrixStack, xPos + (200 - (row * 14)) + (i % 8 * 14), yPos + (82 + (row * 14)) + (i % 8 * 14), controlRodsButtons[i].isMouseOver(curMouseX, curMouseY) || selectedRod == i ? 965 : 979, 140 - (getBlitOffset(entity.getControlRodStatus((byte) i)) * 14), 14, 14, 1024, 1024); //left
         }
 
     }
@@ -247,10 +281,18 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             if (container.getTile().getReactorState() != ReactorStateEnum.RUNNING) blit(matrixStack, xPos + 514, yPos + 289, 0, mouseOverRunning ? 512 : 491, 83, 21, 1024, 1024); // left right bottom
             if (container.getTile().getReactorState() != ReactorStateEnum.STOP) blit(matrixStack, xPos + 514, yPos + 316, 0, mouseOverStop ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
 
+            // scram button
+            blit(matrixStack, xPos + 627, yPos + 301, 166, scramButton.isMouseOver(curMouseX, curMouseY) ? 540 : 506, 80, 34, 1024, 1024);
+
             // coil engaged buttons right
             if (container.getTile().isTurbineCoilsEngaged()) blit(matrixStack, xPos + 619, yPos + 195, 0, coilDisengageButton.isMouseOver(curMouseX, curMouseY) ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
             else blit(matrixStack, xPos + 524, yPos + 195, 83, coilEngageButton.isMouseOver(curMouseX, curMouseY) ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
 
+            // fuel bars
+            int value = 0;
+            for (int i = 0; i < container.getTile().getFuelRodStatus().length; i++) value += container.getTile().getFuelRodStatus()[i];
+            blit(matrixStack, xPos + 564, yPos + 376, 224, 449, (int) ((value / 8100f * 100f)*1.23f), 9, 1024, 1024); // uran
+            blit(matrixStack, xPos + 564, yPos + 396, 224, 458, 123, 9, 1024, 1024); // salt
         }
 
         // middle graphs
@@ -286,37 +328,38 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     @Override
     public void render(@NotNull PoseStack pPoseStack, int x, int y, float pPartialTick) {
+        ReactorControllerBlockEntity entity = this.getMenu().getTile();
         curMouseX = x;
         curMouseY = y;
+
         renderBackground(pPoseStack);
         super.render(pPoseStack, x, y, pPartialTick);
         renderTooltip(pPoseStack, x, y);
 
-        int xPos = width - (getMainSizeX() / 2);
-        int yPos = height - (getMainSizeY() / 2);
-        ReactorControllerBlockEntity tile = this.getMenu().getTile();
+        // RIGHT SIDE
         if (ClientConfig.showRightReactorScreenArea.get() && !rightSideButtonsAdded) {
             // Incrementer buttons
-            incrementerSpeed = new ModButton(220, 38, 31, 11, null, () -> setTurbineSpeed(), null, tile, this, 0, 0, true);
-            incrementerOverflow = new ModButton(254, 38, 31, 11, null, () -> setTurbineOverflow(), null, tile, this, 0, 0, true);
-            incrementerLoad = new ModButton(289, 38, 31, 11, null, () -> setTurbineLoad(), null, tile, this, 0, 0, true);
+            incrementerSpeed = new ModButton(220, 38, 31, 11, null, () -> setTurbineSpeed(), null, entity, this, 0, 0, true);
+            incrementerOverflow = new ModButton(254, 38, 31, 11, null, () -> setTurbineOverflow(), null, entity, this, 0, 0, true);
+            incrementerLoad = new ModButton(289, 38, 31, 11, null, () -> setTurbineLoad(), null, entity, this, 0, 0, true);
             addWidget(incrementerSpeed);
             addWidget(incrementerOverflow);
             addWidget(incrementerLoad);
 
             // Coil engage buttons
-            coilEngageButton = new ModButton(225, 69, 41, 11, null, () -> setTurbineCoils(true), null, tile, this, 0, 0, true);
-            coilDisengageButton = new ModButton(225 + 48, 69, 41, 11, null, () -> setTurbineCoils(false), null, tile, this, 0, 0, true);
+            coilEngageButton = new ModButton(225, 69, 41, 11, null, () -> setTurbineCoils(true), null, entity, this, 0, 0, true);
+            coilDisengageButton = new ModButton(225 + 48, 69, 41, 11, null, () -> setTurbineCoils(false), null, entity, this, 0, 0, true);
             addWidget(coilEngageButton);
             addWidget(coilDisengageButton);
 
             // State buttons
-            addWidget(new ModButton(220, 101, 41, 11, null, () -> changeReactorState(ReactorStateEnum.STARTING), null, tile, this, 0, 0, true));
-            addWidget(new ModButton(220, 115, 41, 11, null, () -> changeReactorState(ReactorStateEnum.RUNNING), null, tile, this, 0, 0, true));
-            addWidget(new ModButton(220, 128, 41, 11, null, () -> changeReactorState(ReactorStateEnum.STOP), null, tile, this, 0, 0, true));
+            addWidget(new ModButton(220, 101, 41, 11, null, () -> changeReactorState(ReactorStateEnum.STARTING), null, entity, this, 0, 0, true));
+            addWidget(new ModButton(220, 115, 41, 11, null, () -> changeReactorState(ReactorStateEnum.RUNNING), null, entity, this, 0, 0, true));
+            addWidget(new ModButton(220, 128, 41, 11, null, () -> changeReactorState(ReactorStateEnum.STOP), null, entity, this, 0, 0, true));
 
             // Scram button
-            addWidget(new ModButton(276, 120, 41, 19, null, () -> scram(), null, tile, this, 0, 0, true));
+            scramButton = new ModButton(276, 120, 41, 19, null, () -> scram(), null, entity, this, 0, 0, true);
+            addWidget(scramButton);
 
             rightSideButtonsAdded = true;
         } else if (rightSideButtonsAdded && !ClientConfig.showRightReactorScreenArea.get()) {
@@ -326,17 +369,21 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             leftSideButtonsAdded = false;
         }
 
+        // LEFT SIDE
         if (ClientConfig.showLeftReactorScreenArea.get() && !leftSideButtonsAdded) {
             // Set buttons
-            addWidget(new ModButton(- 72, + 44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.TEMP), null, tile, this, 0, 0, true)); // Right
-            addWidget(new ModButton(- 108, + 44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.LOAD), null, tile, this, 0, 0, true)); // Middle
-            addWidget(new ModButton(- 142, + 44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.RODS), null, tile, this, 0, 0, true)); // Left
+            rodSetButton = new ModButton(- 142, + 44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.RODS), null, entity, this, 0, 0, true); // Left
+            loadSetButton = new ModButton(- 108, + 44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.LOAD), null, entity, this, 0, 0, true); // Middle
+            tempSetButton = new ModButton(- 72, + 44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.TEMP), null, entity, this, 0, 0, true); // Right
+            addWidget(rodSetButton);
+            addWidget(loadSetButton);
+            addWidget(tempSetButton);
 
             // Edit boxes left
-            set1 = new ModEditBox(font, leftPos - 68, topPos + 32, 30, 8, Component.empty().withStyle(RenderUtil::notoSans));
-            set2 = new ModEditBox(font, leftPos - 102, topPos + 32, 30, 8, Component.empty().withStyle(RenderUtil::notoSans));
-            set3 = new ModEditBox(font, leftPos - 138, topPos + 32, 30, 8, Component.empty().withStyle(RenderUtil::notoSans));
-            positionInputs = new ModEditBox[]{set1, set2, set3};
+            inputBox1 = new ModEditBox(font, leftPos - 68, topPos + 32, 30, 8, Component.empty().withStyle(RenderUtil::notoSans));
+            inputBox2 = new ModEditBox(font, leftPos - 102, topPos + 32, 30, 8, Component.empty().withStyle(RenderUtil::notoSans));
+            inputBox3 = new ModEditBox(font, leftPos - 138, topPos + 32, 30, 8, Component.empty().withStyle(RenderUtil::notoSans));
+            positionInputs = new ModEditBox[]{inputBox1, inputBox2, inputBox3};
             for (ModEditBox modEditBox : positionInputs) addRenderableWidget(modEditBox);
             subInit();
 
@@ -347,6 +394,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             rightSideButtonsAdded = false;
             leftSideButtonsAdded = false;
         }
+
     }
 
     @Override
@@ -358,9 +406,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             renderLeftPartProgress(pPoseStack);
             renderLeftPartTexts(pPoseStack);
 
-            if (set1.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Reactor Temp", "25°C - 999°C"});
-            if (set2.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Load level", "0% - 100%"});
-            if (set3.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Insert Level", "0% - 100%"});
+            if (inputBox1.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Reactor Temp", "25°C - 999°C"});
+            if (inputBox2.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Load level", "0% - 100%"});
+            if (inputBox3.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Insert Level", "0% - 100%"});
 
         }
         if (rightSideButtonsAdded) {
@@ -371,9 +419,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             if (incrementerOverflow.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Turbine Overflow", "Click ±1", "Shift+Click ±10"});
             if (incrementerLoad.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Turbine Load", "Click ±1", "Shift+Click ±10"});
 
-            for (int i = 0; i < buttons.length; i++) {
-                if (buttons[i].isMouseOver(pMouseX, pMouseY)) {
-                    appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getControlRodStatus((byte) i) + "%"});
+            for (int i = 0; i < controlRodsButtons.length; i++) {
+                if (controlRodsButtons[i].isMouseOver(pMouseX, pMouseY)) {
+                    appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getControlRodStatus((byte) i) + "%", "Scroll ±"});
                 }
             }
 
@@ -407,12 +455,14 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     public void renderLeftPartTexts(PoseStack pPoseStack) {
         ReactorControllerBlockEntity entity = container.getTile();
+        int fuelValue = 0;
+        for (int i = 0; i < container.getTile().getFuelRodStatus().length; i++) fuelValue += container.getTile().getFuelRodStatus()[i];
 
         // very, very small text
         pPoseStack.pushPose();
         pPoseStack.scale(0.4f, 0.4f, 0.4f);
         RenderUtil.drawCenteredText(Component.literal((byte) selectedRod == -1 ? "0" : entity.getControlRodStatus((byte) selectedRod) + "%").withStyle(RenderUtil::notoSans), pPoseStack, -323, 48, 16711422);
-        RenderUtil.drawCenteredText(Component.literal(entity.getFuelRodStatus((byte) 0) + "%").withStyle(RenderUtil::notoSans), pPoseStack, -236, 48, 16711422);
+        RenderUtil.drawCenteredText(Component.literal(entity.getReactorTargetLoadSet() + "%").withStyle(RenderUtil::notoSans), pPoseStack, -236, 48, 16711422);
         RenderUtil.drawCenteredText(Component.literal(entity.getReactorTargetTemperature() + "°C").withStyle(RenderUtil::notoSans), pPoseStack, -149, 48, 16711422);
         pPoseStack.popPose();
 
@@ -426,7 +476,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         RenderUtil.drawCenteredText(Component.literal("SET").withStyle(RenderUtil::notoSans), pPoseStack, -184, 68, 11566128);
 
         RenderUtil.drawCenteredText(Component.literal("LOAD SET").withStyle(RenderUtil::notoSans), pPoseStack, -135, -17, 16711422);
-        RenderUtil.drawCenteredText(Component.literal(entity.getFuelRodStatus((byte) 0) + "").withStyle(RenderUtil::notoSans), pPoseStack, -135, 8, 16711422);
+        RenderUtil.drawCenteredText(Component.literal((int) (fuelValue / 8100f * 100f) + "").withStyle(RenderUtil::notoSans), pPoseStack, -135, 8, 16711422);
         RenderUtil.drawCenteredText(Component.literal("%").withStyle(RenderUtil::notoSans), pPoseStack, -135, 17, 16711422);
         RenderUtil.drawCenteredText(Component.literal("SET").withStyle(RenderUtil::notoSans), pPoseStack, -135, 68, 11566128);
 
@@ -453,6 +503,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     public void renderRightPartTexts(PoseStack pPoseStack) {
         ReactorControllerBlockEntity entity = container.getTile();
+        int fuelValue = 0;
+        for (int i = 0; i < container.getTile().getFuelRodStatus().length; i++) fuelValue += container.getTile().getFuelRodStatus()[i];
 
         // very, very small text
         pPoseStack.pushPose();
@@ -460,6 +512,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         RenderUtil.drawCenteredText(Component.literal(String.valueOf(entity.getTurbineTargetSpeed())).withStyle(RenderUtil::notoSans), pPoseStack, 587, 48, 16711422);
         RenderUtil.drawCenteredText(Component.literal(String.valueOf(entity.getTurbineTargetOverflowSet()) + "%").withStyle(RenderUtil::notoSans), pPoseStack, 674, 48, 16711422);
         RenderUtil.drawCenteredText(Component.literal(String.valueOf(entity.getTurbineTargetLoadSet()) + "%").withStyle(RenderUtil::notoSans), pPoseStack, 761, 48, 16711422);
+
+        RenderUtil.drawCenteredText(Component.literal("Enriched").withStyle(RenderUtil::notoSans), pPoseStack, 577, 407, 16711422);
+        RenderUtil.drawCenteredText(Component.literal("Molten Salt").withStyle(RenderUtil::notoSans), pPoseStack, 577, 433, 16711422);
         pPoseStack.popPose();
 
         // very small text
@@ -494,8 +549,14 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         RenderUtil.drawCenteredText(Component.literal("MANUAL").withStyle(RenderUtil::notoSans), pPoseStack, 424, 178, 16711422);
         RenderUtil.drawCenteredText(Component.literal("SCRAM").withStyle(RenderUtil::notoSans), pPoseStack, 424, 187, 16711422);
 
+        RenderUtil.drawCenteredText(Component.literal("Uran:").withStyle(RenderUtil::notoSans), pPoseStack, 330, 226, 16711422);
+        RenderUtil.drawCenteredText(Component.literal( (int) (fuelValue / 8100f * 100f) + "%").withStyle(RenderUtil::notoSans), pPoseStack, 452, 226, 16711422);
+        RenderUtil.drawCenteredText(Component.literal("Fuel:").withStyle(RenderUtil::notoSans), pPoseStack, 330, 241, 16711422);
+        RenderUtil.drawCenteredText(Component.literal("100%").withStyle(RenderUtil::notoSans), pPoseStack, 452, 241, 16711422);
+
         RenderUtil.drawText(Component.literal("OPERATION").withStyle(RenderUtil::notoSans), pPoseStack, 314, 128, 11184810);
         RenderUtil.drawText(Component.literal("EMERGENCY").withStyle(RenderUtil::notoSans), pPoseStack, 393, 128, 11184810);
+        RenderUtil.drawText(Component.literal("FUEL STATUS").withStyle(RenderUtil::notoSans), pPoseStack, 314, 213, 11184810);
         pPoseStack.popPose();
 
         // normal text
@@ -663,7 +724,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     }
 
     public int getRightSideY() {
-        return 353;
+        return 416;
     }
 
     public ResourceLocation getBackgroundTexture() {

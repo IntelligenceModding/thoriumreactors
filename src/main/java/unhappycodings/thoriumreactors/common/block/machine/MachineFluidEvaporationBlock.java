@@ -55,7 +55,7 @@ public class MachineFluidEvaporationBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public MachineFluidEvaporationBlock() {
-        super(Properties.of(Material.STONE));
+        super(Properties.of(Material.STONE).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false));
     }
 

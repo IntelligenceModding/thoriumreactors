@@ -32,7 +32,7 @@ public class ReactorGraphiteModeratorBlock extends Block implements BucketPickup
     public static final VoxelShape ALL = Block.box(4, 0, 4, 11.5, 16, 11.5);
 
     public ReactorGraphiteModeratorBlock() {
-        super(Properties.of(Material.STONE));
+        super(Properties.of(Material.STONE).strength(5f));
         this.registerDefaultState(this.defaultBlockState().setValue(SALTLOGGED, false));
     }
 

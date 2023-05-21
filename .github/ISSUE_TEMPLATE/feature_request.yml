@@ -1,0 +1,16 @@
+name: Feature Request
+description: Suggest features and ideas
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: Give us some clear information's about your idea
+      placeholder:
+        I would love...
+        And it does this...
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Links
+      description: Maybe videos or images will explain your idea better.
