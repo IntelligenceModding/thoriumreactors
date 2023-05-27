@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineDecomposerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientDecomposerDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.machine.ClientDecomposerDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class MachineDecomposerContainer extends BaseContainer {

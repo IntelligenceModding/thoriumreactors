@@ -1,4 +1,4 @@
-// 1.19.2	2023-05-21T11:13:30.0828602	Block States: thoriumreactors
+// 1.19.2	2023-05-25T09:30:09.344074	Block States: thoriumreactors
 d9e3d4c62d57e247732a15811686267e1fca496f assets/thoriumreactors/blockstates/blasted_iron_block.json
 f1ff332ea15b9599bfa59d78609a2aaceaf4f836 assets/thoriumreactors/blockstates/blasted_stone.json
 7892f114227e66b1097508a7a0f6cc8d19db1464 assets/thoriumreactors/blockstates/blast_furnace_block.json
@@ -28,7 +28,7 @@ a917eb585c1211c2422cdf610976062416b3325c assets/thoriumreactors/blockstates/salt
 5b45fb2ae594209c7891f5e33ae4ddf82662d88b assets/thoriumreactors/blockstates/thermal_conductor.json
 74e7e20a553979fc1729a38b9c5d43afc3ddd76c assets/thoriumreactors/blockstates/thermal_controller.json
 cb338222a175da1dc377e5269eb1322fdcbf311b assets/thoriumreactors/blockstates/thermal_heat_sink.json
-04fc3704a304d4cd93a8fe5650261b78a5e7bf65 assets/thoriumreactors/blockstates/thermal_valve.json
+56ed4a7f8ce7ae2c0eb8e29003aa90654dd3fc68 assets/thoriumreactors/blockstates/thermal_valve.json
 70cae2deb61557d4534118e1eee072533ba8fb16 assets/thoriumreactors/blockstates/thorium_block.json
 354bea6630d8e39c4b2888398fd9e2622f73673a assets/thoriumreactors/blockstates/uranium_block.json
 350a405737b943c15e58c209d625936905d1a59d assets/thoriumreactors/blockstates/uranium_hexafluorite_block.json

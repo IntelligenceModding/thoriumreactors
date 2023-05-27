@@ -9,7 +9,7 @@ import net.minecraftforge.network.NetworkEvent;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
-import unhappycodings.thoriumreactors.common.network.toclient.MachineClientDumpModePacket;
+import unhappycodings.thoriumreactors.common.network.toclient.machine.MachineClientDumpModePacket;
 
 public class MachineDumpModePacket implements IPacket {
     private final BlockPos pos;

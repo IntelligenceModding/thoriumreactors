@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineGeneratorBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientGeneratorDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.machine.ClientGeneratorDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class MachineGeneratorContainer extends BaseContainer {

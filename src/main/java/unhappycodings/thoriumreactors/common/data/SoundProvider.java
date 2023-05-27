@@ -38,5 +38,9 @@ public class SoundProvider extends SoundDefinitionsProvider {
         add("digitalbeep.3", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "beep_3"), SoundDefinition.SoundType.SOUND)));
         add("digitalbeep.4", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "beep_4"), SoundDefinition.SoundType.SOUND)));
         add("digitalbeep.5", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "beep_5"), SoundDefinition.SoundType.SOUND)));
+        add("notification", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "notification"), SoundDefinition.SoundType.SOUND)));
+        add("alarm.1", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "alarm_1"), SoundDefinition.SoundType.SOUND)));
+        add("alarm.2", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "alarm_2"), SoundDefinition.SoundType.SOUND)));
+        add("alarm.3", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "alarm_3"), SoundDefinition.SoundType.SOUND)));
     }
 }

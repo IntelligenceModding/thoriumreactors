@@ -9,26 +9,39 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ThrowablePotionItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.server.command.ModIdArgument;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.ValveTypeEnum;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBlock;
+import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
+import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
-import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
-import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.registration.ModItems;
+import unhappycodings.thoriumreactors.common.network.PacketHandler;
+import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorControllerDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorRenderDataPacket;
+import unhappycodings.thoriumreactors.common.registration.*;
 import unhappycodings.thoriumreactors.common.util.CalculationUtil;
 
 import java.util.ArrayList;
@@ -36,6 +49,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ReactorControllerBlockEntity extends BlockEntity implements MenuProvider {
+    public static final int MAX_HEAT = 971;
     public List<BlockPos> framePosList = new ArrayList<>();
     public BlockPos floorPosA, floorPosB, floorPosARight, floorPosBLeft;
     public BlockPos ceilingPosA, ceilingPosB, ceilingPosARight, ceilingPosBLeft;
@@ -50,6 +64,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     public boolean assembled;
     public String warning = "";
     public String notification = "";
+    public boolean isReactorActive;
+    public boolean isExchangerActive;
+    public boolean isTurbineActive;
 
     // Reactor
     private short reactorCurrentTemperature; // 0-3000
@@ -77,6 +94,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     private boolean turbineCoilsEngaged; // true-false
     private short turbineCurrentFlow; // Buckets per second
     private long turbinePowerGeneration; // FE per tick
+
+    private final ModFluidTank FLUID_TANK_IN = new ModFluidTank(35000, true, true, 0, FluidStack.EMPTY);
+    private final ModFluidTank FLUID_TANK_OUT = new ModFluidTank(35000, true, true, 0, FluidStack.EMPTY);
 
     public ReactorControllerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.REACTOR_CONTROLLER.get(), pPos, pBlockState);
@@ -121,22 +141,182 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
             assembled = true;
 
         }
+
         if (isAssembled()) {
+            tryTankReactor(); // Molten Salt input from configured valves
+            tryOutputTank(); // Output of Heated Molten Salt into configures valves
+            tryFuelReactor(); // Input of Enriched Uranium Pellets from configures valves
+            updateTemperature(); // Temperature Simulation
 
-            if (valvePos != null) {
-                int fuelValue = 0;
-                for (int i = 0; i < getFuelRodStatus().length; i++) fuelValue += getFuelRodStatus()[i];
-                int fuelPercentage = (int) (fuelValue / 8100f * 100f);
+            // If scrammed, do simulation
+            if (isScrammed())
+                doScramSimulation();
 
-                for (BlockPos blockPos : valvePos) {
-                    if (!level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) return;
+            if (getReactorState() != ReactorStateEnum.STOP)
+                doReactorSimulation();
+
+            updateRenderData();
+            updateBlock();
+        }
+    }
+
+    public void scram(String text) {
+        setScrammed(true);
+        setNotification(text);
+        level.playSound(null, getBlockPos(), ModSounds.ALARM_2.get(), SoundSource.BLOCKS, 2f, 1f);
+    }
+
+    public void doScramSimulation() {
+        setReactorRunningSince(-1);
+        for (byte i = 0; i < 64; i++)
+            if ((byte) getControlRodStatus(i) < 100)
+                setControlRodStatus(i, (byte) ((byte) getControlRodStatus(i) + 1));
+        if (level.getGameTime() % 60 == 0) level.playSound(null, getBlockPos(), ModSounds.ALARM_1.get(), SoundSource.BLOCKS, 1f, 1f);
+        if (level.getGameTime() % 40 == 0) level.playSound(null, getBlockPos(), ModSounds.ALARM_2.get(), SoundSource.BLOCKS, 2f, 1f);
+        setReactorState(ReactorStateEnum.STOP);
+        updateBlock();
+    }
+
+    public void doReactorSimulation() {
+        setReactorRunningSince(getReactorRunningSince() + 1);
+        if (getFluidAmountIn() < 10000) {
+            scram("Warning: Emergency Scram! Molten Salt level low");
+            return;
+        } else if (getNotification().equals("Warning: Emergency Scram! Molten Salt level low")) {
+            setNotification("");
+        }
+
+        setCoreHeating(true);
+        setReactorActive(true);
+
+        if (getReactorCurrentTemperature() > 100 && getReactorState() == ReactorStateEnum.RUNNING) {
+            int modifier = (int) Math.floor(getReactorCurrentTemperature() / 100f);
+            int amount = getFluidSpaceOut() > modifier ? (getFluidAmountIn() >= modifier ? modifier : getFluidAmountIn()) : (getFluidSpaceOut() >= modifier ? modifier : getFluidSpaceOut());
+
+            if (FLUID_TANK_OUT.getFluid().isEmpty()) {
+                FLUID_TANK_OUT.setFluid(new FluidStack(ModFluids.FLOWING_HEATED_MOLTEN_SALT.get(), amount));
+            } else if (!FLUID_TANK_IN.getFluid().isEmpty()) {
+                getFluidIn().shrink(amount);
+                getFluidOut().grow(amount);
+            }
+        }
+
+        radiationPlayerCheck();
+    }
+
+    public void updateTemperature() {
+        int fuelValue = 0, controlValue = 0;
+        for (int i = 0; i < getFuelRodStatus().length; i++) fuelValue += getFuelRodStatus()[i];
+        for (int i = 0; i < getControlRodStatus().length; i++) controlValue += getControlRodStatus()[i];
+        float fuelValuePercent = (fuelValue / 8100f * 100f), controlValuePercent = (1f - (controlValue / 6400f));
+        short targetTemperature = (short) (((fuelValuePercent * controlValuePercent) / 100f) * MAX_HEAT);
+        short normalTemp = (short) (level.getBiome(getBlockPos()).is(Tags.Biomes.IS_COLD) ? 4 : 22);
+
+        setReactorTargetTemperature(targetTemperature < normalTemp || getReactorState() == ReactorStateEnum.STOP ? normalTemp : targetTemperature);
+
+        // Default reactor heating
+        if (getReactorCurrentTemperature() + calculateTemperature(false) < getReactorTargetTemperature())
+            setReactorCurrentTemperature((short) (getReactorCurrentTemperature() + calculateTemperature(false)));
+
+        // Small step heating until target temperature
+        else if (getReactorCurrentTemperature() < getReactorTargetTemperature() || getReactorCurrentTemperature() > getReactorTargetTemperature())
+            setReactorCurrentTemperature((short) (getReactorCurrentTemperature() + (getReactorCurrentTemperature() < getReactorTargetTemperature() ? 1 : -1)));
+
+    }
+
+    public int calculateTemperature(boolean cooling) {
+        if (getReactorCurrentTemperature() < MAX_HEAT / 3) {
+            return cooling ? -1 : 10;
+        } else if (getReactorCurrentTemperature() < MAX_HEAT / 2) {
+            return cooling ? -2 : 6;
+        } else {
+            return cooling ? -4 : 2;
+        }
+    }
+
+    public void setCoreHeating(boolean state) {
+        BlockPos p = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
+        level.setBlockAndUpdate(p, level.getBlockState(p).setValue(ReactorCoreBlock.HEATING, state));
+    }
+
+    public void setCoreFueled(boolean state) {
+        BlockPos p = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
+        level.setBlockAndUpdate(p, level.getBlockState(p).setValue(ReactorCoreBlock.FUELED, state));
+    }
+
+    public void radiationPlayerCheck() {
+        BlockPos p = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
+        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() + -2, p.getY() + -1, p.getZ() + -2, p.getX() + 3, p.getY() + getReactorHeight(), p.getZ() + 3));
+
+        for (ServerPlayer player : players) {
+            player.hurt(ModDamageSources.OVERDOSIS, Float.MAX_VALUE);
+        }
+    }
+
+    public void updateRenderData() {
+        BlockPos p = getBlockPos();
+        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() + -18, p.getY() + -18, p.getZ() + -18, p.getX() + 18, p.getY() + 18, p.getZ() + 18));
+
+        for (ServerPlayer player : players) {
+            PacketHandler.sendToClient(new ClientReactorRenderDataPacket(getBlockPos(), getReactorHeight(), getFluidIn(), getFluidOut()), player);
+        }
+    }
+
+    public void tryOutputTank() {
+        if (valvePos != null) {
+            for (BlockPos blockPos : valvePos) {
+                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_OUTPUT) {
+                    level.getBlockEntity(blockPos).getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storage -> {
+                        if (getFluidAmountOut() > 9 && storage.getFluidInTank(0).getAmount() == 0) {
+                            storage.fill(new FluidStack(getFluidOut(), 10), IFluidHandler.FluidAction.EXECUTE);
+                            getFluidOut().shrink(10);
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    public void tryTankReactor() {
+        if (valvePos != null) {
+            for (BlockPos blockPos : valvePos) {
+                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_INPUT) {
+                    level.getBlockEntity(blockPos).getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storage -> {
+                        FluidStack fluidExternal = storage.getFluidInTank(0);
+                        int amount = fluidExternal.getAmount();
+                        if (fluidExternal.isFluidEqual(ModFluids.FLOWING_MOLTEN_SALT.get().getBucket().getDefaultInstance()) && amount > 0) {
+
+                            if (FLUID_TANK_IN.getFluid().isEmpty()) {
+                                FLUID_TANK_IN.setFluid(new FluidStack(ModFluids.FLOWING_MOLTEN_SALT.get(), amount));
+                            } else if (getFluidAmountIn() + amount <= getFluidCapacityIn()){
+                                storage.getFluidInTank(0).shrink(amount);
+                                getFluidIn().grow(amount);
+                            }
+                        }
+                    });
+                }
+
+            }
+
+        }
+    }
+
+    public void tryFuelReactor() {
+        if (valvePos != null) {
+            int fuelValue = 0;
+            for (int i = 0; i < getFuelRodStatus().length; i++) fuelValue += getFuelRodStatus()[i];
+            int fuelPercentage = (int) (fuelValue / 8100f * 100f);
+
+            setCoreFueled(fuelValue > 0);
+
+            for (BlockPos blockPos : valvePos) {
+                if (level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) {
                     ReactorValveBlockEntity entity = (ReactorValveBlockEntity) level.getBlockEntity(blockPos);
                     if (fuelAdditions == 0 && fuelValue < 8100 && entity.getItem(0).is(ModItems.ENRICHED_URANIUM.get()) && fuelPercentage < getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_INPUT) {
                         entity.getItem(0).shrink(1);
-                        fuelAdditions = 10;
+                        fuelAdditions = 20;
                     } else if (fuelPercentage >= getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_OUTPUT) {
-                        if (fuelAdditions == 10) {
-                            System.out.println(fuelAdditions);
+                        if (fuelAdditions == 20) {
                             if (entity.getItem(0).isEmpty())
                                 entity.setItem(0, new ItemStack(ModItems.ENRICHED_URANIUM.get(), 1));
                             else
@@ -144,27 +324,28 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
                             fuelAdditions = 0;
                         }
                     }
-
-                }
-
-                int randomNumber = new Random().nextInt(81);
-                if (fuelAdditions != 0) {
-                    if (getFuelRodStatus((byte) randomNumber) < getReactorTargetLoadSet()) {
-                        setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) + 1)) ;
-                        fuelAdditions--;
-                    }
-                }
-                if (fuelPercentage >= getReactorTargetLoadSet()) {
-                    if (getFuelRodStatus((byte) randomNumber) > getReactorTargetLoadSet() && fuelAdditions < 10) {
-                        setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) - 1)) ;
-                        fuelAdditions++;
-                    }
                 }
             }
 
-
-
+            int randomNumber = new Random().nextInt(81);
+            if (fuelAdditions != 0) {
+                if (getFuelRodStatus((byte) randomNumber) < getReactorTargetLoadSet()) {
+                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) + 1)) ;
+                    fuelAdditions--;
+                }
+            }
+            if (fuelPercentage >= getReactorTargetLoadSet()) {
+                if (getFuelRodStatus((byte) randomNumber) > getReactorTargetLoadSet() && fuelAdditions < 20) {
+                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) - 1)) ;
+                    fuelAdditions++;
+                }
+            }
         }
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return new AABB(getBlockPos().offset(-10, -10, -10), getBlockPos().offset(11, 11, 11));
     }
 
     @NotNull
@@ -185,6 +366,8 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         nbt.putInt("FuelAdditions", getFuelAdditions());
         nbt.putBoolean("Scrammed", isScrammed());
         nbt.putString("ReactorState", getReactorState().toString());
+        nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
+        nbt.put("FluidOut", FLUID_TANK_OUT.writeToNBT(new CompoundTag()));
         // Rod
         nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
         nbt.putByteArray("ControlRodStatus", getControlRodStatus());
@@ -201,6 +384,87 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         return nbt;
     }
 
+    public boolean isReactorActive() {
+        return isReactorActive;
+    }
+
+    public void setReactorActive(boolean reactorActive) {
+        isReactorActive = reactorActive;
+    }
+
+    public boolean isTurbineActive() {
+        return isTurbineActive;
+    }
+
+    public void setTurbineActive(boolean turbineActive) {
+        isTurbineActive = turbineActive;
+    }
+
+    public boolean isExchangerActive() {
+        return isExchangerActive;
+    }
+
+    public void setExchangerActive(boolean exchangerActive) {
+        isExchangerActive = exchangerActive;
+    }
+
+    public String getNotification() {
+        return notification;
+    }
+
+    public void setNotification(String notification) {
+        this.notification = notification;
+    }
+
+    public FluidStack getFluidIn() {
+        return FLUID_TANK_IN.getFluid();
+    }
+
+    public int getReactorHeight() {
+        return pillarAHeight;
+    }
+
+    public void setReactorHeight(int height) {
+        pillarAHeight = height;
+    }
+
+    public void setFluidIn(FluidStack stack) {
+        FLUID_TANK_IN.setFluid(stack);
+    }
+
+    public int getFluidCapacityIn() {
+        return FLUID_TANK_IN.getCapacity();
+    }
+
+    public int getFluidSpaceIn() {
+        return FLUID_TANK_IN.getSpace();
+    }
+
+    public int getFluidAmountIn() {
+        return FLUID_TANK_IN.getFluidAmount();
+    }
+
+    public FluidStack getFluidOut() {
+        return FLUID_TANK_OUT.getFluid();
+    }
+
+    public void setFluidOut(FluidStack stack) {
+        FLUID_TANK_OUT.setFluid(stack);
+    }
+
+    public int getFluidCapacityOut() {
+        return FLUID_TANK_OUT.getCapacity();
+    }
+
+    public int getFluidSpaceOut() {
+        return FLUID_TANK_OUT.getSpace();
+    }
+
+    public int getFluidAmountOut() {
+        return FLUID_TANK_OUT.getFluidAmount();
+    }
+
+
     @Override
     public void handleUpdateTag(final CompoundTag tag) {
         setAssembled(tag.getBoolean("Assembled"));
@@ -216,7 +480,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         setReactorPressure(tag.getFloat("ReactorPressure"));
         setFuelAdditions(tag.getInt("FuelAdditions"));
         setScrammed(tag.getBoolean("Scrammed"));
-        setReactorState(ReactorStateEnum.valueOf(tag.getString("ReactorState")));
+        setReactorState(ReactorStateEnum.get(tag.getString("ReactorState")));
+        FLUID_TANK_IN.readFromNBT(tag.getCompound("FluidIn"));
+        FLUID_TANK_OUT.readFromNBT(tag.getCompound("FluidOut"));
         // Rod
         setFuelRodStatus(tag.getByteArray("FuelRodStatus"));
         setControlRodStatus(tag.getByteArray("ControlRodStatus"));
@@ -248,6 +514,8 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         nbt.putInt("FuelAdditions", getFuelAdditions());
         nbt.putBoolean("Scrammed", isScrammed());
         nbt.putString("ReactorState", getReactorState().toString());
+        nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
+        nbt.put("FluidOut", FLUID_TANK_OUT.writeToNBT(new CompoundTag()));
         // Rod
         nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
         nbt.putByteArray("ControlRodStatus", getControlRodStatus());
@@ -278,7 +546,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         setReactorPressure(nbt.getFloat("ReactorPressure"));
         setFuelAdditions(nbt.getInt("FuelAdditions"));
         setScrammed(nbt.getBoolean("Scrammed"));
-        setReactorState(ReactorStateEnum.valueOf(nbt.getString("ReactorState")));
+        setReactorState(ReactorStateEnum.get(nbt.getString("ReactorState")));
+        FLUID_TANK_IN.readFromNBT(nbt.getCompound("FluidIn"));
+        FLUID_TANK_OUT.readFromNBT(nbt.getCompound("FluidOut"));
         // Rod
         setFuelRodStatus(nbt.getByteArray("FuelRodStatus"));
         setControlRodStatus(nbt.getByteArray("ControlRodStatus"));
@@ -354,7 +624,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         checkWallArea(blockListFront);
 
         if (valvePos.size() != 4) {
-            resetAssembled("Reactor is in need of three valves. Currently " + valvePos.size());
+            resetAssembled("Reactor is in need of four valves. Currently " + valvePos.size());
         }
     }
 
@@ -364,12 +634,12 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
                 resetAssembled("Missing reactor casing, glass or valve in wall at " + pos);
             }
             if (isValve(getState(pos))) {
+                if (!(level.getBlockEntity(pos) instanceof ReactorValveBlockEntity entity)) return;
                 valvePos.add(pos);
-                ReactorValveBlockEntity entity = (ReactorValveBlockEntity) level.getBlockEntity(pos);
                 entity.setReactorCorePosition(this.getBlockPos());
             }
         }
-    };
+    }
 
     public void updateInnerPositions() {
         int moderatorCount = pillarAHeight - 2;

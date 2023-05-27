@@ -100,6 +100,6 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add("keybind.thoriumreactors.description", "Show Description");
         add("keybind.thoriumreactors.details", "Show Details");
         add("itemGroup.thoriumreactors.items", "Thorium Reactors");
-        //  + "_description"
+        add("death.attack.thoriumreactors.radioactive_overdosis", "%1$s died of a radioactive overdose.");
     }
 }

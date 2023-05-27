@@ -10,7 +10,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
-import unhappycodings.thoriumreactors.common.network.toclient.*;
+import unhappycodings.thoriumreactors.common.network.toclient.machine.*;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
 import unhappycodings.thoriumreactors.common.network.toserver.*;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerChangedPacket;
@@ -40,7 +40,9 @@ public class PacketHandler {
         registerServerToClient(ClientCrystallizerDataPacket.class, ClientCrystallizerDataPacket::decode);
         registerServerToClient(ClientBlastFurnaceDataPacket.class, ClientBlastFurnaceDataPacket::decode);
         registerServerToClient(ClientReactorControllerDataPacket.class, ClientReactorControllerDataPacket::decode);
+        registerServerToClient(ClientReactorRenderDataPacket.class, ClientReactorRenderDataPacket::decode);
 
+        registerClientToServer(ReactorOpenContainerPacket.class, ReactorOpenContainerPacket::decode);
         registerClientToServer(ReactorControllerScramPacket.class, ReactorControllerScramPacket::decode);
         registerClientToServer(ReactorControllerTurbineCoilsPacket.class, ReactorControllerTurbineCoilsPacket::decode);
         registerClientToServer(ReactorControllerTurbineSpeedPacket.class, ReactorControllerTurbineSpeedPacket::decode);

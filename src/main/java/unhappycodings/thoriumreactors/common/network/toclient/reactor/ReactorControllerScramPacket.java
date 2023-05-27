@@ -26,11 +26,7 @@ public class ReactorControllerScramPacket implements IPacket {
         Level level = player.getCommandSenderWorld();
         BlockEntity machine = level.getBlockEntity(pos);
         if (!(machine instanceof ReactorControllerBlockEntity blockEntity)) return;
-
-        for (int i = 0; i < 64; i++) {
-            blockEntity.setControlRodStatus((byte) i, (byte) 100);
-        }
-
+        blockEntity.setScrammed(!blockEntity.isScrammed());
         blockEntity.setChanged();
     }
 

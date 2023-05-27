@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineFluidCentrifugeBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientFluidCentrifugeDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.machine.ClientFluidCentrifugeDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class MachineFluidCentrifugeContainer extends BaseContainer {

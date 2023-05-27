@@ -1,4 +1,19 @@
 {
+  "alarm.1": {
+    "sounds": [
+      "thoriumreactors:alarm_1"
+    ]
+  },
+  "alarm.2": {
+    "sounds": [
+      "thoriumreactors:alarm_2"
+    ]
+  },
+  "alarm.3": {
+    "sounds": [
+      "thoriumreactors:alarm_3"
+    ]
+  },
   "digitalbeep.0": {
     "sounds": [
       "thoriumreactors:beep_0"
@@ -72,6 +87,11 @@
   "machine.uranium_oxidizer": {
     "sounds": [
       "thoriumreactors:machine_uranium_oxidizer"
+    ]
+  },
+  "notification": {
+    "sounds": [
+      "thoriumreactors:notification"
     ]
   }
 }

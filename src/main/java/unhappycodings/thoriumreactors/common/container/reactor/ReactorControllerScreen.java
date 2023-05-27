@@ -1,5 +1,6 @@
 package unhappycodings.thoriumreactors.common.container.reactor;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.ChatFormatting;
@@ -11,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.BlockEventData;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -30,9 +32,8 @@ import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import unhappycodings.thoriumreactors.common.util.RenderUtil;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.Duration;
+import java.util.*;
 
 public class ReactorControllerScreen extends AbstractContainerScreen<ReactorControllerContainer> {
     private ReactorControllerContainer container;
@@ -49,6 +50,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     public int selectedRod = -1;
     public int curMouseX = 0;
     public int curMouseY = 0;
+
+    public boolean lastScramState;
 
     public ModButton[] controlRodsButtons = new ModButton[64];
     public ModButton incrementerSpeed;
@@ -133,8 +136,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     @Override
     public void resize(Minecraft pMinecraft, int pWidth, int pHeight) {
         super.resize(pMinecraft, pWidth, pHeight);
-        pMinecraft.player.closeContainer();
-        pMinecraft.player.sendSystemMessage(Component.literal("Window size has changed. Please open the menu again!").withStyle(ChatFormatting.GREEN));
+        if (mouseReleased(curMouseX, curMouseY, 0)) {
+            PacketHandler.sendToServer(new ReactorOpenContainerPacket(container.getTile().getBlockPos()));
+        }
     }
 
     @Override
@@ -206,7 +210,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         // Control rods
         for (int i = 0; i < entity.getControlRodStatus().length; i++) {
             int row = i / 8;
-            blit(matrixStack, xPos + (200 - (row * 14)) + (i % 8 * 14), yPos + (82 + (row * 14)) + (i % 8 * 14), controlRodsButtons[i].isMouseOver(curMouseX, curMouseY) || selectedRod == i ? 965 : 979, 140 - (getBlitOffset(entity.getControlRodStatus((byte) i)) * 14), 14, 14, 1024, 1024); //left
+            blit(matrixStack, xPos + (200 - (row * 14)) + (i % 8 * 14), yPos + (82 + (row * 14)) + (i % 8 * 14), controlRodsButtons[i].isMouseOver(curMouseX, curMouseY) || selectedRod == i ? 965 : 979, 140 - (getBlitOffset(entity.getControlRodStatus((byte) i)) * 14) + (entity.isScrammed() && entity.getLevel().getGameTime() % 20 > 10 ? 200 : 0), 14, 14, 1024, 1024); //left
         }
 
     }
@@ -227,6 +231,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         RenderSystem.setShaderTexture(0, getBackgroundTexture());
         int xPos = width - (getMainSizeX() / 2);
         int yPos = height - (getMainSizeY() / 2);
+        ReactorControllerBlockEntity entity = this.container.getTile();
         long ticks = container.getTile().getLevel().getGameTime();
         boolean mouseOverSetL = RenderUtil.mouseInArea((xPos - 72) / 2, (yPos + 147) / 2, (xPos - 72 + 52) / 2, (yPos + 147 + 21) / 2, x, y);
         boolean mouseOverSetM = RenderUtil.mouseInArea((xPos - 141) / 2, (yPos + 147) / 2, (xPos - 141 + 52) / 2, (yPos + 147 + 21) / 2, x, y);
@@ -250,22 +255,28 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             blit(matrixStack, xPos - 141, yPos + 148, 83, mouseOverSetM ? 512 : 491, 83, 21, 1024, 1024); // left middle bottom
             blit(matrixStack, xPos - 211, yPos + 148, 83, mouseOverSetR ? 512 : 491, 83, 21, 1024, 1024); // left right bottom
 
-            // blinking left side
-            blit(matrixStack, xPos - 49, yPos + 293, 1017, ticks % 10 == 0 ? 160 : 155, 6, 5, 1024, 1024); // right top
-            blit(matrixStack, xPos - 47, yPos + 285, 1017, ticks % 11 == 0 ? 160 : 155, 6, 5, 1024, 1024); // right bottom
-            blit(matrixStack, xPos - 98, yPos + 285, 1017, 155, 6, 5, 1024, 1024); // mid right top
-            blit(matrixStack, xPos - 100, yPos + 293, 1017, ticks % 6 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid right bottom
-            blit(matrixStack, xPos - 190, yPos + 248, 1017, ticks % 2 == 0 ? 160 : 155, 6, 5, 1024, 1024); // left top
-            blit(matrixStack, xPos - 111, yPos + 233, 1017, ticks % 16 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid top
-            blit(matrixStack, xPos - 89, yPos + 253, 1017, ticks % 20 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid right
-            blit(matrixStack, xPos - 127, yPos + 302, 1017, ticks % 18 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid bottom
-            blit(matrixStack, xPos - 183, yPos + 297, 1017, 160, 6, 5, 1024, 1024); // left left bottom
-            blit(matrixStack, xPos - 174, yPos + 297, 1017, ticks % 13 == 0 ? 160 : 155, 6, 5, 1024, 1024); // left mid left bottom
-            blit(matrixStack, xPos - 166, yPos + 297, 1017, 155, 6, 5, 1024, 1024); // left mid right bottom
-            blit(matrixStack, xPos - 158, yPos + 297, 1017, ticks % 8 == 0 ? 155 : 160, 6, 5, 1024, 1024); // left right bottom
+            // turbine
+            blit(matrixStack, xPos - 49, yPos + 293, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 10 == 0 ? 160 : 155, 6, 5, 1024, 1024); // right top
+            blit(matrixStack, xPos - 47, yPos + 285, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 11 == 0 ? 160 : 155, 6, 5, 1024, 1024); // right bottom
+            blit(matrixStack, xPos - 98, yPos + 285, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : 155, 6, 5, 1024, 1024); // mid right top
+            blit(matrixStack, xPos - 100, yPos + 293, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 6 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid right bottom
+            blit(matrixStack, xPos - 89, yPos + 253, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 20 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid right
 
-            blit(matrixStack, xPos - 205, yPos + 340, ticks % 20 < 10 ? 991 : 1003, 154, 12, 12, 1024, 1024); // left right bottom
-            blit(matrixStack, xPos + 368, yPos + 181, ticks % 20 < 10 ? 991 : 1003, 154 + 12, 12, 12, 1024, 1024); // left right bottom
+            // reactor
+            blit(matrixStack, xPos - 190, yPos + 248, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 2 == 0 ? 160 : 155, 6, 5, 1024, 1024); // left top
+
+            blit(matrixStack, xPos - 183, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : 160, 6, 5, 1024, 1024); // left left bottom
+            blit(matrixStack, xPos - 174, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 13 == 0 ? 160 : 155, 6, 5, 1024, 1024); // left mid left bottom
+            blit(matrixStack, xPos - 166, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : 155, 6, 5, 1024, 1024); // left mid right bottom
+            blit(matrixStack, xPos - 158, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 8 == 0 ? 155 : 160, 6, 5, 1024, 1024); // left right bottom
+
+            // exchanger
+            blit(matrixStack, xPos - 111, yPos + 233, (entity.isScrammed() ? 957 : 1017) + (entity.isExchangerActive() ? 0 : -60), entity.isScrammed() || !entity.isExchangerActive() ? 155 : ticks % 16 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid top
+            blit(matrixStack, xPos - 127, yPos + 302, (entity.isScrammed() ? 957 : 1017) + (entity.isExchangerActive() ? 0 : -60), entity.isScrammed() || !entity.isExchangerActive() ? 155 : ticks % 18 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid bottom
+
+            // blinking indicators
+            blit(matrixStack, xPos - 205, yPos + 340, (ticks % 20 < 10 ? 991 : 1003) + (entity.isScrammed() ? -24 : 0), 154, 12, 12, 1024, 1024); // left right bottom
+            blit(matrixStack, xPos + 368, yPos + 181, (ticks % 20 < 10 ? 991 : 1003) + (entity.isScrammed() ? -24 : 0), 154 + 12, 12, 12, 1024, 1024); // left right bottom
         }
 
         if (rightSideButtonsAdded) {
@@ -277,22 +288,22 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             blit(matrixStack, xPos + 654, yPos + 136, 166, incrementerLoad.isMouseOver(curMouseX, curMouseY) ? (mouseOverIncrementLoad ? 449 + 19 : 449 + 38) : 449, 58, 19, 1024, 1024); // right incrementer speed bottom
 
             // state buttons right
-            if (container.getTile().getReactorState() != ReactorStateEnum.STARTING) blit(matrixStack, xPos + 514, yPos + 261, 83, mouseOverStart ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
-            if (container.getTile().getReactorState() != ReactorStateEnum.RUNNING) blit(matrixStack, xPos + 514, yPos + 289, 0, mouseOverRunning ? 512 : 491, 83, 21, 1024, 1024); // left right bottom
-            if (container.getTile().getReactorState() != ReactorStateEnum.STOP) blit(matrixStack, xPos + 514, yPos + 316, 0, mouseOverStop ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
+            if (entity.getReactorState() != ReactorStateEnum.STARTING) blit(matrixStack, xPos + 514, yPos + 261, 83, mouseOverStart ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
+            if (entity.getReactorState() != ReactorStateEnum.RUNNING) blit(matrixStack, xPos + 514, yPos + 289, 0, mouseOverRunning ? 512 : 491, 83, 21, 1024, 1024); // left right bottom
+            if (entity.getReactorState() != ReactorStateEnum.STOP) blit(matrixStack, xPos + 514, yPos + 316, 0, mouseOverStop ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
 
             // scram button
             blit(matrixStack, xPos + 627, yPos + 301, 166, scramButton.isMouseOver(curMouseX, curMouseY) ? 540 : 506, 80, 34, 1024, 1024);
 
             // coil engaged buttons right
-            if (container.getTile().isTurbineCoilsEngaged()) blit(matrixStack, xPos + 619, yPos + 195, 0, coilDisengageButton.isMouseOver(curMouseX, curMouseY) ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
+            if (entity.isTurbineCoilsEngaged()) blit(matrixStack, xPos + 619, yPos + 195, 0, coilDisengageButton.isMouseOver(curMouseX, curMouseY) ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
             else blit(matrixStack, xPos + 524, yPos + 195, 83, coilEngageButton.isMouseOver(curMouseX, curMouseY) ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
 
             // fuel bars
             int value = 0;
-            for (int i = 0; i < container.getTile().getFuelRodStatus().length; i++) value += container.getTile().getFuelRodStatus()[i];
+            for (int i = 0; i < entity.getFuelRodStatus().length; i++) value += entity.getFuelRodStatus()[i];
             blit(matrixStack, xPos + 564, yPos + 376, 224, 449, (int) ((value / 8100f * 100f)*1.23f), 9, 1024, 1024); // uran
-            blit(matrixStack, xPos + 564, yPos + 396, 224, 458, 123, 9, 1024, 1024); // salt
+            blit(matrixStack, xPos + 564, yPos + 396, 224, 458, (int) (((float) entity.getFluidAmountIn() / (float) entity.getFluidCapacityIn()) * 100 * 1.23f), 9, 1024, 1024); // salt
         }
 
         // middle graphs
@@ -395,6 +406,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             leftSideButtonsAdded = false;
         }
 
+        lastScramState = entity.isScrammed();
     }
 
     @Override
@@ -406,22 +418,20 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             renderLeftPartProgress(pPoseStack);
             renderLeftPartTexts(pPoseStack);
 
-            if (inputBox1.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Reactor Temp", "25°C - 999°C"});
-            if (inputBox2.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Load level", "0% - 100%"});
-            if (inputBox3.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Insert Level", "0% - 100%"});
-
+            if (inputBox1.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"25-999°C"});
+            if (inputBox2.isMouseOver(pMouseX, pMouseY) || inputBox3.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"0-100%"});
+            if (rodSetButton.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"≤ Current", "≥≤ All"});
         }
         if (rightSideButtonsAdded) {
             renderRightPartProgress(pPoseStack);
             renderRightPartTexts(pPoseStack);
 
-            if (incrementerSpeed.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Turbine Speed", "Click ±1", "Sh+Click ±10"});
-            if (incrementerOverflow.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Turbine Overflow", "Click ±1", "Shift+Click ±10"});
-            if (incrementerLoad.isMouseOver(pMouseX, pMouseY)) appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"Turbine Load", "Click ±1", "Shift+Click ±10"});
+            if (incrementerSpeed.isMouseOver(pMouseX, pMouseY) || incrementerOverflow.isMouseOver(pMouseX, pMouseY) || incrementerLoad.isMouseOver(pMouseX, pMouseY))
+                appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{"≤    ±1", "≥≤ ±10"});
 
             for (int i = 0; i < controlRodsButtons.length; i++) {
                 if (controlRodsButtons[i].isMouseOver(pMouseX, pMouseY)) {
-                    appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getControlRodStatus((byte) i) + "%", "Scroll ±"});
+                    appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getControlRodStatus((byte) i) + "%", "⌠ ±"});
                 }
             }
 
@@ -429,6 +439,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     }
 
+    //region Radial Progress
     public void renderLeftPartProgress(PoseStack pPoseStack) {
         pPoseStack.pushPose();
         pPoseStack.scale(0.14f, 0.14f, 0.14f);
@@ -449,10 +460,12 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     }
 
     public void renderRadialProgress(PoseStack poseStack, int x, int y, int progress) {
-        RenderSystem.setShaderTexture(0, new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/progress/radial_progress_" + (progress >= 0 && progress <= 100 ? progress : 0) + ".png"));
+        RenderSystem.setShaderTexture(0, new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/progress/radial_progress_" + (progress >= 0 && progress <= 100 ? progress : 100) + ".png"));
         blit(poseStack, x, y, 0, 0, 222, 222);
     }
+    //endregion
 
+    //region Texts
     public void renderLeftPartTexts(PoseStack pPoseStack) {
         ReactorControllerBlockEntity entity = container.getTile();
         int fuelValue = 0;
@@ -491,7 +504,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
         // normal text
         pPoseStack.pushPose();
-        RenderUtil.drawCenteredText(Component.literal("NORMAL").withStyle(RenderUtil::notoSans), pPoseStack, -114, 141, 16711422);
+        RenderUtil.drawText(Component.literal(entity.isScrammed() ? "SCRAM" : "NORMAL").withStyle(RenderUtil::notoSans), pPoseStack, -130, 141, entity.isScrammed() ? 11075598 : 16711422);
         pPoseStack.popPose();
 
         // big text
@@ -552,7 +565,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         RenderUtil.drawCenteredText(Component.literal("Uran:").withStyle(RenderUtil::notoSans), pPoseStack, 330, 226, 16711422);
         RenderUtil.drawCenteredText(Component.literal( (int) (fuelValue / 8100f * 100f) + "%").withStyle(RenderUtil::notoSans), pPoseStack, 452, 226, 16711422);
         RenderUtil.drawCenteredText(Component.literal("Fuel:").withStyle(RenderUtil::notoSans), pPoseStack, 330, 241, 16711422);
-        RenderUtil.drawCenteredText(Component.literal("100%").withStyle(RenderUtil::notoSans), pPoseStack, 452, 241, 16711422);
+        RenderUtil.drawCenteredText(Component.literal((int) (((float) entity.getFluidAmountIn() / (float) entity.getFluidCapacityIn()) * 100) + "%").withStyle(RenderUtil::notoSans), pPoseStack, 452, 241, 16711422);
 
         RenderUtil.drawText(Component.literal("OPERATION").withStyle(RenderUtil::notoSans), pPoseStack, 314, 128, 11184810);
         RenderUtil.drawText(Component.literal("EMERGENCY").withStyle(RenderUtil::notoSans), pPoseStack, 393, 128, 11184810);
@@ -589,6 +602,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         RenderUtil.drawRightboundText(Component.literal("REACTOR LOAD").withStyle(RenderUtil::notoSans), pPoseStack, 245, 95, 11184810);
         RenderUtil.drawRightboundText(Component.literal("CONTAINMENT").withStyle(RenderUtil::notoSans), pPoseStack, 245, 123, 11184810);
         RenderUtil.drawRightboundText(Component.literal("RADIATION").withStyle(RenderUtil::notoSans), pPoseStack, 245, 149, 11184810);
+        RenderUtil.drawCenteredText(Component.literal(entity.getNotification()).withStyle(RenderUtil::notoSans), pPoseStack, this.getXSize() / 2, 170, 16711422);
 
         // Graphs
         RenderUtil.drawText(Component.literal("TEMP, °C").withStyle(RenderUtil::notoSans), pPoseStack, -21, 189, 11184810);
@@ -604,9 +618,10 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         // normal text
         pPoseStack.pushPose();
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        RenderUtil.drawRightboundText(Component.literal(dateFormat.format(entity.getReactorRunningSince() - new Date().getTime())).withStyle(RenderUtil::notoSans), pPoseStack, 196, 19, 16711422);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("MEZ"));
+        RenderUtil.drawRightboundText(Component.literal(entity.getReactorRunningSince() == -1 ? "Unset" : dateFormat.format((entity.getReactorRunningSince() / 20) * 1000)).withStyle(RenderUtil::notoSans), pPoseStack, 196, 19, 16711422);
         RenderUtil.drawRightboundText(Component.literal(FormattingUtil.formatEnergy(entity.getTurbinePowerGeneration())).withStyle(RenderUtil::notoSans), pPoseStack, 196, 38, 16711422);
-        RenderUtil.drawRightboundText(Component.literal("NORMAL").withStyle(RenderUtil::notoSans).withStyle(ChatFormatting.BOLD), pPoseStack, 196, 61, 43275);
+        RenderUtil.drawCenteredText(Component.literal(entity.isScrammed() ? "SCRAM" : "NORMAL").withStyle(RenderUtil::notoSans).withStyle(ChatFormatting.BOLD), pPoseStack, 176, 61, entity.isScrammed() ? 11075598 : 43275);
         RenderUtil.drawRightboundText(Component.literal(entity.getReactorCurrentLoadSet() + "%").withStyle(RenderUtil::notoSans), pPoseStack, 196, 82, 16711422);
         RenderUtil.drawRightboundText(Component.literal(entity.getReactorContainment() + "%").withStyle(RenderUtil::notoSans), pPoseStack, 196, 104, 16711422);
         RenderUtil.drawRightboundText(Component.literal(entity.getReactorRadiation() + "uSV/H").withStyle(RenderUtil::notoSans), pPoseStack, 196, 125, 16711422);
@@ -619,7 +634,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         RenderUtil.drawRightboundText(Component.literal(dateFormat.format(new Date())).withStyle(RenderUtil::notoSans), pPoseStack, 151, -6, 16711422);
         pPoseStack.popPose();
     }
+    //endregion
 
+    //region Graphs
     public void updateTempGraphData() {
         int value = container.getTile().getReactorCurrentTemperature();
         if (tempIntegers < tempGraphValues.length) {
@@ -682,13 +699,15 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
                 if (list[i] == null) break;
                 int calculationCurrent = list[i] - min;
                 int blitSize = (int) (((float) calculationCurrent / calculationMax) * 20);
-                if (blitSize == 0 && calculationCurrent == calculationMax) {
-                    blitSize = 20;
-                }
-                blit(pPoseStack, x + i, y + (20 - blitSize), 1022, 167, 1, blitSize, 1024, 1024);
+
+                if (blitSize == 0 && calculationCurrent == calculationMax) blitSize = 20;
+                if (calculationMax - 1 == calculationCurrent) blitSize = 10;
+                if (blitSize == 0) blitSize = 2;
+                blit(pPoseStack, x + i, y + (20 - blitSize), this.container.getTile().isScrammed() ? 1021 : 1022, 167, 1, blitSize, 1024, 1024);
             }
         }
     }
+    //endregion
 
     public void appendHoverText(PoseStack poseStack, int x, int y, String[] texts) {
         List<Component> list = new ArrayList<>();

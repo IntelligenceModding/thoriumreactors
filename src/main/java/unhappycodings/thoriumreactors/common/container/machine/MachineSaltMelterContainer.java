@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineSaltMelterBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientSaltMelterDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.machine.ClientSaltMelterDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class MachineSaltMelterContainer extends BaseContainer {

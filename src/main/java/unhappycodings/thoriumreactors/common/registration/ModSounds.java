@@ -22,6 +22,9 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> DIGITALBEEP_4 = registerSoundEvent("digitalbeep.4");
     public static final RegistryObject<SoundEvent> DIGITALBEEP_5 = registerSoundEvent("digitalbeep.5");
     public static final RegistryObject<SoundEvent> NOTIFICATION = registerSoundEvent("notification");
+    public static final RegistryObject<SoundEvent> ALARM_1 = registerSoundEvent("alarm.1");
+    public static final RegistryObject<SoundEvent> ALARM_2 = registerSoundEvent("alarm.2");
+    public static final RegistryObject<SoundEvent> ALARM_3 = registerSoundEvent("alarm.3");
 
     public static void register() {
     }

@@ -106,7 +106,7 @@ public class JEIModIntegration implements IModPlugin {
             List<Rect2i> collection = new ArrayList<>();
             collection.add(new Rect2i(xPos / 2, yPos / 2, screen.getMainSizeX() / 2, screen.getMainSizeY() / 2)); //mid
             if (ClientConfig.showLeftReactorScreenArea.get()) collection.add(new Rect2i((xPos - screen.getLeftSideX() + 1 ) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //left
-            if (ClientConfig.showRightReactorScreenArea.get()) collection.add(new Rect2i((xPos + screen.getMainSizeX() + 1) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //right
+            if (ClientConfig.showRightReactorScreenArea.get()) collection.add(new Rect2i((xPos + screen.getMainSizeX() + 1) / 2, yPos / 2, screen.getRightSideX() / 2, screen.getRightSideY() / 2)); //right
 
             return collection;
         }

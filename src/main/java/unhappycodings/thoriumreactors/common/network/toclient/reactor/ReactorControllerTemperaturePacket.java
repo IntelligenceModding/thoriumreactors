@@ -1,7 +1,5 @@
 package unhappycodings.thoriumreactors.common.network.toclient.reactor;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,9 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
-import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
-import unhappycodings.thoriumreactors.common.network.toclient.ClientReactorControllerDataPacket;
 
 public class ReactorControllerTemperaturePacket implements IPacket {
     private final BlockPos pos;

@@ -48,6 +48,7 @@
   "block.thoriumreactors.uranium_ore": "Uranium Ore",
   "block.thoriumreactors.uranium_oxidizer_block": "Uranium Oxidizer",
   "block.thoriumreactors.uranium_oxidizer_block_description": "The Uranium Oxidizer mixes uranium with fluids. Mainly used for Uranium Hexafluorite production!",
+  "death.attack.thoriumreactors.radioactive_overdosis": "%1$s died of a radioactive overdose.",
   "fluid_type.thoriumreactors.enriched_uranium_hexafluorite": "Enriched Uranium Hexafluorite",
   "fluid_type.thoriumreactors.heated_molten_salt": "Heated Molten Salt (654°)",
   "fluid_type.thoriumreactors.hydrofluorite": "Hydrofluorite",
