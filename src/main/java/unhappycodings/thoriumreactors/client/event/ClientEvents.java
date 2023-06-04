@@ -10,6 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.client.renderer.FluidTankBlockEntityRenderer;
 import unhappycodings.thoriumreactors.client.renderer.ReactorControllerBlockEntityRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.BlastedIronChestRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.SteelChestRenderer;
@@ -61,6 +62,12 @@ public class ClientEvents {
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_HEATED_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_HYDROFLUORITE.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_HYDROFLUORITE.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_URANIUM_HEXAFLUORITE.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_URANIUM_HEXAFLUORITE.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_ENRICHED_URANIUM_HEXAFLUORITE.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_ENRICHED_URANIUM_HEXAFLUORITE.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_STEAM.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_STEAM.get(), RenderType.translucent());
     }
 
     @SubscribeEvent
@@ -70,5 +77,8 @@ public class ClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.STEEL_CHEST_BLOCK.get(), SteelChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BLASTED_IRON_CHEST_BLOCK.get(), BlastedIronChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.REACTOR_CONTROLLER.get(), ReactorControllerBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SIMPLE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.GENERIC_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
     }
 }

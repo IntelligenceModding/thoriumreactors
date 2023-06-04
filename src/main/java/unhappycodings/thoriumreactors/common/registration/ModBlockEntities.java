@@ -2,7 +2,6 @@ package unhappycodings.thoriumreactors.common.registration;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.RegistryObject;
-import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.SteelChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.ThoriumChestBlockEntity;
@@ -10,7 +9,11 @@ import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlo
 import unhappycodings.thoriumreactors.common.blockentity.machine.*;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.reactor.ThermalValveBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalValveBlockEntity;
+
+import java.util.function.Supplier;
 
 public final class ModBlockEntities {
     public static void register() {
@@ -20,6 +23,11 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ReactorControllerBlockEntity>> REACTOR_CONTROLLER = Registration.BLOCK_ENTITIES.register("reactor_controller", () -> BlockEntityType.Builder.of(ReactorControllerBlockEntity::new, ModBlocks.REACTOR_CONTROLLER_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<ReactorValveBlockEntity>> REACTOR_VALVE = Registration.BLOCK_ENTITIES.register("reactor_valve", () -> BlockEntityType.Builder.of(ReactorValveBlockEntity::new, ModBlocks.REACTOR_VALVE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ThermalValveBlockEntity>> THERMAL_VALVE = Registration.BLOCK_ENTITIES.register("thermal_valve", () -> BlockEntityType.Builder.of(ThermalValveBlockEntity::new, ModBlocks.THERMAL_VALVE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ThermalControllerBlockEntity>> THERMAL_CONTROLLER = Registration.BLOCK_ENTITIES.register("thermal_controller", () -> BlockEntityType.Builder.of(ThermalControllerBlockEntity::new, ModBlocks.THERMAL_CONTROLLER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> SIMPLE_FLUID_TANK = Registration.BLOCK_ENTITIES.register("simple_fluid_tank", () -> BlockEntityType.Builder.of((pos, state) -> new FluidTankBlockEntity(pos, state, 32000, ModBlockEntities.SIMPLE_FLUID_TANK.get()), ModBlocks.SIMPLE_FLUID_TANK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> GENERIC_FLUID_TANK = Registration.BLOCK_ENTITIES.register("generic_fluid_tank", () -> BlockEntityType.Builder.of((pos, state) -> new FluidTankBlockEntity(pos, state, 64000, ModBlockEntities.GENERIC_FLUID_TANK.get()), ModBlocks.GENERIC_FLUID_TANK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> PROGRESSIVE_FLUID_TANK = Registration.BLOCK_ENTITIES.register("progressive_fluid_tank", () -> BlockEntityType.Builder.of((pos, state) -> new FluidTankBlockEntity(pos, state, 128000, ModBlockEntities.PROGRESSIVE_FLUID_TANK.get()), ModBlocks.PROGRESSIVE_FLUID_TANK.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<MachineGeneratorBlockEntity>> GENERATOR_BLOCK = Registration.BLOCK_ENTITIES.register("generator_block", () -> BlockEntityType.Builder.of(MachineGeneratorBlockEntity::new, ModBlocks.GENERATOR_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<MachineFluidEvaporationBlockEntity>> FLUID_EVAPORATION_BLOCK = Registration.BLOCK_ENTITIES.register("fluid_evaporation_block", () -> BlockEntityType.Builder.of(MachineFluidEvaporationBlockEntity::new, ModBlocks.FLUID_EVAPORATION_BLOCK.get()).build(null));

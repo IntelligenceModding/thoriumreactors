@@ -36,6 +36,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
     public boolean isReactorActive;
     public boolean isExchangerActive;
     public boolean isTurbineActive;
+    public int reactorCapacity;
     // Rods
     public final byte[] fuelRodStatus;
     public final byte[] controlRodStatus;
@@ -55,7 +56,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
                                              float reactorPressure, int reactorHeight, ReactorStateEnum reactorState, short turbineTargetSpeed, short turbineCurrentSpeed,
                                              byte turbineTargetOverflowSet, byte turbineCurrentOverflowSet, byte turbineTargetLoadSet, byte turbineCurrentLoadSet,
                                              boolean turbineCoilsEngaged, short turbineCurrentFlow, long turbinePowerGeneration, byte[] fuelRodStatus, byte[] controlRodStatus,
-                                             FluidStack fluidIn, FluidStack fluidOut, String notification, boolean isReactorActive, boolean isTurbineActive, boolean isExchangerActive) {
+                                             FluidStack fluidIn, FluidStack fluidOut, String notification, boolean isReactorActive, boolean isTurbineActive, boolean isExchangerActive, int reactorCapacity) {
         this.pos = pos;
         this.reactorTargetTemperature = reactorTargetTemperature;
         this.reactorCurrentTemperature = reactorCurrentTemperature;
@@ -85,6 +86,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
         this.isReactorActive = isReactorActive;
         this.isTurbineActive = isTurbineActive;
         this.isExchangerActive = isExchangerActive;
+        this.reactorCapacity = reactorCapacity;
     }
 
     public static ClientReactorControllerDataPacket decode(FriendlyByteBuf buffer) {
@@ -92,7 +94,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
                 buffer.readByte(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt(), buffer.readEnum(ReactorStateEnum.class),
                 buffer.readShort(), buffer.readShort(), buffer.readByte(), buffer.readByte(), buffer.readByte(), buffer.readByte(), buffer.readBoolean(),
                 buffer.readShort(), buffer.readLong(), buffer.readByteArray(), buffer.readByteArray(), buffer.readFluidStack(), buffer.readFluidStack(), buffer.readUtf(),
-                buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean());
+                buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean(), buffer.readInt());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -131,6 +133,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
         blockEntity.setReactorActive(isReactorActive);
         blockEntity.setTurbineActive(isTurbineActive);
         blockEntity.setExchangerActive(isExchangerActive);
+        blockEntity.setReactorCapacity(reactorCapacity);
     }
 
     public void encode(FriendlyByteBuf buffer) {
@@ -166,5 +169,6 @@ public class ClientReactorControllerDataPacket implements IPacket {
         buffer.writeBoolean(isReactorActive);
         buffer.writeBoolean(isTurbineActive);
         buffer.writeBoolean(isExchangerActive);
+        buffer.writeInt(reactorCapacity);
     }
 }

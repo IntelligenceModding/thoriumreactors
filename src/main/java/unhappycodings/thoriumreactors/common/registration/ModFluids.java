@@ -36,6 +36,11 @@ public class ModFluids {
     public static final RegistryObject<FlowingFluid> FLOWING_ENRICHED_URANIUM_HEXAFLUORITE = Registration.FLUIDS.register("flowing_enriched_uranium_hexafluorite",
             () -> new ForgeFlowingFluid.Flowing(ModFluids.ENRICHED_URANIUM_HEXAFLUORITE_PROPERTIES));
 
+    public static final RegistryObject<FlowingFluid> SOURCE_STEAM = Registration.FLUIDS.register("steam",
+            () -> new ForgeFlowingFluid.Source(ModFluids.STEAM_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> FLOWING_STEAM = Registration.FLUIDS.register("flowing_steam",
+            () -> new ForgeFlowingFluid.Flowing(ModFluids.STEAM_PROPERTIES));
+
     public static final ForgeFlowingFluid.Properties MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOLTEN_SALT, SOURCE_MOLTEN_SALT, FLOWING_MOLTEN_SALT)
             .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.MOLTEN_SALT_BLOCK).bucket(ModItems.MOLTEN_SALT_BUCKET);
@@ -51,5 +56,8 @@ public class ModFluids {
     public static final ForgeFlowingFluid.Properties ENRICHED_URANIUM_HEXAFLUORITE_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.ENRICHED_URANIUM_HEXAFLUORITE, SOURCE_ENRICHED_URANIUM_HEXAFLUORITE, FLOWING_ENRICHED_URANIUM_HEXAFLUORITE)
             .slopeFindDistance(2).levelDecreasePerBlock(1).block(ModBlocks.ENRICHED_URANIUM_HEXAFLUORITE_BLOCK).bucket(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET);
+    public static final ForgeFlowingFluid.Properties STEAM_PROPERTIES = new ForgeFlowingFluid.Properties(
+            ModFluidTypes.STEAM, SOURCE_STEAM, FLOWING_STEAM)
+            .slopeFindDistance(1).levelDecreasePerBlock(1).block(ModBlocks.STEAM_BLOCK).bucket(ModItems.STEAM_BUCKET);
 
 }

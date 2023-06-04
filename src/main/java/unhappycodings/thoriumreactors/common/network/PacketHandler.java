@@ -41,6 +41,8 @@ public class PacketHandler {
         registerServerToClient(ClientBlastFurnaceDataPacket.class, ClientBlastFurnaceDataPacket::decode);
         registerServerToClient(ClientReactorControllerDataPacket.class, ClientReactorControllerDataPacket::decode);
         registerServerToClient(ClientReactorRenderDataPacket.class, ClientReactorRenderDataPacket::decode);
+        registerServerToClient(ClientFluidTankRenderDataPacket.class, ClientFluidTankRenderDataPacket::decode);
+        registerServerToClient(ClientReactorParticleDataPacket.class, ClientReactorParticleDataPacket::decode);
 
         registerClientToServer(ReactorOpenContainerPacket.class, ReactorOpenContainerPacket::decode);
         registerClientToServer(ReactorControllerScramPacket.class, ReactorControllerScramPacket::decode);

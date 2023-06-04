@@ -7,6 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,10 +38,10 @@ import java.util.*;
 
 public class ReactorControllerScreen extends AbstractContainerScreen<ReactorControllerContainer> {
     private ReactorControllerContainer container;
-    public Integer[] tempGraphValues = new Integer[93];
-    public Integer[] flowGraphValues = new Integer[93];
-    public Integer[] speedGraphValues = new Integer[93];
-    public Integer[] pressureGraphValues = new Integer[93];
+    public Float[] tempGraphValues = new Float[93];
+    public Float[] flowGraphValues = new Float[93];
+    public Float[] speedGraphValues = new Float[93];
+    public Float[] pressureGraphValues = new Float[93];
     public boolean leftSideButtonsAdded;
     public boolean rightSideButtonsAdded;
     public int tempIntegers = 0;
@@ -256,23 +257,23 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             blit(matrixStack, xPos - 211, yPos + 148, 83, mouseOverSetR ? 512 : 491, 83, 21, 1024, 1024); // left right bottom
 
             // turbine
-            blit(matrixStack, xPos - 49, yPos + 293, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 10 == 0 ? 160 : 155, 6, 5, 1024, 1024); // right top
-            blit(matrixStack, xPos - 47, yPos + 285, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 11 == 0 ? 160 : 155, 6, 5, 1024, 1024); // right bottom
-            blit(matrixStack, xPos - 98, yPos + 285, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : 155, 6, 5, 1024, 1024); // mid right top
-            blit(matrixStack, xPos - 100, yPos + 293, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 6 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid right bottom
-            blit(matrixStack, xPos - 89, yPos + 253, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 20 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid right
+            blit(matrixStack, xPos - 49, yPos + 293, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 10 == 0 ? 160 : 155, 6, 5, 1024, 1024); // right top
+            blit(matrixStack, xPos - 47, yPos + 285, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 11 == 0 ? 160 : 155, 6, 5, 1024, 1024); // right bottom
+            blit(matrixStack, xPos - 98, yPos + 285, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : 155, 6, 5, 1024, 1024); // mid right top
+            blit(matrixStack, xPos - 100, yPos + 293, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 6 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid right bottom
+            blit(matrixStack, xPos - 89, yPos + 253, (entity.isScrammed() ? 957 : 1017) + (entity.isTurbineActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isTurbineActive() ? 155 : ticks % 20 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid right
 
             // reactor
-            blit(matrixStack, xPos - 190, yPos + 248, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 2 == 0 ? 160 : 155, 6, 5, 1024, 1024); // left top
+            blit(matrixStack, xPos - 190, yPos + 248, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 2 == 0 ? 160 : 155, 6, 5, 1024, 1024); // left top
 
-            blit(matrixStack, xPos - 183, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : 160, 6, 5, 1024, 1024); // left left bottom
-            blit(matrixStack, xPos - 174, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 13 == 0 ? 160 : 155, 6, 5, 1024, 1024); // left mid left bottom
-            blit(matrixStack, xPos - 166, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : 155, 6, 5, 1024, 1024); // left mid right bottom
-            blit(matrixStack, xPos - 158, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 8 == 0 ? 155 : 160, 6, 5, 1024, 1024); // left right bottom
+            blit(matrixStack, xPos - 183, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : 160, 6, 5, 1024, 1024); // left left bottom
+            blit(matrixStack, xPos - 174, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 13 == 0 ? 160 : 155, 6, 5, 1024, 1024); // left mid left bottom
+            blit(matrixStack, xPos - 166, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : 155, 6, 5, 1024, 1024); // left mid right bottom
+            blit(matrixStack, xPos - 158, yPos + 297, (entity.isScrammed() ? 957 : 1017) + (entity.isReactorActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isReactorActive() ? 155 : ticks % 8 == 0 ? 155 : 160, 6, 5, 1024, 1024); // left right bottom
 
             // exchanger
-            blit(matrixStack, xPos - 111, yPos + 233, (entity.isScrammed() ? 957 : 1017) + (entity.isExchangerActive() ? 0 : -60), entity.isScrammed() || !entity.isExchangerActive() ? 155 : ticks % 16 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid top
-            blit(matrixStack, xPos - 127, yPos + 302, (entity.isScrammed() ? 957 : 1017) + (entity.isExchangerActive() ? 0 : -60), entity.isScrammed() || !entity.isExchangerActive() ? 155 : ticks % 18 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid bottom
+            blit(matrixStack, xPos - 111, yPos + 233, (entity.isScrammed() ? 957 : 1017) + (entity.isExchangerActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isExchangerActive() ? 155 : ticks % 16 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid top
+            blit(matrixStack, xPos - 127, yPos + 302, (entity.isScrammed() ? 957 : 1017) + (entity.isExchangerActive() || entity.isScrammed() ? 0 : -60), entity.isScrammed() || !entity.isExchangerActive() ? 155 : ticks % 18 == 0 ? 160 : 155, 6, 5, 1024, 1024); // mid bottom
 
             // blinking indicators
             blit(matrixStack, xPos - 205, yPos + 340, (ticks % 20 < 10 ? 991 : 1003) + (entity.isScrammed() ? -24 : 0), 154, 12, 12, 1024, 1024); // left right bottom
@@ -640,41 +641,41 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     public void updateTempGraphData() {
         int value = container.getTile().getReactorCurrentTemperature();
         if (tempIntegers < tempGraphValues.length) {
-            tempGraphValues[tempIntegers] = value;
+            tempGraphValues[tempIntegers] = (float) value;
             tempIntegers++;
         } else {
             for (int i = 1; i < tempGraphValues.length; i++)
                 tempGraphValues[i - 1] = tempGraphValues[i];
-            tempGraphValues[tempGraphValues.length - 1] = value;
+            tempGraphValues[tempGraphValues.length - 1] = (float) value;
         }
     }
 
     public void updateFlowGraphData() {
         int value = container.getTile().getTurbineCurrentFlow();
         if (flowIntegers < flowGraphValues.length) {
-            flowGraphValues[flowIntegers] = value;
+            flowGraphValues[flowIntegers] = (float) value;
             flowIntegers++;
         } else {
             for (int i = 1; i < flowGraphValues.length; i++)
                 flowGraphValues[i - 1] = flowGraphValues[i];
-            flowGraphValues[flowGraphValues.length - 1] = value;
+            flowGraphValues[flowGraphValues.length - 1] = (float) value;
         }
     }
 
     public void updateSpeedGraphData() {
         int value = container.getTile().getTurbineCurrentSpeed();
         if (speedIntegers < speedGraphValues.length) {
-            speedGraphValues[speedIntegers] = value;
+            speedGraphValues[speedIntegers] = (float) value;
             speedIntegers++;
         } else {
             for (int i = 1; i < speedGraphValues.length; i++)
                 speedGraphValues[i - 1] = speedGraphValues[i];
-            speedGraphValues[speedGraphValues.length - 1] = value;
+            speedGraphValues[speedGraphValues.length - 1] = (float) value;
         }
     }
 
     public void updatePressureGraphData() {
-        int value = 30;
+        float value = container.getTile().getReactorPressure();
         if (pressureIntegers < pressureGraphValues.length) {
             pressureGraphValues[pressureIntegers] = value;
             pressureIntegers++;
@@ -685,25 +686,25 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         }
     }
 
-    public void renderGraph(PoseStack pPoseStack, int x, int y, Integer[] list) {
+    public void renderGraph(PoseStack pPoseStack, int x, int y, Float[] list) {
         if (list[0] != null) {
-            int max = 0, min = 0;
+            float max = 0, min = 0;
             for (int i = 0; i < list.length; i++)
                 if (list[i] != null && list[i] > max) max = list[i];
             min = max;
             for (int i = 0; i < list.length; i++)
                 if (list[i] != null && list[i] < min) min = list[i];
 
-            int calculationMax = max - min;
+            float calculationMax = max - min;
             for (int i = 0; i < list.length; i++) {
                 if (list[i] == null) break;
-                int calculationCurrent = list[i] - min;
-                int blitSize = (int) (((float) calculationCurrent / calculationMax) * 20);
+                float calculationCurrent = list[i] - min;
+                float blitSize = (int) ((calculationCurrent / calculationMax) * 20);
 
                 if (blitSize == 0 && calculationCurrent == calculationMax) blitSize = 20;
-                if (calculationMax - 1 == calculationCurrent) blitSize = 10;
+                if (calculationMax - 1 == calculationCurrent && blitSize == 0) blitSize = 10;
                 if (blitSize == 0) blitSize = 2;
-                blit(pPoseStack, x + i, y + (20 - blitSize), this.container.getTile().isScrammed() ? 1021 : 1022, 167, 1, blitSize, 1024, 1024);
+                blit(pPoseStack, x + i, (int) (y + (20 - blitSize)), (float) (this.container.getTile().isScrammed() ? 1021 : 1022), 167F, 1, (int) blitSize, 1024, 1024);
             }
         }
     }

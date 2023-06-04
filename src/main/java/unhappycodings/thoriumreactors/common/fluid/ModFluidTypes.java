@@ -213,6 +213,53 @@ public class ModFluidTypes {
                 }
             });
 
+    public static final RegistryObject<FluidType> STEAM = Registration.FLUID_TYPES.register("steam", () ->
+            new FluidType(FluidType.Properties.create()) {
+
+                @Override
+                public boolean canDrownIn(LivingEntity entity) {
+                    return true;
+                }
+
+                @Override
+                public boolean canHydrate(Entity entity) {
+                    return true;
+                }
+
+                @Override
+                public @Nullable SoundEvent getSound(SoundAction action) {
+                    return action.name() == "bucket_empty" ? SoundEvents.BUCKET_EMPTY : SoundEvents.BUCKET_FILL;
+                }
+
+                @Override
+                public float getFallDistanceModifier(Entity entity) {
+                    return Fluids.WATER.getFluidType().getFallDistanceModifier(entity);
+                }
+
+                @Override
+                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                    consumer.accept(new IClientFluidTypeExtensions() {
+                        private static final ResourceLocation WATER_STILL = new ResourceLocation("block/water_still"), WATER_FLOW = new ResourceLocation("block/water_flow");
+
+                        @Override
+                        public ResourceLocation getStillTexture() {
+                            return WATER_STILL;
+                        }
+
+                        @Override
+                        public ResourceLocation getFlowingTexture() {
+                            return WATER_FLOW;
+                        }
+
+                        @Override
+                        public int getTintColor() {
+                            return 0xE6B9B9B9;
+                        }
+
+                    });
+                }
+            });
+
     public static final RegistryObject<FluidType> URANIUM_HEXAFLUORITE = Registration.FLUID_TYPES.register("uranium_hexafluorite", () ->
             new FluidType(FluidType.Properties.create()) {
 

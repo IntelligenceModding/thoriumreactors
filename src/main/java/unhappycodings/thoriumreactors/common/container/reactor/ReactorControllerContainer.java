@@ -30,7 +30,7 @@ public class ReactorControllerContainer extends BaseContainer {
                 entity.getReactorPressure(), entity.getReactorHeight(), entity.getReactorState(), entity.getTurbineTargetSpeed(), entity.getTurbineCurrentSpeed(),
                 entity.getTurbineTargetOverflowSet(), entity.getTurbineCurrentOverflowSet(), entity.getTurbineTargetLoadSet(), entity.getTurbineCurrentLoadSet(),
                 entity.isTurbineCoilsEngaged(), entity.getTurbineCurrentFlow(), entity.getTurbinePowerGeneration(), entity.getFuelRodStatus(), entity.getControlRodStatus(),
-                entity.getFluidIn(), entity.getFluidOut(), entity.getNotification(), entity.isReactorActive(), entity.isTurbineActive(), entity.isExchangerActive()), (ServerPlayer) inventory.player);
+                entity.getFluidIn(), entity.getFluidOut(), entity.getNotification(), entity.isReactorActive(), entity.isTurbineActive(), entity.isExchangerActive(), entity.getReactorCapacity()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();
     }

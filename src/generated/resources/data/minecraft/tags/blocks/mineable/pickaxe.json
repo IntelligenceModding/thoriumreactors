@@ -1,9 +1,29 @@
 {
   "values": [
     "thoriumreactors:thorium_crafting_table",
+    "thoriumreactors:simple_fluid_tank",
+    "thoriumreactors:generic_fluid_tank",
+    "thoriumreactors:progressive_fluid_tank",
+    "thoriumreactors:manganese_ore",
+    "thoriumreactors:deepslate_manganese_ore",
+    "thoriumreactors:chromite_ore",
+    "thoriumreactors:deepslate_chromite_ore",
+    "thoriumreactors:molybdenum_ore",
+    "thoriumreactors:deepslate_molybdenum_ore",
+    "thoriumreactors:nickel_ore",
+    "thoriumreactors:deepslate_nickel_ore",
+    "thoriumreactors:titanic_iron_ore",
+    "thoriumreactors:deepslate_titanic_iron_ore",
+    "thoriumreactors:bauxite_ore",
+    "thoriumreactors:deepslate_bauxite_ore",
+    "thoriumreactors:pyrochlor_ore",
+    "thoriumreactors:deepslate_pyrochlor_ore",
     "thoriumreactors:uranium_ore",
+    "thoriumreactors:deepslate_uranium_ore",
     "thoriumreactors:graphite_ore",
+    "thoriumreactors:deepslate_graphite_ore",
     "thoriumreactors:fluorite_ore",
+    "thoriumreactors:deepslate_fluorite_ore",
     "thoriumreactors:blasted_stone",
     "thoriumreactors:graphite_block",
     "thoriumreactors:thorium_block",
@@ -39,6 +59,7 @@
     "thoriumreactors:heated_molten_salt_block",
     "thoriumreactors:hydrofluorite_block",
     "thoriumreactors:uranium_hexafluorite_block",
-    "thoriumreactors:enriched_uranium_hexafluorite_block"
+    "thoriumreactors:enriched_uranium_hexafluorite_block",
+    "thoriumreactors:steam_block"
   ]
 }

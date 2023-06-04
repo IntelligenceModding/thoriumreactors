@@ -93,5 +93,20 @@
     "sounds": [
       "thoriumreactors:notification"
     ]
+  },
+  "reactor.run": {
+    "sounds": [
+      "thoriumreactors:reactor_run"
+    ]
+  },
+  "reactor.shutdown": {
+    "sounds": [
+      "thoriumreactors:reactor_shutdown"
+    ]
+  },
+  "reactor.startup": {
+    "sounds": [
+      "thoriumreactors:reactor_startup"
+    ]
   }
 }

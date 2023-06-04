@@ -30,15 +30,37 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         simpleBlock(ModBlocks.BLASTED_STONE.get());
         simpleBlock(ModBlocks.REACTOR_CASING.get());
-        simpleBlock(ModBlocks.URANIUM_ORE.get());
-        simpleBlock(ModBlocks.GRAPHITE_ORE.get());
-        simpleBlock(ModBlocks.FLUORITE_ORE.get());
         simpleBlock(ModBlocks.BLASTED_IRON_BLOCK.get());
         simpleBlock(ModBlocks.STEEL_BLOCK.get());
         simpleBlock(ModBlocks.GRAPHITE_BLOCK.get());
         simpleBlock(ModBlocks.THORIUM_BLOCK.get());
         simpleBlock(ModBlocks.FLUORITE_BLOCK.get());
         simpleBlock(ModBlocks.URANIUM_BLOCK.get());
+
+        simpleBlock(ModBlocks.MANGANESE_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_MANGANESE_ORE.get());
+        simpleBlock(ModBlocks.CHROMITE_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_CHROMITE_ORE.get());
+        simpleBlock(ModBlocks.MOLYBDENUM_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_MOLYBDENUM_ORE.get());
+        simpleBlock(ModBlocks.NICKEL_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_NICKEL_ORE.get());
+        simpleBlock(ModBlocks.TITANIC_IRON_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get());
+        simpleBlock(ModBlocks.BAUXITE_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_BAUXITE_ORE.get());
+        simpleBlock(ModBlocks.PYROCHLOR_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get());
+        simpleBlock(ModBlocks.URANIUM_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_URANIUM_ORE.get());
+        simpleBlock(ModBlocks.GRAPHITE_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_GRAPHITE_ORE.get());
+        simpleBlock(ModBlocks.FLUORITE_ORE.get());
+        simpleBlock(ModBlocks.DEEPSLATE_FLUORITE_ORE.get());
+
+        simpleBlock(ModBlocks.SIMPLE_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
+        simpleBlock(ModBlocks.GENERIC_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
+        simpleBlock(ModBlocks.PROGRESSIVE_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
 
         heatSinkBlock(ModBlocks.THERMAL_HEAT_SINK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
         allSideBlock(ModBlocks.THERMAL_CONDUCTOR.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
@@ -67,13 +89,12 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         liquidBlock(ModBlocks.HEATED_MOLTEN_SALT_BLOCK.get());
         liquidBlock(ModBlocks.URANIUM_HEXAFLUORITE_BLOCK.get());
         liquidBlock(ModBlocks.ENRICHED_URANIUM_HEXAFLUORITE_BLOCK.get());
+        liquidBlock(ModBlocks.STEAM_BLOCK.get());
 
     }
 
     public void liquidBlock(Block block) {
-        getVariantBuilder(block).forAllStates(state -> {
-            return ConfiguredModel.builder().modelFile(models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation("block/water"))).build();
-        });
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation("block/water"))).build());
     }
 
     public void machineBlock(Block block, ResourceLocation texture, ResourceLocation valveLeft, ResourceLocation valveRight, ResourceLocation bottom, boolean onOffState) {
@@ -152,18 +173,6 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
     public void heatSinkBlock(Block block, ResourceLocation texture) {
         horizontalBlock(block, models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation(ThoriumReactors.MOD_ID, "generation/heat_sink"))
                 .texture("0", texture).texture("particle", texture));
-    }
-
-    public void craftingTableBlock(ThoriumCraftingTableBlock block) {
-        ModelFile model = models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation("block/cube"))
-                .texture("down", new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table_bottom"))
-                .texture("up", new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table_top"))
-                .texture("north", new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table_side"))
-                .texture("east", new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table_side"))
-                .texture("south", new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table_side"))
-                .texture("west", new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table_side"))
-                .texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table_side"));
-        craftingTableBlock(block, model);
     }
 
     public void craftingTableBlock(ThoriumCraftingTableBlock block, ModelFile model) {

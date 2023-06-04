@@ -120,6 +120,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:mekgen-${mekgen_version}")
     implementation fg.deobf("curse.maven:jei-${jei_version}")
     implementation fg.deobf("curse.maven:top-${top_version}")
+    implementation fg.deobf("curse.maven:pipez-${pipez_version}")
     //runtimeOnly fg.deobf("curse.maven:biggerreactors-${biggerreactors_version}")
     //runtimeOnly fg.deobf("curse.maven:corezero-${corezero_version}")
 }

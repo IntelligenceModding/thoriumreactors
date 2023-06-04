@@ -1,9 +1,6 @@
 {
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
-	"textures": {
-		"chest": "thoriumreactors:block/thorium_chest"
-	},
 	"elements": [
 		{
 			"from": [1, 0, 1],

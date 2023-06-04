@@ -29,7 +29,7 @@ import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 
 public class ReactorValveBlockEntity extends BlockEntity implements WorldlyContainer {
-    public static final int MAX_FLUID_IN = 10;
+    public static final int MAX_FLUID_IN = 100;
     private final ModFluidTank FLUID_TANK_IN = new ModFluidTank(MAX_FLUID_IN, true, true, 0, FluidStack.EMPTY);
 
     private final LazyOptional<IItemHandlerModifiable>[] itemHandler = SidedInvWrapper.create(this, Direction.values());

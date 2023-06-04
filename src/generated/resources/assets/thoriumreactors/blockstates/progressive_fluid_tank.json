@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "thoriumreactors:block/progressive_fluid_tank"
+    }
+  }
+}

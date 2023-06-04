@@ -42,5 +42,8 @@ public class SoundProvider extends SoundDefinitionsProvider {
         add("alarm.1", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "alarm_1"), SoundDefinition.SoundType.SOUND)));
         add("alarm.2", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "alarm_2"), SoundDefinition.SoundType.SOUND)));
         add("alarm.3", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "alarm_3"), SoundDefinition.SoundType.SOUND)));
+        add("reactor.startup", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "reactor_startup"), SoundDefinition.SoundType.SOUND)));
+        add("reactor.run", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "reactor_run"), SoundDefinition.SoundType.SOUND)));
+        add("reactor.shutdown", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "reactor_shutdown"), SoundDefinition.SoundType.SOUND)));
     }
 }

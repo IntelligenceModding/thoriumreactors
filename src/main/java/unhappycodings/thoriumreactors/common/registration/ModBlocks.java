@@ -14,6 +14,7 @@ import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.ThoriumChestBlock;
 import unhappycodings.thoriumreactors.common.block.machine.*;
 import unhappycodings.thoriumreactors.common.block.reactor.*;
+import unhappycodings.thoriumreactors.common.block.tank.FluidTankBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalConductorBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalSinkBlock;
@@ -24,11 +25,40 @@ import java.util.function.Supplier;
 public class ModBlocks {
 
     public static final RegistryObject<ThoriumCraftingTableBlock> THORIUM_CRAFTING_TABLE = register("thorium_crafting_table", ThoriumCraftingTableBlock::new);
+    public static final RegistryObject<FluidTankBlock> SIMPLE_FLUID_TANK = register("simple_fluid_tank", () -> new FluidTankBlock(32000, ModBlockEntities.SIMPLE_FLUID_TANK));
+    public static final RegistryObject<FluidTankBlock> GENERIC_FLUID_TANK = register("generic_fluid_tank", () -> new FluidTankBlock(64000, ModBlockEntities.GENERIC_FLUID_TANK));
+    public static final RegistryObject<FluidTankBlock> PROGRESSIVE_FLUID_TANK = register("progressive_fluid_tank", () -> new FluidTankBlock(128000, ModBlockEntities.PROGRESSIVE_FLUID_TANK));
 
     // Ores
+    public static final RegistryObject<Block> MANGANESE_ORE = register("manganese_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_MANGANESE_ORE = register("deepslate_manganese_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
+    public static final RegistryObject<Block> CHROMITE_ORE = register("chromite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_CHROMITE_ORE = register("deepslate_chromite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
+    public static final RegistryObject<Block> MOLYBDENUM_ORE = register("molybdenum_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_MOLYBDENUM_ORE = register("deepslate_molybdenum_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
+    public static final RegistryObject<Block> NICKEL_ORE = register("nickel_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_NICKEL_ORE = register("deepslate_nickel_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
+    public static final RegistryObject<Block> TITANIC_IRON_ORE = register("titanic_iron_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_TITANIC_IRON_ORE = register("deepslate_titanic_iron_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
+    public static final RegistryObject<Block> BAUXITE_ORE = register("bauxite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_BAUXITE_ORE = register("deepslate_bauxite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
+    public static final RegistryObject<Block> PYROCHLOR_ORE = register("pyrochlor_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_PYROCHLOR_ORE = register("deepslate_pyrochlor_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
     public static final RegistryObject<Block> URANIUM_ORE = register("uranium_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_URANIUM_ORE = register("deepslate_uranium_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
     public static final RegistryObject<Block> GRAPHITE_ORE = register("graphite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_GRAPHITE_ORE = register("deepslate_graphite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
+
     public static final RegistryObject<Block> FLUORITE_ORE = register("fluorite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> DEEPSLATE_FLUORITE_ORE = register("deepslate_fluorite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4.5F, 3.0F)));
 
     // Blocks
     public static final RegistryObject<Block> BLASTED_STONE = register("blasted_stone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
@@ -76,6 +106,7 @@ public class ModBlocks {
     public static final RegistryObject<LiquidBlock> HYDROFLUORITE_BLOCK = Registration.BLOCKS.register("hydrofluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_HYDROFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> ENRICHED_URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("enriched_uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_ENRICHED_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
+    public static final RegistryObject<LiquidBlock> STEAM_BLOCK = Registration.BLOCKS.register("steam_block", () -> new LiquidBlock(ModFluids.SOURCE_STEAM, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
 
     private ModBlocks() {
         throw new IllegalStateException("ModBlocks class");

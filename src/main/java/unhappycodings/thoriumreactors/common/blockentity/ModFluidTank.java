@@ -9,6 +9,7 @@ public class ModFluidTank extends FluidTank {
     public final int slotId;
     public boolean canInput;
     public boolean canOutput;
+    public int allowedFluid;
 
     public ModFluidTank(int capacity, boolean canInput, boolean canOuput, int slotId, FluidStack fluid) {
         super(capacity);
@@ -17,6 +18,19 @@ public class ModFluidTank extends FluidTank {
         this.canOutput = canOuput;
         this.slotId = slotId;
         this.fluid = fluid;
+    }
+
+    public ModFluidTank(int capacity, boolean canInput, boolean canOuput, int slotId, FluidStack fluid, int allowedFluid) {
+        super(allowedFluid);
+        this.capacity = allowedFluid;
+        this.canInput = canInput;
+        this.canOutput = canOuput;
+        this.slotId = slotId;
+        this.fluid = fluid;
+    }
+
+    public void setAllowedFluid(int allowedFluid) {
+        this.allowedFluid = allowedFluid;
     }
 
     @Override
@@ -35,7 +49,7 @@ public class ModFluidTank extends FluidTank {
     }
 
     public int getMaxFluidTransfer() {
-        return 50;
+        return capacity;
     }
 
 }

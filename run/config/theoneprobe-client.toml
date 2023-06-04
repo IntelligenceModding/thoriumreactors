@@ -22,9 +22,9 @@ showCanBeHarvested = "NORMAL"
 #Show the growth level of crops (0 = not, 1 = always, 2 = sneak)
 showCropPercentage = "NORMAL"
 #Show chest contents (0 = not, 1 = always, 2 = sneak)
-showChestContents = "EXTENDED"
+showChestContents = "NORMAL"
 #Show chest contents in detail (0 = not, 1 = always, 2 = sneak), used only if number of items is below 'showItemDetailThresshold'
-showChestContentsDetailed = "EXTENDED"
+showChestContentsDetailed = "NORMAL"
 #Show redstone (0 = not, 1 = always, 2 = sneak)
 showRedstone = "NORMAL"
 #Show mob health (0 = not, 1 = always, 2 = sneak)
@@ -36,7 +36,7 @@ showMobPotionEffects = "EXTENDED"
 #Show lever/comparator/repeater settings (0 = not, 1 = always, 2 = sneak)
 showLeverSetting = "NORMAL"
 #Show tank setting (0 = not, 1 = always, 2 = sneak)
-showTankSetting = "EXTENDED"
+showTankSetting = "NORMAL"
 #Show brewing stand setting (0 = not, 1 = always, 2 = sneak)
 showBrewStandSetting = "NORMAL"
 #Show mob spawner setting (0 = not, 1 = always, 2 = sneak)
@@ -60,12 +60,12 @@ boxTopY = 5
 #Range: -1 ~ 10000
 boxBottomY = -1
 #Color of the border of the box (0 to disable)
-boxBorderColor = "ff999999"
+boxBorderColor = "0"
 #Color of the box (0 to disable)
-boxFillColor = "55006699"
+boxFillColor = "0"
 #Thickness of the border of the box (0 to disable)
 #Range: 0 ~ 20
-boxThickness = 2
+boxThickness = 0
 #How much the border should be offset (i.e. to create an 'outer' border)
 #Range: 0 ~ 20
 boxOffset = 0
@@ -77,7 +77,7 @@ isVisible = true
 holdKeyToMakeVisible = false
 #The scale of the tooltips, 1 is default, 2 is smaller
 #Range: 0.4 ~ 5.0
-tooltipScale = 1.2000000476837158
+tooltipScale = 0.8999999761581421
 #Color of the border of the chest contents box (0 to disable)
 chestContentsBorderColor = "ff006699"
 #0 means don't show break progress, 1 is show as bar, 2 is show as text

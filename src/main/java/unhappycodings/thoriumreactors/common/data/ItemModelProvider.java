@@ -18,7 +18,6 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
     @Override
     protected void registerModels() {
         simpleItem(ModItems.GRAPHITE_CRYSTAL.get());
-        simpleItem(ModItems.GRAPHITE_CLUSTER.get());
         simpleItem(ModItems.GRAPHITE_INGOT.get());
         simpleItem(ModItems.GRAPHITE_TUBE.get());
         simpleItem(ModItems.GRAPHITE_NUGGET.get());
@@ -42,27 +41,41 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.HYDROFLUORITE_BUCKET.get());
         simpleItem(ModItems.URANIUM_HEXAFLUORITE_BUCKET.get());
         simpleItem(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET.get());
+        simpleItem(ModItems.STEAM_BUCKET.get());
 
-        simpleItem(ModItems.SINGE_VESSEL.get());
-        simpleItem(ModItems.DOUBLE_VESSEL.get());
-        simpleItem(ModItems.TRIPLE_VESSEL.get());
-        simpleItem(ModItems.QUADRUPLE_VESSEL.get());
-
-        simpleItem(ModItems.SMALL_ACCUMULATOR.get());
-        simpleItem(ModItems.ACCUMULATOR.get());
-        simpleItem(ModItems.LARGE_ACCUMULATOR.get());
+        withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/simple_fluid_tank"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/generic_fluid_tank"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/progressive_fluid_tank"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.THORIUM_CRAFTING_TABLE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLASTED_STONE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/blasted_stone"));
-        withExistingParent(ItemUtil.getRegString(ModBlocks.URANIUM_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/uranium_ore"));
-        withExistingParent(ItemUtil.getRegString(ModBlocks.GRAPHITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/graphite_ore"));
-        withExistingParent(ItemUtil.getRegString(ModBlocks.FLUORITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluorite_ore"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLASTED_IRON_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/blasted_iron_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.STEEL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/steel_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.GRAPHITE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/graphite_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.THORIUM_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.FLUORITE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluoride_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.URANIUM_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/uranium_block"));
+
+        withExistingParent(ItemUtil.getRegString(ModBlocks.MANGANESE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/manganese_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_MANGANESE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_manganese_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.CHROMITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/chromite_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_CHROMITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_chromite_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.MOLYBDENUM_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/molybdenum_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_MOLYBDENUM_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_molybdenum_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.NICKEL_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/nickel_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_NICKEL_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_nickel_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.TITANIC_IRON_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/titanic_iron_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_titanic_iron_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BAUXITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/bauxite_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_BAUXITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_bauxite_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.PYROCHLOR_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/pyrochlor_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_pyrochlor_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.URANIUM_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/uranium_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_URANIUM_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_uranium_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.GRAPHITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/graphite_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_GRAPHITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_graphite_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.FLUORITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluorite_ore"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.DEEPSLATE_FLUORITE_ORE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/deepslate_fluorite_ore"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.THERMAL_CONDUCTOR.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.THERMAL_CONTROLLER.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_controller"));
@@ -96,6 +109,5 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
     private void simpleItem(Item item, ResourceLocation texture) {
         withExistingParent(ItemUtil.getRegString(item), "item/generated").texture("layer0", new ResourceLocation(this.modid, "item/" + texture));
     }
-
 
 }

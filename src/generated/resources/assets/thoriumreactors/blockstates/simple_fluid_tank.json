@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "thoriumreactors:block/simple_fluid_tank"
+    }
+  }
+}
