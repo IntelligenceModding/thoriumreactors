@@ -43,6 +43,8 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET.get());
         simpleItem(ModItems.STEAM_BUCKET.get());
 
+        withExistingParent(ItemUtil.getRegString(ModBlocks.ITEM_CONDUIT_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/conduit_core"));
+
         withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/simple_fluid_tank"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/generic_fluid_tank"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/progressive_fluid_tank"));

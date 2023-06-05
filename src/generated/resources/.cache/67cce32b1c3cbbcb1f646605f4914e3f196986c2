@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-04T11:37:48.1157852	LootTables
+// 1.19.2	2023-06-05T12:01:49.195499	LootTables
 50e805cfb8ccb6371dc60b71864a9e54d45484f3 data/thoriumreactors/loot_tables/blocks/bauxite_ore.json
 8c4fe66a3b49128e96db7a3b2621e290c7f971aa data/thoriumreactors/loot_tables/blocks/blasted_iron_block.json
 67a4adda050edc502920279e7f8b063033aa78a4 data/thoriumreactors/loot_tables/blocks/blasted_iron_chest_block.json
@@ -30,6 +30,7 @@ db142d2f0b9f845f02551d78d745761aac458d33 data/thoriumreactors/loot_tables/blocks
 cf382002e398d975964a8a4eafdc13b2c4641a78 data/thoriumreactors/loot_tables/blocks/graphite_ore.json
 2b2a4bde1a1c86393b28fa3ff9b81ef1ddeed22d data/thoriumreactors/loot_tables/blocks/heated_molten_salt_block.json
 2b2a4bde1a1c86393b28fa3ff9b81ef1ddeed22d data/thoriumreactors/loot_tables/blocks/hydrofluorite_block.json
+38ce73b00c14e1d7278b137f86b09cfd811582c9 data/thoriumreactors/loot_tables/blocks/item_conduit.json
 0071a11bcda57811dced1d540ea3e2d2e7678e92 data/thoriumreactors/loot_tables/blocks/manganese_ore.json
 2b2a4bde1a1c86393b28fa3ff9b81ef1ddeed22d data/thoriumreactors/loot_tables/blocks/molten_salt_block.json
 da2fdfaed9bd25830eee1385290cd7bd42c6850c data/thoriumreactors/loot_tables/blocks/molybdenum_ore.json

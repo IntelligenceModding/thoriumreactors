@@ -12,6 +12,7 @@ import unhappycodings.thoriumreactors.common.block.*;
 import unhappycodings.thoriumreactors.common.block.chest.BlastedIronChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.ThoriumChestBlock;
+import unhappycodings.thoriumreactors.common.block.conduit.ItemConduitBlock;
 import unhappycodings.thoriumreactors.common.block.machine.*;
 import unhappycodings.thoriumreactors.common.block.reactor.*;
 import unhappycodings.thoriumreactors.common.block.tank.FluidTankBlock;
@@ -107,6 +108,8 @@ public class ModBlocks {
     public static final RegistryObject<LiquidBlock> URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> ENRICHED_URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("enriched_uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_ENRICHED_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> STEAM_BLOCK = Registration.BLOCKS.register("steam_block", () -> new LiquidBlock(ModFluids.SOURCE_STEAM, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
+
+    public static final RegistryObject<ItemConduitBlock> ITEM_CONDUIT_BLOCK = register("item_conduit", ItemConduitBlock::new);
 
     private ModBlocks() {
         throw new IllegalStateException("ModBlocks class");

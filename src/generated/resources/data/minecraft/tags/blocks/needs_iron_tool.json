@@ -60,6 +60,7 @@
     "thoriumreactors:hydrofluorite_block",
     "thoriumreactors:uranium_hexafluorite_block",
     "thoriumreactors:enriched_uranium_hexafluorite_block",
-    "thoriumreactors:steam_block"
+    "thoriumreactors:steam_block",
+    "thoriumreactors:item_conduit"
   ]
 }
