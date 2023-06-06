@@ -6,6 +6,7 @@ import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestB
 import unhappycodings.thoriumreactors.common.blockentity.chest.SteelChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.ThoriumChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.conduit.ItemConduitBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.machine.*;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
@@ -28,6 +29,8 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> SIMPLE_FLUID_TANK = Registration.BLOCK_ENTITIES.register("simple_fluid_tank", () -> BlockEntityType.Builder.of((pos, state) -> new FluidTankBlockEntity(pos, state, 32000, ModBlockEntities.SIMPLE_FLUID_TANK.get()), ModBlocks.SIMPLE_FLUID_TANK.get()).build(null));
     public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> GENERIC_FLUID_TANK = Registration.BLOCK_ENTITIES.register("generic_fluid_tank", () -> BlockEntityType.Builder.of((pos, state) -> new FluidTankBlockEntity(pos, state, 64000, ModBlockEntities.GENERIC_FLUID_TANK.get()), ModBlocks.GENERIC_FLUID_TANK.get()).build(null));
     public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> PROGRESSIVE_FLUID_TANK = Registration.BLOCK_ENTITIES.register("progressive_fluid_tank", () -> BlockEntityType.Builder.of((pos, state) -> new FluidTankBlockEntity(pos, state, 128000, ModBlockEntities.PROGRESSIVE_FLUID_TANK.get()), ModBlocks.PROGRESSIVE_FLUID_TANK.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ItemConduitBlockEntity>> ITEM_CONDUIT = Registration.BLOCK_ENTITIES.register("item_conduit", () -> BlockEntityType.Builder.of(ItemConduitBlockEntity::new, ModBlocks.ITEM_CONDUIT_BLOCK.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<MachineGeneratorBlockEntity>> GENERATOR_BLOCK = Registration.BLOCK_ENTITIES.register("generator_block", () -> BlockEntityType.Builder.of(MachineGeneratorBlockEntity::new, ModBlocks.GENERATOR_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<MachineFluidEvaporationBlockEntity>> FLUID_EVAPORATION_BLOCK = Registration.BLOCK_ENTITIES.register("fluid_evaporation_block", () -> BlockEntityType.Builder.of(MachineFluidEvaporationBlockEntity::new, ModBlocks.FLUID_EVAPORATION_BLOCK.get()).build(null));

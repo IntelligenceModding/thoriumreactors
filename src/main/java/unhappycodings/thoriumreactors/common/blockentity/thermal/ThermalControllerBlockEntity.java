@@ -48,7 +48,7 @@ public class ThermalControllerBlockEntity extends BlockEntity {
     public String warning = "";
     int conversions = 0;
 
-    private ModFluidTank FLUID_TANK_IN = new ModFluidTank(1000, true, true, 0, FluidStack.EMPTY);
+    private final ModFluidTank FLUID_TANK_IN = new ModFluidTank(1000, true, true, 0, FluidStack.EMPTY);
 
     public ThermalControllerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.THERMAL_CONTROLLER.get(), pPos, pBlockState);
