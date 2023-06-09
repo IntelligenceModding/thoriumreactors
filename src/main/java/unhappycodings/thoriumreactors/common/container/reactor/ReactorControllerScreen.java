@@ -1,29 +1,22 @@
 package unhappycodings.thoriumreactors.common.container.reactor;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.level.BlockEventData;
-import net.minecraft.world.level.block.Block;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.client.gui.widgets.ModButton;
-import unhappycodings.thoriumreactors.common.ReactorButtonTypeEnum;
-import unhappycodings.thoriumreactors.common.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.editbox.ModEditBox;
+import unhappycodings.thoriumreactors.common.enums.ReactorButtonTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerChangedPacket;
@@ -33,8 +26,10 @@ import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import unhappycodings.thoriumreactors.common.util.RenderUtil;
 
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 
 public class ReactorControllerScreen extends AbstractContainerScreen<ReactorControllerContainer> {
     private ReactorControllerContainer container;

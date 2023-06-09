@@ -8,7 +8,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 
 import java.util.function.Predicate;

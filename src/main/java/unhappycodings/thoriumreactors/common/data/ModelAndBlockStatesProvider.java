@@ -9,12 +9,12 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
-import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
 import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
+import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
+import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.util.ItemUtil;
 

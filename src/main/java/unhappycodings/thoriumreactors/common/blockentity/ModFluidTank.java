@@ -1,6 +1,5 @@
 package unhappycodings.thoriumreactors.common.blockentity;
 
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;

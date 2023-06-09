@@ -16,10 +16,10 @@ import unhappycodings.thoriumreactors.common.blockentity.renderer.BlastedIronChe
 import unhappycodings.thoriumreactors.common.blockentity.renderer.SteelChestRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.ThoriumChestRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.ThoriumCraftingTableBlockRenderer;
+import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableScreen;
 import unhappycodings.thoriumreactors.common.container.chest.BlastedIronChestScreen;
 import unhappycodings.thoriumreactors.common.container.chest.SteelChestScreen;
 import unhappycodings.thoriumreactors.common.container.chest.ThoriumChestScreen;
-import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableScreen;
 import unhappycodings.thoriumreactors.common.container.machine.*;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerScreen;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;

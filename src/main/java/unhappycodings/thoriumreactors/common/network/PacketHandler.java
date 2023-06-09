@@ -12,7 +12,10 @@ import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.machine.*;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
-import unhappycodings.thoriumreactors.common.network.toserver.*;
+import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachinePowerablePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.MachineRedstoneModePacket;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerStatePacket;
 

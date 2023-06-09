@@ -7,7 +7,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.chest.SteelChestBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.container.base.slot.BaseSlot;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;

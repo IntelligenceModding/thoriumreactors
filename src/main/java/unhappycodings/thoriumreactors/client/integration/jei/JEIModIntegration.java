@@ -15,15 +15,13 @@ import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableScreen;
 import unhappycodings.thoriumreactors.common.container.machine.*;
-import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerScreen;
 import unhappycodings.thoriumreactors.common.recipe.*;
-import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
+import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 

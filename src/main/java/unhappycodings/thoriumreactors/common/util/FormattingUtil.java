@@ -1,5 +1,6 @@
 package unhappycodings.thoriumreactors.common.util;
 
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Style;
 
 import java.text.DecimalFormat;
@@ -36,6 +37,28 @@ public class FormattingUtil {
 
     public static Style hex(int hex) {
         return Style.EMPTY.withColor(hex);
+    }
+
+    public static int getDirectionIndex(Direction direction) {
+        return switch (direction) {
+            case NORTH -> 0;
+            case EAST -> 1;
+            case SOUTH -> 2;
+            case WEST -> 3;
+            case UP -> 4;
+            case DOWN -> 5;
+        };
+    }
+
+    public static Direction getIndexDirection(int index) {
+        return switch (index) {
+            case 0 -> Direction.NORTH;
+            case 1 -> Direction.EAST;
+            case 2 -> Direction.SOUTH;
+            case 3 -> Direction.WEST;
+            case 4 -> Direction.UP;
+            default -> Direction.DOWN;
+        };
     }
 
 }

@@ -28,8 +28,8 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.ThermalValveTypeEnum;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalValveBlockEntity;
+import unhappycodings.thoriumreactors.common.enums.ThermalValveTypeEnum;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 

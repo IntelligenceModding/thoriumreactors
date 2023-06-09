@@ -18,17 +18,13 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientFluidTankRenderDataPacket;
-import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
-import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class FluidTankBlockEntity extends BlockEntity {
     public int capacity = 0;

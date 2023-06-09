@@ -31,7 +31,6 @@ import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
 import unhappycodings.thoriumreactors.common.recipe.BlastingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
-import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;

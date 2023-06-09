@@ -1,7 +1,6 @@
 package unhappycodings.thoriumreactors.common.registration;
 
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 
 public class ModDamageSources {

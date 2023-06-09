@@ -6,12 +6,9 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
-import unhappycodings.thoriumreactors.common.ReactorParticleTypeEnum;
-import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.enums.ReactorParticleTypeEnum;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
 import java.util.Random;

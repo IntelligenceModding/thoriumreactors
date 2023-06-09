@@ -3,15 +3,11 @@ package unhappycodings.thoriumreactors.common.network.toserver.reactor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.DataPackConfig;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import net.minecraftforge.network.NetworkEvent;
-import unhappycodings.thoriumreactors.common.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
-
-import java.util.Date;
 
 public class ReactorControllerStatePacket implements IPacket {
     BlockPos pos;

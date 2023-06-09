@@ -1,12 +1,8 @@
 package unhappycodings.thoriumreactors.common.block.conduit;
 
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.commands.ItemCommands;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -21,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -32,22 +29,21 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.antlr.v4.runtime.misc.Triple;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.conduit.ItemConduitBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
+import unhappycodings.thoriumreactors.common.enums.DirectionConfiguration;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.registration.ModItems;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ItemConduitBlock extends BaseEntityBlock {
-    public static final BooleanProperty NORTH = BooleanProperty.create("north");
-    public static final BooleanProperty EAST = BooleanProperty.create("east");
-    public static final BooleanProperty SOUTH = BooleanProperty.create("south");
-    public static final BooleanProperty WEST = BooleanProperty.create("west");
-    public static final BooleanProperty UP = BooleanProperty.create("up");
-    public static final BooleanProperty DOWN = BooleanProperty.create("down");
+
+    public static final EnumProperty<DirectionConfiguration> NORTH = EnumProperty.create("north", DirectionConfiguration.class);
+    public static final EnumProperty<DirectionConfiguration> EAST = EnumProperty.create("east", DirectionConfiguration.class);
+    public static final EnumProperty<DirectionConfiguration> SOUTH = EnumProperty.create("south", DirectionConfiguration.class);
+    public static final EnumProperty<DirectionConfiguration> WEST = EnumProperty.create("west", DirectionConfiguration.class);
+    public static final EnumProperty<DirectionConfiguration> UP = EnumProperty.create("up", DirectionConfiguration.class);
+    public static final EnumProperty<DirectionConfiguration> DOWN = EnumProperty.create("down", DirectionConfiguration.class);
     public static final BooleanProperty TICKING = BooleanProperty.create("ticking");
 
     public static final VoxelShape SHAPE_CORE = Block.box(6, 6, 6, 10, 10, 10);
@@ -60,7 +56,7 @@ public class ItemConduitBlock extends BaseEntityBlock {
 
     public ItemConduitBlock() {
         super(Properties.of(Material.STONE));
-        this.registerDefaultState(this.stateDefinition.any().setValue(TICKING, false).setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false).setValue(UP, false).setValue(DOWN, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(TICKING, false).setValue(NORTH, DirectionConfiguration.ENABLED).setValue(EAST, DirectionConfiguration.ENABLED).setValue(SOUTH, DirectionConfiguration.ENABLED).setValue(WEST, DirectionConfiguration.ENABLED).setValue(UP, DirectionConfiguration.ENABLED).setValue(DOWN, DirectionConfiguration.ENABLED));
     }
 
     @SuppressWarnings("deprecation")
@@ -77,12 +73,19 @@ public class ItemConduitBlock extends BaseEntityBlock {
             }
         }
 
-        return Shapes.or(SHAPE_CORE, pState.getValue(NORTH) ? SHAPE_NORTH : Shapes.empty(),
-                pState.getValue(EAST) ? SHAPE_EAST : Shapes.empty(),
-                pState.getValue(SOUTH) ? SHAPE_SOUTH : Shapes.empty(),
-                pState.getValue(WEST) ? SHAPE_WEST : Shapes.empty(),
-                pState.getValue(UP) ? SHAPE_UP : Shapes.empty(),
-                pState.getValue(DOWN) ? SHAPE_DOWN : Shapes.empty());
+        return Shapes.or(SHAPE_CORE,
+                pState.getValue(NORTH) == DirectionConfiguration.ENABLED ? SHAPE_NORTH : Shapes.empty(),
+                pState.getValue(EAST) == DirectionConfiguration.ENABLED ? SHAPE_EAST : Shapes.empty(),
+                pState.getValue(SOUTH) == DirectionConfiguration.ENABLED? SHAPE_SOUTH : Shapes.empty(),
+                pState.getValue(WEST) == DirectionConfiguration.ENABLED ? SHAPE_WEST : Shapes.empty(),
+                pState.getValue(UP) == DirectionConfiguration.ENABLED ? SHAPE_UP : Shapes.empty(),
+                pState.getValue(DOWN) == DirectionConfiguration.ENABLED ? SHAPE_DOWN : Shapes.empty(),
+                pState.getValue(NORTH) == DirectionConfiguration.OUTPUT ? SHAPE_NORTH : Shapes.empty(),
+                pState.getValue(EAST) == DirectionConfiguration.OUTPUT ? SHAPE_EAST : Shapes.empty(),
+                pState.getValue(SOUTH) == DirectionConfiguration.OUTPUT? SHAPE_SOUTH : Shapes.empty(),
+                pState.getValue(WEST) == DirectionConfiguration.OUTPUT ? SHAPE_WEST : Shapes.empty(),
+                pState.getValue(UP) == DirectionConfiguration.OUTPUT ? SHAPE_UP : Shapes.empty(),
+                pState.getValue(DOWN) == DirectionConfiguration.OUTPUT ? SHAPE_DOWN : Shapes.empty());
     }
 
     public Triple<VoxelShape, Direction, Double> getTargetShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, Player player) {
@@ -97,8 +100,8 @@ public class ItemConduitBlock extends BaseEntityBlock {
         if (d < shortest) shortest = d;
         if (!(pLevel instanceof LevelAccessor)) return new Triple<>(selection, direction, d);
 
-        for (int i = 0; i < Direction.values().length; i++) {
-            Triple<VoxelShape, BooleanProperty, Direction> shape = SHAPES.get(i);
+        for (int i = 0; i < Direction.values().length * 2; i++) {
+            Triple<VoxelShape, EnumProperty<DirectionConfiguration>, Direction> shape = SHAPES.get(i);
             d = checkShape(pState, pLevel, pPos, start, end, shape.a, shape.b);
             if (d < shortest) {
                 shortest = d;
@@ -110,8 +113,13 @@ public class ItemConduitBlock extends BaseEntityBlock {
         return new Triple<>(selection, direction, shortest);
     }
 
-
-    private static final List<Triple<VoxelShape, BooleanProperty, Direction>> SHAPES = Arrays.asList(
+    private static final List<Triple<VoxelShape, EnumProperty<DirectionConfiguration>, Direction>> SHAPES = Arrays.asList(
+            new Triple<>(SHAPE_NORTH, NORTH, Direction.NORTH),
+            new Triple<>(SHAPE_SOUTH, SOUTH, Direction.SOUTH),
+            new Triple<>(SHAPE_WEST, WEST, Direction.WEST),
+            new Triple<>(SHAPE_EAST, EAST, Direction.EAST),
+            new Triple<>(SHAPE_UP, UP, Direction.UP),
+            new Triple<>(SHAPE_DOWN, DOWN, Direction.DOWN),
             new Triple<>(SHAPE_NORTH, NORTH, Direction.NORTH),
             new Triple<>(SHAPE_SOUTH, SOUTH, Direction.SOUTH),
             new Triple<>(SHAPE_WEST, WEST, Direction.WEST),
@@ -120,8 +128,8 @@ public class ItemConduitBlock extends BaseEntityBlock {
             new Triple<>(SHAPE_DOWN, DOWN, Direction.DOWN)
     );
 
-    private double checkShape(BlockState state, BlockGetter world, BlockPos pos, Vec3 start, Vec3 end, VoxelShape shape, BooleanProperty direction) {
-        if (direction != null && !state.getValue(direction)) {
+    private double checkShape(BlockState state, BlockGetter world, BlockPos pos, Vec3 start, Vec3 end, VoxelShape shape, EnumProperty<DirectionConfiguration> direction) {
+        if (direction != null && state.getValue(direction) != DirectionConfiguration.ENABLED && state.getValue(direction) != DirectionConfiguration.OUTPUT) {
             return Double.MAX_VALUE;
         }
         BlockHitResult blockRayTraceResult = world.clipWithInteractionOverride(start, end, pos, shape, state);
@@ -136,8 +144,9 @@ public class ItemConduitBlock extends BaseEntityBlock {
         return player.isCreative() ? distance : distance - 0.5F;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+    public void neighborChanged(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @NotNull BlockPos pFromPos, boolean pIsMoving) {
         super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
         BlockState newState;
         newState = pState.setValue(NORTH, isRelative(pLevel, pPos, Direction.NORTH)).setValue(EAST, isRelative(pLevel, pPos, Direction.EAST)).setValue(SOUTH, isRelative(pLevel, pPos, Direction.SOUTH)).setValue(WEST, isRelative(pLevel, pPos, Direction.WEST)).setValue(UP, isRelative(pLevel, pPos, Direction.UP)).setValue(DOWN, isRelative(pLevel, pPos, Direction.DOWN));
@@ -146,18 +155,41 @@ public class ItemConduitBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(NORTH, isRelative(pContext, Direction.NORTH)).setValue(TICKING, false).setValue(EAST, isRelative(pContext, Direction.EAST)).setValue(SOUTH, isRelative(pContext, Direction.SOUTH)).setValue(WEST, isRelative(pContext, Direction.WEST)).setValue(UP, isRelative(pContext, Direction.UP)).setValue(DOWN, isRelative(pContext, Direction.DOWN));
     }
 
-    public boolean isRelative(BlockPlaceContext pContext, Direction direction) {
+    public DirectionConfiguration isRelative(BlockPlaceContext pContext, Direction direction) {
         return isRelative(pContext.getLevel(), pContext.getClickedPos(), direction);
     }
 
-    public boolean isRelative(Level level, BlockPos pos, Direction direction) {
+    public DirectionConfiguration isRelative(Level level, BlockPos pos, Direction direction) {
         BlockState state = level.getBlockState(pos.relative(direction));
         BlockEntity entity = level.getBlockEntity(pos.relative(direction));
-        return state.is(ModBlocks.ITEM_CONDUIT_BLOCK.get()) || (entity != null && entity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction).isPresent());
+
+        // chests etc
+        if (entity != null && (entity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite()).isPresent())) return DirectionConfiguration.ENABLED;
+        // when no connection set to standard for connectability
+        if (!state.is(ModBlocks.ITEM_CONDUIT_BLOCK.get())) return DirectionConfiguration.STANDARD;
+
+        // pipe nearby
+        else {
+            DirectionConfiguration selfProperty = state.getValue(getProperty(direction.getOpposite().toString()));
+            if (isStandardOrEnabled(selfProperty)) return DirectionConfiguration.ENABLED;
+        }
+        return DirectionConfiguration.DISABLED;
+    }
+
+    public boolean isStandardOrEnabled(DirectionConfiguration ownProperty) {
+        return (ownProperty == DirectionConfiguration.ENABLED || ownProperty == DirectionConfiguration.STANDARD);
+    }
+
+    public static EnumProperty<DirectionConfiguration> getProperty(String name) {
+        EnumProperty<DirectionConfiguration>[] values = new EnumProperty[]{NORTH, EAST, SOUTH, WEST, UP, DOWN};
+        for (EnumProperty<DirectionConfiguration> value : values) {
+            if (value.getName().equals(name)) return value;
+        }
+        return NORTH;
     }
 
     @Override

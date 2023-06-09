@@ -40,10 +40,8 @@ import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBl
 import unhappycodings.thoriumreactors.common.container.machine.MachineFluidEvaporatorContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
-import unhappycodings.thoriumreactors.common.recipe.CrystallizingRecipe;
 import unhappycodings.thoriumreactors.common.recipe.EvaporatingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
-import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;

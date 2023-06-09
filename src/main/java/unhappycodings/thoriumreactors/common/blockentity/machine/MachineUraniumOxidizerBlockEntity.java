@@ -35,9 +35,10 @@ import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBl
 import unhappycodings.thoriumreactors.common.container.machine.MachineUraniumOxidizerContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
-import unhappycodings.thoriumreactors.common.recipe.DecomposingRecipe;
 import unhappycodings.thoriumreactors.common.recipe.OxidizingRecipe;
-import unhappycodings.thoriumreactors.common.registration.*;
+import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
+import unhappycodings.thoriumreactors.common.registration.ModRecipes;
+import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
 import java.util.List;

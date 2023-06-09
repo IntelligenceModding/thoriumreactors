@@ -18,7 +18,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
@@ -38,9 +37,10 @@ import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBl
 import unhappycodings.thoriumreactors.common.container.machine.MachineDecomposerContainer;
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
-import unhappycodings.thoriumreactors.common.recipe.BlastingRecipe;
 import unhappycodings.thoriumreactors.common.recipe.DecomposingRecipe;
-import unhappycodings.thoriumreactors.common.registration.*;
+import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
+import unhappycodings.thoriumreactors.common.registration.ModRecipes;
+import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
 import java.util.List;

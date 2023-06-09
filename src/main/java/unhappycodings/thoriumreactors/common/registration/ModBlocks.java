@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.block.*;
+import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
 import unhappycodings.thoriumreactors.common.block.chest.BlastedIronChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.ThoriumChestBlock;

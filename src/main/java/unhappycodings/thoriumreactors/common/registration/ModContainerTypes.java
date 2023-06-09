@@ -3,11 +3,10 @@ package unhappycodings.thoriumreactors.common.registration;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.RegistryObject;
-import unhappycodings.thoriumreactors.common.blockentity.renderer.BlastedIronChestRenderer;
+import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.container.chest.BlastedIronChestContainer;
 import unhappycodings.thoriumreactors.common.container.chest.SteelChestContainer;
 import unhappycodings.thoriumreactors.common.container.chest.ThoriumChestContainer;
-import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.container.machine.*;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
 

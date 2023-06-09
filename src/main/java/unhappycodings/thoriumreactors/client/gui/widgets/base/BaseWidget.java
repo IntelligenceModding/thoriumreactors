@@ -6,7 +6,6 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -18,7 +17,6 @@ import unhappycodings.thoriumreactors.common.registration.ModSounds;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public abstract class BaseWidget extends AbstractWidget {
 

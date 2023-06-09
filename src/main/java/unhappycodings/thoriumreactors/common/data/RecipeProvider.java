@@ -1,6 +1,5 @@
 package unhappycodings.thoriumreactors.common.data;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;

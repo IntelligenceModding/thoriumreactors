@@ -2,10 +2,10 @@ package unhappycodings.thoriumreactors.common.registration;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.RegistryObject;
+import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.SteelChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.ThoriumChestBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.conduit.ItemConduitBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.machine.*;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
@@ -13,8 +13,6 @@ import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlo
 import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalValveBlockEntity;
-
-import java.util.function.Supplier;
 
 public final class ModBlockEntities {
     public static void register() {

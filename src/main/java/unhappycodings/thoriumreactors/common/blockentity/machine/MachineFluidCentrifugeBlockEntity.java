@@ -34,10 +34,7 @@ import unhappycodings.thoriumreactors.common.container.machine.MachineFluidCentr
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
 import unhappycodings.thoriumreactors.common.recipe.CentrifugingRecipe;
-import unhappycodings.thoriumreactors.common.recipe.OxidizingRecipe;
-import unhappycodings.thoriumreactors.common.recipe.ThoriumCraftingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
-import unhappycodings.thoriumreactors.common.registration.ModFluids;
 import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
