@@ -14,7 +14,7 @@ Including many new resources and machines.
 [![Discord](https://img.shields.io/badge/Join_Discord-5865F2?style=for-the-badge&logoColor=white&logo=Discord)](https://discord.intelligence-modding.de)
 ![Documentation](https://img.shields.io/badge/Documentation_(Soon)-5abcff?style=for-the-badge&logoColor=white&logo=GitBook)
 
-![Thor](https://img.shields.io/badge/Thor_Approved-43E000?style=for-the-badge&logoColor=white&logo=checkmarx)
+[![Thor](https://img.shields.io/badge/Thor_Approved-43E000?style=for-the-badge&logoColor=white&logo=checkmarx)](CERTIFICATE.pdf)
 </div>
 
 ## Features
