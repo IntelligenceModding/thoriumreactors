@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div align = center>
 
 [![License](https://img.shields.io/badge/License-MIT-830F26?style=for-the-badge&labelColor=A4011A&logoColor=white&logo=bookstack)](https://github.com/UnhappyCodings/thoriumreactors/blob/master/LICENSE)
 ![License](https://img.shields.io/discord/734726882058174486?style=for-the-badge&label=Discord&color=4B58CC&labelColor=5865F2)
