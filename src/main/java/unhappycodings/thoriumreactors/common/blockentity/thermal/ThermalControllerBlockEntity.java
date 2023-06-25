@@ -8,6 +8,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,7 +22,10 @@ import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBloc
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
+import unhappycodings.thoriumreactors.common.enums.ReactorParticleTypeEnum;
 import unhappycodings.thoriumreactors.common.enums.ThermalValveTypeEnum;
+import unhappycodings.thoriumreactors.common.network.PacketHandler;
+import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModFluids;
@@ -59,9 +63,12 @@ public class ThermalControllerBlockEntity extends BlockEntity {
             if (!canBeAssembled) { resetAssembled(); return; }
 
             // If everything is assembled right, we continue here
+            Direction direction = getBlockState().getValue(ThermalControllerBlock.FACING);
+            long x = direction == Direction.WEST || direction == Direction.EAST ? 3 : 5, y = 3;
+            if (x == 3) y = 5;
             if (!assembled) {
                 for (Player player : level.players()) {
-                    //PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(getBlockPos(), getBlockState().getValue(ThermalControllerBlock.FACING)), ReactorParticleTypeEnum.REACTOR, 5, 2, 2), (ServerPlayer) player);
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(getBlockPos(), getBlockState().getValue(ThermalControllerBlock.FACING)), ReactorParticleTypeEnum.REACTOR, x, 2, y), (ServerPlayer) player);
                 }
             }
             assembled = true;
@@ -148,10 +155,10 @@ public class ThermalControllerBlockEntity extends BlockEntity {
 
     public BlockPos addParticleOffset(BlockPos pos, Direction direction) {
         return switch (direction) {
-            case WEST -> pos.offset(0, -1, -2);
-            case EAST -> pos.offset(-4, -1, -2);
-            case SOUTH -> pos.offset(-2, -1, -4);
-            default -> pos.offset(-2, -1, 0);
+            case WEST -> pos.offset(0, 0, -2);
+            case EAST -> pos.offset(-2, 0, -2);
+            case SOUTH -> pos.offset(-2, 0, -2);
+            default -> pos.offset(-2, 0, 0);
         };
     }
 

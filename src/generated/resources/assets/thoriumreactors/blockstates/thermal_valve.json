@@ -2,35 +2,35 @@
   "variants": {
     "facing=down,type=coolant_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 90
+      "y": 90
     },
     "facing=down,type=coolant_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 90
+      "y": 90
     },
     "facing=down,type=heating_fluid_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 90
+      "y": 90
     },
     "facing=down,type=heating_fluid_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 90
+      "y": 90
     },
     "facing=east,type=coolant_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 90
+      "y": 90
     },
     "facing=east,type=coolant_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 90
+      "y": 90
     },
     "facing=east,type=heating_fluid_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 90
+      "y": 90
     },
     "facing=east,type=heating_fluid_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 90
+      "y": 90
     },
     "facing=north,type=coolant_input": {
       "model": "thoriumreactors:block/thermal_valve"
@@ -46,51 +46,51 @@
     },
     "facing=south,type=coolant_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 180
+      "y": 180
     },
     "facing=south,type=coolant_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 180
+      "y": 180
     },
     "facing=south,type=heating_fluid_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 180
+      "y": 180
     },
     "facing=south,type=heating_fluid_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 180
+      "y": 180
     },
     "facing=up,type=coolant_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 270
+      "y": 270
     },
     "facing=up,type=coolant_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 270
+      "y": 270
     },
     "facing=up,type=heating_fluid_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 270
+      "y": 270
     },
     "facing=up,type=heating_fluid_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 270
+      "y": 270
     },
     "facing=west,type=coolant_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 270
+      "y": 270
     },
     "facing=west,type=coolant_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 270
+      "y": 270
     },
     "facing=west,type=heating_fluid_input": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 270
+      "y": 270
     },
     "facing=west,type=heating_fluid_output": {
       "model": "thoriumreactors:block/thermal_valve",
-      "x": 270
+      "y": 270
     }
   }
 }

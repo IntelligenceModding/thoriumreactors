@@ -1,0 +1,7 @@
+{
+  "parent": "thoriumreactors:generation/turbine_rotor_3",
+  "textures": {
+    "0": "thoriumreactors:block/turbine_coiled_rotor",
+    "particle": "thoriumreactors:block/turbine_coiled_rotor"
+  }
+}

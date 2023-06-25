@@ -14,6 +14,8 @@ import unhappycodings.thoriumreactors.common.ItemCreativeTab;
 import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.registration.*;
+import unhappycodings.thoriumreactors.common.registration.worldgeneration.ModConfiguredFeatures;
+import unhappycodings.thoriumreactors.common.registration.worldgeneration.ModPlacedFeatures;
 
 @Mod(ThoriumReactors.MOD_ID)
 public class ThoriumReactors {
@@ -27,12 +29,14 @@ public class ThoriumReactors {
         LOGGER.info("[" + MOD_ID + "] Initialization");
 
         Registration.register();
-
         ModItems.register();
         ModBlocks.register();
+
+        ModConfiguredFeatures.register(bus);
+        ModPlacedFeatures.register(bus);
+
         ModBlockEntities.register();
         ModSounds.register();
-
         ModContainerTypes.register();
         ModRecipes.register();
 

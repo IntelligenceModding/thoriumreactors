@@ -27,6 +27,4 @@ tankFormat = "COMPACT"
 showDebugInfo = true
 #If true equal stacks will be compacted in the chest contents overlay
 compactEqualStacks = true
-#Color for the RF bar
-rfbarFilledColor = "ffdd0000"
-
+rf

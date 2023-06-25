@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 
@@ -39,7 +40,7 @@ public class ThermalValveBlockEntity extends BlockEntity {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
+        if (cap == ForgeCapabilities.FLUID_HANDLER && side != null && side == getBlockState().getValue(ThermalValveBlock.FACING)) {
             return lazyFluidInHandler.cast();
         }
         return super.getCapability(cap, side);

@@ -15,6 +15,7 @@ import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
+import unhappycodings.thoriumreactors.common.block.turbine.TurbineRotorBlock;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.util.ItemUtil;
 
@@ -29,7 +30,6 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(ModBlocks.BLASTED_STONE.get());
-        simpleBlock(ModBlocks.REACTOR_CASING.get());
         simpleBlock(ModBlocks.BLASTED_IRON_BLOCK.get());
         simpleBlock(ModBlocks.STEEL_BLOCK.get());
         simpleBlock(ModBlocks.GRAPHITE_BLOCK.get());
@@ -65,13 +65,23 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         heatSinkBlock(ModBlocks.THERMAL_HEAT_SINK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
         allSideBlock(ModBlocks.THERMAL_CONDUCTOR.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
         allSideFrontBlockOnOff(ModBlocks.THERMAL_CONTROLLER.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_controller"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
-        allSideFrontBlock(ModBlocks.THERMAL_VALVE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_valve"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
+        valveBlock(ModBlocks.THERMAL_VALVE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_valve"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
 
+        simpleBlock(ModBlocks.REACTOR_CASING.get());
         allSideFrontBlockOnOff(ModBlocks.REACTOR_CONTROLLER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_controller"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_casing"));
         controlRodBlock(ModBlocks.REACTOR_ROD_CONTROLLER.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_rod_controller"));
         coreBlock(ModBlocks.REACTOR_CORE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_core"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_casing"));
         valveBlock(ModBlocks.REACTOR_VALVE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_valve"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_casing"));
         simpleBlock(ModBlocks.REACTOR_GLASS.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.REACTOR_GLASS.get()), new ResourceLocation("block/cube_all")).texture("all", new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_glass")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_glass")).renderType("cutout"));
+
+        simpleBlock(ModBlocks.ELECTROMAGNETIC_COIL.get());
+        simpleBlock(ModBlocks.TURBINE_CASING.get());
+        allSideFrontBlockOnOff(ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_controller"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_casing"));
+        valveBlock(ModBlocks.TURBINE_POWER_PORT.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_power_port"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_casing"));
+        valveBlock(ModBlocks.TURBINE_VALVE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_valve"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_casing"));
+        valveBlock(ModBlocks.TURBINE_VENT.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_vent"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_casing"));
+        rotorBlock(ModBlocks.TURBINE_ROTOR.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_rotor"), false);
+        simpleBlock(ModBlocks.TURBINE_GLASS.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_GLASS.get()), new ResourceLocation("block/cube_all")).texture("all", new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_glass")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_glass")).renderType("cutout"));
 
         machineBlock(ModBlocks.ELECTROLYTIC_SALT_SEPARATOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/electrolytic_salt_separator_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_yellow"), false);
         machineBlock(ModBlocks.FLUID_EVAPORATION_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_evaporation_block"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_cyan"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_valve_blue"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base"), true);
@@ -147,6 +157,27 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         getVariantBuilder(block).forAllStates(state -> {
             int rot = getRotForDir(state.getValue(ReactorValveBlock.FACING));
             return ConfiguredModel.builder().modelFile(model).rotationY(rot).build();
+        });
+    }
+
+    public void rotorBlock(Block block, ResourceLocation texture, boolean simple) {
+        ModelFile modelDefault = models().withExistingParent(ItemUtil.getRegString(block) + "_0", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor")).texture("0", texture).texture("particle", texture);
+        ModelFile model1 = models().withExistingParent(ItemUtil.getRegString(block) + "_1", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_1")).texture("0", texture).texture("particle", texture);
+        ModelFile model2 = models().withExistingParent(ItemUtil.getRegString(block) + "_2", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_2")).texture("0", texture).texture("particle", texture);
+        ModelFile model3 = models().withExistingParent(ItemUtil.getRegString(block) + "_3", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_3")).texture("0", texture).texture("particle", texture);
+        ModelFile model4 = models().withExistingParent(ItemUtil.getRegString(block) + "_4", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_4")).texture("0", texture).texture("particle", texture);
+        ModelFile modelBlades = models().withExistingParent(ItemUtil.getRegString(block) + "_blades", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_blades")).texture("0", texture).texture("particle", texture);
+        if (simple) return;ConfiguredModel.builder().modelFile(modelDefault).build();
+        getVariantBuilder(block).forAllStates(state -> {
+            ModelFile finalModel = switch (state.getValue(TurbineRotorBlock.BLADES)) {
+                case 0 -> modelDefault;
+                case 1 -> model1;
+                case 2 -> model2;
+                case 3 -> model3;
+                case 4 -> model4;
+                default -> modelBlades;
+            };
+            return ConfiguredModel.builder().modelFile(finalModel).build();
         });
     }
 

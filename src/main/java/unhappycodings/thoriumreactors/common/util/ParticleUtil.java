@@ -15,12 +15,16 @@ public class ParticleUtil {
         renderParticles(pos, randomSource, level, ParticleTypes.SMOKE);
     }
 
+    public static void renderCloudParticles(BlockPos pos, RandomSource randomSource, Level level) {
+        renderParticles(pos, randomSource, level, ParticleTypes.CLOUD);
+    }
+
     public static void renderParticles(BlockPos pos, RandomSource randomSource, Level level, ParticleOptions types) {
         for (int j2 = 0; j2 < 5; ++j2) {
             double d12 = (double) pos.getX() + randomSource.nextDouble() * 0.6D + 0.2D;
             double d18 = (double) pos.getY() + 1D;
             double d25 = (double) pos.getZ() + randomSource.nextDouble() * 0.6D + 0.2D;
-            level.addParticle(types, d12, d18, d25, 0.0D, 0.0D, 0.0D);
+            level.addParticle(types, d12, d18, d25, 0.0D, types == ParticleTypes.CLOUD ? 0.1D : 0.0D, 0.0D);
         }
     }
 

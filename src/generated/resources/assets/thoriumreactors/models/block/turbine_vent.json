@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "thoriumreactors:block/turbine_casing",
+    "east": "thoriumreactors:block/turbine_casing",
+    "north": "thoriumreactors:block/turbine_vent",
+    "particle": "thoriumreactors:block/turbine_vent",
+    "south": "thoriumreactors:block/turbine_casing",
+    "up": "thoriumreactors:block/turbine_casing",
+    "west": "thoriumreactors:block/turbine_casing"
+  }
+}

@@ -45,6 +45,15 @@
     "thoriumreactors:reactor_core",
     "thoriumreactors:reactor_valve",
     "thoriumreactors:reactor_glass",
+    "thoriumreactors:turbine_casing",
+    "thoriumreactors:turbine_controller",
+    "thoriumreactors:turbine_power_port",
+    "thoriumreactors:turbine_valve",
+    "thoriumreactors:turbine_glass",
+    "thoriumreactors:turbine_vent",
+    "thoriumreactors:turbine_rotor",
+    "thoriumreactors:turbine_coiled_rotor",
+    "thoriumreactors:electromagnetic_coil",
     "thoriumreactors:electrolytic_salt_separator",
     "thoriumreactors:fluid_evaporation_block",
     "thoriumreactors:generator_block",
@@ -60,7 +69,6 @@
     "thoriumreactors:hydrofluorite_block",
     "thoriumreactors:uranium_hexafluorite_block",
     "thoriumreactors:enriched_uranium_hexafluorite_block",
-    "thoriumreactors:steam_block",
-    "thoriumreactors:item_conduit"
+    "thoriumreactors:steam_block"
   ]
 }

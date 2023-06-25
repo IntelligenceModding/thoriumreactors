@@ -157,7 +157,7 @@ public class MachineFluidCentrifugeBlockEntity extends MachineContainerBlockEnti
                 setEnergy(getEnergy() - NEEDED_ENERGY);
 
                 setRecipeTime(getRecipeTime() - 1);
-                if (getOperationAfterTicks() != 0 && getRecipeTime() % getOperationAfterTicks() == 0) {
+                if ((getOperationAfterTicks() != 0 && getRecipeTime() % getOperationAfterTicks() == 0) || getRecipeTime() == 0) {
                     if (getFluidOut().isEmpty())
                         setFluidOut(new FluidStack(getOutputFluid(), 0));
                     getFluidOut().grow(getFluidAmountNeeded());

@@ -12,7 +12,6 @@ import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
 import unhappycodings.thoriumreactors.common.block.chest.BlastedIronChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.ThoriumChestBlock;
-import unhappycodings.thoriumreactors.common.block.conduit.ItemConduitBlock;
 import unhappycodings.thoriumreactors.common.block.machine.*;
 import unhappycodings.thoriumreactors.common.block.reactor.*;
 import unhappycodings.thoriumreactors.common.block.tank.FluidTankBlock;
@@ -20,12 +19,15 @@ import unhappycodings.thoriumreactors.common.block.thermal.ThermalConductorBlock
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalSinkBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
+import unhappycodings.thoriumreactors.common.block.turbine.*;
 
 import java.util.function.Supplier;
 
 public class ModBlocks {
 
     public static final RegistryObject<ThoriumCraftingTableBlock> THORIUM_CRAFTING_TABLE = register("thorium_crafting_table", ThoriumCraftingTableBlock::new);
+
+    // Tanks
     public static final RegistryObject<FluidTankBlock> SIMPLE_FLUID_TANK = register("simple_fluid_tank", () -> new FluidTankBlock(32000, ModBlockEntities.SIMPLE_FLUID_TANK));
     public static final RegistryObject<FluidTankBlock> GENERIC_FLUID_TANK = register("generic_fluid_tank", () -> new FluidTankBlock(64000, ModBlockEntities.GENERIC_FLUID_TANK));
     public static final RegistryObject<FluidTankBlock> PROGRESSIVE_FLUID_TANK = register("progressive_fluid_tank", () -> new FluidTankBlock(128000, ModBlockEntities.PROGRESSIVE_FLUID_TANK));
@@ -70,6 +72,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLASTED_IRON_BLOCK = register("blasted_iron_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(6f)));
     public static final RegistryObject<Block> STEEL_BLOCK = register("steel_block", () -> new Block(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f)));
 
+    // Blocks
     public static final RegistryObject<ThoriumChestBlock> THORIUM_CHEST_BLOCK = register("thorium_chest_block", () -> new ThoriumChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.THORIUM_CHEST_BLOCK::get));
     public static final RegistryObject<SteelChestBlock> STEEL_CHEST_BLOCK = register("steel_chest_block", () -> new SteelChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.STEEL_CHEST_BLOCK::get));
     public static final RegistryObject<BlastedIronChestBlock> BLASTED_IRON_CHEST_BLOCK = register("blasted_iron_chest_block", () -> new BlastedIronChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.BLASTED_IRON_CHEST_BLOCK::get));
@@ -81,13 +84,23 @@ public class ModBlocks {
     public static final RegistryObject<ThermalSinkBlock> THERMAL_HEAT_SINK = register("thermal_heat_sink", ThermalSinkBlock::new);
 
     // Reactor
-    public static final RegistryObject<Block> REACTOR_CASING = register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
+    public static final RegistryObject<ReactorCasingBlock> REACTOR_CASING = register("reactor_casing", ReactorCasingBlock::new);
     public static final RegistryObject<ReactorGraphiteModeratorBlock> REACTOR_GRAPHITE_MODERATOR = register("reactor_graphite_moderator", ReactorGraphiteModeratorBlock::new);
     public static final RegistryObject<ReactorControllerBlock> REACTOR_CONTROLLER_BLOCK = register("reactor_controller", ReactorControllerBlock::new);
     public static final RegistryObject<ReactorControlRodBlock> REACTOR_ROD_CONTROLLER = register("reactor_rod_controller", ReactorControlRodBlock::new);
     public static final RegistryObject<ReactorCoreBlock> REACTOR_CORE = register("reactor_core", ReactorCoreBlock::new);
     public static final RegistryObject<ReactorValveBlock> REACTOR_VALVE = register("reactor_valve", ReactorValveBlock::new);
     public static final RegistryObject<ReactorGlassBlock> REACTOR_GLASS = register("reactor_glass", ReactorGlassBlock::new);
+
+    // Turbine
+    public static final RegistryObject<TurbineCasingBlock> TURBINE_CASING = register("turbine_casing", TurbineCasingBlock::new);
+    public static final RegistryObject<TurbineControllerBlock> TURBINE_CONTROLLER_BLOCK = register("turbine_controller", TurbineControllerBlock::new);
+    public static final RegistryObject<TurbinePowerPortBlock> TURBINE_POWER_PORT = register("turbine_power_port", TurbinePowerPortBlock::new);
+    public static final RegistryObject<TurbineValveBlock> TURBINE_VALVE = register("turbine_valve", TurbineValveBlock::new);
+    public static final RegistryObject<TurbineGlassBlock> TURBINE_GLASS = register("turbine_glass", TurbineGlassBlock::new);
+    public static final RegistryObject<TurbineVentBlock> TURBINE_VENT = register("turbine_vent", TurbineVentBlock::new);
+    public static final RegistryObject<TurbineRotorBlock> TURBINE_ROTOR = register("turbine_rotor", TurbineRotorBlock::new);
+    public static final RegistryObject<ElectromagneticCoilBlock> ELECTROMAGNETIC_COIL = register("electromagnetic_coil", ElectromagneticCoilBlock::new);
 
     // Machines
     public static final RegistryObject<MachineElectrolyticSaltSeparatorBlock> ELECTROLYTIC_SALT_SEPARATOR_BLOCK = register("electrolytic_salt_separator", MachineElectrolyticSaltSeparatorBlock::new);
@@ -108,8 +121,6 @@ public class ModBlocks {
     public static final RegistryObject<LiquidBlock> URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> ENRICHED_URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("enriched_uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_ENRICHED_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> STEAM_BLOCK = Registration.BLOCKS.register("steam_block", () -> new LiquidBlock(ModFluids.SOURCE_STEAM, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
-
-    public static final RegistryObject<ItemConduitBlock> ITEM_CONDUIT_BLOCK = register("item_conduit", ItemConduitBlock::new);
 
     private ModBlocks() {
         throw new IllegalStateException("ModBlocks class");

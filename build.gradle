@@ -113,14 +113,14 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+    implementation fg.deobf("curse.maven:jei-${jei_version}")
 
     runtimeOnly fg.deobf("team.chisel.ctm:CTM:${ctm_version}")
-
     runtimeOnly fg.deobf("curse.maven:mek-${mek_version}")
     runtimeOnly fg.deobf("curse.maven:mekgen-${mekgen_version}")
-    implementation fg.deobf("curse.maven:jei-${jei_version}")
-    implementation fg.deobf("curse.maven:top-${top_version}")
-    implementation fg.deobf("curse.maven:pipez-${pipez_version}")
+    runtimeOnly fg.deobf("curse.maven:top-${top_version}")
+    runtimeOnly fg.deobf("curse.maven:pipez-${pipez_version}")
+    runtimeOnly fg.deobf("curse.maven:we-${we_version}")
     //runtimeOnly fg.deobf("curse.maven:biggerreactors-${biggerreactors_version}")
     //runtimeOnly fg.deobf("curse.maven:corezero-${corezero_version}")
 }

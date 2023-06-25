@@ -62,7 +62,6 @@ public class ThoriumCraftingTableBlock extends BaseEntityBlock {
         return super.use(state, levelIn, pos, player, interactionHand, hitResult);
     }
 
-
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         CompoundTag tag = pStack.getOrCreateTag().getCompound("BlockEntityTag");

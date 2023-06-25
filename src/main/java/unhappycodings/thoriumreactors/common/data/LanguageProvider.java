@@ -14,7 +14,7 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
     @Override
     protected void addTranslations() {
         add(ModBlocks.THORIUM_CRAFTING_TABLE.get(), "Thorium Crafting Table");
-        add(ModBlocks.THORIUM_CRAFTING_TABLE.get().getDescriptionId() + "_description", "This Crafting Table has a 5x5 crafting area for almost all Thorium recipes! Use the Just Enough Items mod (JEI) for all recipes!");
+        add(ModBlocks.THORIUM_CRAFTING_TABLE.get().getDescriptionId() + "_description", "Crafting with a 5x5 crafting area for almost all thorium recipes! JEI mod is recommended.");
         add(ModBlocks.THORIUM_CHEST_BLOCK.get(), "Thorium Chest");
         add(ModBlocks.THORIUM_CHEST_BLOCK.get().getDescriptionId() + "_description", "Chest made of Steel and Thorium, has a higher capacity for items!");
         add(ModBlocks.STEEL_CHEST_BLOCK.get(), "Steel Chest");
@@ -73,26 +73,68 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModBlocks.CRYSTALLIZER_BLOCK.get().getDescriptionId() + "_description", "The Crystallizer transforms fluids into their solid variant. Mainly UF6 (Enriched Uranium Hexafluorite)!");
 
         add(ModBlocks.SIMPLE_FLUID_TANK.get(), "Simple Fluid Tank");
+        add(ModBlocks.SIMPLE_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in amounts! First stage of three, with small capacity");
+        add(ModBlocks.GENERIC_FLUID_TANK.get(), "Generic Fluid Tank");
+        add(ModBlocks.GENERIC_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in big amounts! Second stage, with bigger capacity");
+        add(ModBlocks.PROGRESSIVE_FLUID_TANK.get(), "Progressive Fluid Tank");
+        add(ModBlocks.PROGRESSIVE_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in huge amounts! Last stage, therefore with a huge capacity");
 
         add(ModBlocks.REACTOR_CASING.get(), "Reactor Casing");
+        add(ModBlocks.REACTOR_CASING.get().getDescriptionId() + "_description", "Fundamental framing block for Thorium Reactor. Used to build a reactor!");
         add(ModBlocks.REACTOR_CONTROLLER_BLOCK.get(), "Reactor Controller");
+        add(ModBlocks.REACTOR_CONTROLLER_BLOCK.get().getDescriptionId() + "_description", "Framing block for Thorium Reactor. Used to build a reactor!");
         add(ModBlocks.REACTOR_VALVE.get(), "Reactor Valve");
+        add(ModBlocks.REACTOR_VALVE.get().getDescriptionId() + "_description", "Framing block for Thorium Reactor. Used to build a reactor!");
         add(ModBlocks.REACTOR_ROD_CONTROLLER.get(), "Reactor Rod Controller");
+        add(ModBlocks.REACTOR_ROD_CONTROLLER.get().getDescriptionId() + "_description", "Framing block for Thorium Reactor. Used to build a reactor!");
         add(ModBlocks.REACTOR_CORE.get(), "Reactor Core");
+        add(ModBlocks.REACTOR_CORE.get().getDescriptionId() + "_description", "Framing block for Thorium Reactor. Used to build a reactor!");
         add(ModBlocks.REACTOR_GLASS.get(), "Reactor Glass");
+        add(ModBlocks.REACTOR_GLASS.get().getDescriptionId() + "_description", "Framing block for Thorium Reactor. Used to build a reactor!");
         add(ModBlocks.REACTOR_GRAPHITE_MODERATOR.get(), "Graphite Moderator");
+        add(ModBlocks.REACTOR_GRAPHITE_MODERATOR.get().getDescriptionId() + "_description", "Framing block for Thorium Reactor. Used to build a reactor!");
 
         add(ModBlocks.THERMAL_CONDUCTOR.get(), "Thermal Conductor");
         add(ModBlocks.THERMAL_CONTROLLER.get(), "Thermal Controller");
         add(ModBlocks.THERMAL_VALVE.get(), "Thermal Valve");
         add(ModBlocks.THERMAL_HEAT_SINK.get(), "Thermal Sink");
 
+        add(ModItems.GRAPHITE_TUBE.get(), "Graphite Tube");
         add(ModItems.GRAPHITE_CRYSTAL.get(), "Graphite");
+
+        add(ModItems.CHROMIUM_INGOT.get(), "Chromium Ingot");
+        add(ModItems.GRAPHITE_INGOT.get(), "Graphite Ingot");
+        add(ModItems.STEEL_NUGGET.get(), "Steel Nugget");
+        add(ModItems.BLASTED_IRON_INGOT.get(), "Blasted Iron Ingot");
+        add(ModItems.TITANIUM_INGOT.get(), "Titanium Ingot");
+        add(ModItems.MOLYBDENUM_INGOT.get(), "Molybdenum Ingot");
+        add(ModItems.COBALT_INGOT.get(), "Cobalt Ingot");
+        add(ModItems.FLUORITE_INGOT.get(), "Fluorite Ingot");
+        add(ModItems.NICKEL_INGOT.get(), "Nickel Ingot");
+        add(ModItems.URANIUM_INGOT.get(), "Uranium Ingot");
+        add(ModItems.ALUMINUM_INGOT.get(), "Aluminum Ingot");
+        add(ModItems.MANGANESE_INGOT.get(), "Manganese Ingot");
+        add(ModItems.NIOB_INGOT.get(), "Niob Ingot");
+
+        add(ModItems.CHROMIUM_NUGGET.get(), "Chromium Nugget");
+        add(ModItems.GRAPHITE_NUGGET.get(), "Graphite Nugget");
+        add(ModItems.STEEL_INGOT.get(), "Steel Ingot");
+        add(ModItems.BLASTED_IRON_NUGGET.get(), "Blasted Iron Nugget");
+        add(ModItems.TITANIUM_NUGGET.get(), "Titanium Nugget");
+        add(ModItems.MOLYBDENUM_NUGGET.get(), "Molybdenum Nugget");
+        add(ModItems.COBALT_NUGGET.get(), "Cobalt Nugget");
+        add(ModItems.FLUORITE_NUGGET.get(), "Fluorite Nugget");
+        add(ModItems.NICKEL_NUGGET.get(), "Nickel Nugget");
+        add(ModItems.URANIUM_NUGGET.get(), "Uranium Nugget");
+        add(ModItems.ALUMINUM_NUGGET.get(), "Aluminum Nugget");
+        add(ModItems.MANGANESE_NUGGET.get(), "Manganese Nugget");
+        add(ModItems.NIOB_NUGGET.get(), "Niob Nugget");
+
         add(ModItems.RAW_URANIUM.get(), "Raw Uranium");
         add(ModItems.THORIUM.get(), "Raw Thorium");
         add(ModItems.ENRICHED_URANIUM.get(), "Enriched Uranium Pellet");
+        add(ModItems.DEPLETED_URANIUM.get(), "Depleted Uranium Pellet");
         add(ModItems.CONFIGURATOR.get(), "Configurator");
-        add(ModItems.GRAPHITE_TUBE.get(), "Graphite Tube");
         add(ModItems.REDSTONE_PROCESSOR.get(), "Redstone Processor");
         add(ModItems.POTASSIUM.get(), "Potassium");
         add(ModItems.SODIUM.get(), "Sodium");
@@ -105,9 +147,6 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModItems.URANIUM_HEXAFLUORITE_BUCKET.get(), "Uranium Hexafluorite Bucket");
         add(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET.get(), "Enriched Uranium Hexafluorite Bucket");
         add(ModItems.STEAM_BUCKET.get(), "Steam Bucket");
-        add(ModItems.GRAPHITE_INGOT.get(), "Graphite Ingot");
-        add(ModItems.BLASTED_IRON_INGOT.get(), "Blasted Iron Ingot");
-        add(ModItems.STEEL_INGOT.get(), "Steel Ingot");
 
         add("fluid_type.thoriumreactors.hydrofluorite", "Hydrofluorite");
         add("fluid_type.thoriumreactors.molten_salt", "Molten Salt");

@@ -1,3 +1,6 @@
+
+<br>
+<br>
 <div align = center>
 
 [![License](https://img.shields.io/badge/License-MIT-830F26?style=for-the-badge&labelColor=A4011A&logoColor=white&logo=bookstack)](https://github.com/UnhappyCodings/thoriumreactors/blob/master/LICENSE)
@@ -6,9 +9,12 @@
 
 ![Thoriumreactors Mod](thumbnail.png)
 
-The ThoriumReactors Mod is a Minecraft Forge modification that introduces a new type of energy generation in the game - thorium reactors.<br>
-Harness the power of thorium to generate sustainable and efficient energy for your Minecraft world!<br>
-Including many new resources and machines.
+<br>
+
+<font size="4">*A mod adding many resources, machines and a powerful energy source.  
+The thorium reactor*</font>
+
+<br>
 
 [![Curseforge](https://img.shields.io/badge/CurseForge-E04E14?style=for-the-badge&logoColor=white&logo=CurseForge)](https://www.curseforge.com/minecraft/mc-mods/thorium-reactors)
 [![Discord](https://img.shields.io/badge/Join_Discord-5865F2?style=for-the-badge&logoColor=white&logo=Discord)](https://discord.intelligence-modding.de)
@@ -16,6 +22,11 @@ Including many new resources and machines.
 
 [![Thor](https://img.shields.io/badge/Thor_Approved-43E000?style=for-the-badge&logoColor=white&logo=checkmarx)](CERTIFICATE.pdf)
 </div>
+
+<br>
+<br>
+
+<font size="3">
 
 ## Features
 
@@ -49,3 +60,4 @@ Contributions are always welcome! If you have any ideas, bug reports, or want to
 
 ## Modpacks
 You are free to use this mod in any modpack.
+</font>

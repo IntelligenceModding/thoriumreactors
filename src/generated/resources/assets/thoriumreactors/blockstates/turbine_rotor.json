@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "blades=0,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_0"
+    },
+    "blades=0,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_0"
+    },
+    "blades=1,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_1"
+    },
+    "blades=1,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_1"
+    },
+    "blades=2,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_2"
+    },
+    "blades=2,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_2"
+    },
+    "blades=3,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_3"
+    },
+    "blades=3,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_3"
+    },
+    "blades=4,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_4"
+    },
+    "blades=4,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_4"
+    }
+  }
+}

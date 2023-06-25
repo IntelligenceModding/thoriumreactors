@@ -10,7 +10,8 @@
             "connect_to": [
                 { "block": "thoriumreactors:thermal_conductor" },
                 { "block": "thoriumreactors:thermal_valve" },
-                { "block": "thoriumreactors:thermal_controller" }
+                { "block": "thoriumreactors:thermal_controller" },
+                { "block": "thoriumreactors:thermal_heat_sink" }
             ]
         }
     }
