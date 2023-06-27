@@ -80,13 +80,22 @@ public class TurbineRotorBlock extends Block {
     @NotNull
     @Override
     public InteractionResult use(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
+        if (pLevel.isClientSide) return InteractionResult.SUCCESS;
         if (pPlayer.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.TURBINE_BLADE.get())) {
             int bladesCount = pState.getValue(BLADES);
             if (bladesCount < 4) {
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(BLADES, bladesCount + 1));
-                pPlayer.getItemInHand(InteractionHand.MAIN_HAND).shrink(1);
+                if (!pPlayer.isCreative())
+                    pPlayer.getItemInHand(InteractionHand.MAIN_HAND).shrink(1);
             }
             return InteractionResult.SUCCESS;
+        } else if (pPlayer.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
+            int bladesCount = pState.getValue(BLADES);
+            if (bladesCount > 0 && pPlayer.canTakeItem(ModItems.TURBINE_BLADE.get().getDefaultInstance())) {
+                pLevel.setBlockAndUpdate(pPos, pState.setValue(BLADES, bladesCount - 1));
+                if (!pPlayer.isCreative())
+                    pPlayer.addItem(ModItems.TURBINE_BLADE.get().getDefaultInstance());
+            }
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }

@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-25T18:56:14.5409879	Item Models: thoriumreactors
+// 1.19.2	2023-06-27T09:07:55.7273827	Item Models: thoriumreactors
 297e1af5609489ae4af515cc8364f140c050db9e assets/thoriumreactors/models/item/aluminum_ingot.json
 992b62b637873048447a8bebaef602f01828282e assets/thoriumreactors/models/item/aluminum_nugget.json
 ef8527459cfad764c851d4621da587060439c6fd assets/thoriumreactors/models/item/bauxite_ore.json
@@ -94,6 +94,7 @@ fa98be95a653a6ecbb3da31123279f9f72276812 assets/thoriumreactors/models/item/turb
 797fdd9484b67e7f6d9486de3f70a4b74b9339e9 assets/thoriumreactors/models/item/turbine_controller.json
 a2345d454ff75c883b239e2f889abf76b35e9cc9 assets/thoriumreactors/models/item/turbine_glass.json
 c2341694aa2b86b80fd693c9f5a8fb684d5e613c assets/thoriumreactors/models/item/turbine_power_port.json
+72ffcf53456981359381f9ec5e8b53ae9b0a409a assets/thoriumreactors/models/item/turbine_rotation_mount.json
 0d7936df4de50ce0c6bf582dd16b42d1d838cf9e assets/thoriumreactors/models/item/turbine_rotor.json
 c0ff42efeb342dda53a9476d07043e8094c17e4f assets/thoriumreactors/models/item/turbine_valve.json
 f8c0fb40f46efd2a66105d827f15f53beed6f308 assets/thoriumreactors/models/item/turbine_vent.json

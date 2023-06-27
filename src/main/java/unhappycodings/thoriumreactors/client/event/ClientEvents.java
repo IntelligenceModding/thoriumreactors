@@ -12,6 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.renderer.FluidTankBlockEntityRenderer;
 import unhappycodings.thoriumreactors.client.renderer.ReactorControllerBlockEntityRenderer;
+import unhappycodings.thoriumreactors.client.renderer.TurbineControllerBlockEntityRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.BlastedIronChestRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.SteelChestRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.ThoriumChestRenderer;
@@ -80,6 +81,7 @@ public class ClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.SIMPLE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.GENERIC_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.TURBINE_CONTROLLER.get(), TurbineControllerBlockEntityRenderer::new);
     }
 
 }

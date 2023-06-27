@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-25T18:40:57.3897614	LootTables
+// 1.19.2	2023-06-27T09:07:55.7348022	LootTables
 50e805cfb8ccb6371dc60b71864a9e54d45484f3 data/thoriumreactors/loot_tables/blocks/bauxite_ore.json
 8c4fe66a3b49128e96db7a3b2621e290c7f971aa data/thoriumreactors/loot_tables/blocks/blasted_iron_block.json
 67a4adda050edc502920279e7f8b063033aa78a4 data/thoriumreactors/loot_tables/blocks/blasted_iron_chest_block.json
@@ -58,10 +58,10 @@ e2954d14023324ad7ac5f73b0423c3223ed5ed69 data/thoriumreactors/loot_tables/blocks
 f5efc7373987ab29cd2a162db3608230d43e752b data/thoriumreactors/loot_tables/blocks/thorium_crafting_table.json
 61b69b16acfd01e7338f63cc7fc718c3896f1f4c data/thoriumreactors/loot_tables/blocks/titanic_iron_ore.json
 7a509dd8f937c3d2e5bdde8d3f0d8da7f1cc954d data/thoriumreactors/loot_tables/blocks/turbine_casing.json
-d178f8ca51509bec5d055ba96aa4891159fdce86 data/thoriumreactors/loot_tables/blocks/turbine_coiled_rotor.json
 80468e8e50fba1fac3b57d4aaf4cf1d54ac2fed2 data/thoriumreactors/loot_tables/blocks/turbine_controller.json
 e0711c7217e581b1059a5da3666340285515f976 data/thoriumreactors/loot_tables/blocks/turbine_glass.json
 453ea96af14de7997e83597678e655e2b5874b46 data/thoriumreactors/loot_tables/blocks/turbine_power_port.json
+94a08952aefb9f2fd9517b1724cf84659b3b51df data/thoriumreactors/loot_tables/blocks/turbine_rotation_mount.json
 bcb0243cbfa82401a9722e5704cb1584e2ad65c1 data/thoriumreactors/loot_tables/blocks/turbine_rotor.json
 640e51c15e27b06607c9156b07dd961235c2a7e0 data/thoriumreactors/loot_tables/blocks/turbine_valve.json
 b834f607f9db67c7f089eca69930a2cee7218e6a data/thoriumreactors/loot_tables/blocks/turbine_vent.json

@@ -130,6 +130,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_CONTROLLER_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_controller"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_VALVE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_valve"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_VENT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_vent"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_ROTATION_MOUNT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_rotation_mount"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_ROTOR.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_rotor_0"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_POWER_PORT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_power_port"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_GLASS.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_glass"));

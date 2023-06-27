@@ -80,6 +80,7 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         valveBlock(ModBlocks.TURBINE_POWER_PORT.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_power_port"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_casing"));
         valveBlock(ModBlocks.TURBINE_VALVE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_valve"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_casing"));
         valveBlock(ModBlocks.TURBINE_VENT.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_vent"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_casing"));
+        valveBlockDirectional(ModBlocks.TURBINE_ROTATION_MOUNT.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_rotation_mount"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_casing"));
         rotorBlock(ModBlocks.TURBINE_ROTOR.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_rotor"), false);
         simpleBlock(ModBlocks.TURBINE_GLASS.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.TURBINE_GLASS.get()), new ResourceLocation("block/cube_all")).texture("all", new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_glass")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/turbine_glass")).renderType("cutout"));
 
@@ -156,6 +157,17 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
                 .texture("north", texture).texture("east", main).texture("south", main).texture("west", main).texture("up", main).texture("down", main).texture("particle", texture);
         getVariantBuilder(block).forAllStates(state -> {
             int rot = getRotForDir(state.getValue(ReactorValveBlock.FACING));
+            return ConfiguredModel.builder().modelFile(model).rotationY(rot).build();
+        });
+    }
+
+    public void valveBlockDirectional(Block block, ResourceLocation texture, ResourceLocation main) {
+        ModelFile model = models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation("block/cube"))
+                .texture("north", texture).texture("east", main).texture("south", main).texture("west", main).texture("up", main).texture("down", main).texture("particle", texture);
+        getVariantBuilder(block).forAllStates(state -> {
+            int rot = getRotForDir(state.getValue(ReactorValveBlock.FACING));
+            if (state.getValue(ReactorValveBlock.FACING) == Direction.UP || state.getValue(ReactorValveBlock.FACING) == Direction.DOWN)
+                return ConfiguredModel.builder().modelFile(model).rotationX(rot).build();
             return ConfiguredModel.builder().modelFile(model).rotationY(rot).build();
         });
     }

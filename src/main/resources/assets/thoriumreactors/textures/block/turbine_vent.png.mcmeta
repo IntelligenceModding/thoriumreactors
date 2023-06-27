@@ -12,7 +12,8 @@
                 { "block": "thoriumreactors:turbine_controller" },
                 { "block": "thoriumreactors:turbine_valve" },
                 { "block": "thoriumreactors:turbine_power_port" },
-                { "block": "thoriumreactors:turbine_vent" }
+                { "block": "thoriumreactors:turbine_vent" },
+                { "block": "thoriumreactors:turbine_rotation_mount" }
             ]
         }
     }

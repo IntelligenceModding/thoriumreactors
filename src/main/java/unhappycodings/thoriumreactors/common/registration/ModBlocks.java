@@ -100,6 +100,7 @@ public class ModBlocks {
     public static final RegistryObject<TurbineGlassBlock> TURBINE_GLASS = register("turbine_glass", TurbineGlassBlock::new);
     public static final RegistryObject<TurbineVentBlock> TURBINE_VENT = register("turbine_vent", TurbineVentBlock::new);
     public static final RegistryObject<TurbineRotorBlock> TURBINE_ROTOR = register("turbine_rotor", TurbineRotorBlock::new);
+    public static final RegistryObject<TurbineRotationMountBlock> TURBINE_ROTATION_MOUNT = register("turbine_rotation_mount", TurbineRotationMountBlock::new);
     public static final RegistryObject<ElectromagneticCoilBlock> ELECTROMAGNETIC_COIL = register("electromagnetic_coil", ElectromagneticCoilBlock::new);
 
     // Machines

@@ -52,7 +52,7 @@
     "thoriumreactors:turbine_glass",
     "thoriumreactors:turbine_vent",
     "thoriumreactors:turbine_rotor",
-    "thoriumreactors:turbine_coiled_rotor",
+    "thoriumreactors:turbine_rotation_mount",
     "thoriumreactors:electromagnetic_coil",
     "thoriumreactors:electrolytic_salt_separator",
     "thoriumreactors:fluid_evaporation_block",
