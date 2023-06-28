@@ -22,14 +22,6 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModBlocks.BLASTED_IRON_CHEST_BLOCK.get(), "Blasted Iron Chest");
         add(ModBlocks.BLASTED_IRON_CHEST_BLOCK.get().getDescriptionId() + "_description", "Chest made of Blasted Iron, has a big capacity for items!");
 
-        add(ModBlocks.BLASTED_STONE.get(), "Blasted Stone");
-        add(ModBlocks.BLASTED_IRON_BLOCK.get(), "Blasted Iron Block");
-        add(ModBlocks.STEEL_BLOCK.get(), "Steel Block");
-        add(ModBlocks.GRAPHITE_BLOCK.get(), "Graphite Block");
-        add(ModBlocks.THORIUM_BLOCK.get(), "Thorium Block");
-        add(ModBlocks.FLUORITE_BLOCK.get(), "Fluorite Block");
-        add(ModBlocks.URANIUM_BLOCK.get(), "Uranium Block");
-
         add(ModBlocks.MANGANESE_ORE.get(), "Manganese Ore");
         add(ModBlocks.DEEPSLATE_MANGANESE_ORE.get(), "Deepslate Manganese Ore");
         add(ModBlocks.CHROMITE_ORE.get(), "Chromite Ore");
@@ -50,6 +42,22 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModBlocks.DEEPSLATE_GRAPHITE_ORE.get(), "Deepslate Graphite Ore");
         add(ModBlocks.FLUORITE_ORE.get(), "Fluorite Ore");
         add(ModBlocks.DEEPSLATE_FLUORITE_ORE.get(), "Deepslate Fluorite Ore");
+
+        add(ModBlocks.BLASTED_STONE.get(), "Blasted Stone");
+        add(ModBlocks.THORIUM_BLOCK.get(), "Thorium Block");
+        add(ModBlocks.BLASTED_IRON_BLOCK.get(), "Blasted Iron Block");
+        add(ModBlocks.STEEL_BLOCK.get(), "Steel Block");
+        add(ModBlocks.MANGANESE_BLOCK.get(), "Manganese Block");
+        add(ModBlocks.CHROMIUM_BLOCK.get(), "Chromium Block");
+        add(ModBlocks.MOLYBDENUM_BLOCK.get(), "Molybdenum Block");
+        add(ModBlocks.NICKEL_BLOCK.get(), "Nickel Block");
+        add(ModBlocks.TITANIUM_BLOCK.get(), "Titanium Block");
+        add(ModBlocks.ALUMINUM_BLOCK.get(), "Aluminum Block");
+        add(ModBlocks.NIOB_BLOCK.get(), "Niob Block");
+        add(ModBlocks.COBALT_BLOCK.get(), "Cobalt Block");
+        add(ModBlocks.URANIUM_BLOCK.get(), "Uranium Block");
+        add(ModBlocks.GRAPHITE_BLOCK.get(), "Graphite Block");
+        add(ModBlocks.FLUORITE_BLOCK.get(), "Fluorite Block");
 
         add(ModBlocks.BLAST_FURNACE_BLOCK.get(), "Blast Furnace");
         add(ModBlocks.BLAST_FURNACE_BLOCK.get().getDescriptionId() + "_description", "Uses high temperates to mix and combine materials!");

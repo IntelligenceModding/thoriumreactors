@@ -34,7 +34,7 @@ import java.util.List;
 
 public class TurbineRotorBlock extends Block {
     public VoxelShape SHAPE = Block.box(6, 0, 6, 10, 16, 10);
-    public static final IntegerProperty BLADES = IntegerProperty.create("blades", 0, 4);
+    public static final IntegerProperty BLADES = IntegerProperty.create("blades", 0, 8);
     public static final BooleanProperty RENDERING = BooleanProperty.create("rendering");
 
     public TurbineRotorBlock() {
@@ -83,7 +83,7 @@ public class TurbineRotorBlock extends Block {
         if (pLevel.isClientSide) return InteractionResult.SUCCESS;
         if (pPlayer.getItemInHand(InteractionHand.MAIN_HAND).is(ModItems.TURBINE_BLADE.get())) {
             int bladesCount = pState.getValue(BLADES);
-            if (bladesCount < 4) {
+            if (bladesCount < 8) {
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(BLADES, bladesCount + 1));
                 if (!pPlayer.isCreative())
                     pPlayer.getItemInHand(InteractionHand.MAIN_HAND).shrink(1);

@@ -65,12 +65,20 @@ public class ModBlocks {
 
     // Blocks
     public static final RegistryObject<Block> BLASTED_STONE = register("blasted_stone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
-    public static final RegistryObject<Block> GRAPHITE_BLOCK = register("graphite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
     public static final RegistryObject<Block> THORIUM_BLOCK = register("thorium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
-    public static final RegistryObject<Block> FLUORITE_BLOCK = register("fluoride_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
-    public static final RegistryObject<Block> URANIUM_BLOCK = register("uranium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
     public static final RegistryObject<Block> BLASTED_IRON_BLOCK = register("blasted_iron_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(6f)));
     public static final RegistryObject<Block> STEEL_BLOCK = register("steel_block", () -> new Block(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f)));
+    public static final RegistryObject<Block> MANGANESE_BLOCK= register("manganese_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> CHROMIUM_BLOCK= register("chromium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> MOLYBDENUM_BLOCK= register("molybdenum_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> NICKEL_BLOCK= register("nickel_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> TITANIUM_BLOCK= register("titanium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> ALUMINUM_BLOCK= register("aluminum_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> NIOB_BLOCK= register("niob_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> COBALT_BLOCK= register("cobalt_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> URANIUM_BLOCK= register("uranium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> GRAPHITE_BLOCK= register("graphite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> FLUORITE_BLOCK= register("fluorite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
 
     // Blocks
     public static final RegistryObject<ThoriumChestBlock> THORIUM_CHEST_BLOCK = register("thorium_chest_block", () -> new ThoriumChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.THORIUM_CHEST_BLOCK::get));

@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "thoriumreactors:fluoride_block"
+          "name": "thoriumreactors:aluminum_block"
         }
       ],
       "rolls": 1.0

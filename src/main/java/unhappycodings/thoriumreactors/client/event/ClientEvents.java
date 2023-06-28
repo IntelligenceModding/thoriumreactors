@@ -13,6 +13,9 @@ import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.renderer.FluidTankBlockEntityRenderer;
 import unhappycodings.thoriumreactors.client.renderer.ReactorControllerBlockEntityRenderer;
 import unhappycodings.thoriumreactors.client.renderer.TurbineControllerBlockEntityRenderer;
+import unhappycodings.thoriumreactors.client.renderer.model.TurbineBladeModel;
+import unhappycodings.thoriumreactors.client.renderer.model.TurbineRotorModel;
+import unhappycodings.thoriumreactors.common.block.turbine.TurbineRotorBlock;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.BlastedIronChestRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.SteelChestRenderer;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.ThoriumChestRenderer;
@@ -82,6 +85,12 @@ public class ClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.GENERIC_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TURBINE_CONTROLLER.get(), TurbineControllerBlockEntityRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(TurbineBladeModel.LAYER_LOCATION, TurbineBladeModel::createBodyLayer);
+        event.registerLayerDefinition(TurbineRotorModel.LAYER_LOCATION, TurbineRotorModel::createBodyLayer);
     }
 
 }

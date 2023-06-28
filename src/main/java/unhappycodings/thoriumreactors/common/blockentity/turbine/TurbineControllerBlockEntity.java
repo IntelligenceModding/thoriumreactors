@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -99,6 +100,7 @@ public class TurbineControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public void setTurbineRotorRendering(boolean state) {
+        if (rotorPos == null || rotorPos.isEmpty()) return;
         for (BlockPos blockPos : rotorPos) {
             if (level.getBlockState(blockPos).is(ModBlocks.TURBINE_ROTOR.get()) && level.getBlockState(blockPos).getValue(TurbineRotorBlock.RENDERING) != state)
                 level.setBlockAndUpdate(blockPos, level.getBlockState(blockPos).setValue(TurbineRotorBlock.RENDERING, state));
@@ -112,7 +114,7 @@ public class TurbineControllerBlockEntity extends BlockEntity implements MenuPro
         for (int i = 0; i < getTurbineHeight() - 1; i++) {
             BlockPos pos = rotationMountPosFloor.relative(Direction.UP, i + 1);
             if (!getState(pos).is(ModBlocks.TURBINE_ROTOR.get())) { resetAssembled("Turbine rotation mounts have to be connected with turbine rotors. Block at " + pos); return; }
-            if (getState(pos).getValue(TurbineRotorBlock.BLADES) != 4 && i < getTurbineHeight() - 4) { resetAssembled("Turbine rotors need to have 4 blades each, except the top three. Block at " + pos); return; }
+            if (getState(pos).getValue(TurbineRotorBlock.BLADES) != 8 && i < getTurbineHeight() - 4) { resetAssembled("Turbine rotors need to have 4 blades each, except the top three. Block at " + pos); return; }
             rotorPos.add(pos);
         }
     }
@@ -420,22 +422,26 @@ public class TurbineControllerBlockEntity extends BlockEntity implements MenuPro
     public CompoundTag getUpdateTag() {
         CompoundTag nbt = new CompoundTag();
         nbt.putBoolean("Assembled", isAssembled());
+        nbt.putInt("Height", getTurbineHeight());
         return nbt;
     }
 
     @Override
     public void handleUpdateTag(final CompoundTag tag) {
         setAssembled(tag.getBoolean("Assembled"));
+        setTurbineHeight(tag.getInt("Height"));
     }
 
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         nbt.putBoolean("Assembled", isAssembled());
+        nbt.putInt("Height", getTurbineHeight());
     }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
         setAssembled(nbt.getBoolean("Assembled"));
+        setTurbineHeight(nbt.getInt("Height"));
     }
 
     @Override
@@ -447,6 +453,11 @@ public class TurbineControllerBlockEntity extends BlockEntity implements MenuPro
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public AABB getRenderBoundingBox() {
+        return new AABB(getBlockPos().offset(-10, -10, -10), getBlockPos().offset(11, 11, 11));
     }
 
     @Override

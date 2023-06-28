@@ -1,5 +1,5 @@
 {
-  "parent": "thoriumreactors:generation/turbine_rotor_blades",
+  "parent": "thoriumreactors:generation/turbine_rotor_5",
   "textures": {
     "0": "thoriumreactors:block/turbine_rotor",
     "particle": "thoriumreactors:block/turbine_rotor"

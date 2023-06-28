@@ -4,10 +4,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
 import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
@@ -29,14 +32,6 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        simpleBlock(ModBlocks.BLASTED_STONE.get());
-        simpleBlock(ModBlocks.BLASTED_IRON_BLOCK.get());
-        simpleBlock(ModBlocks.STEEL_BLOCK.get());
-        simpleBlock(ModBlocks.GRAPHITE_BLOCK.get());
-        simpleBlock(ModBlocks.THORIUM_BLOCK.get());
-        simpleBlock(ModBlocks.FLUORITE_BLOCK.get());
-        simpleBlock(ModBlocks.URANIUM_BLOCK.get());
-
         simpleBlock(ModBlocks.MANGANESE_ORE.get());
         simpleBlock(ModBlocks.DEEPSLATE_MANGANESE_ORE.get());
         simpleBlock(ModBlocks.CHROMITE_ORE.get());
@@ -57,6 +52,22 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.DEEPSLATE_GRAPHITE_ORE.get());
         simpleBlock(ModBlocks.FLUORITE_ORE.get());
         simpleBlock(ModBlocks.DEEPSLATE_FLUORITE_ORE.get());
+
+        simpleBlock(ModBlocks.BLASTED_STONE.get());
+        simpleBlock(ModBlocks.THORIUM_BLOCK.get());
+        simpleBlock(ModBlocks.BLASTED_IRON_BLOCK.get());
+        simpleBlock(ModBlocks.STEEL_BLOCK.get());
+        simpleBlock(ModBlocks.MANGANESE_BLOCK.get());
+        simpleBlock(ModBlocks.CHROMIUM_BLOCK.get());
+        simpleBlock(ModBlocks.MOLYBDENUM_BLOCK.get());
+        simpleBlock(ModBlocks.NICKEL_BLOCK.get());
+        simpleBlock(ModBlocks.TITANIUM_BLOCK.get());
+        simpleBlock(ModBlocks.ALUMINUM_BLOCK.get());
+        simpleBlock(ModBlocks.NIOB_BLOCK.get());
+        simpleBlock(ModBlocks.COBALT_BLOCK.get());
+        simpleBlock(ModBlocks.URANIUM_BLOCK.get());
+        simpleBlock(ModBlocks.GRAPHITE_BLOCK.get());
+        simpleBlock(ModBlocks.FLUORITE_BLOCK.get());
 
         simpleBlock(ModBlocks.SIMPLE_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
         simpleBlock(ModBlocks.GENERIC_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
@@ -178,7 +189,10 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         ModelFile model2 = models().withExistingParent(ItemUtil.getRegString(block) + "_2", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_2")).texture("0", texture).texture("particle", texture);
         ModelFile model3 = models().withExistingParent(ItemUtil.getRegString(block) + "_3", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_3")).texture("0", texture).texture("particle", texture);
         ModelFile model4 = models().withExistingParent(ItemUtil.getRegString(block) + "_4", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_4")).texture("0", texture).texture("particle", texture);
-        ModelFile modelBlades = models().withExistingParent(ItemUtil.getRegString(block) + "_blades", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_blades")).texture("0", texture).texture("particle", texture);
+        ModelFile model5 = models().withExistingParent(ItemUtil.getRegString(block) + "_5", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_5")).texture("0", texture).texture("particle", texture);
+        ModelFile model6 = models().withExistingParent(ItemUtil.getRegString(block) + "_6", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_6")).texture("0", texture).texture("particle", texture);
+        ModelFile model7 = models().withExistingParent(ItemUtil.getRegString(block) + "_7", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_7")).texture("0", texture).texture("particle", texture);
+        ModelFile model8 = models().withExistingParent(ItemUtil.getRegString(block) + "_8", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_8")).texture("0", texture).texture("particle", texture);
         if (simple) return;ConfiguredModel.builder().modelFile(modelDefault).build();
         getVariantBuilder(block).forAllStates(state -> {
             ModelFile finalModel = switch (state.getValue(TurbineRotorBlock.BLADES)) {
@@ -187,7 +201,10 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
                 case 2 -> model2;
                 case 3 -> model3;
                 case 4 -> model4;
-                default -> modelBlades;
+                case 5 -> model5;
+                case 6 -> model6;
+                case 7 -> model7;
+                default -> model8;
             };
             return ConfiguredModel.builder().modelFile(finalModel).build();
         });
