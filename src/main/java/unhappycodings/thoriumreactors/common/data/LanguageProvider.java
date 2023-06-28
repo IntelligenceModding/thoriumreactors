@@ -99,6 +99,27 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModBlocks.THERMAL_VALVE.get(), "Thermal Valve");
         add(ModBlocks.THERMAL_HEAT_SINK.get(), "Thermal Sink");
 
+        add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), "Turbine Controller");
+        add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get().getDescriptionId() + "_description", "Controlling block of turbine. Used to build a turbine!");
+        add(ModBlocks.TURBINE_CASING.get(), "Turbine Casing");
+        add(ModBlocks.TURBINE_CASING.get().getDescriptionId() + "_description", "Framing block for turbine. Used to build a turbine!");
+        add(ModBlocks.TURBINE_GLASS.get(), "Turbine Glass");
+        add(ModBlocks.TURBINE_GLASS.get().getDescriptionId() + "_description", "Framing block for turbine. Used to build a turbine!");
+        add(ModBlocks.TURBINE_VALVE.get(), "Turbine Valve");
+        add(ModBlocks.TURBINE_VALVE.get().getDescriptionId() + "_description", "Needed to insert generated steam into the turbine.");
+        add(ModBlocks.TURBINE_VENT.get(), "Turbine Vent");
+        add(ModBlocks.TURBINE_VENT.get().getDescriptionId() + "_description", "Lets excess water and vapor escape the turbine. Needed for proper functionality!");
+        add(ModBlocks.TURBINE_ROTOR.get(), "Turbine Rotor");
+        add(ModBlocks.TURBINE_ROTOR.get().getDescriptionId() + "_description", "Needed in a turbine for energy production.");
+        add(ModBlocks.TURBINE_ROTATION_MOUNT.get(), "Turbine Rotation Mount");
+        add(ModBlocks.TURBINE_ROTATION_MOUNT.get().getDescriptionId() + "_description", "Essential for the turbine rotor to be mounted. Otherwise the turbine may fail catastrophic.");
+        add(ModBlocks.TURBINE_POWER_PORT.get(), "Turbine Power Port");
+        add(ModBlocks.TURBINE_POWER_PORT.get().getDescriptionId() + "_description", "Outputs generated energy. Used to build a turbine!");
+        add(ModBlocks.ELECTROMAGNETIC_COIL.get(), "Electromagnetic Coil");
+        add(ModBlocks.ELECTROMAGNETIC_COIL.get().getDescriptionId() + "_description", "Needed in a turbine for energy production.");
+        add(ModItems.TURBINE_BLADE.get(), "Turbine Blade");
+        add(ModItems.TURBINE_BLADE.get().getDescriptionId() + "_description", "Needed in a turbine for energy production.");
+
         add(ModItems.GRAPHITE_TUBE.get(), "Graphite Tube");
         add(ModItems.GRAPHITE_CRYSTAL.get(), "Graphite");
 

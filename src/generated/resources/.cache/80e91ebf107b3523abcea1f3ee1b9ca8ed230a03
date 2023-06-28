@@ -1,4 +1,4 @@
-// 1.19.2	2023-06-27T09:07:55.7273827	Item Models: thoriumreactors
+// 1.19.2	2023-06-28T08:40:09.9223772	Item Models: thoriumreactors
 297e1af5609489ae4af515cc8364f140c050db9e assets/thoriumreactors/models/item/aluminum_ingot.json
 992b62b637873048447a8bebaef602f01828282e assets/thoriumreactors/models/item/aluminum_nugget.json
 ef8527459cfad764c851d4621da587060439c6fd assets/thoriumreactors/models/item/bauxite_ore.json
@@ -51,6 +51,13 @@ d033e4f38f075019be757fea45a42e514df53445 assets/thoriumreactors/models/item/grap
 15293a7b4a4ed03659773eedb91f201c19234c37 assets/thoriumreactors/models/item/manganese_ingot.json
 94bde67926981d994979f905cd81ef48163ea826 assets/thoriumreactors/models/item/manganese_nugget.json
 8853629989bcb14afb1ee2468a5a6961b302d4dd assets/thoriumreactors/models/item/manganese_ore.json
+2ccd9ff077187a3ede3f7c462983415a75dedc6e assets/thoriumreactors/models/item/module_empty.json
+e886370601f3d0118b6b7684c1714aa31a049c95 assets/thoriumreactors/models/item/module_energy.json
+1ff67a2fa0273d7ef3c9e18e8f8536e8b97fa3d9 assets/thoriumreactors/models/item/module_io.json
+5c085bf7b84db443224713ff86a19ccced18dcef assets/thoriumreactors/models/item/module_processing.json
+f6603954b740a2d4d75f7bb780b300db0bb925a6 assets/thoriumreactors/models/item/module_sensor.json
+b3d6f4b9923a949fa9e38f0688d8ff430903d779 assets/thoriumreactors/models/item/module_storage.json
+6967f76bb993d108d7aabc70906837a2c398bae9 assets/thoriumreactors/models/item/module_tank.json
 656139a01cd6bf62c25860cc28015a2ff7369091 assets/thoriumreactors/models/item/molten_salt_bucket.json
 13a4f92b58a2d269ecd9a80e82708c755f8db3fd assets/thoriumreactors/models/item/molybdenum_ingot.json
 aa02cdc39d595e672f500096b6bb1ac507e4e6df assets/thoriumreactors/models/item/molybdenum_nugget.json
