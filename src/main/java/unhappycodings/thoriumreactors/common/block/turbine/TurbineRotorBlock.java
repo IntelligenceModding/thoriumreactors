@@ -26,13 +26,16 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.common.block.turbine.base.TurbineFrameBlock;
+import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineCasingBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineRotorBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
 import java.util.List;
 
-public class TurbineRotorBlock extends Block {
+public class TurbineRotorBlock extends TurbineFrameBlock {
     public VoxelShape SHAPE = Block.box(6, 0, 6, 10, 16, 10);
     public static final IntegerProperty BLADES = IntegerProperty.create("blades", 0, 8);
     public static final BooleanProperty RENDERING = BooleanProperty.create("rendering");
@@ -51,15 +54,6 @@ public class TurbineRotorBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(BLADES, RENDERING);
-    }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
-        if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
-            pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
-        } else {
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.literal(" for a block description.").withStyle(ChatFormatting.GRAY)));
-        }
     }
 
     @SuppressWarnings("deprecation")
@@ -98,6 +92,12 @@ public class TurbineRotorBlock extends Block {
             }
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+        return new TurbineRotorBlockEntity(pos, state);
     }
 
 }

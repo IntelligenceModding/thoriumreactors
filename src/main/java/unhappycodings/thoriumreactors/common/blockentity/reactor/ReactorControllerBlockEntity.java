@@ -31,7 +31,7 @@ import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
-import unhappycodings.thoriumreactors.common.enums.ReactorParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
 import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
@@ -162,7 +162,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
             // If everything is assembled right, we continue here
             if (!assembled) {
                 for (Player player : level.players()) {
-                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(getBlockPos(), getBlockState().getValue(ReactorControllerBlock.FACING)), ReactorParticleTypeEnum.REACTOR, reactorXLenght, getReactorHeight() + 1, reactorYLenght), (ServerPlayer) player);
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(getBlockPos(), getBlockState().getValue(ReactorControllerBlock.FACING)), ParticleTypeEnum.REACTOR, reactorXLenght, getReactorHeight() + 1, reactorYLenght), (ServerPlayer) player);
                 }
             }
             reactorCapacity = (3 * 3 * (getReactorHeight() - 1) * 1000) - 1000;

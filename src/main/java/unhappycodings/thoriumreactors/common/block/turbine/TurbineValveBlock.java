@@ -26,6 +26,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.common.block.turbine.base.TurbineFrameBlock;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineValveBlockEntity;
 import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
@@ -36,7 +37,7 @@ import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
 import java.util.List;
 
-public class TurbineValveBlock extends BaseEntityBlock {
+public class TurbineValveBlock extends TurbineFrameBlock {
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
 
     public TurbineValveBlock() {
@@ -55,25 +56,10 @@ public class TurbineValveBlock extends BaseEntityBlock {
         pBuilder.add(FACING);
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
-        if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
-            pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
-        } else {
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.literal(" for a block description.").withStyle(ChatFormatting.GRAY)));
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    @NotNull
-    @Override
-    public RenderShape getRenderShape(@NotNull BlockState pState) {
-        return RenderShape.MODEL;
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new TurbineValveBlockEntity(pos, state);
     }
+
 }

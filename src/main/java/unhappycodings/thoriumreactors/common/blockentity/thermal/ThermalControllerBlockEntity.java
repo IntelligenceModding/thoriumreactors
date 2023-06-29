@@ -22,7 +22,7 @@ import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBloc
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
-import unhappycodings.thoriumreactors.common.enums.ReactorParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
 import unhappycodings.thoriumreactors.common.enums.ThermalValveTypeEnum;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
@@ -68,7 +68,7 @@ public class ThermalControllerBlockEntity extends BlockEntity {
             if (x == 3) y = 5;
             if (!assembled) {
                 for (Player player : level.players()) {
-                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(getBlockPos(), getBlockState().getValue(ThermalControllerBlock.FACING)), ReactorParticleTypeEnum.REACTOR, x, 2, y), (ServerPlayer) player);
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(getBlockPos(), getBlockState().getValue(ThermalControllerBlock.FACING)), ParticleTypeEnum.REACTOR, x, 2, y), (ServerPlayer) player);
                 }
             }
             assembled = true;

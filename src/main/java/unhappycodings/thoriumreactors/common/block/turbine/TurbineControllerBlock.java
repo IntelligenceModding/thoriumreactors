@@ -26,14 +26,16 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.TurbineMultiblocks;
+import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineCasingBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ReactorParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.blockentity.turbine.base.TurbineFrameBlockEntity;
+import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
@@ -41,7 +43,6 @@ import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.CalculationUtil;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TurbineControllerBlock extends BaseEntityBlock {
@@ -73,35 +74,60 @@ public class TurbineControllerBlock extends BaseEntityBlock {
         }
     }
 
+    @Override
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+        BlockPos rotorPos = pos.relative(state.getValue(TurbineControllerBlock.FACING).getOpposite(), 2);
+
+        for (int i = 0; i < 9; i++) {
+            BlockPos loopPos = rotorPos.relative(Direction.UP, i);
+            BlockState loopState = level.getBlockState(loopPos);
+            if (loopState.is(ModBlocks.TURBINE_ROTOR.get())) {
+                level.setBlockAndUpdate(loopPos, loopState.setValue(TurbineRotorBlock.RENDERING, false));
+            }
+        }
+
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
+    }
+
     @SuppressWarnings("deprecation")
     @NotNull
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level levelIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
         TurbineControllerBlockEntity entity = (TurbineControllerBlockEntity) levelIn.getBlockEntity(pos);
         MenuProvider namedContainerProvider = this.getMenuProvider(state, levelIn, pos);
-
-        if (!entity.isAssembled() && !player.level.isClientSide) {
-
+        if (player.level.isClientSide) return InteractionResult.SUCCESS;
+        if (!entity.isAssembled()) {
             Direction facing = state.getValue(FACING);
             List<Block> turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 8), levelIn);
 
             boolean canBeAssembled = TurbineMultiblocks.isTurbine5x5x10_3Vents(turbineBlocks);
+
             if (entity.isAssembled() != canBeAssembled) {
-                entity.setAssembled(canBeAssembled);
-                levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, true));
-                if (canBeAssembled) {
-                    for (Player curPlayer : levelIn.players()) {
-                        PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING)), ReactorParticleTypeEnum.REACTOR, 5, 9, 5), (ServerPlayer) curPlayer);
+                List<BlockPos> turbinePositions = CalculationUtil.getBlockPositions(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 8), levelIn);
+
+                int turbineCount = 0;
+                for (BlockPos turbinePosition : turbinePositions) {
+                    BlockState blockState = levelIn.getBlockState(turbinePosition);
+                    if (blockState.is(ModBlocks.TURBINE_ROTOR.get())) {
+                        if (blockState.getValue(TurbineRotorBlock.BLADES) == 8 || turbineCount < 2) {
+                            levelIn.setBlockAndUpdate(turbinePosition, blockState.setValue(TurbineRotorBlock.RENDERING, true));
+                        } else {
+                            return InteractionResult.FAIL;
+                        }
+                        turbineCount++;
+                    }
+                    if (levelIn.getBlockEntity(turbinePosition) instanceof TurbineFrameBlockEntity turbineFrameBlock) {
+                        turbineFrameBlock.setControllerPos(pos);
                     }
                 }
-            }
 
-        } else if (namedContainerProvider != null) {
-            //if (player instanceof ServerPlayer serverPlayerEntity)
-            //    NetworkHooks.openScreen(serverPlayerEntity, namedContainerProvider, pos);
-            return InteractionResult.SUCCESS;
+                entity.setAssembled(canBeAssembled);
+                levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, canBeAssembled));
+                for (Player curPlayer : levelIn.players()) PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING)), ParticleTypeEnum.TURBINE, 5, 9, 5), (ServerPlayer) curPlayer);
+                entity.setTurbineHeight(9);
+            }
         }
-        return super.use(state, levelIn, pos, player, interactionHand, hitResult);
+        return InteractionResult.CONSUME;
     }
 
     public BlockPos addParticleOffset(BlockPos pos, Direction direction) {
@@ -113,6 +139,7 @@ public class TurbineControllerBlock extends BaseEntityBlock {
         };
     }
 
+    @SuppressWarnings("deprecation")
     @NotNull
     @Override
     public RenderShape getRenderShape(@NotNull BlockState state) {

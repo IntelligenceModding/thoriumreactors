@@ -30,13 +30,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
+import unhappycodings.thoriumreactors.common.blockentity.turbine.base.TurbineFrameBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 
-public class TurbineValveBlockEntity extends BlockEntity {
-    public static final int MAX_FLUID_IN = 100;
+public class TurbineValveBlockEntity extends TurbineFrameBlockEntity {
+    public static final int MAX_FLUID_IN = 1000;
     private final ModFluidTank FLUID_TANK_IN = new ModFluidTank(MAX_FLUID_IN, true, true, 0, FluidStack.EMPTY);
     private LazyOptional<FluidTank> lazyFluidInHandler = LazyOptional.empty();
-    public BlockPos TurbineCorePosition = new BlockPos(0, 0, 0);
 
     public TurbineValveBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.TURBINE_VALVE.get(), pPos, pBlockState);
@@ -51,7 +51,6 @@ public class TurbineValveBlockEntity extends BlockEntity {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        Direction facing = this.getBlockState().getValue(ReactorValveBlock.FACING);
         if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
             return lazyFluidInHandler.cast();
         }
@@ -69,44 +68,27 @@ public class TurbineValveBlockEntity extends BlockEntity {
     @NotNull
     @Override
     public CompoundTag getUpdateTag() {
-        CompoundTag nbt = new CompoundTag();
-        nbt.put("TurbineCorePosition", parsePosToTag(getTurbineCorePosition()));
+        CompoundTag nbt = super.getUpdateTag();
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
         return nbt;
     }
 
     @Override
     public void handleUpdateTag(final CompoundTag tag) {
-        setTurbineCorePosition(BlockEntity.getPosFromTag(tag.getCompound("TurbineCorePosition")));
+        super.handleUpdateTag(tag);
         FLUID_TANK_IN.readFromNBT(tag.getCompound("FluidIn"));
     }
 
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
-        nbt.put("TurbineCorePosition", parsePosToTag(getTurbineCorePosition()));
+        super.saveAdditional(nbt);
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
     }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
-        setTurbineCorePosition(BlockEntity.getPosFromTag(nbt.getCompound("TurbineCorePosition")));
+        super.load(nbt);
         FLUID_TANK_IN.readFromNBT(nbt.getCompound("FluidIn"));
-    }
-
-    public CompoundTag parsePosToTag(BlockPos pos) {
-        CompoundTag position = new CompoundTag();
-        position.putInt("x", pos.getX());
-        position.putInt("y", pos.getY());
-        position.putInt("z", pos.getZ());
-        return position;
-    }
-
-    public BlockPos getTurbineCorePosition() {
-        return TurbineCorePosition;
-    }
-
-    public void setTurbineCorePosition(BlockPos TurbineCorePosition) {
-        this.TurbineCorePosition = TurbineCorePosition;
     }
 
     @Override

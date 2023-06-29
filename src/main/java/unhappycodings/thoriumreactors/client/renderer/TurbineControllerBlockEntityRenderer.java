@@ -7,18 +7,24 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineBladeModel;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineRotorModel;
+import unhappycodings.thoriumreactors.common.block.turbine.TurbineControllerBlock;
+import unhappycodings.thoriumreactors.common.block.turbine.TurbineRotorBlock;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 
 public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<TurbineControllerBlockEntity> {
-    public final TurbineBladeModel modelTurbine = new TurbineBladeModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(TurbineBladeModel.LAYER_LOCATION));
-    public final TurbineRotorModel modelRotor = new TurbineRotorModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(TurbineRotorModel.LAYER_LOCATION));
+    public final TurbineBladeModel<?> modelTurbine = new TurbineBladeModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(TurbineBladeModel.LAYER_LOCATION));
+    public final TurbineRotorModel<?> modelRotor = new TurbineRotorModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(TurbineRotorModel.LAYER_LOCATION));
     public float rotation = 0;
 
     public TurbineControllerBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
@@ -27,27 +33,34 @@ public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> impleme
 
     @Override
     public void render(@NotNull TurbineControllerBlockEntity entity, float pPartialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int pPackedLight, int pPackedOverlay) {
+        Level level = entity.getLevel();
+        BlockPos rotorPos = entity.getBlockPos().relative(entity.getBlockState().getValue(TurbineControllerBlock.FACING).getOpposite(), 2);
 
-        System.out.println(entity.isAssembled());
+        for (int i = 0; i < 9; i++) {
+            BlockPos pos = rotorPos.relative(Direction.UP, i);
+            BlockState state = level.getBlockState(pos);
+            if (state.is(ModBlocks.TURBINE_ROTOR.get()) && state.getValue(TurbineRotorBlock.RENDERING) != entity.isAssembled()) {
+                level.setBlockAndUpdate(pos, state.setValue(TurbineRotorBlock.RENDERING, entity.isAssembled()));
+            }
+        }
 
         if (entity.isAssembled()) {
             poseStack.pushPose();
             poseStack.translate(0.5f, -0.5f, 2.5f);
-            poseStack.mulPose(Vector3f.YN.rotation(rotation));
+            poseStack.mulPose(Vector3f.YN.rotation(-rotation));
 
             for (int i = 0; i < entity.getTurbineHeight() - 1; i++) {
-                if (i < entity.getTurbineHeight() - 4) {
+                if (i < entity.getTurbineHeight() - 3) {
                     modelTurbine.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutout(new ResourceLocation(ThoriumReactors.MOD_ID, "textures/block/turbine_blades.png"))), pPackedLight, pPackedOverlay, 1f, 1f, 1f, 1f);
                 } else {
                     modelRotor.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutout(new ResourceLocation(ThoriumReactors.MOD_ID, "textures/block/turbine_blades.png"))), pPackedLight, pPackedOverlay, 1f, 1f, 1f, 1f);
-
                 }
                 poseStack.translate(0, 1, 0);
             }
 
             poseStack.popPose();
             if (rotation < Math.PI * 1) {
-                rotation += 0.01f;
+                rotation += 0.0f;
             } else {
                 rotation = 0;
             }

@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.registration;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.RegistryObject;
+import unhappycodings.thoriumreactors.common.block.turbine.TurbineRotorBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.SteelChestBlockEntity;
@@ -12,9 +13,7 @@ import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlo
 import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalValveBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbinePowerPortBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineValveBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.turbine.*;
 
 public final class ModBlockEntities {
 
@@ -22,9 +21,15 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ReactorControllerBlockEntity>> REACTOR_CONTROLLER = Registration.BLOCK_ENTITIES.register("reactor_controller", () -> BlockEntityType.Builder.of(ReactorControllerBlockEntity::new, ModBlocks.REACTOR_CONTROLLER_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<ReactorValveBlockEntity>> REACTOR_VALVE = Registration.BLOCK_ENTITIES.register("reactor_valve", () -> BlockEntityType.Builder.of(ReactorValveBlockEntity::new, ModBlocks.REACTOR_VALVE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<ElectromagneticCoilBlockEntity>> ELECTROMAGNETIC_COIL = Registration.BLOCK_ENTITIES.register("electromagnetic_coil", () -> BlockEntityType.Builder.of(ElectromagneticCoilBlockEntity::new, ModBlocks.ELECTROMAGNETIC_COIL.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TurbineCasingBlockEntity>> TURBINE_CASING = Registration.BLOCK_ENTITIES.register("turbine_casing", () -> BlockEntityType.Builder.of(TurbineCasingBlockEntity::new, ModBlocks.TURBINE_CASING.get()).build(null));
     public static final RegistryObject<BlockEntityType<TurbineControllerBlockEntity>> TURBINE_CONTROLLER = Registration.BLOCK_ENTITIES.register("turbine_controller", () -> BlockEntityType.Builder.of(TurbineControllerBlockEntity::new, ModBlocks.TURBINE_CONTROLLER_BLOCK.get()).build(null));
-    public static final RegistryObject<BlockEntityType<TurbineValveBlockEntity>> TURBINE_VALVE = Registration.BLOCK_ENTITIES.register("turbine_valve", () -> BlockEntityType.Builder.of(TurbineValveBlockEntity::new, ModBlocks.TURBINE_VALVE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TurbineGlassBlockEntity>> TURBINE_GLASS = Registration.BLOCK_ENTITIES.register("turbine_glass", () -> BlockEntityType.Builder.of(TurbineGlassBlockEntity::new, ModBlocks.TURBINE_GLASS.get()).build(null));
     public static final RegistryObject<BlockEntityType<TurbinePowerPortBlockEntity>> TURBINE_POWER_PORT = Registration.BLOCK_ENTITIES.register("turbine_power_port", () -> BlockEntityType.Builder.of(TurbinePowerPortBlockEntity::new, ModBlocks.TURBINE_POWER_PORT.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TurbineRotationMountBlockEntity>> TURBINE_ROTATION_MOUNT = Registration.BLOCK_ENTITIES.register("turbine_rotation_mount", () -> BlockEntityType.Builder.of(TurbineRotationMountBlockEntity::new, ModBlocks.TURBINE_ROTATION_MOUNT.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TurbineRotorBlockEntity>> TURBINE_ROTOR = Registration.BLOCK_ENTITIES.register("turbine_rotor", () -> BlockEntityType.Builder.of(TurbineRotorBlockEntity::new, ModBlocks.TURBINE_ROTOR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TurbineValveBlockEntity>> TURBINE_VALVE = Registration.BLOCK_ENTITIES.register("turbine_valve", () -> BlockEntityType.Builder.of(TurbineValveBlockEntity::new, ModBlocks.TURBINE_VALVE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TurbineVentBlockEntity>> TURBINE_VENT = Registration.BLOCK_ENTITIES.register("turbine_vent", () -> BlockEntityType.Builder.of(TurbineVentBlockEntity::new, ModBlocks.TURBINE_VENT.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<ThermalValveBlockEntity>> THERMAL_VALVE = Registration.BLOCK_ENTITIES.register("thermal_valve", () -> BlockEntityType.Builder.of(ThermalValveBlockEntity::new, ModBlocks.THERMAL_VALVE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ThermalControllerBlockEntity>> THERMAL_CONTROLLER = Registration.BLOCK_ENTITIES.register("thermal_controller", () -> BlockEntityType.Builder.of(ThermalControllerBlockEntity::new, ModBlocks.THERMAL_CONTROLLER.get()).build(null));
