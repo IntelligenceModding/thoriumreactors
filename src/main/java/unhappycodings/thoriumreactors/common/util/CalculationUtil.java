@@ -2,13 +2,15 @@ package unhappycodings.thoriumreactors.common.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CalculationUtil {
 
-    public static List<BlockPos> getBlockStates(BlockPos loc1, BlockPos loc2, Level level) {
+    public static List<BlockPos> getBlockPositions(BlockPos loc1, BlockPos loc2, Level level) {
         List<BlockPos> blocks = new ArrayList<>();
         int x1 = loc1.getX();
         int y1 = loc1.getY();
@@ -49,6 +51,22 @@ public class CalculationUtil {
             }
         }
         return blocks;
+    }
+
+    public static List<BlockState> getBlockStates(BlockPos loc1, BlockPos loc2, Level level) {
+        List<BlockPos> posList = getBlockPositions(loc1, loc2, level);
+        List<BlockState> stateList = new ArrayList<>();
+        for (BlockPos pos : posList)
+            stateList.add(level.getBlockState(pos));
+        return stateList;
+    }
+
+    public static List<Block> getBlocks(BlockPos loc1, BlockPos loc2, Level level) {
+        List<BlockPos> posList = getBlockPositions(loc1, loc2, level);
+        List<Block> blockList = new ArrayList<>();
+        for (BlockPos pos : posList)
+            blockList.add(level.getBlockState(pos).getBlock());
+        return blockList;
     }
 
 }

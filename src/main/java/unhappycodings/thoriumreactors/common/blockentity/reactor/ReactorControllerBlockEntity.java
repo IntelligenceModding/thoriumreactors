@@ -705,10 +705,10 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
 
     public void updateWallPositions() {
         valvePos = new ArrayList<>();
-        List<BlockPos> blockListBack = CalculationUtil.getBlockStates(floorPosA, ceilingPosARight, level); // Back
-        List<BlockPos> blockListLeft = CalculationUtil.getBlockStates(floorPosBLeft, ceilingPosA, level); // Left
-        List<BlockPos> blockListRight = CalculationUtil.getBlockStates(floorPosB, ceilingPosARight, level); // Right
-        List<BlockPos> blockListFront = CalculationUtil.getBlockStates(floorPosBLeft, ceilingPosB, level); // Front
+        List<BlockPos> blockListBack = CalculationUtil.getBlockPositions(floorPosA, ceilingPosARight, level); // Back
+        List<BlockPos> blockListLeft = CalculationUtil.getBlockPositions(floorPosBLeft, ceilingPosA, level); // Left
+        List<BlockPos> blockListRight = CalculationUtil.getBlockPositions(floorPosB, ceilingPosARight, level); // Right
+        List<BlockPos> blockListFront = CalculationUtil.getBlockPositions(floorPosBLeft, ceilingPosB, level); // Front
 
         checkWallArea(blockListBack);
         checkWallArea(blockListLeft);
@@ -802,7 +802,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
             default -> BlockPos.ZERO;
         };
 
-        List<BlockPos> blockPosList = CalculationUtil.getBlockStates(floorPosA, floorPosB, level);
+        List<BlockPos> blockPosList = CalculationUtil.getBlockPositions(floorPosA, floorPosB, level);
         for (BlockPos pos : blockPosList) {
             if (!isCasing(getState(pos))) {
                 resetAssembled("Missing reactor casing in floor at position " + pos);
@@ -882,7 +882,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         // Checking ceiling frame for casings
         List<List<BlockPos>> positionList = List.of(List.of(ceilingPosA, ceilingPosARight), List.of(ceilingPosARight, ceilingPosB), List.of(ceilingPosB, ceilingPosBLeft), List.of(ceilingPosBLeft, ceilingPosA));
         for (List<BlockPos> allBlockList : positionList) {
-            List<BlockPos> blockPosList = CalculationUtil.getBlockStates(allBlockList.get(0), allBlockList.get(1), level);
+            List<BlockPos> blockPosList = CalculationUtil.getBlockPositions(allBlockList.get(0), allBlockList.get(1), level);
             for (BlockPos pos : blockPosList) {
                 if (!isCasing(getState(pos))) {
                     resetAssembled("Missing reactor casing in ceiling frame at position " + pos);
@@ -893,7 +893,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
             }
         }
 
-        List<BlockPos> ceilingWall = CalculationUtil.getBlockStates(ceilingPosA, ceilingPosB, level);
+        List<BlockPos> ceilingWall = CalculationUtil.getBlockPositions(ceilingPosA, ceilingPosB, level);
         for (BlockPos pos : framePosList)
             if (ceilingWall.contains(pos))
                 ceilingWall.remove(pos);

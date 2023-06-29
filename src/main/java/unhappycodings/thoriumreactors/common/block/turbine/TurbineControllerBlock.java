@@ -31,11 +31,17 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.TurbineMultiblocks;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.enums.ReactorParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.network.PacketHandler;
+import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
+import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
+import unhappycodings.thoriumreactors.common.util.CalculationUtil;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TurbineControllerBlock extends BaseEntityBlock {
@@ -71,17 +77,40 @@ public class TurbineControllerBlock extends BaseEntityBlock {
     @NotNull
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level levelIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
+        TurbineControllerBlockEntity entity = (TurbineControllerBlockEntity) levelIn.getBlockEntity(pos);
         MenuProvider namedContainerProvider = this.getMenuProvider(state, levelIn, pos);
 
-        TurbineControllerBlockEntity entity = (TurbineControllerBlockEntity) levelIn.getBlockEntity(pos);
-        if (!entity.isAssembled() && player instanceof ServerPlayer serverPlayerEntity) {
-            serverPlayerEntity.sendSystemMessage(entity.warning == null ? Component.literal("Unknown problem, check the turbine casing") : Component.literal("" + entity.warning));
+        if (!entity.isAssembled() && !player.level.isClientSide) {
+
+            Direction facing = state.getValue(FACING);
+            List<Block> turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 8), levelIn);
+
+            boolean canBeAssembled = TurbineMultiblocks.isTurbine5x5x10_3Vents(turbineBlocks);
+            if (entity.isAssembled() != canBeAssembled) {
+                entity.setAssembled(canBeAssembled);
+                levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, true));
+                if (canBeAssembled) {
+                    for (Player curPlayer : levelIn.players()) {
+                        PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING)), ReactorParticleTypeEnum.REACTOR, 5, 9, 5), (ServerPlayer) curPlayer);
+                    }
+                }
+            }
+
         } else if (namedContainerProvider != null) {
-            if (player instanceof ServerPlayer serverPlayerEntity)
-                NetworkHooks.openScreen(serverPlayerEntity, namedContainerProvider, pos);
+            //if (player instanceof ServerPlayer serverPlayerEntity)
+            //    NetworkHooks.openScreen(serverPlayerEntity, namedContainerProvider, pos);
             return InteractionResult.SUCCESS;
         }
         return super.use(state, levelIn, pos, player, interactionHand, hitResult);
+    }
+
+    public BlockPos addParticleOffset(BlockPos pos, Direction direction) {
+        return switch (direction) {
+            case WEST -> pos.offset(0, -1, -2);
+            case EAST -> pos.offset(-4, -1, -2);
+            case SOUTH -> pos.offset(-2, -1, -4);
+            default -> pos.offset(-2, -1, 0);
+        };
     }
 
     @NotNull
@@ -97,7 +126,8 @@ public class TurbineControllerBlock extends BaseEntityBlock {
     }
 
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> type) {
-        return level.isClientSide ? null : (a, b, c, blockEntity) -> ((TurbineControllerBlockEntity) blockEntity).tick();
+        if (level.isClientSide || !blockState.getValue(TurbineControllerBlock.POWERED)) return null;
+        return (a, b, c, blockEntity) -> ((TurbineControllerBlockEntity) blockEntity).tick();
     }
 
 }

@@ -185,7 +185,7 @@ public class ThermalControllerBlockEntity extends BlockEntity {
             }
             if (lenghtBack < 2) resetAssembled("Invalid size of Heat Exchanger floor!");
 
-            List<BlockPos> positions = CalculationUtil.getBlockStates(getBlockPos().relative(direction.getCounterClockWise(), lenghtRight), getBlockPos().relative(direction.getClockWise(), lenghtLeft).relative(direction.getClockWise().getClockWise(), lenghtBack), level);
+            List<BlockPos> positions = CalculationUtil.getBlockPositions(getBlockPos().relative(direction.getCounterClockWise(), lenghtRight), getBlockPos().relative(direction.getClockWise(), lenghtLeft).relative(direction.getClockWise().getClockWise(), lenghtBack), level);
             for (BlockPos pos : positions) {
                 if (!(level.getBlockState(pos).is(ModBlocks.THERMAL_CONDUCTOR.get()) || level.getBlockState(pos).is(ModBlocks.THERMAL_VALVE.get()) || isSameBlockPos(pos, getBlockPos()))) {
                     resetAssembled("Floor has to be filled with Thermal Conductors! Block at " + pos);
