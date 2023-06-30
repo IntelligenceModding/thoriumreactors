@@ -34,7 +34,8 @@ public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> impleme
     @Override
     public void render(@NotNull TurbineControllerBlockEntity entity, float pPartialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int pPackedLight, int pPackedOverlay) {
         Level level = entity.getLevel();
-        BlockPos rotorPos = entity.getBlockPos().relative(entity.getBlockState().getValue(TurbineControllerBlock.FACING).getOpposite(), 2);
+        Direction facing = entity.getBlockState().getValue(TurbineControllerBlock.FACING);
+        BlockPos rotorPos = entity.getBlockPos().relative(facing.getOpposite(), 2);
 
         for (int i = 0; i < 9; i++) {
             BlockPos pos = rotorPos.relative(Direction.UP, i);
@@ -46,8 +47,8 @@ public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> impleme
 
         if (entity.isAssembled()) {
             poseStack.pushPose();
-            poseStack.translate(0.5f, -0.5f, 2.5f);
-            poseStack.mulPose(Vector3f.YN.rotation(-rotation));
+            poseStack.translate(0.5f + getRenderOffset(OffsetType.X, facing), -0.5f, 0.5f + getRenderOffset(OffsetType.Y, facing));
+            poseStack.mulPose(Vector3f.YN.rotation(-entity.getRotation()));
 
             for (int i = 0; i < entity.getTurbineHeight() - 1; i++) {
                 if (i < entity.getTurbineHeight() - 3) {
@@ -59,22 +60,29 @@ public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> impleme
             }
 
             poseStack.popPose();
-            if (rotation < Math.PI * 1) {
-                rotation += 0.0f;
+
+            float rpm = 1;
+            float rps = rpm / 60;
+            float rad = (float) (rps * (Math.PI * 2f));
+            System.out.println(rad);
+
+            if (entity.getRotation() < Math.PI * 2) {
+                entity.setRotation(entity.getRotation() + rad / 100 * pPartialTick);
             } else {
-                rotation = 0;
+                entity.setRotation(0);
             }
+            entity.setChanged();
         }
     }
 
-    public int getRenderOffset(OffsetType type, Direction direction) {
+    public float getRenderOffset(OffsetType type, Direction direction) {
         return switch (direction) {
             case DOWN -> 0;
             case UP -> 0;
-            case NORTH -> type == OffsetType.X ? 8 : 40;
-            case SOUTH -> type == OffsetType.X ? 8 : -24;
-            case WEST -> type == OffsetType.X ? 40 : 8;
-            case EAST -> type == OffsetType.X ? -24 : 8;
+            case NORTH -> type == OffsetType.X ? 0 : 2;
+            case SOUTH -> type == OffsetType.X ? 0 : -2;
+            case WEST -> type == OffsetType.X ? 2 : 0;
+            case EAST -> type == OffsetType.X ? -2 : 0;
         };
     }
 

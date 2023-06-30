@@ -20,16 +20,18 @@ import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.registration.*;
 
 public class TurbineControllerBlockEntity extends BlockEntity {
+    public BlockPos valvePos, powerPortPos;
+    public String warning = "";
     public int turbineHeight;
     public boolean assembled;
-    public String warning = "";
+    public float rotation, rpm = 0;
 
     public TurbineControllerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.TURBINE_CONTROLLER.get(), pPos, pBlockState);
     }
 
     public void tick() {
-
+        System.out.println("tick");
     }
 
     public int getTurbineHeight() {
@@ -60,12 +62,29 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         this.warning = warning;
     }
 
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public float getRpm() {
+        return rpm;
+    }
+
+    public void setRpm(float rpm) {
+        this.rpm = rpm;
+    }
+
     @NotNull
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag nbt = new CompoundTag();
         nbt.putBoolean("Assembled", isAssembled());
         nbt.putInt("Height", getTurbineHeight());
+        nbt.putFloat("Rotation", getRotation());
         return nbt;
     }
 
@@ -73,6 +92,7 @@ public class TurbineControllerBlockEntity extends BlockEntity {
     public void handleUpdateTag(final CompoundTag tag) {
         setAssembled(tag.getBoolean("Assembled"));
         setTurbineHeight(tag.getInt("Height"));
+        setRotation(tag.getFloat("Rotation"));
     }
 
     @Override

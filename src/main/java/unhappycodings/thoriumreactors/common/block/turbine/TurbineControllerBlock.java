@@ -94,16 +94,24 @@ public class TurbineControllerBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level levelIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
         TurbineControllerBlockEntity entity = (TurbineControllerBlockEntity) levelIn.getBlockEntity(pos);
-        MenuProvider namedContainerProvider = this.getMenuProvider(state, levelIn, pos);
         if (player.level.isClientSide) return InteractionResult.SUCCESS;
         if (!entity.isAssembled()) {
             Direction facing = state.getValue(FACING);
-            List<Block> turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 8), levelIn);
 
-            boolean canBeAssembled = TurbineMultiblocks.isTurbine5x5x10_3Vents(turbineBlocks);
+            int turbineSize = 0;
+            boolean canBeAssembled = false;
+            for (int i = 8; i >= 5; i--) {
+                List<Block> turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, i), levelIn);
+
+                if (TurbineMultiblocks.isTurbine(TurbineMultiblocks.getTurbineFromSize(i), turbineBlocks)) {
+                    canBeAssembled = true;
+                    turbineSize = i;
+                    break;
+                }
+            }
 
             if (entity.isAssembled() != canBeAssembled) {
-                List<BlockPos> turbinePositions = CalculationUtil.getBlockPositions(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 8), levelIn);
+                List<BlockPos> turbinePositions = CalculationUtil.getBlockPositions(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, turbineSize), levelIn);
 
                 int turbineCount = 0;
                 for (BlockPos turbinePosition : turbinePositions) {
@@ -124,7 +132,7 @@ public class TurbineControllerBlock extends BaseEntityBlock {
                 entity.setAssembled(canBeAssembled);
                 levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, canBeAssembled));
                 for (Player curPlayer : levelIn.players()) PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING)), ParticleTypeEnum.TURBINE, 5, 9, 5), (ServerPlayer) curPlayer);
-                entity.setTurbineHeight(9);
+                entity.setTurbineHeight(turbineSize + 1);
             }
         }
         return InteractionResult.CONSUME;
