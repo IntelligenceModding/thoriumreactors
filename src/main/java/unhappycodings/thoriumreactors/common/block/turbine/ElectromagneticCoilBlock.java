@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.turbine.base.TurbineFrameBlock;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.ElectromagneticCoilBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineCasingBlockEntity;
 
 public class ElectromagneticCoilBlock extends TurbineFrameBlock {
 

@@ -1,16 +1,8 @@
 package unhappycodings.thoriumreactors.common.block.turbine;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.GlassBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,12 +13,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.turbine.base.TurbineFrameBlock;
-import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineGlassBlockEntity;
-import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
-import unhappycodings.thoriumreactors.common.util.FormattingUtil;
-
-import java.util.List;
 
 public class TurbineGlassBlock extends TurbineFrameBlock {
 

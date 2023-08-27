@@ -86,6 +86,8 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModBlocks.GENERIC_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in big amounts! Second stage, with bigger capacity");
         add(ModBlocks.PROGRESSIVE_FLUID_TANK.get(), "Progressive Fluid Tank");
         add(ModBlocks.PROGRESSIVE_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in huge amounts! Last stage, therefore with a huge capacity");
+        add(ModBlocks.CREATIVE_FLUID_TANK.get(), "Creative Fluid Tank");
+        add(ModBlocks.CREATIVE_FLUID_TANK.get().getDescriptionId() + "_description", "Has infinite storage. Not obtainable in survival!");
 
         add(ModBlocks.REACTOR_CASING.get(), "Reactor Casing");
         add(ModBlocks.REACTOR_CASING.get().getDescriptionId() + "_description", "Fundamental framing block for Thorium Reactor. Used to build a reactor!");
@@ -164,6 +166,13 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModItems.ENRICHED_URANIUM.get(), "Enriched Uranium Pellet");
         add(ModItems.DEPLETED_URANIUM.get(), "Depleted Uranium Pellet");
         add(ModItems.CONFIGURATOR.get(), "Configurator");
+        add(ModItems.MODULE_EMPTY.get(), "Empty Module");
+        add(ModItems.MODULE_IO.get(), "I/O Module");
+        add(ModItems.MODULE_ENERGY.get(), "Energy Module");
+        add(ModItems.MODULE_STORAGE.get(), "Storage Module");
+        add(ModItems.MODULE_TANK.get(), "Tank Module");
+        add(ModItems.MODULE_SENSOR.get(), "Sensor Module");
+        add(ModItems.MODULE_PROCESSING.get(), "Processing Module");
         add(ModItems.REDSTONE_PROCESSOR.get(), "Redstone Processor");
         add(ModItems.POTASSIUM.get(), "Potassium");
         add(ModItems.SODIUM.get(), "Sodium");
@@ -177,6 +186,15 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET.get(), "Enriched Uranium Hexafluorite Bucket");
         add(ModItems.STEAM_BUCKET.get(), "Steam Bucket");
 
+        add("item_input", "Item Input");
+        add("item_output", "Item Output");
+        add("coolant_input", "Coolant Input");
+        add("coolant_output", "Coolant Output");
+        add("fluid_input", "Fluid Input");
+        add("fluid_output", "Fluid Output");
+        add("heating_fluid_input", "Heat Input");
+        add("heating_fluid_output", "Heat Output");
+
         add("fluid_type.thoriumreactors.hydrofluorite", "Hydrofluorite");
         add("fluid_type.thoriumreactors.molten_salt", "Molten Salt");
         add("fluid_type.thoriumreactors.heated_molten_salt", "Heated Molten Salt");
@@ -186,7 +204,8 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
 
         add("keybind.thoriumreactors.description", "Show Description");
         add("keybind.thoriumreactors.details", "Show Details");
-        add("itemGroup.thoriumreactors.items", "Thorium Reactors");
+        add("itemGroup.thoriumreactors.resources", "Thorium Reactors - Resources");
+        add("itemGroup.thoriumreactors.machinery", "Thorium Reactors - Machinery");
         add("death.attack.thoriumreactors.radioactive_overdosis", "%1$s died of a radioactive overdose.");
     }
 }

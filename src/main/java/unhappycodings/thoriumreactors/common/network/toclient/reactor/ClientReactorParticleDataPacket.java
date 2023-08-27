@@ -34,9 +34,9 @@ public class ClientReactorParticleDataPacket implements IPacket {
     public void handle(NetworkEvent.Context context) {
         LocalPlayer player = Minecraft.getInstance().player;
 
-        DustParticleOptions particleOne = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 4960000 : type == ParticleTypeEnum.TURBINE ? 16777215 : 0)), 1.0F);
-        DustParticleOptions particleTwo = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 4443136 : type == ParticleTypeEnum.TURBINE ? 16777215 : 0)), 1.0F);
-        DustParticleOptions particleThree = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 5279232 : type == ParticleTypeEnum.TURBINE ? 16777215 : 0)), 1.0F);
+        DustParticleOptions particleOne = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 4960000 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 6757901 : 0)), 1.0F);
+        DustParticleOptions particleTwo = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 4443136 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 7152401 : 0)), 1.0F);
+        DustParticleOptions particleThree = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 5279232 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 7481365 : 0)), 1.0F);
         Random random = new Random();
         for (float x = 0.0f; x <= xOffset; x += 0.5f) {
             for (float y = 0.0f; y <= yOffset; y += 0.5f) {

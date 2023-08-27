@@ -20,6 +20,7 @@ import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBloc
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalSinkBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.block.turbine.*;
+import unhappycodings.thoriumreactors.common.item.FluidTankBlockItem;
 
 import java.util.function.Supplier;
 
@@ -28,9 +29,21 @@ public class ModBlocks {
     public static final RegistryObject<ThoriumCraftingTableBlock> THORIUM_CRAFTING_TABLE = register("thorium_crafting_table", ThoriumCraftingTableBlock::new);
 
     // Tanks
-    public static final RegistryObject<FluidTankBlock> SIMPLE_FLUID_TANK = register("simple_fluid_tank", () -> new FluidTankBlock(32000, ModBlockEntities.SIMPLE_FLUID_TANK));
-    public static final RegistryObject<FluidTankBlock> GENERIC_FLUID_TANK = register("generic_fluid_tank", () -> new FluidTankBlock(64000, ModBlockEntities.GENERIC_FLUID_TANK));
-    public static final RegistryObject<FluidTankBlock> PROGRESSIVE_FLUID_TANK = register("progressive_fluid_tank", () -> new FluidTankBlock(128000, ModBlockEntities.PROGRESSIVE_FLUID_TANK));
+    public static final RegistryObject<FluidTankBlock> SIMPLE_FLUID_TANK = register("simple_fluid_tank", () -> new FluidTankBlock(32000, ModBlockEntities.SIMPLE_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.SIMPLE_FLUID_TANK));
+    public static final RegistryObject<FluidTankBlock> GENERIC_FLUID_TANK = register("generic_fluid_tank", () -> new FluidTankBlock(64000, ModBlockEntities.GENERIC_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.GENERIC_FLUID_TANK));
+    public static final RegistryObject<FluidTankBlock> PROGRESSIVE_FLUID_TANK = register("progressive_fluid_tank", () -> new FluidTankBlock(128000, ModBlockEntities.PROGRESSIVE_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.PROGRESSIVE_FLUID_TANK));
+    public static final RegistryObject<FluidTankBlock> CREATIVE_FLUID_TANK = register("creative_fluid_tank", () -> new FluidTankBlock(-1, ModBlockEntities.CREATIVE_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.CREATIVE_FLUID_TANK));
+
+    // Building
+    public static final RegistryObject<Block> FACTORY_BLOCK = register("factory_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> INDUSTRAL_BLOCK = register("industrial_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+
+    public static final RegistryObject<Block> WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT = register("warning_block_lined_black_yellow_left", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT = register("warning_block_lined_black_yellow_right", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT = register("warning_block_lined_white_orange_left", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT = register("warning_block_lined_white_orange_right", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WARNING_BLOCK_LINED_WHITE_BLACK_LEFT = register("warning_block_lined_white_black_left", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT = register("warning_block_lined_white_black_right", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
 
     // Ores
     public static final RegistryObject<Block> MANGANESE_ORE = register("manganese_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
@@ -68,22 +81,22 @@ public class ModBlocks {
     public static final RegistryObject<Block> THORIUM_BLOCK = register("thorium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(5f)));
     public static final RegistryObject<Block> BLASTED_IRON_BLOCK = register("blasted_iron_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(6f)));
     public static final RegistryObject<Block> STEEL_BLOCK = register("steel_block", () -> new Block(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f)));
-    public static final RegistryObject<Block> MANGANESE_BLOCK= register("manganese_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> CHROMIUM_BLOCK= register("chromium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> MOLYBDENUM_BLOCK= register("molybdenum_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> NICKEL_BLOCK= register("nickel_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> TITANIUM_BLOCK= register("titanium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> ALUMINUM_BLOCK= register("aluminum_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> NIOB_BLOCK= register("niob_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> COBALT_BLOCK= register("cobalt_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> URANIUM_BLOCK= register("uranium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> GRAPHITE_BLOCK= register("graphite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
-    public static final RegistryObject<Block> FLUORITE_BLOCK= register("fluorite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> MANGANESE_BLOCK = register("manganese_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> CHROMIUM_BLOCK = register("chromium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> MOLYBDENUM_BLOCK = register("molybdenum_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> NICKEL_BLOCK = register("nickel_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> TITANIUM_BLOCK = register("titanium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> ALUMINUM_BLOCK = register("aluminum_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> NIOB_BLOCK = register("niob_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> COBALT_BLOCK = register("cobalt_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> URANIUM_BLOCK = register("uranium_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> GRAPHITE_BLOCK = register("graphite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> FLUORITE_BLOCK = register("fluorite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
 
     // Blocks
-    public static final RegistryObject<ThoriumChestBlock> THORIUM_CHEST_BLOCK = register("thorium_chest_block", () -> new ThoriumChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.THORIUM_CHEST_BLOCK::get));
-    public static final RegistryObject<SteelChestBlock> STEEL_CHEST_BLOCK = register("steel_chest_block", () -> new SteelChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.STEEL_CHEST_BLOCK::get));
-    public static final RegistryObject<BlastedIronChestBlock> BLASTED_IRON_CHEST_BLOCK = register("blasted_iron_chest_block", () -> new BlastedIronChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f), ModBlockEntities.BLASTED_IRON_CHEST_BLOCK::get));
+    public static final RegistryObject<ThoriumChestBlock> THORIUM_CHEST_BLOCK = register("thorium_chest_block", () -> new ThoriumChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f)));
+    public static final RegistryObject<SteelChestBlock> STEEL_CHEST_BLOCK = register("steel_chest_block", () -> new SteelChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f)));
+    public static final RegistryObject<BlastedIronChestBlock> BLASTED_IRON_CHEST_BLOCK = register("blasted_iron_chest_block", () -> new BlastedIronChestBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL).strength(6f)));
 
     // Thermal
     public static final RegistryObject<ThermalControllerBlock> THERMAL_CONTROLLER = register("thermal_controller", ThermalControllerBlock::new);
@@ -140,7 +153,7 @@ public class ModBlocks {
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = Registration.BLOCKS.register(name, block);
-        Registration.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(ThoriumReactors.creativeTab)));
+        Registration.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(ThoriumReactors.resourcesCreativeTab)));
         return toReturn;
     }
 
@@ -153,6 +166,5 @@ public class ModBlocks {
         Registration.ITEMS.register(name, blockItem);
         return registryObject;
     }
-
 
 }

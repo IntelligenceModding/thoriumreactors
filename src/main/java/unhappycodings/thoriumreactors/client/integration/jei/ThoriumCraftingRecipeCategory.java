@@ -28,6 +28,7 @@ public class ThoriumCraftingRecipeCategory implements IRecipeCategory<ThoriumCra
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.THORIUM_CRAFTING_TABLE.get()));
     }
 
+    @NotNull
     @Override
     public RecipeType<ThoriumCraftingRecipe> getRecipeType() {
         return JEIModIntegration.THORIUM_RECIPE_TYPE;
@@ -52,7 +53,7 @@ public class ThoriumCraftingRecipeCategory implements IRecipeCategory<ThoriumCra
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ThoriumCraftingRecipe recipe, IFocusGroup focusGroup) {
+    public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ThoriumCraftingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         byte[] columnNumbers = {17, 35, 53, 71, 89};
         byte[] rowNumbers = {13, 31, 49, 67, 85};
         byte index = 0;

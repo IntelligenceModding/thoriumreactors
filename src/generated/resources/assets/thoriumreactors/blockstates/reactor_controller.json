@@ -1,33 +1,63 @@
 {
   "variants": {
-    "facing=east,powered=false": {
+    "facing=east,powered=false,scrammed=false": {
       "model": "thoriumreactors:block/reactor_controller_off",
       "y": 90
     },
-    "facing=east,powered=true": {
+    "facing=east,powered=false,scrammed=true": {
+      "model": "thoriumreactors:block/reactor_controller_scram",
+      "y": 90
+    },
+    "facing=east,powered=true,scrammed=false": {
       "model": "thoriumreactors:block/reactor_controller",
       "y": 90
     },
-    "facing=north,powered=false": {
+    "facing=east,powered=true,scrammed=true": {
+      "model": "thoriumreactors:block/reactor_controller_scram",
+      "y": 90
+    },
+    "facing=north,powered=false,scrammed=false": {
       "model": "thoriumreactors:block/reactor_controller_off"
     },
-    "facing=north,powered=true": {
+    "facing=north,powered=false,scrammed=true": {
+      "model": "thoriumreactors:block/reactor_controller_scram"
+    },
+    "facing=north,powered=true,scrammed=false": {
       "model": "thoriumreactors:block/reactor_controller"
     },
-    "facing=south,powered=false": {
+    "facing=north,powered=true,scrammed=true": {
+      "model": "thoriumreactors:block/reactor_controller_scram"
+    },
+    "facing=south,powered=false,scrammed=false": {
       "model": "thoriumreactors:block/reactor_controller_off",
       "y": 180
     },
-    "facing=south,powered=true": {
+    "facing=south,powered=false,scrammed=true": {
+      "model": "thoriumreactors:block/reactor_controller_scram",
+      "y": 180
+    },
+    "facing=south,powered=true,scrammed=false": {
       "model": "thoriumreactors:block/reactor_controller",
       "y": 180
     },
-    "facing=west,powered=false": {
+    "facing=south,powered=true,scrammed=true": {
+      "model": "thoriumreactors:block/reactor_controller_scram",
+      "y": 180
+    },
+    "facing=west,powered=false,scrammed=false": {
       "model": "thoriumreactors:block/reactor_controller_off",
       "y": 270
     },
-    "facing=west,powered=true": {
+    "facing=west,powered=false,scrammed=true": {
+      "model": "thoriumreactors:block/reactor_controller_scram",
+      "y": 270
+    },
+    "facing=west,powered=true,scrammed=false": {
       "model": "thoriumreactors:block/reactor_controller",
+      "y": 270
+    },
+    "facing=west,powered=true,scrammed=true": {
+      "model": "thoriumreactors:block/reactor_controller_scram",
       "y": 270
     }
   }

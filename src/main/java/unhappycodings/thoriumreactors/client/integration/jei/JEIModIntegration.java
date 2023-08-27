@@ -2,13 +2,22 @@ package unhappycodings.thoriumreactors.client.integration.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.LavaFluid;
+import net.minecraft.world.level.material.WaterFluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
@@ -23,6 +32,7 @@ import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @JeiPlugin
@@ -89,7 +99,7 @@ public class JEIModIntegration implements IModPlugin {
         registration.addRecipeClickArea(MachineSaltMelterScreen.class, 74, 31, 24, 35, SMELTING_RECIPE_TYPE);
         registration.addRecipeClickArea(MachineFluidEvaporatorScreen.class, 71, 32, 32, 22, EVAPORATING_RECIPE_TYPE);
 
-        registration.addGenericGuiContainerHandler(ReactorControllerScreen.class, new Handler<ReactorControllerScreen>());
+        registration.addGenericGuiContainerHandler(ReactorControllerScreen.class, new Handler<>());
 
     }
 
@@ -103,11 +113,27 @@ public class JEIModIntegration implements IModPlugin {
 
             List<Rect2i> collection = new ArrayList<>();
             collection.add(new Rect2i(xPos / 2, yPos / 2, screen.getMainSizeX() / 2, screen.getMainSizeY() / 2)); //mid
-            if (ClientConfig.showLeftReactorScreenArea.get()) collection.add(new Rect2i((xPos - screen.getLeftSideX() + 1 ) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //left
-            if (ClientConfig.showRightReactorScreenArea.get()) collection.add(new Rect2i((xPos + screen.getMainSizeX() + 1) / 2, yPos / 2, screen.getRightSideX() / 2, screen.getRightSideY() / 2)); //right
+            if (ClientConfig.showLeftReactorScreenArea.get())
+                collection.add(new Rect2i((xPos - screen.getLeftSideX() + 1) / 2, yPos / 2, screen.getLeftSideX() / 2, screen.getLeftSideY() / 2)); //left
+            if (ClientConfig.showRightReactorScreenArea.get())
+                collection.add(new Rect2i((xPos + screen.getMainSizeX() + 1) / 2, yPos / 2, screen.getRightSideX() / 2, screen.getRightSideY() / 2)); //right
 
             return collection;
         }
+    }
+
+    @Override
+    public void registerItemSubtypes(ISubtypeRegistration registration) {
+        registration.registerSubtypeInterpreter(ModBlocks.CREATIVE_FLUID_TANK.get().asItem(), (stack, uidContext) -> {
+            CompoundTag data = stack.getOrCreateTag().getCompound("BlockEntityTag");
+            FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(data.getCompound("Fluid"));
+
+            return addInterpretation("fluid", fluidStack.getFluid().toString());
+        });
+    }
+
+    private static String addInterpretation(String nbtRepresentation, String component) {
+        return nbtRepresentation.isEmpty() ? component : nbtRepresentation + ":" + component;
     }
 
     @Override
@@ -123,6 +149,33 @@ public class JEIModIntegration implements IModPlugin {
         registration.addRecipes(ELECTROLYSING_RECIPE_TYPE, rm.getAllRecipesFor(ModRecipes.ELECTROLYSING_RECIPE_TYPE.get()));
         registration.addRecipes(SMELTING_RECIPE_TYPE, rm.getAllRecipesFor(ModRecipes.SALT_SMELTING_RECIPE_TYPE.get()));
         registration.addRecipes(EVAPORATING_RECIPE_TYPE, rm.getAllRecipesFor(ModRecipes.EVAPORATING_RECIPE_TYPE.get()));
+
+        List<ItemStack> blockList = new ArrayList<>();
+        for (Fluid fluid : getKnownFluids()) {
+            if (fluid instanceof ForgeFlowingFluid.Source || fluid instanceof LavaFluid.Source || fluid instanceof WaterFluid.Source) {
+                ItemStack blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
+                FluidStack stack = new FluidStack(fluid, Integer.MAX_VALUE);
+                blockStack.getOrCreateTag().put("BlockEntityTag", writeToNBT(stack));
+
+                blockList.add(blockStack);
+            }
+        }
+
+        registration.getIngredientManager().addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, blockList);
+    }
+
+    public CompoundTag writeToNBT(FluidStack fluidStack) {
+        CompoundTag dataTag = new CompoundTag();
+        CompoundTag fluidTag = new CompoundTag();
+        dataTag.putString("FluidName", ForgeRegistries.FLUIDS.getKey(fluidStack.getFluid()).toString());
+        dataTag.putInt("Amount", fluidStack.getAmount());
+        fluidTag.put("Fluid", dataTag);
+        return fluidTag;
+    }
+
+    @NotNull
+    protected Iterable<Fluid> getKnownFluids() {
+        return ForgeRegistries.FLUIDS.getEntries().stream().map(Map.Entry::getValue)::iterator;
     }
 
     @Override

@@ -6,9 +6,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
@@ -76,7 +74,9 @@ public class MachineFluidCentrifugeBlockEntity extends MachineContainerBlockEnti
         this.lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
         this.lazyFluidInHandler = LazyOptional.of(() -> FLUID_TANK_IN);
         this.lazyFluidOutHandler = LazyOptional.of(() -> FLUID_TANK_OUT);
-    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+    }
+
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -97,22 +97,12 @@ public class MachineFluidCentrifugeBlockEntity extends MachineContainerBlockEnti
     }
 
     @Override
-    public boolean canInputEnergy() {
-        return true;
-    }
-
-    @Override
     public boolean canInputEnergy(Direction direction) {
         return this.getBlockState().getValue(MachineFluidCentrifugeBlock.FACING).getOpposite() == direction;
     }
 
     @Override
     public boolean canOutputEnergy() {
-        return false;
-    }
-
-    @Override
-    public boolean canOutputEnergy(Direction direction) {
         return false;
     }
 
@@ -157,14 +147,25 @@ public class MachineFluidCentrifugeBlockEntity extends MachineContainerBlockEnti
                 setEnergy(getEnergy() - NEEDED_ENERGY);
 
                 setRecipeTime(getRecipeTime() - 1);
-                if ((getOperationAfterTicks() != 0 && getRecipeTime() % getOperationAfterTicks() == 0) || getRecipeTime() == 0) {
-                    if (getOutputFluid().isEmpty()) { setRecipeTime(getMaxRecipeTime()); return; }
+                if ((getOperationAfterTicks() != 0 && getRecipeTime() % getOperationAfterTicks() == 0)) {
+                    if (getOutputFluid().isEmpty()) {
+                        setRecipeTime(getMaxRecipeTime());
+                        return;
+                    }
                     if (getFluidOut().isEmpty())
                         setFluidOut(new FluidStack(getOutputFluid(), 0));
                     getFluidOut().grow(getFluidAmountNeeded());
-                    setMaxRecipeTime(0);
                 }
-                
+
+                if (getRecipeTime() == 0) {
+                    setMaxRecipeTime(0);
+                    setInputFluid(FluidStack.EMPTY);
+                    setOutputFluid(FluidStack.EMPTY);
+                    setMaxRecipeTime(0);
+                    setRecipeDefinedTicks(0);
+                    setOperationAfterTicks(0);
+                }
+
                 if (isOutputDump() && getFluidAmountOut() > 0)
                     getFluidOut().shrink(getFluidAmountOut() - MAX_FLUID_TRANSFER < MAX_FLUID_TRANSFER ? getFluidAmountOut() : MAX_FLUID_TRANSFER);
                 if (isInputDump() && getFluidAmountIn() > 0)
@@ -395,12 +396,6 @@ public class MachineFluidCentrifugeBlockEntity extends MachineContainerBlockEnti
         if (getLevel().isClientSide && net.getDirection() == PacketFlow.CLIENTBOUND) handleUpdateTag(pkt.getTag());
     }
 
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
     @NotNull
     @Override
     public CompoundTag getUpdateTag() {
@@ -582,8 +577,6 @@ public class MachineFluidCentrifugeBlockEntity extends MachineContainerBlockEnti
     public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
         return false;
     }
-
-
 
 
 }

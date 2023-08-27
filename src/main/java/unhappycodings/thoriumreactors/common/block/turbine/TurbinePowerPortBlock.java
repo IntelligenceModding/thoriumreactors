@@ -13,7 +13,6 @@ import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.turbine.base.TurbineFrameBlock;
-import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbinePowerPortBlockEntity;
 
 public class TurbinePowerPortBlock extends TurbineFrameBlock {

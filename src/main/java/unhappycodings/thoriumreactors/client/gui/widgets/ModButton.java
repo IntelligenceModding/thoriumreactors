@@ -64,10 +64,6 @@ public class ModButton extends BaseWidget {
             blit(matrixStack, this.x, this.y, 0, tY / 2f, width, height, tX, tY);
     }
 
-    public float getReciprocal(float value) {
-        return 1 / value;
-    }
-
     @Override
     public void updateNarration(@NotNull NarrationElementOutput pNarrationElementOutput) {
         // overridden by purpose

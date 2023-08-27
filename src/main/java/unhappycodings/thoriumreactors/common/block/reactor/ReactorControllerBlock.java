@@ -1,23 +1,16 @@
 package unhappycodings.thoriumreactors.common.block.reactor;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -31,62 +24,98 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.common.block.reactor.base.ReactorFrameBlock;
+import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
-import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
-import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
+import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.multiblock.ReactorMultiblocks;
+import unhappycodings.thoriumreactors.common.network.PacketHandler;
+import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
+import unhappycodings.thoriumreactors.common.registration.ModBlocks;
+import unhappycodings.thoriumreactors.common.util.CalculationUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ReactorControllerBlock extends BaseEntityBlock {
+public class ReactorControllerBlock extends ReactorFrameBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final BooleanProperty SCRAMMED = BooleanProperty.create("scrammed");
 
     public ReactorControllerBlock() {
         super(Properties.of(Material.METAL).strength(5f));
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(SCRAMMED, false));
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(POWERED, false);
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(POWERED, false).setValue(SCRAMMED, false);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, POWERED);
-    }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
-        if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
-            pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
-        } else {
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.literal(" for a block description.").withStyle(ChatFormatting.GRAY)));
-        }
+        pBuilder.add(FACING, POWERED, SCRAMMED);
     }
 
     @SuppressWarnings("deprecation")
     @NotNull
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level levelIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
-        MenuProvider namedContainerProvider = this.getMenuProvider(state, levelIn, pos);
 
         ReactorControllerBlockEntity entity = (ReactorControllerBlockEntity) levelIn.getBlockEntity(pos);
-        if (!entity.isAssembled() && player instanceof ServerPlayer serverPlayerEntity) {
-            serverPlayerEntity.sendSystemMessage(entity.warning == null ? Component.literal("Unknown problem, check the reactor casing") : Component.literal("" + entity.warning));
-        } else if (namedContainerProvider != null) {
-            if (player instanceof ServerPlayer serverPlayerEntity)
-                NetworkHooks.openScreen(serverPlayerEntity, namedContainerProvider, pos);
-            return InteractionResult.SUCCESS;
+        if (player.level.isClientSide) return InteractionResult.SUCCESS;
+        if (!entity.isAssembled()) {
+            Direction facing = state.getValue(FACING);
+            boolean canBeAssembled = false;
+            List<Block> reactorBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 4), levelIn);
+
+            if (ReactorMultiblocks.isReactor(ReactorMultiblocks.getReactorFromHeight(5), reactorBlocks))
+                canBeAssembled = true;
+
+            if (entity.isAssembled() != canBeAssembled) {
+                entity.valvePos = new ArrayList<>(4);
+                List<BlockPos> reactorPositions = CalculationUtil.getBlockPositions(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 4), levelIn);
+                for (BlockPos reactorPosition : reactorPositions) {
+                    if (levelIn.getBlockEntity(reactorPosition) instanceof ReactorFrameBlockEntity reactorFrameBlockEntity)
+                        reactorFrameBlockEntity.setControllerPos(pos);
+                    if (levelIn.getBlockState(reactorPosition).is(ModBlocks.REACTOR_VALVE.get()))
+                        entity.valvePos.add(reactorPosition);
+                }
+
+                if (entity.valvePos.size() != 4) return InteractionResult.CONSUME;
+
+                entity.setAssembled(canBeAssembled);
+                entity.setReactorHeight(5);
+                entity.setReactorCapacity((3 * 3 * (entity.getReactorHeight() - 1) * 1000) - 1000);
+                levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, canBeAssembled));
+
+                long x = facing == Direction.WEST || facing == Direction.EAST ? 3 : 5, y = 3;
+                if (x == 3) y = 5;
+                for (Player loopPlayer : levelIn.players()) {
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos.relative(Direction.DOWN, 1), state.getValue(ReactorControllerBlock.FACING)), ParticleTypeEnum.REACTOR, x, 5, y), (ServerPlayer) loopPlayer);
+                }
+            }
+        } else {
+            MenuProvider namedContainerProvider = this.getMenuProvider(state, levelIn, pos);
+
+            if (namedContainerProvider != null) {
+                if (player instanceof ServerPlayer serverPlayerEntity)
+                    NetworkHooks.openScreen(serverPlayerEntity, namedContainerProvider, pos);
+                return InteractionResult.SUCCESS;
+            }
         }
         return super.use(state, levelIn, pos, player, interactionHand, hitResult);
     }
 
-    @NotNull
-    @Override
-    public RenderShape getRenderShape(@NotNull BlockState state) {
-        return RenderShape.MODEL;
+    public BlockPos addParticleOffset(BlockPos pos, Direction direction) {
+        return switch (direction) {
+            case WEST -> pos.offset(0, -1, -2);
+            case EAST -> pos.offset(-4, -1, -2);
+            case SOUTH -> pos.offset(-2, -1, -4);
+            default -> pos.offset(-2, -1, 0);
+        };
     }
 
     @Nullable
@@ -96,7 +125,8 @@ public class ReactorControllerBlock extends BaseEntityBlock {
     }
 
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> type) {
-        return level.isClientSide ? null : (a, b, c, blockEntity) -> ((ReactorControllerBlockEntity) blockEntity).tick();
+        if (level.isClientSide || !blockState.getValue(ThermalControllerBlock.POWERED)) return null;
+        return (a, b, c, blockEntity) -> ((ReactorControllerBlockEntity) blockEntity).tick();
     }
 
 }

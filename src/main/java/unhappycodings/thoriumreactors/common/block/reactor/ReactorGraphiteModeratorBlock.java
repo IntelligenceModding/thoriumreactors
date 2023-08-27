@@ -1,17 +1,15 @@
 package unhappycodings.thoriumreactors.common.block.reactor;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -22,15 +20,14 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.common.block.reactor.base.ReactorFrameBlock;
+import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorGraphiteModeratorBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModFluids;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
-import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
-import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
-import java.util.List;
 import java.util.Optional;
 
-public class ReactorGraphiteModeratorBlock extends Block implements BucketPickup, LiquidBlockContainer {
+public class ReactorGraphiteModeratorBlock extends ReactorFrameBlock implements BucketPickup, LiquidBlockContainer {
     public static final BooleanProperty SALTLOGGED = BooleanProperty.create("saltlogged");
     public static final VoxelShape ALL = Block.box(4, 0, 4, 11.5, 16, 11.5);
 
@@ -48,7 +45,7 @@ public class ReactorGraphiteModeratorBlock extends Block implements BucketPickup
     public boolean placeLiquid(@NotNull LevelAccessor pLevel, @NotNull BlockPos pPos, BlockState pState, @NotNull FluidState pFluidState) {
         if (!pState.getValue(SALTLOGGED) && pFluidState.getType() == ModFluids.SOURCE_MOLTEN_SALT.get()) {
             if (!pLevel.isClientSide()) {
-                pLevel.setBlock(pPos, pState.setValue(SALTLOGGED,true), 3);
+                pLevel.setBlock(pPos, pState.setValue(SALTLOGGED, true), 3);
                 pLevel.scheduleTick(pPos, pFluidState.getType(), pFluidState.getType().getTickDelay(pLevel));
             }
             return true;
@@ -95,19 +92,16 @@ public class ReactorGraphiteModeratorBlock extends Block implements BucketPickup
         pBuilder.add(SALTLOGGED);
     }
 
-    @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
-        if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
-            pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
-        } else {
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.literal(" for a block description.").withStyle(ChatFormatting.GRAY)));
-        }
-    }
-
     @SuppressWarnings("deprecation")
     @NotNull
     @Override
     public FluidState getFluidState(@NotNull BlockState pState) {
         return pState.getValue(SALTLOGGED) ? ModFluids.SOURCE_MOLTEN_SALT.get().defaultFluidState() : super.getFluidState(pState);
     }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
+        return new ReactorGraphiteModeratorBlockEntity(pPos, pState);
+    }
+
 }

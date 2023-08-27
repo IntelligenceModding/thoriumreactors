@@ -27,9 +27,8 @@ public class ReactorControllerContainer extends BaseContainer {
 
         PacketHandler.sendToClient(new ClientReactorControllerDataPacket(entity.getBlockPos(), entity.getReactorTargetTemperature(), entity.getReactorCurrentTemperature(), entity.getReactorTargetLoadSet(), entity.getReactorCurrentLoadSet(),
                 entity.getReactorRunningSince(), entity.getReactorStatus(), entity.getReactorContainment(), entity.getReactorRadiation(),
-                entity.getReactorPressure(), entity.getReactorHeight(), entity.getReactorState(), entity.getTurbineTargetSpeed(), entity.getTurbineCurrentSpeed(),
-                entity.getTurbineTargetOverflowSet(), entity.getTurbineCurrentOverflowSet(), entity.getTurbineTargetLoadSet(), entity.getTurbineCurrentLoadSet(),
-                entity.isTurbineCoilsEngaged(), entity.getTurbineCurrentFlow(), entity.getTurbinePowerGeneration(), entity.getFuelRodStatus(), entity.getControlRodStatus(),
+                entity.getReactorPressure(), entity.getReactorHeight(), entity.getReactorState(), entity.getTurbinePos(), entity.isTurbineActivated(), entity.isTurbineCoilsEngaged(), entity.getTurbineTargetFlow(),
+                entity.getTurbineCurrentFlow(), entity.getTurbinePowerGeneration(), entity.getTurbineSpeed(), entity.getFuelRodStatus(), entity.getControlRodStatus(),
                 entity.getFluidIn(), entity.getFluidOut(), entity.getNotification(), entity.isReactorActive(), entity.isTurbineActive(), entity.isExchangerActive(), entity.getReactorCapacity()), (ServerPlayer) inventory.player);
 
         super.broadcastChanges();

@@ -84,7 +84,9 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
         this.lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
         this.lazyFluidInHandler = LazyOptional.of(() -> FLUID_TANK_IN);
         this.lazyFluidOutHandler = LazyOptional.of(() -> FLUID_TANK_OUT);
-    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+    }
+
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -640,8 +642,5 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
         return new MachineElectrolyticSaltSeparatorContainer(pContainerId, pInventory, getBlockPos(), getLevel(), getContainerSize());
     }
-
-
-
 
 }

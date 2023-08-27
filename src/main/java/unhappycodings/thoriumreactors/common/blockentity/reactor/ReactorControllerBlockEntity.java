@@ -30,33 +30,23 @@ import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBloc
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
+import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
-import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
 import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
-import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorRenderDataPacket;
 import unhappycodings.thoriumreactors.common.registration.*;
-import unhappycodings.thoriumreactors.common.util.CalculationUtil;
 import unhappycodings.thoriumreactors.common.util.SoundUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ReactorControllerBlockEntity extends BlockEntity implements MenuProvider {
-    public static final int MAX_HEAT = 971;
-    public List<BlockPos> framePosList = new ArrayList<>();
-    public BlockPos floorPosA, floorPosB, floorPosARight, floorPosBLeft;
-    public BlockPos ceilingPosA, ceilingPosB, ceilingPosARight, ceilingPosBLeft;
-    public int pillarAHeight, pillarARightHeight, pillarBHeight, pillarBLeftHeight;
-    public int floorPosLength, floorPosClockwise, floorPosCounterClockwise;
-    public int reactorXLenght, reactorYLenght;
-    public BlockPos reactorCorePos;
-    public List<BlockPos> moderatorPos;
+public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implements MenuProvider {
+    public static final int MAX_HEAT = 1320;
+    public List<BlockPos> turbinePos;
     public List<BlockPos> valvePos;
-    public BlockPos controlRodPos;
     public boolean canBeAssembled;
     public boolean assembled;
     public String warning = "";
@@ -65,51 +55,51 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     public boolean isExchangerActive;
     public boolean isTurbineActive;
     public int reactorCapacity;
-    int controllers = 0;
     long soundTicks;
 
     // Reactor
-    private short reactorCurrentTemperature; // 0-3000
-    private short reactorTargetTemperature; // 0-3000
+    private float reactorCurrentTemperature; // 0-3000
+    private float reactorTargetTemperature; // 0-3000
     private byte reactorTargetLoadSet; // 0-100%
     private byte reactorCurrentLoadSet; // 0-100%
     private long reactorRunningSince; // timestamp
-    private byte reactorStatus = 100; // 0-100%
+    private float reactorStatus = 100; // 0-100%
     private float reactorContainment; // 0-100%
     private float reactorRadiation; // uSv per hour
     private float reactorPressure = 29.98f; // in PSI
+    private int reactorHeight = 0;
     private int fuelAdditions = 0;
     private boolean scrammed;
     private ReactorStateEnum reactorState = ReactorStateEnum.STOP; // STARTING - RUNNING - STOP
     // Rods
     public byte[] fuelRodStatus = new byte[81];
     public byte[] controlRodStatus = new byte[64];
+    public byte[] targetControlRodStatus = new byte[64];
     // Turbine
-    private short turbineTargetSpeed; // RPM
-    private short turbineCurrentSpeed; // RPM
-    private byte turbineTargetOverflowSet; // 0-100%
-    private byte turbineCurrentOverflowSet; // 0-100%
-    private byte turbineTargetLoadSet; // 0-100%
-    private byte turbineCurrentLoadSet; // 0-100%
+    private byte turbineSpeed; // 0-3000
+    private byte turbineTargetFlow; // 0-100%
+    private byte turbineCurrentFlow; // 0-100%
     private boolean turbineCoilsEngaged; // true-false
-    private short turbineCurrentFlow; // Buckets per second
+    private boolean turbineActivated; // true-false
     private long turbinePowerGeneration; // FE per tick
 
-    private ModFluidTank FLUID_TANK_IN = new ModFluidTank(35000, true, true, 0, FluidStack.EMPTY) {
+    private final ModFluidTank FLUID_TANK_IN = new ModFluidTank(35000, true, true, 0, FluidStack.EMPTY) {
         @Override
         public int getCapacity() {
             return reactorCapacity / 2;
         }
+
         @Override
         public int getSpace() {
             return super.getSpace();
         }
     };
-    private ModFluidTank FLUID_TANK_OUT = new ModFluidTank(35000, true, true, 0, FluidStack.EMPTY) {
+    private final ModFluidTank FLUID_TANK_OUT = new ModFluidTank(35000, true, true, 0, FluidStack.EMPTY) {
         @Override
         public int getCapacity() {
             return reactorCapacity / 2;
         }
+
         @Override
         public int getSpace() {
             return getCapacity() - getFluidAmount();
@@ -127,63 +117,44 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public void tick() {
-        BlockPos controllerPos = this.getBlockPos();
-
         if (getBlockState().getValue(ReactorControllerBlock.POWERED) != assembled)
             getLevel().setBlock(getBlockPos(), getBlockState().setValue(ReactorControllerBlock.POWERED, assembled), 3);
-        if (isCasing(getState(controllerPos.below())) && level.getGameTime() % 10 == 0) {
-            Direction controllerDirection = this.getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite();
-
-            // floor check if square, casings and in min and max sizes
-            updateFloorPositions(controllerPos, controllerDirection);
-            if (floorPosA == BlockPos.ZERO || floorPosB == BlockPos.ZERO) return;
-            if (!canBeAssembled) { resetAssembled(); return;  }
-
-            // Pillar check for all 4 corners
-            updatePillarPositions(controllerDirection, floorPosA, floorPosB);
-            if (!canBeAssembled) { resetAssembled(); return;  }
-
-            // Ceiling check, if surrounded by casings with rod in mid
-            updateCeilingPositions();
-            if (!canBeAssembled) { resetAssembled(); return;  }
-
-            // Inner check, if graphite moderators and core are present
-            updateInnerPositions();
-            if (!canBeAssembled) { resetAssembled(); return;  }
-
-            // Inner check, if graphite moderators and core are present
-            updateWallPositions();
-            if (!canBeAssembled) { resetAssembled(); return;  }
-
-            // Check if Core is 2 blocks relative to Controller (middle of floor)
-            BlockPos p = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
-            if (!level.getBlockState(p).is(ModBlocks.REACTOR_CORE.get())) { resetAssembled(); return;  }
-
-            // If everything is assembled right, we continue here
-            if (!assembled) {
-                for (Player player : level.players()) {
-                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(getBlockPos(), getBlockState().getValue(ReactorControllerBlock.FACING)), ParticleTypeEnum.REACTOR, reactorXLenght, getReactorHeight() + 1, reactorYLenght), (ServerPlayer) player);
-                }
-            }
-            reactorCapacity = (3 * 3 * (getReactorHeight() - 1) * 1000) - 1000;
-            assembled = true;
-        }
 
         if (isAssembled()) {
             tryTankReactor(); // Molten Salt input from configured valves
             tryOutputTank(); // Output of Heated Molten Salt into configures valves
             tryFuelReactor(); // Input of Enriched Uranium Pellets from configures valves
             updateTemperature(); // Temperature Simulation
-            if (new Random().nextFloat() < 0.01) setReactorPressure(getReactorPressure() == 29.98f ? 29.97f : 29.98f); // Randomly changes reactor pressure a bit
-            if (getFluidAmountIn() > 0 || getFluidAmountOut() > 0) radiationPlayerCheck(); // Kills players inside the reactor if its fueled
+            if (getFluidAmountIn() > 0 || getFluidAmountOut() > 0)
+                radiationPlayerCheck(); // Kills players inside the reactor if its fueled
 
             // If scrammed, do simulation
             if (isScrammed()) doScramSimulation();
+            else updateControlRods();
             if (getReactorState() != ReactorStateEnum.STOP) doReactorSimulation();
-            else {setReactorActive(false);setCoreHeating(false);}
+            else {
+                setReactorActive(false);
+                setCoreHeating(false);
+            }
 
             updateRenderData();
             updateBlock();
+            float random = new Random().nextFloat();
+            if (getReactorPressure() < 30.2f && random < 0.5f) {
+                setReactorPressure(getReactorPressure() + 0.0001f);
+            } else if (getReactorPressure() > 29.7f && random > 0.5f) {
+                setReactorPressure(getReactorPressure() - 0.0001f);
+            }
+        }
+
+        if (level.getGameTime() % 20 == 0) {
+            int reactorLoad = (int) (((getReactorCurrentTemperature() - 22) / 949) * 100);
+            if (reactorLoad >= 105) {
+                if (level.getGameTime() % 60 == 0) {
+                    level.playSound(null, getBlockPos(), ModSounds.ALARM_3.get(), SoundSource.BLOCKS, 2f, 1f);
+                }
+                setReactorStatus((getReactorStatus() - ((reactorLoad - 105f) / 100f)));
+            }
         }
 
         BlockPos corePos = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
@@ -194,8 +165,6 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
                 level.playSound(null, corePos, ModSounds.REACTOR_STARTUP.get(), SoundSource.BLOCKS, 1f, 1f);
             }
             if (soundTicks % 92 == 0 && soundTicks != 0) {
-                stopReactorSound(ModSounds.REACTOR_STARTUP.get());
-                stopReactorSound(ModSounds.REACTOR_SHUTDOWN.get());
                 level.playSound(null, corePos, ModSounds.REACTOR_RUN.get(), SoundSource.BLOCKS, 1f, 1f);
             }
             soundTicks++;
@@ -226,28 +195,46 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     public void scram(String text) {
         setScrammed(true);
         setNotification(text);
-        level.playSound(null, getBlockPos(), ModSounds.ALARM_2.get(), SoundSource.BLOCKS, 2f, 1f);
     }
 
     public void doScramSimulation() {
         setReactorRunningSince(-1);
         setReactorActive(false);
         setCoreHeating(false);
-        for (byte i = 0; i < 64; i++)
+        if (!getBlockState().getValue(ReactorControllerBlock.SCRAMMED))
+            level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(ReactorControllerBlock.SCRAMMED, true));
+        for (byte i = 0; i < 64; i++) {
+            setTargetControlRodStatus(i, (byte) getControlRodStatus(i));
             if ((byte) getControlRodStatus(i) < 100)
                 setControlRodStatus(i, (byte) ((byte) getControlRodStatus(i) + 1));
-        if (level.getGameTime() % 60 == 0) level.playSound(null, getBlockPos(), ModSounds.ALARM_1.get(), SoundSource.BLOCKS, 1f, 1f);
-        if (level.getGameTime() % 40 == 0) level.playSound(null, getBlockPos(), ModSounds.ALARM_2.get(), SoundSource.BLOCKS, 2f, 1f);
+        }
+        if (level.getGameTime() % 60 == 0)
+            level.playSound(null, getBlockPos(), ModSounds.ALARM_1.get(), SoundSource.BLOCKS, 2f, 1f);
+        if (level.getGameTime() % 40 == 0)
+            level.playSound(null, getBlockPos(), ModSounds.ALARM_2.get(), SoundSource.BLOCKS, 2f, 1f);
         setReactorState(ReactorStateEnum.STOP);
         updateBlock();
     }
 
+    public void updateControlRods() {
+        for (byte i = 0; i < getTargetControlRodStatus().length; i++) {
+            if (getControlRodStatus(i) > getTargetControlRodStatus(i)) {
+                setControlRodStatus(i, (byte) (getControlRodStatus(i) - 1));
+            } else if (getControlRodStatus(i) < getTargetControlRodStatus(i)) {
+                setControlRodStatus(i, (byte) (getControlRodStatus(i) + 1));
+            }
+        }
+    }
+
     public void doReactorSimulation() {
+        if (getBlockState().getValue(ReactorControllerBlock.SCRAMMED))
+            level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(ReactorControllerBlock.SCRAMMED, false));
+
         setReactorRunningSince(getReactorRunningSince() + 1);
         if (getFluidAmountIn() < 8000 && !isScrammed()) {
             scram("Warning: Emergency Scram! Molten Salt level low");
             return;
-        } else if (getNotification().equals("Warning: Emergency Scram! Molten Salt level low")) {
+        } else if (!getNotification().equals("")) {
             setNotification("");
         }
 
@@ -273,28 +260,34 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         for (int i = 0; i < getFuelRodStatus().length; i++) fuelValue += getFuelRodStatus()[i];
         for (int i = 0; i < getControlRodStatus().length; i++) controlValue += getControlRodStatus()[i];
         float fuelValuePercent = (fuelValue / 8100f * 100f), controlValuePercent = (1f - (controlValue / 6400f));
-        short targetTemperature = (short) (((fuelValuePercent * controlValuePercent) / 100f) * MAX_HEAT);
+        float targetTemperature = (((fuelValuePercent * controlValuePercent) / 100f) * MAX_HEAT) * (reactorStatus / 20f - 4);
         short normalTemp = (short) (level.getBiome(getBlockPos()).is(Tags.Biomes.IS_COLD) ? 4 : 22);
 
         setReactorTargetTemperature(targetTemperature < normalTemp || getReactorState() == ReactorStateEnum.STOP ? normalTemp : targetTemperature);
 
         // Default reactor heating
         if (getReactorCurrentTemperature() + calculateTemperature(false) < getReactorTargetTemperature())
-            setReactorCurrentTemperature((short) (getReactorCurrentTemperature() + calculateTemperature(false)));
+            setReactorCurrentTemperature((getReactorCurrentTemperature() + calculateTemperature(false)));
 
-        // Small step heating until target temperature
+            // Small step heating until target temperature
         else if (getReactorCurrentTemperature() < getReactorTargetTemperature() || getReactorCurrentTemperature() > getReactorTargetTemperature())
-            setReactorCurrentTemperature((short) (getReactorCurrentTemperature() + (getReactorCurrentTemperature() < getReactorTargetTemperature() ? 1 : -1)));
+            setReactorCurrentTemperature((getReactorCurrentTemperature() + (getReactorCurrentTemperature() < getReactorTargetTemperature() ? 1 : -1)));
+
+        if (isReactorActive() && getReactorCurrentTemperature() > 30) {
+            double random = Math.random();
+            if (random > 0.1 && getReactorCurrentTemperature() <= getReactorTargetTemperature())
+                setReactorCurrentTemperature((float) (getReactorCurrentTemperature() - (random * 2)));
+        }
 
     }
 
-    public int calculateTemperature(boolean cooling) {
+    public float calculateTemperature(boolean cooling) {
         if (getReactorCurrentTemperature() < MAX_HEAT / 3) {
-            return cooling ? -1 : 8;
+            return cooling ? -1.1f : 8f;
         } else if (getReactorCurrentTemperature() < MAX_HEAT / 2) {
-            return cooling ? -2 : 5;
+            return cooling ? -2.1f : 5f;
         } else {
-            return cooling ? -4 : 2;
+            return cooling ? -4.1f : 2f;
         }
     }
 
@@ -333,11 +326,11 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
             for (BlockPos blockPos : valvePos) {
                 if (!level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) return;
                 if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_OUTPUT) {
-                    level.getBlockEntity(blockPos).getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storage -> {
+                    level.getBlockEntity(blockPos).getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(blockPos).getValue(ReactorValveBlock.FACING)).ifPresent(storage -> {
                         if (getFluidOut().isEmpty()) return;
 
                         int free = storage.getTankCapacity(0) - storage.getFluidInTank(0).getAmount();
-                        int amount = free >= getFluidAmountOut() ? getFluidAmountOut() : free;
+                        int amount = Math.min(free, getFluidAmountOut());
                         if (storage.getFluidInTank(0).isEmpty()) {
                             storage.fill(new FluidStack(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get(), amount), IFluidHandler.FluidAction.EXECUTE);
                             getFluidOut().shrink(amount);
@@ -356,24 +349,22 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
             for (BlockPos blockPos : valvePos) {
                 if (!level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) return;
                 if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_INPUT) {
-                    level.getBlockEntity(blockPos).getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storage -> {
+                    level.getBlockEntity(blockPos).getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(blockPos).getValue(ReactorValveBlock.FACING)).ifPresent(storage -> {
                         FluidStack fluidExternal = storage.getFluidInTank(0);
-                        int amount = fluidExternal.getAmount();
+                        int amount = Math.min(FLUID_TANK_IN.getCapacity() - FLUID_TANK_IN.getFluidAmount(), fluidExternal.getAmount());
                         if (fluidExternal.isFluidEqual(ModFluids.SOURCE_MOLTEN_SALT.get().getBucket().getDefaultInstance()) && amount > 0) {
 
                             if (FLUID_TANK_IN.getFluid().isEmpty()) {
                                 FLUID_TANK_IN.setFluid(new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), amount));
                                 storage.getFluidInTank(0).shrink(amount);
-                            } else if (getFluidAmountIn() + amount <= getFluidCapacityIn()){
+                            } else if (getFluidAmountIn() + amount <= getFluidCapacityIn()) {
                                 storage.getFluidInTank(0).shrink(amount);
                                 getFluidIn().grow(amount);
                             }
                         }
                     });
                 }
-
             }
-
         }
     }
 
@@ -391,9 +382,9 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
                     ReactorValveBlockEntity entity = (ReactorValveBlockEntity) level.getBlockEntity(blockPos);
                     if (fuelAdditions == 0 && fuelValue < 8100 && entity.getItem(0).is(ModItems.ENRICHED_URANIUM.get()) && fuelPercentage < getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_INPUT) {
                         entity.getItem(0).shrink(1);
-                        fuelAdditions = 20;
+                        fuelAdditions = 10;
                     } else if (fuelPercentage >= getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_OUTPUT) {
-                        if (fuelAdditions == 20) {
+                        if (fuelAdditions == 10) {
                             if (entity.getItem(0).isEmpty())
                                 entity.setItem(0, new ItemStack(ModItems.ENRICHED_URANIUM.get(), 1));
                             else
@@ -407,13 +398,13 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
             int randomNumber = new Random().nextInt(81);
             if (fuelAdditions != 0) {
                 if (getFuelRodStatus((byte) randomNumber) < getReactorTargetLoadSet()) {
-                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) + 1)) ;
+                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) + 1));
                     fuelAdditions--;
                 }
             }
             if (fuelPercentage >= getReactorTargetLoadSet()) {
                 if (getFuelRodStatus((byte) randomNumber) > getReactorTargetLoadSet() && fuelAdditions < 20) {
-                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) - 1)) ;
+                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) - 1));
                     fuelAdditions++;
                 }
             }
@@ -470,11 +461,11 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public int getReactorHeight() {
-        return pillarAHeight;
+        return reactorHeight;
     }
 
     public void setReactorHeight(int height) {
-        pillarAHeight = height;
+        reactorHeight = height;
     }
 
     public void setFluidIn(FluidStack stack) {
@@ -519,12 +510,12 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         CompoundTag nbt = new CompoundTag();
         nbt.putBoolean("Assembled", isAssembled());
         // Reactor
-        nbt.putShort("ReactorTargetTemperature", getReactorTargetTemperature());
-        nbt.putShort("ReactorCurrentTemperature", getReactorCurrentTemperature());
+        nbt.putFloat("ReactorTargetTemperature", getReactorTargetTemperature());
+        nbt.putFloat("ReactorCurrentTemperature", getReactorCurrentTemperature());
         nbt.putByte("ReactorTargetLoadSet", getReactorTargetLoadSet());
         nbt.putByte("ReactorCurrentLoadSet", getReactorCurrentLoadSet());
         nbt.putLong("ReactorRunningSince", getReactorRunningSince());
-        nbt.putByte("ReactorStatus", getReactorStatus());
+        nbt.putFloat("ReactorStatus", getReactorStatus());
         nbt.putFloat("ReactorContainment", getReactorContainment());
         nbt.putFloat("ReactorRadiation", getReactorRadiation());
         nbt.putFloat("ReactorPressure", getReactorPressure());
@@ -534,20 +525,18 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
         nbt.put("FluidOut", FLUID_TANK_OUT.writeToNBT(new CompoundTag()));
         nbt.putInt("ReactorCapacity", reactorCapacity);
+        nbt.putInt("ReactorHeight", reactorHeight);
         nbt.putLong("SoundTicks", soundTicks);
         // Rod
         nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
         nbt.putByteArray("ControlRodStatus", getControlRodStatus());
-        // Turbine
-        nbt.putShort("TurbineTargetSpeed", getTurbineTargetSpeed());
-        nbt.putShort("TurbineCurrentSpeed", getTurbineCurrentSpeed());
-        nbt.putByte("TurbineTargetOverflowSet", getTurbineTargetOverflowSet());
-        nbt.putByte("TurbineCurrentOverflowSet", getTurbineCurrentOverflowSet());
-        nbt.putByte("TurbineTargetLoadSet", getTurbineTargetLoadSet());
-        nbt.putByte("TurbineCurrentLoadSet", getTurbineCurrentLoadSet());
-        nbt.putBoolean("TurbineCoilsEngaged", isTurbineCoilsEngaged());
-        nbt.putShort("TurbineCurrentFlow", getTurbineCurrentFlow());
-        nbt.putLong("TurbinePowerGeneration", getTurbinePowerGeneration());
+        nbt.putByteArray("TargetControlRodStatus", getTargetControlRodStatus());
+        for (int i = 0; i < 4; i++)
+            if (valvePos != null && valvePos.size() - 1 >= i) nbt.put("ValvePos-" + i, parsePosToTag(valvePos.get(i)));
+        for (int i = 0; i < 9; i++)
+            if (turbinePos != null && turbinePos.size() - 1 >= i)
+                nbt.put("TurbinePos-" + i, parsePosToTag(turbinePos.get(i)));
+
         return nbt;
     }
 
@@ -555,12 +544,12 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     public void handleUpdateTag(final CompoundTag tag) {
         setAssembled(tag.getBoolean("Assembled"));
         // Reactor
-        setReactorTargetTemperature(tag.getShort("ReactorTargetTemperature"));
-        setReactorCurrentTemperature(tag.getShort("ReactorCurrentTemperature"));
+        setReactorTargetTemperature(tag.getFloat("ReactorTargetTemperature"));
+        setReactorCurrentTemperature(tag.getFloat("ReactorCurrentTemperature"));
         setReactorTargetLoadSet(tag.getByte("ReactorTargetLoadSet"));
         setReactorCurrentLoadSet(tag.getByte("ReactorCurrentLoadSet"));
         setReactorRunningSince(tag.getLong("ReactorRunningSince"));
-        setReactorStatus(tag.getByte("ReactorStatus"));
+        setReactorStatus(tag.getFloat("ReactorStatus"));
         setReactorContainment(tag.getFloat("ReactorContainment"));
         setReactorRadiation(tag.getFloat("ReactorRadiation"));
         setReactorPressure(tag.getFloat("ReactorPressure"));
@@ -570,32 +559,32 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         FLUID_TANK_IN.readFromNBT(tag.getCompound("FluidIn"));
         FLUID_TANK_OUT.readFromNBT(tag.getCompound("FluidOut"));
         reactorCapacity = tag.getInt("ReactorCapacity");
+        reactorHeight = tag.getInt("ReactorHeight");
         soundTicks = tag.getLong("SoundTicks");
         // Rod
         setFuelRodStatus(tag.getByteArray("FuelRodStatus"));
         setControlRodStatus(tag.getByteArray("ControlRodStatus"));
-        // Turbine
-        setTurbineTargetSpeed(tag.getShort("TurbineTargetSpeed"));
-        setTurbineCurrentSpeed(tag.getShort("TurbineCurrentSpeed"));
-        setTurbineTargetOverflowSet(tag.getByte("TurbineTargetOverflowSet"));
-        setTurbineCurrentOverflowSet(tag.getByte("TurbineCurrentOverflowSet"));
-        setTurbineTargetLoadSet(tag.getByte("TurbineTargetLoadSet"));
-        setTurbineCurrentLoadSet(tag.getByte("TurbineCurrentLoadSet"));
-        setTurbineCoilsEngaged(tag.getBoolean("TurbineCoilsEngaged"));
-        setTurbineCurrentFlow(tag.getShort("TurbineCurrentFlow"));
-        setTurbinePowerGeneration(tag.getLong("TurbinePowerGeneration"));
+        setTargetControlRodStatus(tag.getByteArray("TargetControlRodStatus"));
+        valvePos = new ArrayList<>(4);
+        turbinePos = new ArrayList<>(9);
+        for (int i = 0; i < 4; i++)
+            if (tag.contains("ValvePos-" + i))
+                valvePos.add(BlockEntity.getPosFromTag(tag.getCompound("ValvePos-" + i)));
+        for (int i = 0; i < 9; i++)
+            if (tag.contains("TurbinePos-" + i))
+                turbinePos.add(BlockEntity.getPosFromTag(tag.getCompound("TurbinePos-" + i)));
     }
 
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         nbt.putBoolean("Assembled", isAssembled());
         // Reactor
-        nbt.putShort("ReactorTargetTemperature", getReactorTargetTemperature());
-        nbt.putShort("ReactorCurrentTemperature", getReactorCurrentTemperature());
+        nbt.putFloat("ReactorTargetTemperature", getReactorTargetTemperature());
+        nbt.putFloat("ReactorCurrentTemperature", getReactorCurrentTemperature());
         nbt.putByte("ReactorTargetLoadSet", getReactorTargetLoadSet());
         nbt.putByte("ReactorCurrentLoadSet", getReactorCurrentLoadSet());
         nbt.putLong("ReactorRunningSince", getReactorRunningSince());
-        nbt.putByte("ReactorStatus", getReactorStatus());
+        nbt.putFloat("ReactorStatus", getReactorStatus());
         nbt.putFloat("ReactorContainment", getReactorContainment());
         nbt.putFloat("ReactorRadiation", getReactorRadiation());
         nbt.putFloat("ReactorPressure", getReactorPressure());
@@ -605,20 +594,18 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
         nbt.put("FluidOut", FLUID_TANK_OUT.writeToNBT(new CompoundTag()));
         nbt.putInt("ReactorCapacity", reactorCapacity);
+        nbt.putInt("ReactorHeight", reactorHeight);
         nbt.putLong("SoundTicks", soundTicks);
         // Rod
         nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
         nbt.putByteArray("ControlRodStatus", getControlRodStatus());
-        // Turbine
-        nbt.putShort("TurbineTargetSpeed", getTurbineTargetSpeed());
-        nbt.putShort("TurbineCurrentSpeed", getTurbineCurrentSpeed());
-        nbt.putByte("TurbineTargetOverflowSet", getTurbineTargetOverflowSet());
-        nbt.putByte("TurbineCurrentOverflowSet", getTurbineCurrentOverflowSet());
-        nbt.putByte("TurbineTargetLoadSet", getTurbineTargetLoadSet());
-        nbt.putByte("TurbineCurrentLoadSet", getTurbineCurrentLoadSet());
-        nbt.putBoolean("TurbineCoilsEngaged", isTurbineCoilsEngaged());
-        nbt.putShort("TurbineCurrentFlow", getTurbineCurrentFlow());
-        nbt.putLong("TurbinePowerGeneration", getTurbinePowerGeneration());
+        nbt.putByteArray("TargetControlRodStatus", getTargetControlRodStatus());
+        for (int i = 0; i < 4; i++)
+            if (valvePos != null && valvePos.size() - 1 >= i) nbt.put("ValvePos-" + i, parsePosToTag(valvePos.get(i)));
+        for (int i = 0; i < 9; i++)
+            if (turbinePos != null && turbinePos.size() - 1 >= i)
+                nbt.put("TurbinePos-" + i, parsePosToTag(turbinePos.get(i)));
+
     }
 
     @Override
@@ -630,7 +617,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         setReactorTargetLoadSet(nbt.getByte("ReactorTargetLoadSet"));
         setReactorCurrentLoadSet(nbt.getByte("ReactorCurrentLoadSet"));
         setReactorRunningSince(nbt.getLong("ReactorRunningSince"));
-        setReactorStatus(nbt.getByte("ReactorStatus"));
+        setReactorStatus(nbt.getFloat("ReactorStatus"));
         setReactorContainment(nbt.getFloat("ReactorContainment"));
         setReactorRadiation(nbt.getFloat("ReactorRadiation"));
         setReactorPressure(nbt.getFloat("ReactorPressure"));
@@ -640,20 +627,33 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         FLUID_TANK_IN.readFromNBT(nbt.getCompound("FluidIn"));
         FLUID_TANK_OUT.readFromNBT(nbt.getCompound("FluidOut"));
         reactorCapacity = nbt.getInt("ReactorCapacity");
+        reactorHeight = nbt.getInt("ReactorHeight");
         soundTicks = nbt.getLong("SoundTicks");
         // Rod
         setFuelRodStatus(nbt.getByteArray("FuelRodStatus"));
         setControlRodStatus(nbt.getByteArray("ControlRodStatus"));
-        // Turbine
-        setTurbineTargetSpeed(nbt.getShort("TurbineTargetSpeed"));
-        setTurbineCurrentSpeed(nbt.getShort("TurbineCurrentSpeed"));
-        setTurbineTargetOverflowSet(nbt.getByte("TurbineTargetOverflowSet"));
-        setTurbineCurrentOverflowSet(nbt.getByte("TurbineCurrentOverflowSet"));
-        setTurbineTargetLoadSet(nbt.getByte("TurbineTargetLoadSet"));
-        setTurbineCurrentLoadSet(nbt.getByte("TurbineCurrentLoadSet"));
-        setTurbineCoilsEngaged(nbt.getBoolean("TurbineCoilsEngaged"));
-        setTurbineCurrentFlow(nbt.getShort("TurbineCurrentFlow"));
-        setTurbinePowerGeneration(nbt.getLong("TurbinePowerGeneration"));
+        setTargetControlRodStatus(nbt.getByteArray("TargetControlRodStatus"));
+        valvePos = new ArrayList<>(4);
+        turbinePos = new ArrayList<>(9);
+        for (int i = 0; i < 4; i++)
+            if (nbt.contains("ValvePos-" + i))
+                valvePos.add(BlockEntity.getPosFromTag(nbt.getCompound("ValvePos-" + i)));
+        for (int i = 0; i < 9; i++)
+            if (nbt.contains("TurbinePos-" + i))
+                turbinePos.add(BlockEntity.getPosFromTag(nbt.getCompound("TurbinePos-" + i)));
+    }
+
+    public void setTurbinePos(List<BlockPos> turbinePos) {
+        this.turbinePos = turbinePos;
+    }
+
+    public List<BlockPos> getTurbinePos() {
+        return turbinePos;
+    }
+
+    public void addTurbinePos(BlockPos pos) {
+        if (turbinePos == null) turbinePos = new ArrayList<>(9);
+        if (turbinePos.size() < 9) turbinePos.add(pos);
     }
 
     @Override
@@ -696,259 +696,11 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public void updateBlock() {
-        if(level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide) {
             BlockState state = level.getBlockState(worldPosition);
             level.sendBlockUpdated(worldPosition, state, state, 2);
             setChanged(level, getBlockPos(), state);
         }
-    }
-
-    public void updateWallPositions() {
-        valvePos = new ArrayList<>();
-        List<BlockPos> blockListBack = CalculationUtil.getBlockPositions(floorPosA, ceilingPosARight, level); // Back
-        List<BlockPos> blockListLeft = CalculationUtil.getBlockPositions(floorPosBLeft, ceilingPosA, level); // Left
-        List<BlockPos> blockListRight = CalculationUtil.getBlockPositions(floorPosB, ceilingPosARight, level); // Right
-        List<BlockPos> blockListFront = CalculationUtil.getBlockPositions(floorPosBLeft, ceilingPosB, level); // Front
-
-        checkWallArea(blockListBack);
-        checkWallArea(blockListLeft);
-        checkWallArea(blockListRight);
-        checkWallArea(blockListFront);
-
-        controllers = 0;
-        if (valvePos.size() != 4) {
-            resetAssembled("Reactor is in need of four valves. Currently " + valvePos.size());
-        }
-    }
-
-    public void checkWallArea(List<BlockPos> blockPosList) {
-        for (BlockPos pos : blockPosList) {
-            if (level.getBlockState(pos).is(ModBlocks.REACTOR_CONTROLLER_BLOCK.get())) {
-                controllers++;
-                if (controllers > 1) resetAssembled("Reactor cannot have two controller blocks! Block at " + pos);
-            }
-            if (!(isCasing(getState(pos)) || isGlass(getState(pos)) || isValve(getState(pos)) || getState(pos).is(getState(getBlockPos()).getBlock()))) {
-                resetAssembled("Missing reactor casing, glass or valve in wall at " + pos);
-            }
-            if (isValve(getState(pos))) {
-                if (!(level.getBlockEntity(pos) instanceof ReactorValveBlockEntity entity)) return;
-                valvePos.add(pos);
-                entity.setReactorCorePosition(this.getBlockPos());
-            }
-        }
-    }
-
-    public void updateInnerPositions() {
-        int moderatorCount = pillarAHeight - 2;
-        reactorCorePos = null;
-        moderatorPos = new ArrayList<>(moderatorCount);
-
-        for (int i = 0; i < pillarAHeight; i++) {
-            if (getState(controlRodPos.below(i)).is(ModBlocks.REACTOR_CORE.get())) {
-                if (isCasing(getState(controlRodPos.below(i).below()))) {
-                    reactorCorePos = controlRodPos.below(i);
-                }
-            } else if (getState(controlRodPos.below(i)).is(ModBlocks.REACTOR_GRAPHITE_MODERATOR.get())) {
-                moderatorPos.add(controlRodPos.below(i));
-            }
-        }
-
-        if (reactorCorePos == null || !isCasing(getState(reactorCorePos.below())) || reactorCorePos.below().getY() != floorPosA.getY()) {
-            resetAssembled("Reactor core not found or placed on the reactor floor");
-            return;
-        }
-
-        if (moderatorPos != null) {
-            for (BlockPos pos : moderatorPos) {
-                if (!getState(pos).is(ModBlocks.REACTOR_GRAPHITE_MODERATOR.get()) || reactorCorePos.getX() != pos.getX() || reactorCorePos.getZ() != pos.getZ() || moderatorPos.size() != moderatorCount) {
-                    resetAssembled("Reactor moderators not valid. Must be placed between reactor core and rod controller");
-                }
-            }
-        } else {
-            resetAssembled("Reactor moderators not found. Must be placed between reactor core and rod controller");
-        }
-
-    }
-
-    public void updateFloorPositions(BlockPos controllerPos, Direction controllerDirection) {
-        reactorXLenght = 0;
-        reactorYLenght = 0;
-        canBeAssembled = true;
-        floorPosLength = 0;
-        floorPosCounterClockwise = 0;
-        floorPosClockwise = 0;
-        while (floorPosLength < 6)
-            if (isCasing(getState(controllerPos.below().relative(controllerDirection, floorPosLength + 1)))) floorPosLength++;
-            else break;
-        while (floorPosClockwise < 6)
-            if (isCasing(getState(controllerPos.below().relative(controllerDirection.getClockWise(), floorPosClockwise + 1)))) floorPosClockwise++;
-            else break;
-        while (floorPosCounterClockwise < 6)
-            if (isCasing(getState(controllerPos.below().relative(controllerDirection.getCounterClockWise(), floorPosCounterClockwise + 1)))) floorPosCounterClockwise++;
-            else break;
-
-        floorPosA = switch (controllerDirection) {
-            case NORTH -> controllerPos.relative(controllerDirection.getClockWise(), -floorPosCounterClockwise).relative(controllerDirection, floorPosLength).relative(Direction.DOWN, 1);
-            case EAST -> controllerPos.relative(controllerDirection, floorPosLength).relative(controllerDirection.getClockWise(), -floorPosCounterClockwise).relative(Direction.DOWN, 1);
-            case SOUTH -> controllerPos.relative(controllerDirection, floorPosLength).relative(controllerDirection.getClockWise(), -floorPosCounterClockwise).relative(Direction.DOWN, 1);
-            case WEST -> controllerPos.relative(controllerDirection, floorPosLength).relative(controllerDirection.getCounterClockWise(), floorPosCounterClockwise).relative(Direction.DOWN, 1);
-            default -> BlockPos.ZERO;
-        };
-        floorPosB = switch (controllerDirection) {
-            case NORTH -> controllerPos.relative(controllerDirection.getClockWise(), floorPosClockwise).relative(Direction.DOWN, 1);
-            case EAST -> controllerPos.relative(controllerDirection.getCounterClockWise(), -floorPosClockwise).relative(Direction.DOWN, 1);
-            case SOUTH -> controllerPos.relative(controllerDirection.getCounterClockWise(), -floorPosClockwise).relative(Direction.DOWN, 1);
-            case WEST -> controllerPos.relative(controllerDirection.getClockWise(), floorPosClockwise).relative(Direction.DOWN, 1);
-            default -> BlockPos.ZERO;
-        };
-
-        List<BlockPos> blockPosList = CalculationUtil.getBlockPositions(floorPosA, floorPosB, level);
-        for (BlockPos pos : blockPosList) {
-            if (!isCasing(getState(pos))) {
-                resetAssembled("Missing reactor casing in floor at position " + pos);
-                return;
-            }
-        }
-
-        if (controllerDirection == Direction.NORTH) {
-            reactorXLenght = (int) Math.floor(floorPosB.getX() - floorPosA.getX() + 1);
-            reactorYLenght = (int) Math.floor(floorPosB.getZ() - floorPosA.getZ() + 1);
-        } else if (controllerDirection == Direction.EAST){
-            reactorXLenght = (int) Math.floor(floorPosA.getX() - floorPosB.getX() + 1);
-            reactorYLenght = (int) Math.floor(floorPosB.getZ() - floorPosA.getZ() + 1);
-        } else if (controllerDirection == Direction.SOUTH){
-            reactorXLenght = (int) Math.floor(floorPosA.getX() - floorPosB.getX() + 1);
-            reactorYLenght = (int) Math.floor(floorPosA.getZ() - floorPosB.getZ() + 1);
-        } else {
-            reactorXLenght = (int) Math.floor(floorPosB.getX() - floorPosA.getX() + 1);
-            reactorYLenght = (int) Math.floor(floorPosA.getZ() - floorPosB.getZ() + 1);
-        }
-
-        if (reactorXLenght != reactorYLenght || reactorXLenght < 5 || reactorYLenght < 5) {
-            resetAssembled();
-        }
-    }
-
-    public void updatePillarPositions(Direction controllerDirection, BlockPos floorPosA, BlockPos floorPosB) {
-        pillarAHeight = 0;
-        pillarARightHeight = 0;
-        pillarBHeight = 0;
-        pillarBLeftHeight = 0;
-        floorPosARight = switch (controllerDirection.getOpposite()) {
-            case NORTH -> new BlockPos(floorPosB.getX(), floorPosA.getY(), floorPosA.getZ());
-            case EAST -> new BlockPos(floorPosA.getX(), floorPosA.getY(), floorPosB.getZ());
-            case SOUTH -> new BlockPos(floorPosB.getX(), floorPosA.getY(), floorPosA.getZ());
-            case WEST -> new BlockPos(floorPosA.getX(), floorPosA.getY(), floorPosB.getZ());
-            default -> BlockPos.ZERO;
-        };
-        floorPosBLeft = switch (controllerDirection.getOpposite()) {
-            case NORTH -> new BlockPos(floorPosA.getX(), floorPosA.getY(), floorPosB.getZ());
-            case EAST -> new BlockPos(floorPosB.getX(), floorPosA.getY(), floorPosA.getZ());
-            case SOUTH -> new BlockPos(floorPosA.getX(), floorPosA.getY(), floorPosB.getZ());
-            case WEST -> new BlockPos(floorPosB.getX(), floorPosA.getY(), floorPosA.getZ());
-            default -> BlockPos.ZERO;
-        };
-
-        while (pillarAHeight < 5) {
-            if (isCasing(getState(floorPosA.relative(Direction.UP, pillarAHeight + 1)))) pillarAHeight++;
-            else break;
-        }
-        while (pillarARightHeight < 5) {
-            if (isCasing(getState(floorPosARight.relative(Direction.UP, pillarARightHeight + 1)))) pillarARightHeight++;
-            else break;
-        }
-        while (pillarBHeight < 5) {
-            if (isCasing(getState(floorPosB.relative(Direction.UP, pillarBHeight + 1)))) pillarBHeight++;
-            else break;
-        }
-        while (pillarBLeftHeight < 5) {
-            if (isCasing(getState(floorPosBLeft.relative(Direction.UP, pillarBLeftHeight + 1)))) pillarBLeftHeight++;
-            else break;
-        }
-
-        if (pillarAHeight < 3 || pillarARightHeight < 3 || pillarBHeight < 3 || pillarBLeftHeight < 3 || pillarAHeight != pillarBHeight || pillarBHeight != pillarBLeftHeight || pillarBLeftHeight != pillarARightHeight) {
-            resetAssembled("Missing reactor casing at pillars or invalid height of reactor!");
-        }
-    }
-
-    public void updateCeilingPositions() {
-        ceilingPosA = floorPosA.offset(0, pillarAHeight, 0);
-        ceilingPosB = floorPosB.offset(0, pillarBHeight, 0);
-        ceilingPosARight = floorPosARight.offset(0, pillarARightHeight, 0);
-        ceilingPosBLeft = floorPosBLeft.offset(0, pillarBLeftHeight, 0);
-        framePosList = new ArrayList<>();
-        controlRodPos = null;
-
-        // Checking ceiling frame for casings
-        List<List<BlockPos>> positionList = List.of(List.of(ceilingPosA, ceilingPosARight), List.of(ceilingPosARight, ceilingPosB), List.of(ceilingPosB, ceilingPosBLeft), List.of(ceilingPosBLeft, ceilingPosA));
-        for (List<BlockPos> allBlockList : positionList) {
-            List<BlockPos> blockPosList = CalculationUtil.getBlockPositions(allBlockList.get(0), allBlockList.get(1), level);
-            for (BlockPos pos : blockPosList) {
-                if (!isCasing(getState(pos))) {
-                    resetAssembled("Missing reactor casing in ceiling frame at position " + pos);
-                    return;
-                }
-                if (!framePosList.contains(pos))
-                    framePosList.add(pos);
-            }
-        }
-
-        List<BlockPos> ceilingWall = CalculationUtil.getBlockPositions(ceilingPosA, ceilingPosB, level);
-        for (BlockPos pos : framePosList)
-            if (ceilingWall.contains(pos))
-                ceilingWall.remove(pos);
-
-        List<BlockState> glassStates = new ArrayList<>();
-        List<BlockState> casingStates = new ArrayList<>();
-        for (BlockPos pos : ceilingWall) {
-            if (getState(pos).is(ModBlocks.REACTOR_ROD_CONTROLLER.get())) {
-                controlRodPos = pos;
-            } else if (isGlass(getState(pos))) {
-                glassStates.add(getState(pos));
-            } else if (isCasing(getState(pos))) {
-                casingStates.add(getState(pos));
-            }
-        }
-
-        if (controlRodPos == null || !hasFrameConnection(controlRodPos))
-            resetAssembled("Missing reactor rod controller in ceiling or no connection to frame with casings");
-
-        if (glassStates.size() + casingStates.size() + 1 != ceilingWall.size())
-            resetAssembled("Missing reactor casings or glass in ceiling");
-
-    }
-
-    public boolean hasFrameConnection(BlockPos pos) {
-        boolean exit = false;
-        int runs = 0;
-        BlockPos current = pos;
-        while (!exit) {
-            for (Direction value : Direction.values()) {
-                if (getState(current.relative(value)).is(ModBlocks.REACTOR_CASING.get())) {
-                    current = current.relative(value);
-                    if (framePosList.contains(current.relative(value)))
-                        exit = true;
-                }
-                if (runs > 64)
-                    exit = true;
-                runs++;
-            }
-        }
-        return exit && runs <= 64;
-    }
-
-    public void resetAssembled() {
-        canBeAssembled = false;
-        assembled = false;
-
-        if (getBlockState().getValue(ReactorControllerBlock.POWERED) != assembled)
-            getLevel().setBlock(getBlockPos(), getBlockState().setValue(ReactorControllerBlock.POWERED, assembled), 3);
-    }
-
-    public void resetAssembled(String text) {
-        if (warning != null)
-            warning = text;
-        resetAssembled();
     }
 
     public byte[] getFuelRodStatus() {
@@ -956,6 +708,7 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public byte getFuelRodStatus(byte index) {
+        if (getFuelRodStatus().length == 0) return 0;
         return getFuelRodStatus()[index];
     }
 
@@ -974,15 +727,32 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
     }
 
     public int getControlRodStatus(byte index) {
+        if (getControlRodStatus().length == 0) return 0;
         return getControlRodStatus()[index];
     }
 
-    public void setControlRodStatus(byte[] fuelRodStatus) {
-        this.controlRodStatus = fuelRodStatus;
+    public void setControlRodStatus(byte[] controlRodStatus) {
+        this.controlRodStatus = controlRodStatus;
     }
 
-    public int setControlRodStatus(byte index, byte value) {
-        return getControlRodStatus()[index] = value;
+    public void setControlRodStatus(byte index, byte value) {
+        getControlRodStatus()[index] = value;
+    }
+
+    public void setTargetControlRodStatus(byte index, byte value) {
+        getTargetControlRodStatus()[index] = value;
+    }
+
+    public byte getTargetControlRodStatus(byte index) {
+        return targetControlRodStatus[index];
+    }
+
+    public void setTargetControlRodStatus(byte[] targetControlRodStatus) {
+        this.targetControlRodStatus = targetControlRodStatus;
+    }
+
+    public byte[] getTargetControlRodStatus() {
+        return targetControlRodStatus;
     }
 
     public BlockState getState(BlockPos pos) {
@@ -1009,19 +779,19 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         this.assembled = canBeAssembled;
     }
 
-    public short getReactorCurrentTemperature() {
+    public float getReactorCurrentTemperature() {
         return reactorCurrentTemperature;
     }
 
-    public void setReactorCurrentTemperature(short reactorCurrentTemperature) {
+    public void setReactorCurrentTemperature(float reactorCurrentTemperature) {
         this.reactorCurrentTemperature = reactorCurrentTemperature;
     }
 
-    public short getReactorTargetTemperature() {
+    public float getReactorTargetTemperature() {
         return reactorTargetTemperature;
     }
 
-    public void setReactorTargetTemperature(short reactorTargetTemperature) {
+    public void setReactorTargetTemperature(float reactorTargetTemperature) {
         this.reactorTargetTemperature = reactorTargetTemperature;
     }
 
@@ -1049,11 +819,11 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         this.reactorRunningSince = reactorRunningSince;
     }
 
-    public byte getReactorStatus() {
+    public float getReactorStatus() {
         return reactorStatus;
     }
 
-    public void setReactorStatus(byte reactorStatus) {
+    public void setReactorStatus(float reactorStatus) {
         this.reactorStatus = reactorStatus;
     }
 
@@ -1089,52 +859,12 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         this.reactorState = reactorState;
     }
 
-    public short getTurbineTargetSpeed() {
-        return turbineTargetSpeed;
+    public boolean isTurbineActivated() {
+        return turbineActivated;
     }
 
-    public void setTurbineTargetSpeed(short turbineTargetSpeed) {
-        this.turbineTargetSpeed = turbineTargetSpeed;
-    }
-
-    public short getTurbineCurrentSpeed() {
-        return turbineCurrentSpeed;
-    }
-
-    public void setTurbineCurrentSpeed(short turbineCurrentSpeed) {
-        this.turbineCurrentSpeed = turbineCurrentSpeed;
-    }
-
-    public byte getTurbineTargetOverflowSet() {
-        return turbineTargetOverflowSet;
-    }
-
-    public void setTurbineTargetOverflowSet(byte turbineTargetOverflowSet) {
-        this.turbineTargetOverflowSet = turbineTargetOverflowSet;
-    }
-
-    public byte getTurbineCurrentOverflowSet() {
-        return turbineCurrentOverflowSet;
-    }
-
-    public void setTurbineCurrentOverflowSet(byte turbineCurrentOverflowSet) {
-        this.turbineCurrentOverflowSet = turbineCurrentOverflowSet;
-    }
-
-    public byte getTurbineTargetLoadSet() {
-        return turbineTargetLoadSet;
-    }
-
-    public void setTurbineTargetLoadSet(byte turbineTargetLoadSet) {
-        this.turbineTargetLoadSet = turbineTargetLoadSet;
-    }
-
-    public byte getTurbineCurrentLoadSet() {
-        return turbineCurrentLoadSet;
-    }
-
-    public void setTurbineCurrentLoadSet(byte turbineCurrentLoadSet) {
-        this.turbineCurrentLoadSet = turbineCurrentLoadSet;
+    public void setTurbineActivated(boolean turbineActivated) {
+        this.turbineActivated = turbineActivated;
     }
 
     public boolean isTurbineCoilsEngaged() {
@@ -1145,11 +875,27 @@ public class ReactorControllerBlockEntity extends BlockEntity implements MenuPro
         this.turbineCoilsEngaged = turbineCoilsEngaged;
     }
 
-    public short getTurbineCurrentFlow() {
+    public byte getTurbineTargetFlow() {
+        return turbineTargetFlow;
+    }
+
+    public void setTurbineTargetFlow(byte turbineTargetFlow) {
+        this.turbineTargetFlow = turbineTargetFlow;
+    }
+
+    public byte getTurbineSpeed() {
+        return turbineSpeed;
+    }
+
+    public void setTurbineSpeed(byte turbineSpeed) {
+        this.turbineSpeed = turbineSpeed;
+    }
+
+    public byte getTurbineCurrentFlow() {
         return turbineCurrentFlow;
     }
 
-    public void setTurbineCurrentFlow(short turbineCurrentFlow) {
+    public void setTurbineCurrentFlow(byte turbineCurrentFlow) {
         this.turbineCurrentFlow = turbineCurrentFlow;
     }
 

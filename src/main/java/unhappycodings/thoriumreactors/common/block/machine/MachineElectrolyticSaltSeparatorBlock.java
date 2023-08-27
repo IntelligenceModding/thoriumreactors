@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,10 +31,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -44,10 +40,8 @@ import unhappycodings.thoriumreactors.common.blockentity.machine.MachineElectrol
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
-import unhappycodings.thoriumreactors.common.util.LootUtil;
 import unhappycodings.thoriumreactors.common.util.ParticleUtil;
 
-import java.util.Collections;
 import java.util.List;
 
 public class MachineElectrolyticSaltSeparatorBlock extends BaseEntityBlock {
@@ -60,6 +54,11 @@ public class MachineElectrolyticSaltSeparatorBlock extends BaseEntityBlock {
     }
 
     @Override
+    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
+        return state.getValue(POWERED) ? 6 : 0;
+    }
+
+    @Override
     public void animateTick(BlockState pState, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource randomSource) {
         if (pState.getValue(POWERED)) {
             ParticleUtil.renderSmokeParticles(pos, randomSource, level);
@@ -69,15 +68,6 @@ public class MachineElectrolyticSaltSeparatorBlock extends BaseEntityBlock {
         }
     }
 
-    @Override
-    public List<ItemStack> getDrops(BlockState pState, LootContext.Builder pBuilder) {
-        return Collections.singletonList(LootUtil.getLoot((BaseContainerBlockEntity) pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
-    }
-
-    @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return LootUtil.getLoot((BaseContainerBlockEntity) level.getBlockEntity(pos), this);
-    }
 
     @SuppressWarnings("deprecation")
     @NotNull

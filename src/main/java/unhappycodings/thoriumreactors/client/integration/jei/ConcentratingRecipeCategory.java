@@ -71,7 +71,7 @@ public class ConcentratingRecipeCategory implements IRecipeCategory<Concentratin
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ConcentratingRecipe recipe, IFocusGroup focusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder builder, ConcentratingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, 21, 21).addItemStack(recipe.getIngredients().get(0).getItems()[0]);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 103, 21).addItemStack(recipe.getResultItem());
     }

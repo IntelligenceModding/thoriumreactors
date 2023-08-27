@@ -54,11 +54,11 @@ public class EvaporatingRecipeCategory implements IRecipeCategory<EvaporatingRec
         RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 80);
     }
 
-    public int getGuiTop () {
+    public int getGuiTop() {
         return 20;
     }
 
-    public int getGuiBottom () {
+    public int getGuiBottom() {
         return 10;
     }
 
@@ -66,7 +66,7 @@ public class EvaporatingRecipeCategory implements IRecipeCategory<EvaporatingRec
         return 10;
     }
 
-    public int getGuiRight () {
+    public int getGuiRight() {
         return 12;
     }
 

@@ -2,16 +2,13 @@ package unhappycodings.thoriumreactors.common.block.thermal;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -22,13 +19,12 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
-import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.block.thermal.base.ThermalFrameBlock;
+import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalHeatSinkBlockEntity;
 
-import java.util.List;
 import java.util.Map;
 
-public class ThermalSinkBlock extends Block {
+public class ThermalSinkBlock extends ThermalFrameBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public static final VoxelShape EAST_WEST = Shapes.or(Block.box(0, 3, 13.25, 16, 15.5, 14.25),
@@ -68,21 +64,18 @@ public class ThermalSinkBlock extends Block {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
-        if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
-            pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
-        } else {
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.literal(" for a block description.").withStyle(ChatFormatting.GRAY)));
-        }
-    }
-
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING);
     }
 
+    @NotNull
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         return AABBS.get(pState.getValue(FACING));
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
+        return new ThermalHeatSinkBlockEntity(pPos, pState);
     }
 }

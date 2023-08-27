@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
@@ -146,7 +147,7 @@ public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    public void setItem(int pSlot, ItemStack pStack) {
+    public void setItem(int pSlot, @NotNull ItemStack pStack) {
     }
 
     @Override

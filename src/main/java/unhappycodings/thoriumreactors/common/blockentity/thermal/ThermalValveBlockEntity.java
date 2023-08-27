@@ -8,7 +8,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -19,10 +18,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
+import unhappycodings.thoriumreactors.common.blockentity.thermal.base.ThermalFrameBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 
-public class ThermalValveBlockEntity extends BlockEntity {
-    public static final int MAX_FLUID_IN = 1000;
+public class ThermalValveBlockEntity extends ThermalFrameBlockEntity {
+    public static final int MAX_FLUID_IN = 10000;
     private final ModFluidTank FLUID_TANK_IN = new ModFluidTank(MAX_FLUID_IN, true, true, 0, FluidStack.EMPTY);
 
     private LazyOptional<FluidTank> lazyFluidInHandler = LazyOptional.empty();
@@ -57,7 +57,7 @@ public class ThermalValveBlockEntity extends BlockEntity {
     @NotNull
     @Override
     public CompoundTag getUpdateTag() {
-        CompoundTag nbt = new CompoundTag();
+        CompoundTag nbt = super.getUpdateTag();
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
         return nbt;
     }
@@ -65,24 +65,19 @@ public class ThermalValveBlockEntity extends BlockEntity {
     @Override
     public void handleUpdateTag(final CompoundTag tag) {
         FLUID_TANK_IN.readFromNBT(tag.getCompound("FluidIn"));
+        super.handleUpdateTag(tag);
     }
 
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
+        super.saveAdditional(nbt);
     }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
         FLUID_TANK_IN.readFromNBT(nbt.getCompound("FluidIn"));
-    }
-
-    public CompoundTag parsePosToTag(BlockPos pos) {
-        CompoundTag position = new CompoundTag();
-        position.putInt("x", pos.getX());
-        position.putInt("y", pos.getY());
-        position.putInt("z", pos.getZ());
-        return position;
+        super.load(nbt);
     }
 
     @Override

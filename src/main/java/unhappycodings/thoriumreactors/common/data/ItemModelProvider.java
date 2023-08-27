@@ -86,9 +86,20 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.MODULE_SENSOR.get());
         simpleItem(ModItems.MODULE_PROCESSING.get());
 
-        withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/simple_fluid_tank"));
-        withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/generic_fluid_tank"));
-        withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/progressive_fluid_tank"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/factory_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block"));
+
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_black_yellow_left"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_black_yellow_right"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_white_orange_left"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_white_orange_right"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_white_black_left"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_white_black_right"));
+
+        withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.CREATIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.THORIUM_CRAFTING_TABLE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table"));
 

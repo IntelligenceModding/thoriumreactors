@@ -75,23 +75,15 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
     @Override
     public boolean canInputEnergy() {
         return false;
-    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+    }
+
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
         @Override
         public void onEnergyChanged() {
             setChanged();
             energy = ENERGY_STORAGE.getEnergyStored();
         }
     };
-
-    @Override
-    public boolean canInputEnergy(Direction direction) {
-        return false;
-    }
-
-    @Override
-    public boolean canOutputEnergy() {
-        return true;
-    }
 
     @Override
     public boolean canOutputEnergy(Direction direction) {
@@ -408,8 +400,5 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
     public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
         return false;
     }
-
-
-
 
 }

@@ -10,7 +10,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.slf4j.Logger;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
-import unhappycodings.thoriumreactors.common.ItemCreativeTab;
+import unhappycodings.thoriumreactors.client.integration.top.TOPIntegrations;
+import unhappycodings.thoriumreactors.common.MachineryItemCreativeTab;
+import unhappycodings.thoriumreactors.common.ResourcesItemCreativeTab;
 import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.registration.*;
@@ -22,7 +24,8 @@ public class ThoriumReactors {
     public static final String MOD_ID = "thoriumreactors";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final CreativeModeTab creativeTab = new ItemCreativeTab();
+    public static final CreativeModeTab resourcesCreativeTab = new ResourcesItemCreativeTab();
+    public static final CreativeModeTab machineryCreativeTab = new MachineryItemCreativeTab();
 
     public ThoriumReactors() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -40,6 +43,8 @@ public class ThoriumReactors {
         ModContainerTypes.register();
         ModRecipes.register();
 
+        bus.addListener(TOPIntegrations::sendIMCs);
+
         CommonConfig.loadConfigFile(CommonConfig.commonConfig, FMLPaths.CONFIGDIR.get().resolve("thoriumreactors-common.toml").toString());
         ClientConfig.loadConfigFile(ClientConfig.clientConfig, FMLPaths.CONFIGDIR.get().resolve("thoriumreactors-client.toml").toString());
         MinecraftForge.EVENT_BUS.register(this);
@@ -48,6 +53,7 @@ public class ThoriumReactors {
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(PacketHandler::init);
+        TOPIntegrations.commonSetup();
     }
 
 }

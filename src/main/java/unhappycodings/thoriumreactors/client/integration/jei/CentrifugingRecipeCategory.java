@@ -55,11 +55,11 @@ public class CentrifugingRecipeCategory implements IRecipeCategory<CentrifugingR
         RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 71);
     }
 
-    public int getGuiTop () {
+    public int getGuiTop() {
         return 20;
     }
 
-    public int getGuiBottom () {
+    public int getGuiBottom() {
         return 10;
     }
 
@@ -67,7 +67,7 @@ public class CentrifugingRecipeCategory implements IRecipeCategory<CentrifugingR
         return 10;
     }
 
-    public int getGuiRight () {
+    public int getGuiRight() {
         return 10;
     }
 
@@ -96,7 +96,7 @@ public class CentrifugingRecipeCategory implements IRecipeCategory<CentrifugingR
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, CentrifugingRecipe recipe, IFocusGroup focusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder builder, CentrifugingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).setFluidRenderer(6000, true, 18, 66)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));
         builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 83, getGuiTop() + 1).setFluidRenderer(10000, true, 18, 66)

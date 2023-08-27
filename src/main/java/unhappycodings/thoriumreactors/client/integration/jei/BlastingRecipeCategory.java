@@ -43,11 +43,10 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
     @Override
     public List<Component> getTooltipStrings(@NotNull BlastingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         List<Component> list = new ArrayList<>();
-        if (RenderUtil.mouseInArea(10 + 52, 20 + 0, 10 + 67, 20 + 15, (int) mouseX, (int) mouseY)) {
+        if (RenderUtil.mouseInArea(10 + 52, 20, 10 + 67, 20 + 15, (int) mouseX, (int) mouseY)) {
             list.add(Component.literal(recipe.getTemperature() + "°C"));
         }
         return list;
-        // 10 + 52, 20 + 0
     }
 
     @Override
@@ -58,7 +57,7 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
             this.heating = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 240, 231, 16, 16), 80, IDrawableAnimated.StartDirection.BOTTOM, false);
         }
         progress.draw(stack, 10 + 43, 20 + 21);
-        heating.draw(stack, 10 + 52, 20 + 0);
+        heating.draw(stack, 10 + 52, 20);
         RenderUtil.drawCenteredText("Blasting", stack, getBackground().getWidth() / 2, 6);
         RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", stack, getBackground().getWidth() / 2, 20 + 40);
 

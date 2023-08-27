@@ -9,7 +9,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.registration.Registration;
 
 public class ModPlacedFeatures {
 

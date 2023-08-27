@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "unhappycodings.thoriumreactors.common.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "thoriumreactors.refmap.json",
+  "mixins": [
+    "LivingEntityMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "thoriumreactors:block/warning_block_lined_white_orange_right"
+  }
+}

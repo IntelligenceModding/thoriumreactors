@@ -57,11 +57,11 @@ public class DecomposingRecipeCategory implements IRecipeCategory<DecomposingRec
         RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 40);
     }
 
-    public int getGuiTop () {
+    public int getGuiTop() {
         return 20;
     }
 
-    public int getGuiBottom () {
+    public int getGuiBottom() {
         return 10;
     }
 
@@ -69,7 +69,7 @@ public class DecomposingRecipeCategory implements IRecipeCategory<DecomposingRec
         return 10;
     }
 
-    public int getGuiRight () {
+    public int getGuiRight() {
         return 10;
     }
 
@@ -98,7 +98,7 @@ public class DecomposingRecipeCategory implements IRecipeCategory<DecomposingRec
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, DecomposingRecipe recipe, IFocusGroup focusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder builder, DecomposingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).addItemStack(recipe.getIngredients().get(0).getItems()[0]);
         builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 1, getGuiTop() + 23).setFluidRenderer(3000, true, 17, 44)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));

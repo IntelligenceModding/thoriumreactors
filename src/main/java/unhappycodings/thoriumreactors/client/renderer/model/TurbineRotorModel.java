@@ -9,9 +9,10 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 
-public class TurbineRotorModel <T extends Entity> extends EntityModel<T> {
+public class TurbineRotorModel<T extends Entity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ThoriumReactors.MOD_ID, "turbine_rotor"), "main");
     private final ModelPart bb_main;
 
@@ -29,12 +30,12 @@ public class TurbineRotorModel <T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void setupAnim(@NotNull T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+        // empty on purpose
     }
 }

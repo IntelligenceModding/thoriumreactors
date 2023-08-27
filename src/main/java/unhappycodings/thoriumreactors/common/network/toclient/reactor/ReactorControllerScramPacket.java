@@ -26,7 +26,10 @@ public class ReactorControllerScramPacket implements IPacket {
         Level level = player.getCommandSenderWorld();
         BlockEntity machine = level.getBlockEntity(pos);
         if (!(machine instanceof ReactorControllerBlockEntity blockEntity)) return;
-        blockEntity.setScrammed(!blockEntity.isScrammed());
+        if (!blockEntity.isScrammed())
+            blockEntity.scram("Manual Scram!");
+        else
+            blockEntity.setScrammed(!blockEntity.isScrammed());
         blockEntity.setChanged();
     }
 

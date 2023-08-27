@@ -12,11 +12,14 @@ import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.machine.*;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
+import unhappycodings.thoriumreactors.common.network.toclient.turbine.ClientTurbineControllerDataPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachinePowerablePacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineRedstoneModePacket;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerChangedPacket;
+import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerCopyTurbinePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerRemoveTurbinePacket;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerStatePacket;
 
 import java.util.Optional;
@@ -46,13 +49,15 @@ public class PacketHandler {
         registerServerToClient(ClientReactorRenderDataPacket.class, ClientReactorRenderDataPacket::decode);
         registerServerToClient(ClientFluidTankRenderDataPacket.class, ClientFluidTankRenderDataPacket::decode);
         registerServerToClient(ClientReactorParticleDataPacket.class, ClientReactorParticleDataPacket::decode);
+        registerServerToClient(ClientTurbineControllerDataPacket.class, ClientTurbineControllerDataPacket::decode);
 
         registerClientToServer(ReactorOpenContainerPacket.class, ReactorOpenContainerPacket::decode);
         registerClientToServer(ReactorControllerScramPacket.class, ReactorControllerScramPacket::decode);
-        registerClientToServer(ReactorControllerTurbineCoilsPacket.class, ReactorControllerTurbineCoilsPacket::decode);
-        registerClientToServer(ReactorControllerTurbineSpeedPacket.class, ReactorControllerTurbineSpeedPacket::decode);
-        registerClientToServer(ReactorControllerTurbineOverflowPacket.class, ReactorControllerTurbineOverflowPacket::decode);
-        registerClientToServer(ReactorControllerTurbineLoadPacket.class, ReactorControllerTurbineLoadPacket::decode);
+        registerClientToServer(ReactorControllerRemoveTurbinePacket.class, ReactorControllerRemoveTurbinePacket::decode);
+        registerClientToServer(ReactorControllerCopyTurbinePacket.class, ReactorControllerCopyTurbinePacket::decode);
+        registerClientToServer(TurbineCoilsPacket.class, TurbineCoilsPacket::decode);
+        registerClientToServer(TurbineActivePacket.class, TurbineActivePacket::decode);
+        registerClientToServer(TurbineFlowPacket.class, TurbineFlowPacket::decode);
         registerClientToServer(ReactorControllerRodInsertPacket.class, ReactorControllerRodInsertPacket::decode);
         registerClientToServer(ReactorControllerLoadPacket.class, ReactorControllerLoadPacket::decode);
         registerClientToServer(ReactorControllerTemperaturePacket.class, ReactorControllerTemperaturePacket::decode);

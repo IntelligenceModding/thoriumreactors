@@ -88,22 +88,12 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
     };
 
     @Override
-    public boolean canInputEnergy() {
-        return true;
-    }
-
-    @Override
     public boolean canInputEnergy(Direction direction) {
         return this.getBlockState().getValue(MachineBlastFurnaceBlock.FACING).getOpposite() == direction;
     }
 
     @Override
     public boolean canOutputEnergy() {
-        return false;
-    }
-
-    @Override
-    public boolean canOutputEnergy(Direction direction) {
         return false;
     }
 

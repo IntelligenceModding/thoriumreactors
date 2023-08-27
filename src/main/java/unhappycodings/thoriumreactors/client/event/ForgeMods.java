@@ -34,26 +34,19 @@ public class ForgeMods {
     protected static List<String> prepare() {
         try {
             BufferedReader bufferedreader = Minecraft.getInstance().getResourceManager().openAsReader(SPLASHES_LOCATION);
+            List<String> list;
 
-            List list;
             try {
                 list = bufferedreader.lines().map(String::trim).filter((p_118876_) -> p_118876_.hashCode() != 125780783).collect(Collectors.toList());
             } catch (Throwable throwable1) {
-                if (bufferedreader != null) {
-                    try {
-                        bufferedreader.close();
-                    } catch (Throwable throwable) {
-                        throwable1.addSuppressed(throwable);
-                    }
+                try {
+                    bufferedreader.close();
+                } catch (Throwable throwable) {
+                    throwable1.addSuppressed(throwable);
                 }
-
                 throw throwable1;
             }
-
-            if (bufferedreader != null) {
-                bufferedreader.close();
-            }
-
+            bufferedreader.close();
             return list;
         } catch (IOException ioexception) {
             return Collections.emptyList();

@@ -1,3 +1,3 @@
 {
-  "parent": "thoriumreactors:block/simple_fluid_tank"
+  "parent": "thoriumreactors:block/builtinentitymodel"
 }

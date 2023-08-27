@@ -81,7 +81,9 @@ public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity im
         this.lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
         this.lazyFluidTankIn = LazyOptional.of(() -> FLUID_TANK_IN);
         this.lazyFluidTankOut = LazyOptional.of(() -> FLUID_TANK_OUT);
-    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+    }
+
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -107,22 +109,12 @@ public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity im
     }
 
     @Override
-    public boolean canInputEnergy() {
-        return true;
-    }
-
-    @Override
     public boolean canInputEnergy(Direction direction) {
         return this.getBlockState().getValue(MachineDecomposerBlock.FACING).getOpposite() == direction;
     }
 
     @Override
     public boolean canOutputEnergy() {
-        return false;
-    }
-
-    @Override
-    public boolean canOutputEnergy(Direction direction) {
         return false;
     }
 
@@ -611,8 +603,6 @@ public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity im
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
         return new MachineDecomposerContainer(pContainerId, pInventory, getBlockPos(), getLevel(), getContainerSize());
     }
-
-
 
 
 }

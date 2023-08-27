@@ -94,16 +94,21 @@ public class BlastingRecipe implements Recipe<SimpleContainer> {
         @Override
         public BlastingRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
             Ingredient inputLeft = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-0"));
-            if (inputLeft.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input left ingredient must be set! (" + inputLeft + ")");
+            if (inputLeft.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input left ingredient must be set! (" + inputLeft + ")");
             Ingredient inputRight = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-1"));
-            if (inputRight.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input right ingredient must be set! (" + inputRight + ")");
+            if (inputRight.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input right ingredient must be set! (" + inputRight + ")");
 
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-            if (output.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Output ingredient must be set! (" + output + ")");
+            if (output.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Output ingredient must be set! (" + output + ")");
             int ticks = GsonHelper.getAsInt(pSerializedRecipe, "ticks");
-            if (ticks <= 0 || ticks > 2500) throw new IllegalArgumentException("Invalid pattern: Needed ticks cannot be zero or higher than 2500! (" + ticks + ")");
+            if (ticks <= 0 || ticks > 2500)
+                throw new IllegalArgumentException("Invalid pattern: Needed ticks cannot be zero or higher than 2500! (" + ticks + ")");
             int temperature = GsonHelper.getAsInt(pSerializedRecipe, "temperature");
-            if (temperature <= 0 || temperature > 2500) throw new IllegalArgumentException("Invalid pattern: Needed temperature cannot be zero or higher than 2500! (" + ticks + ")");
+            if (temperature <= 0 || temperature > 2500)
+                throw new IllegalArgumentException("Invalid pattern: Needed temperature cannot be zero or higher than 2500! (" + ticks + ")");
             return new BlastingRecipe(pRecipeId, inputLeft, inputRight, output, ticks, temperature);
         }
 

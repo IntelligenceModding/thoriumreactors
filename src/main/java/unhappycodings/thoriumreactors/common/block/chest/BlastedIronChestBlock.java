@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -45,25 +44,26 @@ import unhappycodings.thoriumreactors.common.util.LootUtil;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class BlastedIronChestBlock extends BaseEntityBlock {
     protected static final VoxelShape AABB = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-    public BlastedIronChestBlock(Properties pProperties, Supplier<BlockEntityType<? extends BlastedIronChestBlockEntity>> pBlockEntityType) {
+    public BlastedIronChestBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
+    @SuppressWarnings("deprecation")
+    @NotNull
     @Override
-    public List<ItemStack> getDrops(BlockState pState, LootContext.Builder pBuilder) {
-        return Collections.singletonList(LootUtil.getLoot((BaseContainerBlockEntity) pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
+    public List<ItemStack> getDrops(@NotNull BlockState pState, LootContext.Builder pBuilder) {
+        return Collections.singletonList(LootUtil.getLoot(pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return LootUtil.getLoot((BaseContainerBlockEntity) level.getBlockEntity(pos), this);
+        return LootUtil.getLoot(level.getBlockEntity(pos), this);
     }
 
     @Override
@@ -115,10 +115,6 @@ public class BlastedIronChestBlock extends BaseEntityBlock {
         pBuilder.add(FACING);
     }
 
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> type) {
-        return level.isClientSide ? (a, b, c, blockEntity) -> ((BlastedIronChestBlockEntity) blockEntity).lidAnimateTick() : (a, b, c, blockEntity) -> ((BlastedIronChestBlockEntity) blockEntity).tick();
-    }
-
     @SuppressWarnings("deprecation")
     @NotNull
     public VoxelShape getShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
@@ -131,4 +127,7 @@ public class BlastedIronChestBlock extends BaseEntityBlock {
         return ModBlockEntities.BLASTED_IRON_CHEST_BLOCK.get().create(pos, state);
     }
 
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> type) {
+        return level.isClientSide ? (a, b, c, blockEntity) -> ((BlastedIronChestBlockEntity) blockEntity).lidAnimateTick() : (a, b, c, blockEntity) -> ((BlastedIronChestBlockEntity) blockEntity).tick();
+    }
 }

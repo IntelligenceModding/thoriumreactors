@@ -4,16 +4,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
 import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
+import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
@@ -32,6 +30,16 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+        simpleBlock(ModBlocks.FACTORY_BLOCK.get());
+        simpleBlock(ModBlocks.INDUSTRAL_BLOCK.get());
+
+        simpleBlock(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get());
+        simpleBlock(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get());
+        simpleBlock(ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get());
+        simpleBlock(ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get());
+        simpleBlock(ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get());
+        simpleBlock(ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get());
+
         simpleBlock(ModBlocks.MANGANESE_ORE.get());
         simpleBlock(ModBlocks.DEEPSLATE_MANGANESE_ORE.get());
         simpleBlock(ModBlocks.CHROMITE_ORE.get());
@@ -72,6 +80,7 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.SIMPLE_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
         simpleBlock(ModBlocks.GENERIC_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
         simpleBlock(ModBlocks.PROGRESSIVE_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
+        simpleBlock(ModBlocks.CREATIVE_FLUID_TANK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.CREATIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("1", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).texture("2", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank_valve")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank")).renderType("cutout"));
 
         heatSinkBlock(ModBlocks.THERMAL_HEAT_SINK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
         allSideBlock(ModBlocks.THERMAL_CONDUCTOR.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
@@ -79,7 +88,7 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         valveBlock(ModBlocks.THERMAL_VALVE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_valve"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thermal_conductor"));
 
         simpleBlock(ModBlocks.REACTOR_CASING.get());
-        allSideFrontBlockOnOff(ModBlocks.REACTOR_CONTROLLER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_controller"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_casing"));
+        allSideFrontBlockOnOffScram(ModBlocks.REACTOR_CONTROLLER_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_controller"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_casing"));
         controlRodBlock(ModBlocks.REACTOR_ROD_CONTROLLER.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_rod_controller"));
         coreBlock(ModBlocks.REACTOR_CORE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_core"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_casing"));
         valveBlock(ModBlocks.REACTOR_VALVE.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_valve"), new ResourceLocation(ThoriumReactors.MOD_ID, "block/reactor_casing"));
@@ -193,7 +202,8 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         ModelFile model6 = models().withExistingParent(ItemUtil.getRegString(block) + "_6", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_6")).texture("0", texture).texture("particle", texture);
         ModelFile model7 = models().withExistingParent(ItemUtil.getRegString(block) + "_7", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_7")).texture("0", texture).texture("particle", texture);
         ModelFile model8 = models().withExistingParent(ItemUtil.getRegString(block) + "_8", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_8")).texture("0", texture).texture("particle", texture);
-        if (simple) return;ConfiguredModel.builder().modelFile(modelDefault).build();
+        if (simple) return;
+        ConfiguredModel.builder().modelFile(modelDefault).build();
         getVariantBuilder(block).forAllStates(state -> {
             ModelFile finalModel = switch (state.getValue(TurbineRotorBlock.BLADES)) {
                 case 0 -> modelDefault;
@@ -227,6 +237,23 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         getVariantBuilder(block).forAllStates(state -> {
             int rot = getRotForDir(state.getValue(ThermalControllerBlock.FACING));
             return ConfiguredModel.builder().modelFile(state.getValue(ThermalControllerBlock.POWERED) ? on : off).rotationY(rot).build();
+        });
+    }
+
+
+    public void allSideFrontBlockOnOffScram(Block block, ResourceLocation texture, ResourceLocation main) {
+        ModelFile off = models().withExistingParent(ItemUtil.getRegString(block) + "_off", new ResourceLocation("block/cube"))
+                .texture("north", texture + "_off").texture("east", main).texture("south", main).texture("west", main).texture("up", main).texture("down", main).texture("particle", texture + "_off");
+        ModelFile on = models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation("block/cube"))
+                .texture("north", texture).texture("east", main).texture("south", main).texture("west", main).texture("up", main).texture("down", main).texture("particle", texture);
+        ModelFile scram = models().withExistingParent(ItemUtil.getRegString(block) + "_scram", new ResourceLocation("block/cube"))
+                .texture("north", texture + "_scram").texture("east", main).texture("south", main).texture("west", main).texture("up", main).texture("down", main).texture("particle", texture + "_scram");
+        getVariantBuilder(block).forAllStates(state -> {
+            int rot = getRotForDir(state.getValue(ThermalControllerBlock.FACING));
+            ModelFile target = off;
+            if (state.getValue(ReactorControllerBlock.POWERED)) target = on;
+            if (state.getValue(ReactorControllerBlock.SCRAMMED)) target = scram;
+            return ConfiguredModel.builder().modelFile(target).rotationY(rot).build();
         });
     }
 

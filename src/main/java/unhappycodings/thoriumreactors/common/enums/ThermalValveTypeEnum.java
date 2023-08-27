@@ -7,6 +7,7 @@ public enum ThermalValveTypeEnum implements StringRepresentable {
     COOLANT_OUTPUT("coolant_output"),
     HEATING_FLUID_INPUT("heating_fluid_input"),
     HEATING_FLUID_OUTPUT("heating_fluid_output");
+
     private static final ThermalValveTypeEnum[] vals = values();
     private String name;
 

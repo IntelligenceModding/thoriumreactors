@@ -100,7 +100,7 @@ public class MachineSaltMelterScreen extends MachineScreen<MachineSaltMelterCont
         if (RenderUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});
         if (RenderUtil.mouseInArea(getGuiLeft() + 119, getGuiTop() + 20, getGuiLeft() + 136, getGuiTop() + 85, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getFluidAmountOut() > 0 ? "Fluid: Molten Salt" : "", entity.getFluidAmountOut() + " mb / " + entity.getFluidCapacityOut() + " mb", FormattingUtil.formatPercentNum(entity.getFluidAmountOut(), entity.getFluidCapacityOut(), true)});
+            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getFluidAmountOut() > 0 ? "Fluid: " + entity.getFluidOut().getFluid().getFluidType().getDescription().getString() : "", entity.getFluidAmountOut() + " mb / " + entity.getFluidCapacityOut() + " mb", FormattingUtil.formatPercentNum(entity.getFluidAmountOut(), entity.getFluidCapacityOut(), true)});
 
     }
 

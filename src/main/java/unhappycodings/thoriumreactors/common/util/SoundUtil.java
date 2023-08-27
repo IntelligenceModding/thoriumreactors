@@ -17,7 +17,7 @@ public class SoundUtil {
 
         if (!players.isEmpty()) {
             ClientboundStopSoundPacket clientboundstopsoundpacket = new ClientboundStopSoundPacket(event.getLocation(), source);
-            for(ServerPlayer serverplayer : players)
+            for (ServerPlayer serverplayer : players)
                 serverplayer.connection.send(clientboundstopsoundpacket);
         }
     }

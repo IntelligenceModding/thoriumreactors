@@ -84,22 +84,17 @@ public abstract class BaseWidget extends AbstractWidget {
         if (this instanceof ModButton) pHandler.play(SimpleSoundInstance.forUI(sound, 1.0F));
     }
 
-    public <ELEMENT extends BaseWidget> ELEMENT addChild(ELEMENT child) {
-        children.add(child);
-        return child;
-    }
-
     @Override
     public boolean isMouseOver(double mouseX, double mouseY) {
         return super.isMouseOver(mouseX, mouseY) || children.stream().anyMatch(child -> child.isMouseOver(mouseX, mouseY));
     }
 
     public void drawText(String text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, (leftPos - (width / 2) - x) - (Minecraft.getInstance().font.width(text) / 2), topPos + y, 4210752);
+        Minecraft.getInstance().font.draw(stack, text, (leftPos - (width / 2f) - x) - (Minecraft.getInstance().font.width(text) / 2f), topPos + y, 4210752);
     }
 
     public void drawText(Component text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, (leftPos - (width / 2) - x) - (Minecraft.getInstance().font.width(text) / 2), topPos + y, 4210752);
+        Minecraft.getInstance().font.draw(stack, text, (leftPos - (width / 2f) - x) - (Minecraft.getInstance().font.width(text) / 2f), topPos + y, 4210752);
     }
 
     public void renderComponentTooltip(PoseStack poseStack, List<Component> components, int x, int y) {

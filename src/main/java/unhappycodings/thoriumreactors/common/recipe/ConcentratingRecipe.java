@@ -86,11 +86,14 @@ public class ConcentratingRecipe implements Recipe<SimpleContainer> {
         @Override
         public ConcentratingRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
             Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-0"));
-            if (input.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input ingredient must be set! (" + input + ")");
+            if (input.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input ingredient must be set! (" + input + ")");
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output").getAsJsonObject("slot-0"));
-            if (output.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Output ingredient must be set! (" + output + ")");
+            if (output.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Output ingredient must be set! (" + output + ")");
             int ticks = GsonHelper.getAsInt(pSerializedRecipe, "ticks");
-            if (ticks <= 0 || ticks > 2500) throw new IllegalArgumentException("Invalid pattern: Needed ticks cannot be zero or higher than 2500! (" + ticks + ")");
+            if (ticks <= 0 || ticks > 2500)
+                throw new IllegalArgumentException("Invalid pattern: Needed ticks cannot be zero or higher than 2500! (" + ticks + ")");
             return new ConcentratingRecipe(pRecipeId, input, output, ticks);
         }
 

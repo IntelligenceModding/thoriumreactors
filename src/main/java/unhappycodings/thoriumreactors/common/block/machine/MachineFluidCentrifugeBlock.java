@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -59,20 +58,27 @@ public class MachineFluidCentrifugeBlock extends BaseEntityBlock {
     }
 
     @Override
+    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
+        return state.getValue(POWERED) ? 6 : 0;
+    }
+
+    @Override
     public void animateTick(BlockState pState, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource randomSource) {
         if (pState.getValue(POWERED)) {
             ParticleUtil.renderSmokeParticles(pos, randomSource, level);
         }
     }
 
+    @SuppressWarnings("deprecation")
+    @NotNull
     @Override
-    public List<ItemStack> getDrops(BlockState pState, LootContext.Builder pBuilder) {
-        return Collections.singletonList(LootUtil.getLoot((BaseContainerBlockEntity) pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
+    public List<ItemStack> getDrops(@NotNull BlockState pState, LootContext.Builder pBuilder) {
+        return Collections.singletonList(LootUtil.getLoot(pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return LootUtil.getLoot((BaseContainerBlockEntity) level.getBlockEntity(pos), this);
+        return LootUtil.getLoot(level.getBlockEntity(pos), this);
     }
 
     @SuppressWarnings("deprecation")

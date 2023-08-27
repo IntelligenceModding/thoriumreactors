@@ -26,10 +26,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
+import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 
-public class ReactorValveBlockEntity extends BlockEntity implements WorldlyContainer {
-    public static final int MAX_FLUID_IN = 100;
+public class ReactorValveBlockEntity extends ReactorFrameBlockEntity implements WorldlyContainer {
+    public static final int MAX_FLUID_IN = 1000;
     private final ModFluidTank FLUID_TANK_IN = new ModFluidTank(MAX_FLUID_IN, true, true, 0, FluidStack.EMPTY);
 
     private final LazyOptional<IItemHandlerModifiable>[] itemHandler = SidedInvWrapper.create(this, Direction.values());
@@ -40,6 +41,30 @@ public class ReactorValveBlockEntity extends BlockEntity implements WorldlyConta
     public ReactorValveBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.REACTOR_VALVE.get(), pPos, pBlockState);
         items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+    }
+
+    public ModFluidTank getFluidTank() {
+        return FLUID_TANK_IN;
+    }
+
+    public FluidStack getFluidIn() {
+        return FLUID_TANK_IN.getFluid();
+    }
+
+    public void setFluidIn(FluidStack stack) {
+        FLUID_TANK_IN.setFluid(stack);
+    }
+
+    public int getFluidCapacityIn() {
+        return FLUID_TANK_IN.getCapacity();
+    }
+
+    public int getFluidSpaceIn() {
+        return FLUID_TANK_IN.getSpace();
+    }
+
+    public int getFluidAmountIn() {
+        return FLUID_TANK_IN.getFluidAmount();
     }
 
     @Override
@@ -55,24 +80,16 @@ public class ReactorValveBlockEntity extends BlockEntity implements WorldlyConta
         if (cap == ForgeCapabilities.ITEM_HANDLER && !isRemoved() && side != null) {
             if (facing == side) return itemHandler[side.get3DDataValue()].cast();
         }
-        if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
+        if (cap == ForgeCapabilities.FLUID_HANDLER && side != null && side == getBlockState().getValue(ReactorValveBlock.FACING)) {
             return lazyFluidInHandler.cast();
         }
         return super.getCapability(cap, side);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if (cap == ForgeCapabilities.FLUID_HANDLER) {
-            return lazyFluidInHandler.cast();
-        }
-        return super.getCapability(cap);
-    }
-
     @NotNull
     @Override
     public CompoundTag getUpdateTag() {
-        CompoundTag nbt = new CompoundTag();
+        CompoundTag nbt = super.getUpdateTag();
         nbt.put("ReactorCorePosition", parsePosToTag(getReactorCorePosition()));
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
         return nbt;
@@ -82,6 +99,7 @@ public class ReactorValveBlockEntity extends BlockEntity implements WorldlyConta
     public void handleUpdateTag(final CompoundTag tag) {
         setReactorCorePosition(BlockEntity.getPosFromTag(tag.getCompound("ReactorCorePosition")));
         FLUID_TANK_IN.readFromNBT(tag.getCompound("FluidIn"));
+        super.handleUpdateTag(tag);
     }
 
     @Override
@@ -89,6 +107,7 @@ public class ReactorValveBlockEntity extends BlockEntity implements WorldlyConta
         nbt.put("ReactorCorePosition", parsePosToTag(getReactorCorePosition()));
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
         ContainerHelper.saveAllItems(nbt, this.items, true);
+        super.saveAdditional(nbt);
     }
 
     @Override
@@ -96,6 +115,7 @@ public class ReactorValveBlockEntity extends BlockEntity implements WorldlyConta
         ContainerHelper.loadAllItems(nbt, this.items);
         setReactorCorePosition(BlockEntity.getPosFromTag(nbt.getCompound("ReactorCorePosition")));
         FLUID_TANK_IN.readFromNBT(nbt.getCompound("FluidIn"));
+        super.load(nbt);
     }
 
     public CompoundTag parsePosToTag(BlockPos pos) {

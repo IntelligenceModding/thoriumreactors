@@ -74,10 +74,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         return super.getCapability(cap, side);
     }
 
-    @Override
-    public boolean canInputEnergy() {
-        return true;
-    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -92,11 +89,6 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
 
     @Override
     public boolean canOutputEnergy() {
-        return false;
-    }
-
-    @Override
-    public boolean canOutputEnergy(Direction direction) {
         return false;
     }
 
@@ -134,7 +126,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
                 getItem(0).shrink(1);
                 if (!getState()) setState(true);
             }
-            
+
             ItemStack outputSlot = getItem(1);
             if (outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize()) {
                 if (!getState()) setState(true);
@@ -395,6 +387,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         return ENERGY_STORAGE.receiveEnergy((int) energy, simulate);
     }
 
+    @NotNull
     @Override
     public int[] getSlotsForFace(Direction pSide) {
         if (pSide == this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING).getClockWise())
@@ -416,8 +409,6 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         return facing.getCounterClockWise() == pDirection;
     }
 
-    ;
-
     @Override
     protected Component getDefaultName() {
         return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
@@ -427,8 +418,5 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
     protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
         return new MachineConcentratorContainer(pContainerId, pInventory, getBlockPos(), getLevel(), getContainerSize());
     }
-
-
-
 
 }

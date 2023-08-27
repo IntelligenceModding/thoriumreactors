@@ -108,5 +108,25 @@
     "sounds": [
       "thoriumreactors:reactor_startup"
     ]
+  },
+  "turbine.hiss.1": {
+    "sounds": [
+      "thoriumreactors:turbine_hiss_1"
+    ]
+  },
+  "turbine.hiss.2": {
+    "sounds": [
+      "thoriumreactors:turbine_hiss_2"
+    ]
+  },
+  "turbine.hiss.3": {
+    "sounds": [
+      "thoriumreactors:turbine_hiss_3"
+    ]
+  },
+  "turbine.run": {
+    "sounds": [
+      "thoriumreactors:turbine_run"
+    ]
   }
 }

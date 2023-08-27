@@ -2,13 +2,17 @@ package unhappycodings.thoriumreactors.common.block.tank;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
@@ -23,7 +27,10 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.LavaFluid;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.WaterFluid;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -32,7 +39,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,6 +54,7 @@ import unhappycodings.thoriumreactors.common.util.LootUtil;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class FluidTankBlock extends BaseEntityBlock {
     public int capacity = 0;
@@ -72,9 +83,11 @@ public class FluidTankBlock extends BaseEntityBlock {
                         FluidStack itemAmount = storage.drain(amount, IFluidHandler.FluidAction.SIMULATE);
                         if (itemAmount.getAmount() > 0) {
                             entity.getFluidTank().fill(itemAmount, IFluidHandler.FluidAction.EXECUTE);
-                            storage.drain(itemAmount, IFluidHandler.FluidAction.EXECUTE);
-                            if (storage.getFluidInTank(0).isEmpty() && playerHandStack.hasCraftingRemainingItem()) {
-                                pPlayer.setItemInHand(InteractionHand.MAIN_HAND, playerHandStack.getCraftingRemainingItem());
+                            if (!pPlayer.isCreative()) {
+                                storage.drain(itemAmount, IFluidHandler.FluidAction.EXECUTE);
+                                if (storage.getFluidInTank(0).isEmpty() && playerHandStack.hasCraftingRemainingItem()) {
+                                    pPlayer.setItemInHand(InteractionHand.MAIN_HAND, playerHandStack.getCraftingRemainingItem());
+                                }
                             }
                             pLevel.playSound(null, pPos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1, 1);
                         }
@@ -86,7 +99,8 @@ public class FluidTankBlock extends BaseEntityBlock {
                     int itemAmount = storage.fill(amount, IFluidHandler.FluidAction.SIMULATE);
                     if (itemAmount > 0) {
                         if (playerHandStack.is(Items.BUCKET) && itemAmount >= 1000) {
-                            pPlayer.setItemInHand(InteractionHand.MAIN_HAND, entity.getFluidIn().getFluid().getBucket().getDefaultInstance());
+                            if (!pPlayer.isCreative())
+                                pPlayer.setItemInHand(InteractionHand.MAIN_HAND, entity.getFluidIn().getFluid().getBucket().getDefaultInstance());
                             entity.getFluidTank().drain(1000, IFluidHandler.FluidAction.EXECUTE);
                         } else {
                             storage.fill(new FluidStack(entity.getFluidIn(), itemAmount), IFluidHandler.FluidAction.EXECUTE);
@@ -96,6 +110,14 @@ public class FluidTankBlock extends BaseEntityBlock {
                     }
                 }
             });
+            return InteractionResult.SUCCESS;
+        }
+
+        MenuProvider namedContainerProvider = this.getMenuProvider(pState, pLevel, pPos);
+        if (namedContainerProvider != null) {
+            if (pPlayer instanceof ServerPlayer serverPlayerEntity)
+                NetworkHooks.openScreen(serverPlayerEntity, namedContainerProvider, pPos);
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.SUCCESS;
@@ -105,17 +127,62 @@ public class FluidTankBlock extends BaseEntityBlock {
     @NotNull
     @Override
     public List<ItemStack> getDrops(@NotNull BlockState pState, LootContext.Builder pBuilder) {
-        return Collections.singletonList(LootUtil.getLoot((FluidTankBlockEntity) pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
+        return Collections.singletonList(LootUtil.getLoot(pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        return LootUtil.getLoot((FluidTankBlockEntity) level.getBlockEntity(pos), this);
+        return LootUtil.getLoot(level.getBlockEntity(pos), this);
+    }
+
+    @Override
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
+        super.fillItemCategory(tab, items);
+        if (tab == CreativeModeTab.TAB_SEARCH && this.asItem().getDefaultInstance().is(ModBlocks.CREATIVE_FLUID_TANK.get().asItem())) {
+            int index = items.size();
+
+            for (Fluid fluid : getKnownFluids()) {
+                if (fluid instanceof ForgeFlowingFluid.Source || fluid instanceof LavaFluid.Source || fluid instanceof WaterFluid.Source) {
+                    ItemStack blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
+
+                    FluidStack stack = new FluidStack(fluid, Integer.MAX_VALUE);
+                    blockStack.getOrCreateTag().put("BlockEntityTag", writeToNBT(stack));
+
+                    if (!items.contains(blockStack)) {
+                        items.add(index, blockStack);
+                        index++;
+                    }
+                }
+            }
+        }
+    }
+
+    public CompoundTag writeToNBT(FluidStack fluidStack) {
+        CompoundTag dataTag = new CompoundTag();
+        CompoundTag fluidTag = new CompoundTag();
+        dataTag.putString("FluidName", ForgeRegistries.FLUIDS.getKey(fluidStack.getFluid()).toString());
+        dataTag.putInt("Amount", fluidStack.getAmount());
+
+        fluidTag.put("Fluid", dataTag);
+        return fluidTag;
+    }
+
+    @NotNull
+    protected Iterable<Fluid> getKnownFluids() {
+        return ForgeRegistries.FLUIDS.getEntries().stream().map(Map.Entry::getValue)::iterator;
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         CompoundTag tag = pStack.getOrCreateTag().getCompound("BlockEntityTag");
+
+        if (this.defaultBlockState().is(ModBlocks.CREATIVE_FLUID_TANK.get())) {
+            FluidStack fluidIn = FluidStack.loadFluidStackFromNBT(tag.getCompound("Fluid"));
+            pTooltip.add(Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal("Infinite").withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.literal("Capacity: ").withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.literal("Infinite").withStyle(ChatFormatting.GRAY)));
+            return;
+        }
+
         if (tag.get("Fluid") == null) {
             pTooltip.add(Component.literal("Not Placed Yet").withStyle(FormattingUtil.hex(0xCE1F0A)));
             return;
@@ -161,4 +228,5 @@ public class FluidTankBlock extends BaseEntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> type) {
         return level.isClientSide ? null : (a, b, c, blockEntity) -> ((FluidTankBlockEntity) blockEntity).tick();
     }
+
 }

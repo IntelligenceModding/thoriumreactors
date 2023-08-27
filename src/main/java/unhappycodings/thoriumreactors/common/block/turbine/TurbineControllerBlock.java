@@ -7,7 +7,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -31,11 +30,10 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.TurbineMultiblocks;
-import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineCasingBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.base.TurbineFrameBlockEntity;
 import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.multiblock.TurbineMultiblocks;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
@@ -94,7 +92,7 @@ public class TurbineControllerBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level levelIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
         TurbineControllerBlockEntity entity = (TurbineControllerBlockEntity) levelIn.getBlockEntity(pos);
-        if (player.level.isClientSide) return InteractionResult.SUCCESS;
+        if (player.level.isClientSide || interactionHand == InteractionHand.OFF_HAND) return InteractionResult.SUCCESS;
         if (!entity.isAssembled()) {
             Direction facing = state.getValue(FACING);
 
@@ -124,6 +122,9 @@ public class TurbineControllerBlock extends BaseEntityBlock {
                         }
                         turbineCount++;
                     }
+                    if (blockState.is(ModBlocks.TURBINE_VALVE.get())) entity.setValvePos(turbinePosition);
+                    if (blockState.is(ModBlocks.TURBINE_POWER_PORT.get())) entity.setPowerPortPos(turbinePosition);
+
                     if (levelIn.getBlockEntity(turbinePosition) instanceof TurbineFrameBlockEntity turbineFrameBlock) {
                         turbineFrameBlock.setControllerPos(pos);
                     }
@@ -131,9 +132,16 @@ public class TurbineControllerBlock extends BaseEntityBlock {
 
                 entity.setAssembled(canBeAssembled);
                 levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, canBeAssembled));
-                for (Player curPlayer : levelIn.players()) PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING)), ParticleTypeEnum.TURBINE, 5, 9, 5), (ServerPlayer) curPlayer);
+                for (Player curPlayer : levelIn.players())
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING)), ParticleTypeEnum.TURBINE, 5, 9, 5), (ServerPlayer) curPlayer);
                 entity.setTurbineHeight(turbineSize + 1);
             }
+        } else {
+            entity.setAssembled(false);
+            entity.setCoilsEngaged(false);
+            entity.setActivated(false);
+            levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, false));
+
         }
         return InteractionResult.CONSUME;
     }

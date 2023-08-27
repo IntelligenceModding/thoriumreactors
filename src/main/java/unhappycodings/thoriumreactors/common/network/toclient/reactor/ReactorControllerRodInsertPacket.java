@@ -34,10 +34,10 @@ public class ReactorControllerRodInsertPacket implements IPacket {
         if (!(machine instanceof ReactorControllerBlockEntity blockEntity)) return;
         if (shiftDown) {
             for (int i = 0; i < 64; i++) {
-                blockEntity.setControlRodStatus((byte) i, insert);
+                blockEntity.setTargetControlRodStatus((byte) i, insert);
             }
         } else {
-            blockEntity.setControlRodStatus(rod, insert);
+            blockEntity.setTargetControlRodStatus(rod, insert);
         }
         blockEntity.setChanged();
     }

@@ -131,22 +131,29 @@ public class SaltSmeltingRecipe implements Recipe<SimpleContainer> {
         @Override
         public SaltSmeltingRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
             Ingredient input1 = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-0"));
-            if (input1.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input ingredient 0 must be set! (" + input1 + ")");
+            if (input1.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input ingredient 0 must be set! (" + input1 + ")");
             Ingredient input2 = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-1"));
-            if (input2.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input ingredient 1 must be set! (" + input2 + ")");
+            if (input2.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input ingredient 1 must be set! (" + input2 + ")");
             Ingredient input3 = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-2"));
-            if (input3.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input ingredient 2 must be set! (" + input3 + ")");
+            if (input3.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input ingredient 2 must be set! (" + input3 + ")");
 
             FluidStack outputTank = FluidParseUtil.readFluid(GsonHelper.getAsJsonObject(pSerializedRecipe, "output").getAsJsonObject("tank-0"));
-            if (outputTank.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Output fluid must be set! (" + outputTank + ")");
+            if (outputTank.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Output fluid must be set! (" + outputTank + ")");
 
             int ticks = GsonHelper.getAsInt(pSerializedRecipe, "ticks");
-            if (ticks <= 0 || ticks > 2500) throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 2500! (" + ticks + ")");
+            if (ticks <= 0 || ticks > 2500)
+                throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 2500! (" + ticks + ")");
 
             int operationAfterTicks = GsonHelper.getAsInt(pSerializedRecipe, "operationAfterTicks");
-            if (operationAfterTicks <= 0 || operationAfterTicks > 1000) throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 1000! (" + operationAfterTicks + ")");
+            if (operationAfterTicks <= 0 || operationAfterTicks > 1000)
+                throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 1000! (" + operationAfterTicks + ")");
             int temperature = GsonHelper.getAsInt(pSerializedRecipe, "temperature");
-            if (temperature <= 0 || temperature > 2500) throw new IllegalArgumentException("Invalid pattern: Needed temperature cannot be zero or higher than 2500! (" + ticks + ")");
+            if (temperature <= 0 || temperature > 2500)
+                throw new IllegalArgumentException("Invalid pattern: Needed temperature cannot be zero or higher than 2500! (" + ticks + ")");
             return new SaltSmeltingRecipe(pRecipeId, input1, input2, input3, outputTank, ticks, operationAfterTicks, temperature);
         }
 

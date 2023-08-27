@@ -1,22 +1,17 @@
 package unhappycodings.thoriumreactors.common.registration.worldgeneration;
 
-import com.google.common.base.Suppliers;
-import com.google.common.eventbus.EventBus;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.registration.Registration;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ModConfiguredFeatures {
 

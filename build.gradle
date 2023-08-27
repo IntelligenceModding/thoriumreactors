@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
         classpath 'org.parchmentmc:librarian:1.+'
+        classpath 'org.spongepowered:mixingradle:0.7.+'
     }
 }
 
@@ -14,6 +15,7 @@ plugins {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 group = 'unhappycodings'
@@ -32,6 +34,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+            arg "-mixin.config=thoriumreactors.mixins.json"
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -46,6 +49,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
+            arg "-mixin.config=thoriumreactors.mixins.json"
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -60,6 +64,7 @@ minecraft {
 
         gameTestServer {
             workingDirectory project.file('run')
+            arg "-mixin.config=thoriumreactors.mixins.json"
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -98,6 +103,12 @@ repositories {
         }
     }
     maven {
+        url = 'https://jitpack.io'
+        content {
+            includeGroup 'com.github.llamalad7.mixinextras'
+        }
+    }
+    maven {
         name = "Intelligence Space repository"
         url = "https://maven.pkg.jetbrains.space/intelligence/p/advancedperipherals/ap-repository"
         credentials {
@@ -112,16 +123,30 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    implementation fg.deobf("curse.maven:jei-${jei_version}")
 
+    // Apply Mixin AP
+    implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${mixin_extras_version}"))
+    implementation(jarJar("com.github.llamalad7.mixinextras:mixinextras-forge:${mixin_extras_version}")) {
+        jarJar.ranged(it, "[${mixin_extras_version},)")
+    }
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    // Implementation for API usage
+    implementation fg.deobf("curse.maven:jei-${jei_version}")
+    implementation fg.deobf("curse.maven:top-${top_version}")
+
+    // Runtime only
     runtimeOnly fg.deobf("team.chisel.ctm:CTM:${ctm_version}")
     runtimeOnly fg.deobf("curse.maven:mek-${mek_version}")
     runtimeOnly fg.deobf("curse.maven:mekgen-${mekgen_version}")
-    runtimeOnly fg.deobf("curse.maven:top-${top_version}")
     runtimeOnly fg.deobf("curse.maven:pipez-${pipez_version}")
     runtimeOnly fg.deobf("curse.maven:we-${we_version}")
     //runtimeOnly fg.deobf("curse.maven:biggerreactors-${biggerreactors_version}")
     //runtimeOnly fg.deobf("curse.maven:corezero-${corezero_version}")
+}
+
+mixin {
+    add sourceSets.main, "thoriumreactors.refmap.json"
 }
 
 jar {
@@ -133,7 +158,8 @@ jar {
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : "${mod_version}",
                 "Implementation-Vendor"   : "UnhappyWithoutU",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : "thoriumreactors.mixins.json"
         ])
     }
 }

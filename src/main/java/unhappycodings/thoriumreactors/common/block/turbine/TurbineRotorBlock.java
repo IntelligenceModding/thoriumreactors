@@ -1,25 +1,19 @@
 package unhappycodings.thoriumreactors.common.block.turbine;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -27,13 +21,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.turbine.base.TurbineFrameBlock;
-import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineCasingBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineRotorBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
-import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
-import unhappycodings.thoriumreactors.common.util.FormattingUtil;
-
-import java.util.List;
 
 public class TurbineRotorBlock extends TurbineFrameBlock {
     public VoxelShape SHAPE = Block.box(6, 0, 6, 10, 16, 10);
@@ -43,6 +32,11 @@ public class TurbineRotorBlock extends TurbineFrameBlock {
     public TurbineRotorBlock() {
         super(Properties.of(Material.METAL).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(BLADES, 0).setValue(RENDERING, false));
+    }
+
+    @Override
+    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
+        return 10;
     }
 
     @Nullable

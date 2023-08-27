@@ -116,19 +116,24 @@ public class OxidizingRecipe implements Recipe<SimpleContainer> {
         @Override
         public OxidizingRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
             Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-0"));
-            if (input.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input ingredient must be set! (" + input + ")");
+            if (input.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input ingredient must be set! (" + input + ")");
 
             FluidStack inputTank = FluidParseUtil.readFluid(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("tank-0"));
-            if (inputTank.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input fluid must be set! (" + inputTank + ")");
+            if (inputTank.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input fluid must be set! (" + inputTank + ")");
 
             FluidStack outputTank = FluidParseUtil.readFluid(GsonHelper.getAsJsonObject(pSerializedRecipe, "output").getAsJsonObject("tank-0"));
-            if (outputTank.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Output fluid must be set! (" + outputTank + ")");
+            if (outputTank.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Output fluid must be set! (" + outputTank + ")");
 
             int ticks = GsonHelper.getAsInt(pSerializedRecipe, "ticks");
-            if (ticks <= 0 || ticks > 2500) throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 2500! (" + ticks + ")");
+            if (ticks <= 0 || ticks > 2500)
+                throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 2500! (" + ticks + ")");
 
             int operationAfterTicks = GsonHelper.getAsInt(pSerializedRecipe, "operationAfterTicks");
-            if (operationAfterTicks <= 0 || operationAfterTicks > 1000) throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 1000! (" + operationAfterTicks + ")");
+            if (operationAfterTicks <= 0 || operationAfterTicks > 1000)
+                throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 1000! (" + operationAfterTicks + ")");
             return new OxidizingRecipe(pRecipeId, input, inputTank, outputTank, ticks, operationAfterTicks);
         }
 

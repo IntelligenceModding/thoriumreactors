@@ -45,5 +45,9 @@ public class SoundProvider extends SoundDefinitionsProvider {
         add("reactor.startup", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "reactor_startup"), SoundDefinition.SoundType.SOUND)));
         add("reactor.run", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "reactor_run"), SoundDefinition.SoundType.SOUND)));
         add("reactor.shutdown", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "reactor_shutdown"), SoundDefinition.SoundType.SOUND)));
+        add("turbine.hiss.1", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "turbine_hiss_1"), SoundDefinition.SoundType.SOUND)));
+        add("turbine.hiss.2", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "turbine_hiss_2"), SoundDefinition.SoundType.SOUND)));
+        add("turbine.hiss.3", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "turbine_hiss_3"), SoundDefinition.SoundType.SOUND)));
+        add("turbine.run", definition().with(SoundDefinition.Sound.sound(new ResourceLocation(ThoriumReactors.MOD_ID, "turbine_run"), SoundDefinition.SoundType.SOUND)));
     }
 }

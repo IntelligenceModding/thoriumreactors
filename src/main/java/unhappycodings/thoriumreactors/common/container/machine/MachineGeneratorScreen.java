@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.container.machine;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -52,10 +53,10 @@ public class MachineGeneratorScreen extends MachineScreen<MachineGeneratorContai
         RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").withStyle(RenderUtil::notoSans), pPoseStack, 87, 70, 4182051);
 
         SimpleDateFormat format = new SimpleDateFormat("mm'm' ss's'");
-        float fuel = entity.getFuel() / 20 * 1000 + (entity.getFuel() > 0 ? 1000 : 0);
-        RenderUtil.drawText(Component.literal("Fuel: " + format.format(fuel)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 26, 4182051);
-        RenderUtil.drawText(Component.literal("Tank: " + (int) entity.getEnergy() + " FE").withStyle(RenderUtil::notoSans), pPoseStack, 52, 37, 4182051);
-        RenderUtil.drawText(Component.literal("Gen: " + entity.getCurrentProduction() + " FE/t").withStyle(RenderUtil::notoSans), pPoseStack, 52, 48, 4182051);
+        float fuel = entity.getFuel() / 20f * 1000 + (entity.getFuel() > 0 ? 1000 : 0);
+        RenderUtil.drawText(Component.literal("Fuel:    ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(format.format(fuel)).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 26);
+        RenderUtil.drawText(Component.literal("Tank:   ").withStyle(FormattingUtil.hex(0xC6CC3E)).append(Component.literal(entity.getEnergy() + " FE").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 37);
+        RenderUtil.drawText(Component.literal("Gen:    ").withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(entity.getCurrentProduction() + " FE/t").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 48);
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 146, getGuiTop() + 22, getGuiLeft() + 154, getGuiTop() + 59, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatNum(entity.getEnergy()) + "/" + FormattingUtil.formatNum(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity())});

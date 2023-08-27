@@ -28,6 +28,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> REACTOR_STARTUP = registerSoundEvent("reactor.startup");
     public static final RegistryObject<SoundEvent> REACTOR_RUN = registerSoundEvent("reactor.run");
     public static final RegistryObject<SoundEvent> REACTOR_SHUTDOWN = registerSoundEvent("reactor.shutdown");
+    public static final RegistryObject<SoundEvent> TURBINE_HISS_1 = registerSoundEvent("turbine.hiss.1");
+    public static final RegistryObject<SoundEvent> TURBINE_HISS_2 = registerSoundEvent("turbine.hiss.2");
+    public static final RegistryObject<SoundEvent> TURBINE_HISS_3 = registerSoundEvent("turbine.hiss.3");
+    public static final RegistryObject<SoundEvent> TURBINE_RUN = registerSoundEvent("turbine.run");
 
     public static void register() {
     }

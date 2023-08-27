@@ -7,6 +7,7 @@ public abstract class ModEnergyStorage extends EnergyStorage {
 
     public ModEnergyStorage(int capacity, int maxTransfer) {
         super(capacity, maxTransfer);
+        this.capacity = capacity;
         this.maxTransfer = maxTransfer;
     }
 
