@@ -30,7 +30,7 @@ public class ReactorControllerStatePacket implements IPacket {
             entity.setReactorState(state);
             if (state == ReactorStateEnum.STARTING && entity.getReactorRunningSince() == 0) {
                 entity.setReactorRunningSince(0);
-            } else if (state == ReactorStateEnum.STOP){
+            } else if (state == ReactorStateEnum.STOP) {
                 entity.setReactorRunningSince(-1);
             }
         }

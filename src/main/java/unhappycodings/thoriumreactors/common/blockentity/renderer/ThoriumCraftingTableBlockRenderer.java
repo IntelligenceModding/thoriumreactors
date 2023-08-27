@@ -38,9 +38,9 @@ public class ThoriumCraftingTableBlockRenderer implements BlockEntityRenderer<Th
                 if (!stacks.get(slot).is(Items.AIR)) {
                     stack.translate(cell + cell * 0.05, 0, row + row * 0.05);
                     stack.mulPose(Vector3f.XN.rotationDegrees(90));
-                    context.getItemRenderer().render(Items.STICK.getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, source, pPackedLight,pPackedOverlay, context.getItemRenderer().getModel(stacks.get(slot), entity.getLevel(), null, 0));
+                    context.getItemRenderer().render(Items.STICK.getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, source, pPackedLight, pPackedOverlay, context.getItemRenderer().getModel(stacks.get(slot), entity.getLevel(), null, 0));
                     stack.mulPose(Vector3f.XN.rotationDegrees(-90));
-                    stack.translate(- (cell + cell * 0.05), 0, - (row + row * 0.05));
+                    stack.translate(-(cell + cell * 0.05), 0, -(row + row * 0.05));
                 }
                 slot++;
             }
@@ -50,9 +50,9 @@ public class ThoriumCraftingTableBlockRenderer implements BlockEntityRenderer<Th
         if (!output.is(Items.AIR)) {
             stack.translate(6 + 6 * 0.05, 0, 3 + 3 * 0.05);
             stack.mulPose(Vector3f.XN.rotationDegrees(90));
-            context.getItemRenderer().render(Items.STICK.getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, source, pPackedLight,pPackedOverlay, context.getItemRenderer().getModel(output, entity.getLevel(), null, 0));
+            context.getItemRenderer().render(Items.STICK.getDefaultInstance(), ItemTransforms.TransformType.FIXED, false, stack, source, pPackedLight, pPackedOverlay, context.getItemRenderer().getModel(output, entity.getLevel(), null, 0));
             stack.mulPose(Vector3f.XN.rotationDegrees(-90));
-            stack.translate(- (6 + 6 * 0.05), 0, - (3 + 3 * 0.05));
+            stack.translate(-(6 + 6 * 0.05), 0, -(3 + 3 * 0.05));
         }
         stack.popPose();
 

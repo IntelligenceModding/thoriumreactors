@@ -1,15 +1,17 @@
 {
-    "ctm":{
-        "ctm_version": 1,
-        "type":"CTM",
-        "layer":"CUTOUT",
-        "textures":[
-            "thoriumreactors:block/turbine_glass-ctm"
-        ],
-        "extra": {
-            "connect_to": [
-                { "block": "thoriumreactors:turbine_glass" }
-            ]
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "CUTOUT",
+    "textures": [
+      "thoriumreactors:block/turbine_glass-ctm"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "thoriumreactors:turbine_glass"
         }
+      ]
     }
+  }
 }

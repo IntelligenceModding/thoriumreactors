@@ -1,5 +1,5 @@
 {
-  "providers":[
+  "providers": [
     {
       "type": "space",
       "advances": {
@@ -9,10 +9,10 @@
       }
     },
     {
-      "type":"bitmap",
-      "file":"thoriumreactors:font/notosans.png",
-      "ascent":7,
-      "chars":[
+      "type": "bitmap",
+      "file": "thoriumreactors:font/notosans.png",
+      "ascent": 7,
+      "chars": [
         "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
         "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
         "\u0020\u0021\u0022\u0023\u0024\u0025\u0026\u0027\u0028\u0029\u002a\u002b\u002c\u002d\u002e\u002f",

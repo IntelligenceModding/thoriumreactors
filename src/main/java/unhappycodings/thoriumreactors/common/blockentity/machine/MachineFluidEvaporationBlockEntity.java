@@ -93,7 +93,9 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
             return LazyOptional.empty();
         }
         return super.getCapability(cap, side);
-    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+    }
+
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -555,8 +557,6 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
         Direction facing = this.getBlockState().getValue(MachineElectrolyticSaltSeparatorBlock.FACING);
         return facing.getCounterClockWise() == pDirection;
     }
-
-
 
 
 }

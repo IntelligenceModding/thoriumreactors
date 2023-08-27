@@ -79,7 +79,9 @@ public class MachineUraniumOxidizerBlockEntity extends MachineContainerBlockEnti
         this.lazyEnergyHandler = LazyOptional.of(() -> ENERGY_STORAGE);
         this.lazyFluidInHandler = LazyOptional.of(() -> FLUID_TANK_IN);
         this.lazyFluidOutHandler = LazyOptional.of(() -> FLUID_TANK_OUT);
-    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+    }
+
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -597,8 +599,6 @@ public class MachineUraniumOxidizerBlockEntity extends MachineContainerBlockEnti
     public boolean canTakeItemThroughFace(int pIndex, ItemStack pStack, Direction pDirection) {
         return false;
     }
-
-
 
 
 }

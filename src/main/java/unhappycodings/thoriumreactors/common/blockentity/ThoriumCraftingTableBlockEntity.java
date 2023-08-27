@@ -55,7 +55,7 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
     }
 
     @Override
-    public void handleUpdateTag( CompoundTag tag) {
+    public void handleUpdateTag(CompoundTag tag) {
         super.handleUpdateTag(tag);
         ContainerHelper.loadAllItems(tag, this.items);
     }
@@ -85,7 +85,7 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
     }
 
     public void updateBlock() {
-        if(level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide) {
             BlockState state = level.getBlockState(worldPosition);
             level.sendBlockUpdated(worldPosition, state, state, 2);
             setChanged(level, getBlockPos(), state);

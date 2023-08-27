@@ -57,8 +57,8 @@ public class SteelChestBlockEntity extends ChestBlockEntity {
                 if (!(player.containerMenu instanceof ChestMenu)) {
                     return false;
                 } else {
-                    Container container = ((ChestMenu)player.containerMenu).getContainer();
-                    return container == SteelChestBlockEntity.this || container instanceof CompoundContainer && ((CompoundContainer)container).contains(SteelChestBlockEntity.this);
+                    Container container = ((ChestMenu) player.containerMenu).getContainer();
+                    return container == SteelChestBlockEntity.this || container instanceof CompoundContainer && ((CompoundContainer) container).contains(SteelChestBlockEntity.this);
                 }
             }
         };
@@ -83,7 +83,8 @@ public class SteelChestBlockEntity extends ChestBlockEntity {
     public void setChanged() {
         super.setChanged();
 
-        if (!this.getLevel().isClientSide && this.getLevel() != null &&  this.getLevel() instanceof ServerLevel w) w.getChunkSource().blockChanged(getBlockPos());
+        if (!this.getLevel().isClientSide && this.getLevel() != null && this.getLevel() instanceof ServerLevel w)
+            w.getChunkSource().blockChanged(getBlockPos());
     }
 
     public int getCounter() {
@@ -128,7 +129,7 @@ public class SteelChestBlockEntity extends ChestBlockEntity {
 
     @Override
     public int getContainerSize() {
-        return 11*7;
+        return 11 * 7;
     }
 
     @Override

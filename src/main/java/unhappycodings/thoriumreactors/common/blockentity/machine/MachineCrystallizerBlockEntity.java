@@ -537,6 +537,4 @@ public class MachineCrystallizerBlockEntity extends MachineContainerBlockEntity 
     }
 
 
-
-
 }

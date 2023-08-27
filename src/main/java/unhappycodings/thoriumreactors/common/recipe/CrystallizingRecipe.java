@@ -104,16 +104,20 @@ public class CrystallizingRecipe implements Recipe<SimpleContainer> {
         @Override
         public CrystallizingRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pSerializedRecipe) {
             Ingredient output = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output").getAsJsonObject("slot-0"));
-            if (output.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input ingredient must be set! (" + output + ")");
+            if (output.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input ingredient must be set! (" + output + ")");
 
             FluidStack inputTank = FluidParseUtil.readFluid(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("tank-0"));
-            if (inputTank.isEmpty()) throw new IllegalArgumentException("Invalid pattern: Input fluid must be set! (" + inputTank + ")");
+            if (inputTank.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Input fluid must be set! (" + inputTank + ")");
 
             int ticks = GsonHelper.getAsInt(pSerializedRecipe, "ticks");
-            if (ticks <= 0 || ticks > 2500) throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 2500! (" + ticks + ")");
+            if (ticks <= 0 || ticks > 2500)
+                throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 2500! (" + ticks + ")");
 
             int operationAfterTicks = GsonHelper.getAsInt(pSerializedRecipe, "operationAfterTicks");
-            if (operationAfterTicks <= 0 || operationAfterTicks > 1000) throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 1000! (" + operationAfterTicks + ")");
+            if (operationAfterTicks <= 0 || operationAfterTicks > 1000)
+                throw new IllegalArgumentException("Invalid pattern: Needed ticks must be in between 1 and 1000! (" + operationAfterTicks + ")");
             return new CrystallizingRecipe(pRecipeId, output, inputTank, ticks, operationAfterTicks);
         }
 

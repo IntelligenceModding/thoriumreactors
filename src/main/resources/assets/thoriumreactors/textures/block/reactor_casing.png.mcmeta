@@ -1,17 +1,23 @@
 {
-    "ctm":{
-        "ctm_version": 1,
-        "type":"CTM",
-        "layer":"SOLID",
-        "textures":[
-            "thoriumreactors:block/reactor_casing-ctm"
-        ],
-        "extra": {
-            "connect_to": [
-                { "block": "thoriumreactors:reactor_casing" },
-                { "block": "thoriumreactors:reactor_controller" },
-                { "block": "thoriumreactors:reactor_valve" }
-            ]
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "thoriumreactors:block/reactor_casing-ctm"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "thoriumreactors:reactor_casing"
+        },
+        {
+          "block": "thoriumreactors:reactor_controller"
+        },
+        {
+          "block": "thoriumreactors:reactor_valve"
         }
+      ]
     }
+  }
 }

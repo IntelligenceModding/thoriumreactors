@@ -95,7 +95,9 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
             return LazyOptional.empty();
         }
         return super.getCapability(cap, side);
-    }    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
+    }
+
+    private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
         @Override
         public void onEnergyChanged() {
             setChanged();
@@ -606,8 +608,6 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
     }
 
     ;
-
-
 
 
 }
