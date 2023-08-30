@@ -107,7 +107,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         ReactorControllerBlockEntity entity = container.getTile();
         if (typeEnum == ReactorButtonTypeEnum.TEMP)
             PacketHandler.sendToServer(new ReactorControllerTemperaturePacket(entity.getBlockPos(), Short.parseShort(inputBox1.getValue())));
-        //if (typeEnum == ReactorButtonTypeEnum.LOAD && Integer.parseInt(inputBox2.getValue()) <= 100 && Integer.parseInt(inputBox2.getValue()) >= 0) PacketHandler.sendToServer(new ReactorControllerLoadPacket(entity.getBlockPos(), Byte.parseByte(inputBox2.getValue())));
+        if (typeEnum == ReactorButtonTypeEnum.LOAD && Integer.parseInt(inputBox2.getValue()) <= 100 && Integer.parseInt(inputBox2.getValue()) >= 0)
+            PacketHandler.sendToServer(new ReactorControllerLoadPacket(entity.getBlockPos(), Byte.parseByte(inputBox2.getValue())));
         if (typeEnum == ReactorButtonTypeEnum.RODS && Integer.parseInt(inputBox3.getValue()) <= 100 && Integer.parseInt(inputBox3.getValue()) >= 0)
             PacketHandler.sendToServer(new ReactorControllerRodInsertPacket(entity.getBlockPos(), Byte.parseByte(inputBox3.getValue()), (byte) selectedRod, hasShiftDown()));
     }
@@ -349,6 +350,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     }
 
     private void changeReactorState(ReactorStateEnum state) {
+        ReactorControllerBlockEntity entity = this.container.getTile();
         PacketHandler.sendToServer(new ReactorControllerStatePacket(this.getMenu().getTile().getBlockPos(), state));
         sendChangedPacket();
     }

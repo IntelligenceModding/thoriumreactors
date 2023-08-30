@@ -88,6 +88,8 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/factory_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_big_tile"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_PAVING.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_paving"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_black_yellow_left"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_black_yellow_right"));

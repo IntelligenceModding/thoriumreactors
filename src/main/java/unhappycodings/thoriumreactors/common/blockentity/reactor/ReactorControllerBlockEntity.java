@@ -282,9 +282,9 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     }
 
     public float calculateTemperature(boolean cooling) {
-        if (getReactorCurrentTemperature() < MAX_HEAT / 3) {
-            return cooling ? -1.1f : 8f;
-        } else if (getReactorCurrentTemperature() < MAX_HEAT / 2) {
+        if (getReactorCurrentTemperature() < MAX_HEAT / 3f) {
+            return cooling ? -1.1f : 10f;
+        } else if (getReactorCurrentTemperature() < MAX_HEAT / 2f) {
             return cooling ? -2.1f : 5f;
         } else {
             return cooling ? -4.1f : 2f;

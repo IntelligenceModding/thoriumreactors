@@ -31,7 +31,10 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(ModBlocks.FACTORY_BLOCK.get());
+
         simpleBlock(ModBlocks.INDUSTRAL_BLOCK.get());
+        simpleBlock(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get());
+        simpleBlock(ModBlocks.INDUSTRAL_BLOCK_PAVING.get());
 
         simpleBlock(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get());
         simpleBlock(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get());

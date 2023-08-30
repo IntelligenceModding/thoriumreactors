@@ -1,4 +1,4 @@
-// 1.19.2	2023-08-05T15:01:55.3832357	Item Models: thoriumreactors
+// 1.19.2	2023-08-29T12:47:37.5670264	Item Models: thoriumreactors
 04a4c724152af60d219cfae9ca203d2861e972dd assets/thoriumreactors/models/item/aluminum_block.json
 297e1af5609489ae4af515cc8364f140c050db9e assets/thoriumreactors/models/item/aluminum_ingot.json
 992b62b637873048447a8bebaef602f01828282e assets/thoriumreactors/models/item/aluminum_nugget.json
@@ -54,6 +54,8 @@ d033e4f38f075019be757fea45a42e514df53445 assets/thoriumreactors/models/item/grap
 26d14da97e36572c05c957b1382358f642cd363d assets/thoriumreactors/models/item/heated_molten_salt_bucket.json
 31b68a8b487f1192d4d44243a90b262a9081dc98 assets/thoriumreactors/models/item/hydrofluorite_bucket.json
 b881f8d823104cbca2b6475ad20e818aefd6464d assets/thoriumreactors/models/item/industrial_block.json
+179562b39f884785f68cf90219823d91ec7dd30d assets/thoriumreactors/models/item/industrial_block_big_tile.json
+824e6ecd933ce0a8060e4a8be04ecfcaf010f3e3 assets/thoriumreactors/models/item/industrial_block_paving.json
 a6dbbd54fda0dd9c6dfbcc61c8a15e67297dfb72 assets/thoriumreactors/models/item/manganese_block.json
 15293a7b4a4ed03659773eedb91f201c19234c37 assets/thoriumreactors/models/item/manganese_ingot.json
 94bde67926981d994979f905cd81ef48163ea826 assets/thoriumreactors/models/item/manganese_nugget.json

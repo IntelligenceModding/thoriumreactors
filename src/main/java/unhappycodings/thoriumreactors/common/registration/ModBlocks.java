@@ -37,6 +37,8 @@ public class ModBlocks {
     // Building
     public static final RegistryObject<Block> FACTORY_BLOCK = register("factory_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
     public static final RegistryObject<Block> INDUSTRAL_BLOCK = register("industrial_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> INDUSTRAL_BLOCK_BIG_TILE = register("industrial_block_big_tile", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> INDUSTRAL_BLOCK_PAVING = register("industrial_block_paving", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
 
     public static final RegistryObject<Block> WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT = register("warning_block_lined_black_yellow_left", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
     public static final RegistryObject<Block> WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT = register("warning_block_lined_black_yellow_right", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
