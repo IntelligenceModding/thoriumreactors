@@ -178,26 +178,26 @@ public class FluidTankBlock extends BaseEntityBlock {
 
         if (this.defaultBlockState().is(ModBlocks.CREATIVE_FLUID_TANK.get())) {
             FluidStack fluidIn = FluidStack.loadFluidStackFromNBT(tag.getCompound("Fluid"));
-            pTooltip.add(Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal("Infinite").withStyle(ChatFormatting.GRAY)));
-            pTooltip.add(Component.literal("Capacity: ").withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.literal("Infinite").withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite")).withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.capacity")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite")).withStyle(ChatFormatting.GRAY)));
             return;
         }
 
         if (tag.get("Fluid") == null) {
-            pTooltip.add(Component.literal("Not Placed Yet").withStyle(FormattingUtil.hex(0xCE1F0A)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.not_placed")).withStyle(FormattingUtil.hex(0xCE1F0A)));
             return;
         }
         if (ModKeyBindings.SHOW_DETAILS.isDown()) {
             if (!tag.getCompound("Fluid").isEmpty()) {
                 FluidStack fluidIn = FluidStack.loadFluidStackFromNBT(tag.getCompound("Fluid"));
-                pTooltip.add(Component.literal("Capacity: ").withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.literal(getTankCapacity(pStack) + "").withStyle(ChatFormatting.GRAY)).append(Component.literal(" mb").withStyle(FormattingUtil.hex(0x3BA3D3))));
-                pTooltip.add(fluidIn.isEmpty() ? Component.literal("Empty").withStyle(FormattingUtil.hex(0x0ACECE)) : Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(fluidIn.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x0ACECE))));
+                pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.capacity")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.literal(getTankCapacity(pStack) + "").withStyle(ChatFormatting.GRAY)).append(Component.literal(" mb").withStyle(FormattingUtil.hex(0x3BA3D3))));
+                pTooltip.add(fluidIn.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x0ACECE)) : Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(fluidIn.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x0ACECE))));
             }
         } else if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
             pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
         } else {
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.literal(" for further details.").withStyle(ChatFormatting.GRAY)));
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.literal(" for a block description.").withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_description")).withStyle(ChatFormatting.GRAY)));
         }
     }
 

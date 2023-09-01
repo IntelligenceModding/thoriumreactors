@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
@@ -41,16 +42,15 @@ public class FluidTankScreen extends BaseScreen<FluidTankContainer> {
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         FluidTankBlockEntity entity = this.container.getTile();
 
-        RenderUtil.drawText(Component.literal("Inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 102, 11184810);
+        RenderUtil.drawText(Component.translatable("key.categories.inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 102, 11184810);
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        RenderUtil.drawText(Component.literal("Fluid Tank").withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.fluid_tank.name")).withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
         RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 242, 2, 11184810);
 
-        String amount = entity.getFluidAmountIn() == Integer.MAX_VALUE ? "Infinite" : entity.getFluidAmountIn() + "mb";
-        String capacity = entity.getFluidCapacityIn() == Integer.MAX_VALUE ? "Infinite" : entity.getFluidCapacityIn() + "mb";
+        MutableComponent amount = entity.getFluidAmountIn() == Integer.MAX_VALUE ? Component.literal(" ").append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite"))) : Component.literal(" " + entity.getFluidAmountIn() + "mb");
+        MutableComponent capacity = entity.getFluidCapacityIn() == Integer.MAX_VALUE ? Component.literal(" ").append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite"))) : Component.literal(" " + entity.getFluidCapacityIn() + "mb");
         pPoseStack.popPose();
-
 
         int textLenght = Minecraft.getInstance().font.width(entity.getFluidIn().getFluid().getFluidType().getDescription().getString());
         float textSize = textLenght > 100 ? 0.7f : 0.8f;
@@ -61,13 +61,13 @@ public class FluidTankScreen extends BaseScreen<FluidTankContainer> {
 
         pPoseStack.pushPose();
         pPoseStack.scale(0.8f, 0.8f, 0.8f);
-        RenderUtil.drawText(Component.literal("Amount:    ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(amount).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 90, 46);
-        RenderUtil.drawText(Component.literal("Capacity:   ").withStyle(FormattingUtil.hex(0xC6CC3E)).append(Component.literal(capacity).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 90, 56);
-        RenderUtil.drawText(Component.literal("Fillage:      ").withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true)).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 90, 66);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.amount")).withStyle(FormattingUtil.hex(0x0ACECE)).append(amount.withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 90, 46);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.capacity")).withStyle(FormattingUtil.hex(0xC6CC3E)).append(capacity.withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 90, 56);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.fillage")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true)).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 90, 66);
         pPoseStack.popPose();
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 16, getGuiTop() + 21, getGuiLeft() + 49, getGuiTop() + 97, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getFluidAmountIn() > 0 ? "Fluid: " + entity.getFluidIn().getFluid().getFluidType().getDescription().getString() : "", entity.getFluidAmountIn() + " mb / " + entity.getFluidCapacityIn() + " mb", FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true)});
+            appendHoverText(pPoseStack, pMouseX, pMouseY, new Component[]{entity.getFluidAmountIn() > 0 ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.fluid")).append(" ").append(entity.getFluidIn().getFluid().getFluidType().getDescription().getString()) : Component.empty(), Component.literal(entity.getFluidAmountIn() + " mb / " + entity.getFluidCapacityIn() + " mb"), Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true))});
 
     }
 
@@ -75,6 +75,12 @@ public class FluidTankScreen extends BaseScreen<FluidTankContainer> {
         List<Component> list = new ArrayList<>();
         for (String text : texts)
             if (!text.equals("")) list.add(Component.literal(text));
+        this.renderComponentTooltip(poseStack, list, x - leftPos, y - topPos);
+    }
+    public void appendHoverText(PoseStack poseStack, int x, int y, Component[] texts) {
+        List<Component> list = new ArrayList<>();
+        for (Component text : texts)
+            if (!text.getString().equals("")) list.add(Component.literal(text.getString()));
         this.renderComponentTooltip(poseStack, list, x - leftPos, y - topPos);
     }
 

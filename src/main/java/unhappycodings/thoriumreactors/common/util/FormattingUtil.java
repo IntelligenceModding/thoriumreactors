@@ -6,6 +6,10 @@ import java.text.DecimalFormat;
 
 public class FormattingUtil {
 
+    public static String getTranslatable(String text) {
+        return "text.thoriumreactors.inventory." + text;
+    }
+
     public static float getTurbineGenerationModifier(float rpm) {
         if (rpm < 100) return 0.1f;
         if (rpm < 200) return 0.6f;

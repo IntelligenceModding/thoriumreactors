@@ -24,10 +24,10 @@ public class SteelChestScreen extends BaseScreen<SteelChestContainer> {
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        RenderUtil.drawText(Component.literal("Steel Chest").withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        RenderUtil.drawText(Component.translatable("block.thoriumreactors.steel_chest_block").withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
         RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 293, 2, 11184810);
         pPoseStack.popPose();
-        RenderUtil.drawText(Component.literal("Inventory").withStyle(RenderUtil::notoSans), pPoseStack, 26, 145, 11184810);
+        RenderUtil.drawText(Component.translatable("key.categories.inventory").withStyle(RenderUtil::notoSans), pPoseStack, 26, 145, 11184810);
     }
 
     @Override

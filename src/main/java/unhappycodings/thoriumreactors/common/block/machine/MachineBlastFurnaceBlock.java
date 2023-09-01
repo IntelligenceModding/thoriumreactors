@@ -109,31 +109,31 @@ public class MachineBlastFurnaceBlock extends BaseEntityBlock {
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         CompoundTag tag = pStack.getOrCreateTag().getCompound("BlockEntityTag");
         if (tag.get("RecipeTime") == null) {
-            pTooltip.add(Component.literal("Not Placed Yet").withStyle(FormattingUtil.hex(0xCE1F0A)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.not_placed")).withStyle(FormattingUtil.hex(0xCE1F0A)));
             return;
         }
         if (ModKeyBindings.SHOW_DETAILS.isDown()) {
-            pTooltip.add(Component.literal("Energy Buffer: ").withStyle(FormattingUtil.hex(0x3FD023)).append(Component.literal(FormattingUtil.formatEnergy(Integer.parseInt(String.valueOf(tag.get("Energy"))))).withStyle(ChatFormatting.GRAY)));
-            pTooltip.add(Component.literal("Recipe status: ").withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.literal("Blasting " + FormattingUtil.formatPercentNum(tag.getInt("RecipeTime"), tag.getInt("MaxRecipeTime"))).withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.energy_buffer")).withStyle(FormattingUtil.hex(0x3FD023)).append(Component.literal(FormattingUtil.formatEnergy(Integer.parseInt(String.valueOf(tag.get("Energy"))))).withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.recipe_status")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.translatable(FormattingUtil.getTranslatable("machines.blast_furnace.name")).append(" " + FormattingUtil.formatPercentNum(tag.getInt("RecipeTime"), tag.getInt("MaxRecipeTime"))).withStyle(ChatFormatting.GRAY)));
 
             if (!tag.getCompound("FluidIn").isEmpty()) {
                 FluidStack fluidIn = FluidStack.loadFluidStackFromNBT(tag.getCompound("FluidIn"));
-                pTooltip.add(fluidIn.isEmpty() ? Component.literal("Empty").withStyle(FormattingUtil.hex(0x0ACECE)) : Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(fluidIn.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x0ACECE))));
+                pTooltip.add(fluidIn.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x0ACECE)) : Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(fluidIn.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x0ACECE))));
             }
             if (!tag.getCompound("FluidOut").isEmpty()) {
                 FluidStack fluidOut = FluidStack.loadFluidStackFromNBT(tag.getCompound("FluidOut"));
-                pTooltip.add(fluidOut.isEmpty() ? Component.literal("Empty").withStyle(FormattingUtil.hex(0x80ebff)) : Component.literal(fluidOut.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x80ebff)).append(Component.literal(fluidOut.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x80ebff))));
+                pTooltip.add(fluidOut.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x80ebff)) : Component.literal(fluidOut.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x80ebff)).append(Component.literal(fluidOut.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x80ebff))));
             }
 
             ListTag listtag = tag.getList("Items", 10);
             if (!listtag.isEmpty()) {
-                pTooltip.add(Component.literal("Inventory contains items!").withStyle(ChatFormatting.GRAY));
+                pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.contains_items")).withStyle(ChatFormatting.GRAY));
             }
         } else if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
             pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
         } else {
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.literal(" for further details.").withStyle(ChatFormatting.GRAY)));
-            pTooltip.add(Component.literal("Hold ").withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.literal(" for a block description.").withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_description")).withStyle(ChatFormatting.GRAY)));
         }
     }
 

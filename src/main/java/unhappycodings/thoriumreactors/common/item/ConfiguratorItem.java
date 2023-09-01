@@ -46,11 +46,11 @@ public class ConfiguratorItem extends Item {
             CompoundTag posTag = new CompoundTag();
             writePos(posTag, pos);
             item.getOrCreateTag().put("turbinePos", posTag);
-            player.displayClientMessage(Component.literal("Turbine saved to configurator").withStyle(FormattingUtil.hex(0x7ED355)), false);
+            player.displayClientMessage(Component.translatable(FormattingUtil.getTranslatable("items.text.turbine_saved_to_configurator")).withStyle(FormattingUtil.hex(0x7ED355)), false);
         } else {
             if (item.getOrCreateTag().contains("turbinePos") && level.getBlockEntity(pos) instanceof ReactorControllerBlockEntity entity) {
                 entity.addTurbinePos(BlockEntity.getPosFromTag(item.getOrCreateTag().getCompound("turbinePos")));
-                player.displayClientMessage(Component.literal("Turbine saved to reactor.").withStyle(FormattingUtil.hex(0x55D38A)), false);
+                player.displayClientMessage(Component.translatable(FormattingUtil.getTranslatable("items.text.turbine_saved_to_reactor")).withStyle(FormattingUtil.hex(0x55D38A)), false);
             }
         }
         player.setItemSlot(EquipmentSlot.MAINHAND, item);
@@ -73,7 +73,7 @@ public class ConfiguratorItem extends Item {
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag isAdvanced) {
         if (stack.getOrCreateTag().contains("turbinePos")) {
             String pos = stack.getOrCreateTag().get("turbinePos").getAsString().replace("{", "").replace("}", "").replace(",", " ");
-            tooltipComponents.add(Component.literal("Turbine selected: ").append(Component.literal(pos).withStyle(ChatFormatting.GRAY)).withStyle(FormattingUtil.hex(0x55D38A)));
+            tooltipComponents.add(Component.translatable(FormattingUtil.getTranslatable("items.text.turbine_selected")).append(Component.literal(pos).withStyle(ChatFormatting.GRAY)).withStyle(FormattingUtil.hex(0x55D38A)));
         }
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
     }

@@ -44,19 +44,19 @@ public class MachineGeneratorScreen extends MachineScreen<MachineGeneratorContai
         super.renderLabels(pPoseStack, pMouseX, pMouseY);
         MachineGeneratorBlockEntity entity = this.container.getTile();
 
-        RenderUtil.drawText(Component.literal("Inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 92, 11184810);
+        RenderUtil.drawText(Component.translatable("key.categories.inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 92, 11184810);
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        RenderUtil.drawText(Component.literal("FE Generation").withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.generator.name")).withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
         RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 242, 2, 11184810);
         pPoseStack.popPose();
-        RenderUtil.drawCenteredText(Component.literal(entity.getState() ? "RUNNING" : "IDLE").withStyle(RenderUtil::notoSans), pPoseStack, 87, 70, 4182051);
+        RenderUtil.drawCenteredText(Component.translatable(entity.getState() ? FormattingUtil.getTranslatable("machines.state.running") : FormattingUtil.getTranslatable("machines.state.idle")).withStyle(RenderUtil::notoSans), pPoseStack, 87, 70, 4182051);
 
         SimpleDateFormat format = new SimpleDateFormat("mm'm' ss's'");
         float fuel = entity.getFuel() / 20f * 1000 + (entity.getFuel() > 0 ? 1000 : 0);
-        RenderUtil.drawText(Component.literal("Fuel:    ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(format.format(fuel)).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 26);
-        RenderUtil.drawText(Component.literal("Tank:   ").withStyle(FormattingUtil.hex(0xC6CC3E)).append(Component.literal(entity.getEnergy() + " FE").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 37);
-        RenderUtil.drawText(Component.literal("Gen:    ").withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(entity.getCurrentProduction() + " FE/t").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 48);
+        RenderUtil.drawText(Component.literal("Fuel: ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(format.format(fuel)).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 26);
+        RenderUtil.drawText(Component.literal("Tank: ").withStyle(FormattingUtil.hex(0xC6CC3E)).append(Component.literal(entity.getEnergy() + " FE").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 37);
+        RenderUtil.drawText(Component.literal("Gen: ").withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(entity.getCurrentProduction() + " FE/t").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 48);
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 146, getGuiTop() + 22, getGuiLeft() + 154, getGuiTop() + 59, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatNum(entity.getEnergy()) + "/" + FormattingUtil.formatNum(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity())});

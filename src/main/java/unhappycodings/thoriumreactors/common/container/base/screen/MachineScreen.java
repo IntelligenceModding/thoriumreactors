@@ -70,31 +70,31 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     }
 
     @Override
-    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         MachineContainerBlockEntity entity = (MachineContainerBlockEntity) getTile();
         if (RenderUtil.mouseInArea(getGuiLeft() + -18, getGuiTop() + 6, getGuiLeft() + -3, getGuiTop() + 21, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
-            list.add(Component.literal("Usage: " + FormattingUtil.formatEnergy(entity.getState() ? entity.getNeededEnergy() : 0) + "/t"));
+            list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.usage")).append(" ").append(Component.literal(FormattingUtil.formatEnergy(entity.getState() ? entity.getNeededEnergy() : 0) + "/t")));
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
         if (RenderUtil.mouseInArea(getGuiLeft() + -18, getGuiTop() + 24, getGuiLeft() + -3, getGuiTop() + 39, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
-            list.add(Component.literal("Power: " + entity.isPowerable()));
+            list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.power")).append(" ").append(Component.literal(entity.isPowerable() + "")));
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
         if (RenderUtil.mouseInArea(getGuiLeft() + -18, getGuiTop() + 42, getGuiLeft() + -3, getGuiTop() + 57, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
-            list.add(Component.literal("Redstone: " + (lastRedstoneMode == 0 ? "Ignore" : lastRedstoneMode == 1 ? "Normal" : "Inverted")));
+            list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.redstone")).append(" ").append(Component.translatable((lastRedstoneMode == 0 ? FormattingUtil.getTranslatable("machines.tooltip.ignore") : lastRedstoneMode == 1 ? FormattingUtil.getTranslatable("machines.tooltip.normal") : FormattingUtil.getTranslatable("machines.tooltip.inverted")))));
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
         if (RenderUtil.mouseInArea(getGuiLeft() + getSizeX() + 2, getGuiTop() + 6, getGuiLeft() + getSizeX() + 17, getGuiTop() + 21, pMouseX, pMouseY) && !isSpaceAbove()) {
             List<Component> list = new ArrayList<>();
-            list.add(Component.literal("Warning!").withStyle(ChatFormatting.RED));
-            list.add(Component.literal("Machine needs air to ventilate!"));
-            list.add(Component.literal("Make space above it!"));
+            list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.warning")).withStyle(ChatFormatting.RED));
+            list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.needs_air")));
+            list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.make_space")));
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
     }
@@ -126,6 +126,13 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
         List<Component> list = new ArrayList<>();
         for (String text : texts)
             if (!text.equals("")) list.add(Component.literal(text));
+        this.renderComponentTooltip(poseStack, list, x - leftPos, y - topPos);
+    }
+
+    public void appendHoverText(PoseStack poseStack, int x, int y, Component[] texts) {
+        List<Component> list = new ArrayList<>();
+        for (Component text : texts)
+            if (!text.getString().equals("")) list.add(text);
         this.renderComponentTooltip(poseStack, list, x - leftPos, y - topPos);
     }
 

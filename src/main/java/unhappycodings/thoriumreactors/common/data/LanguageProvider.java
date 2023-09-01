@@ -3,6 +3,7 @@ package unhappycodings.thoriumreactors.common.data;
 import net.minecraft.data.DataGenerator;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
+import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 
 public class LanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
@@ -186,6 +187,74 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET.get(), "Enriched Uranium Hexafluorite Bucket");
         add(ModItems.STEAM_BUCKET.get(), "Steam Bucket");
 
+        addGuiText("machines.state.idle", "Idle");
+        addGuiText("machines.state.running", "Running");
+
+        addGuiText("machines.text.amount", "Amount:");
+        addGuiText("machines.text.capacity", "Capacity:");
+        addGuiText("machines.text.fillage", "Fillage:");
+
+        addGuiText("machines.tooltip.dump_instantly", "Dump stored liquid instantly");
+        addGuiText("machines.tooltip.auto_dump", "Auto Dump:");
+        addGuiText("machines.tooltip.fluid", "Fluid:");
+        addGuiText("machines.tooltip.only_while_running", "Only while running");
+        addGuiText("machines.tooltip.infinite", "Infinite");
+        addGuiText("machines.tooltip.usage", "Usage:");
+        addGuiText("machines.tooltip.power", "Power:");
+        addGuiText("machines.tooltip.redstone", "Redstone:");
+        addGuiText("machines.tooltip.ignore", "Ignore");
+        addGuiText("machines.tooltip.normal", "Normal");
+        addGuiText("machines.tooltip.inverted", "Inverted");
+        addGuiText("machines.tooltip.warning", "Warning!");
+        addGuiText("machines.tooltip.needs_air", "Machine needs air to ventilate!");
+        addGuiText("machines.tooltip.make_space", "Make space above it!");
+        addGuiText("machines.tooltip.hold", "Hold");
+        addGuiText("machines.tooltip.for_details", "for further details.");
+        addGuiText("machines.tooltip.for_description", "for a block description.");
+        addGuiText("machines.tooltip.capacity", "Capacity:");
+        addGuiText("machines.tooltip.infinite", "Infinite");
+
+        addGuiText("machines.concentrator.name", "Concentrating");
+        addGuiText("machines.blast_furnace.name", "Blasting");
+        addGuiText("machines.oxidizer.name", "Oxidizing");
+        addGuiText("machines.decomposer.name", "Decomposing");
+        addGuiText("machines.crystallizer.name", "Crystallizing");
+        addGuiText("machines.electrolytic_salt_separator.name", "Electrolysing");
+        addGuiText("machines.fluid_centrifuge.name", "Centrifuging");
+        addGuiText("machines.fluid_evaporator.name", "Evaporating");
+        addGuiText("machines.generator.name", "Energy Production");
+        addGuiText("machines.salt_melter.name", "Salt Melting");
+        addGuiText("machines.fluid_tank.name", "Fluid Tank");
+        addGuiText("machines.thorium_crafting_table.name", "Thorium Crafting");
+
+        addGuiText("turbine.top_info.turbine", "Turbine");
+        addGuiText("turbine.top_info.active", "Active");
+        addGuiText("turbine.top_info.inactive", "Inactive");
+        addGuiText("turbine.top_info.producing", "Producing: ");
+        addGuiText("turbine.top_info.speed", "Speed: ");
+        addGuiText("turbine.top_info.flowrate", "Flowrate: ");
+        addGuiText("turbine.top_info.best_performing_at", "Best performing@ 1900 - 2500 Rpm");
+        addGuiText("turbine.top_info.rpm", "Rpm");
+
+        addGuiText("reactor.top_info.reactor", "Reactor");
+        addGuiText("reactor.top_info.active", "Active");
+        addGuiText("reactor.top_info.inactive", "Inactive");
+        addGuiText("reactor.top_info.rod_insert", "Rod Insert: ");
+        addGuiText("reactor.top_info.uranium_fuel", "Uranium Fuel: ");
+        addGuiText("reactor.top_info.reactor_load", "Reactor Load: ");
+        addGuiText("reactor.top_info.status", "Status: ");
+        addGuiText("reactor.top_info.type", "Type: ");
+        addGuiText("reactor.text.valve_io", "Valve I/O Mode: ");
+
+        addGuiText("machines.top_info.energy", "Energy: ");
+        addGuiText("machines.top_info.recipe", "Recipe: ");
+        addGuiText("machines.top_info.producing", "Producing: ");
+        addGuiText("machines.top_info.fuel", "Fuel: ");
+
+        addGuiText("items.text.turbine_selected", "Turbine selected: ");
+        addGuiText("items.text.turbine_saved_to_configurator", "Turbine saved to configurator");
+        addGuiText("items.text.turbine_saved_to_reactor", "Turbine saved to reactor.");
+
         add("item_input", "Item Input");
         add("item_output", "Item Output");
         add("coolant_input", "Coolant Input");
@@ -208,4 +277,9 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         add("itemGroup.thoriumreactors.machinery", "Thorium Reactors - Machinery");
         add("death.attack.thoriumreactors.radioactive_overdosis", "%1$s died of a radioactive overdose.");
     }
+
+    private void addGuiText(String name, String text) {
+        add("text.thoriumreactors.inventory." + name, text);
+    }
+
 }
