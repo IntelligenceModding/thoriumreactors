@@ -190,13 +190,19 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         addGuiText("machines.state.idle", "Idle");
         addGuiText("machines.state.running", "Running");
 
+        addGuiText("machines.tooltip.empty", "Empty");
+        addGuiText("machines.tooltip.not_placed", "Not Placed Yet");
+        addGuiText("machines.tooltip.energy_buffer", "Energy Buffer: ");
+        addGuiText("machines.tooltip.recipe_status", "Recipe Status: ");
+        addGuiText("machines.tooltip.contains_items", "Inventory contains items!");
+
         addGuiText("machines.text.amount", "Amount:");
         addGuiText("machines.text.capacity", "Capacity:");
         addGuiText("machines.text.fillage", "Fillage:");
 
         addGuiText("machines.tooltip.dump_instantly", "Dump stored liquid instantly");
-        addGuiText("machines.tooltip.auto_dump", "Auto Dump:");
-        addGuiText("machines.tooltip.fluid", "Fluid:");
+        addGuiText("machines.tooltip.auto_dump", "Auto Dump: ");
+        addGuiText("machines.tooltip.fluid", "Fluid: ");
         addGuiText("machines.tooltip.only_while_running", "Only while running");
         addGuiText("machines.tooltip.infinite", "Infinite");
         addGuiText("machines.tooltip.usage", "Usage:");
@@ -208,11 +214,10 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         addGuiText("machines.tooltip.warning", "Warning!");
         addGuiText("machines.tooltip.needs_air", "Machine needs air to ventilate!");
         addGuiText("machines.tooltip.make_space", "Make space above it!");
-        addGuiText("machines.tooltip.hold", "Hold");
-        addGuiText("machines.tooltip.for_details", "for further details.");
-        addGuiText("machines.tooltip.for_description", "for a block description.");
+        addGuiText("machines.tooltip.hold", "Hold ");
+        addGuiText("machines.tooltip.for_details", " for further details.");
+        addGuiText("machines.tooltip.for_description", " for a block description.");
         addGuiText("machines.tooltip.capacity", "Capacity:");
-        addGuiText("machines.tooltip.infinite", "Infinite");
 
         addGuiText("machines.concentrator.name", "Concentrating");
         addGuiText("machines.blast_furnace.name", "Blasting");
@@ -235,6 +240,7 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         addGuiText("turbine.top_info.flowrate", "Flowrate: ");
         addGuiText("turbine.top_info.best_performing_at", "Best performing@ 1900 - 2500 Rpm");
         addGuiText("turbine.top_info.rpm", "Rpm");
+        addGuiText("turbine.text.valve_io", "Valve I/O Mode: ");
 
         addGuiText("reactor.top_info.reactor", "Reactor");
         addGuiText("reactor.top_info.active", "Active");
@@ -254,6 +260,35 @@ public class LanguageProvider extends net.minecraftforge.common.data.LanguagePro
         addGuiText("items.text.turbine_selected", "Turbine selected: ");
         addGuiText("items.text.turbine_saved_to_configurator", "Turbine saved to configurator");
         addGuiText("items.text.turbine_saved_to_reactor", "Turbine saved to reactor.");
+
+        add(ModBlocks.FACTORY_BLOCK.get(), "Factory Block");
+
+        add(ModBlocks.INDUSTRAL_BLOCK.get(), "Industrial Block");
+        add(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), "Industrial Block Big Tile");
+        add(ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), "Industrial Block Paving");
+        add(ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), "Industrial Block Brick");
+        add(ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(), "Industrial Block Smooth");
+        add(ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), "Industrial Block Floor");
+
+        add(ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), "Black Industrial Block");
+        add(ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), "Black Industrial Block Big Tile");
+        add(ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get(), "Black Industrial Block Paving");
+        add(ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), "Black Industrial Block Brick");
+        add(ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(), "Black Industrial Block Smooth");
+        add(ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), "Black Industrial Block Floor");
+
+        add(ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), "White Industrial Block");
+        add(ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), "White Industrial Block Big Tile");
+        add(ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get(), "White Industrial Block Paving");
+        add(ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get(), "White Industrial Block Brick");
+        add(ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get(), "White Industrial Block Smooth");
+
+        add(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get(), "Lined Warning Block Black/Yellow Left");
+        add(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get(), "Lined Warning Block Black/Yellow Right");
+        add(ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get(), "Lined Warning Block White/Orange Left");
+        add(ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get(), "Lined Warning Block White/Orange Right");
+        add(ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get(), "Lined Warning Block White/Black Left");
+        add(ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get(), "Lined Warning Block White/Black Right");
 
         add("item_input", "Item Input");
         add("item_output", "Item Output");

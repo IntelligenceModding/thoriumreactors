@@ -1,0 +1,17 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "CTM",
+    "layer": "SOLID",
+    "textures": [
+      "thoriumreactors:block/white_industrial_block-ctm"
+    ],
+    "extra": {
+      "connect_to": [
+        {
+          "block": "thoriumreactors:white_industrial_block"
+        }
+      ]
+    }
+  }
+}

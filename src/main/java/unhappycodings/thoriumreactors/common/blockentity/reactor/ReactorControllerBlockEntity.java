@@ -759,18 +759,6 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         return this.level.getBlockState(pos);
     }
 
-    public boolean isCasing(BlockState state) {
-        return state.is(ModBlocks.REACTOR_CASING.get());
-    }
-
-    public boolean isGlass(BlockState state) {
-        return state.is(ModBlocks.REACTOR_GLASS.get());
-    }
-
-    public boolean isValve(BlockState state) {
-        return state.is(ModBlocks.REACTOR_VALVE.get());
-    }
-
     public boolean isAssembled() {
         return assembled;
     }

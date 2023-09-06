@@ -46,7 +46,7 @@ public class ThermalValveBlock extends ThermalFrameBlock {
             if (!pLevel.isClientSide) {
                 pLevel.setBlockAndUpdate(pPos, pState.setValue(TYPE, pState.getValue(TYPE).next()));
             } else {
-                pPlayer.sendSystemMessage(Component.Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty"))Valve I/O Mode: ").withStyle(FormattingUtil.hex(0x55D38A)).append(Component.translatable(pState.getValue(TYPE).next().getSerializedName()).withStyle(ChatFormatting.GRAY)));
+                pPlayer.sendSystemMessage(Component.translatable(FormattingUtil.getTranslatable("turbine.text.valve_io")).withStyle(FormattingUtil.hex(0x55D38A)).append(Component.translatable(pState.getValue(TYPE).next().getSerializedName()).withStyle(ChatFormatting.GRAY)));
                 pPlayer.playNotifySound(ModSounds.DIGITALBEEP_5.get(), SoundSource.BLOCKS, 1f, 1f);
             }
             return InteractionResult.SUCCESS;

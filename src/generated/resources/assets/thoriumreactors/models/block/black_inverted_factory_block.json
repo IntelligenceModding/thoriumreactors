@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "thoriumreactors:block/black_inverted_factory_block"
+  }
+}

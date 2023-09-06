@@ -87,9 +87,29 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.MODULE_PROCESSING.get());
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/factory_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.INVERTED_FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/inverted_factory_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_factory_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_inverted_factory_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.GRATE_FLOOR_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_big_tile"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_PAVING.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_paving"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_BRICK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_brick"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_smooth"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_FLOOR.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_floor"));
+
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_big_tile"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_paving"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_brick"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_smooth"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_floor"));
+
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WHITE_INDUSTRAL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/white_industrial_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/white_industrial_block_big_tile"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/white_industrial_block_paving"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/white_industrial_block_brick"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/white_industrial_block_smooth"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_black_yellow_left"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_black_yellow_right"));

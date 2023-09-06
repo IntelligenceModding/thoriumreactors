@@ -9,6 +9,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
+import unhappycodings.thoriumreactors.common.block.building.GrateFloorBlock;
 import unhappycodings.thoriumreactors.common.block.chest.BlastedIronChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.ThoriumChestBlock;
@@ -36,9 +37,28 @@ public class ModBlocks {
 
     // Building
     public static final RegistryObject<Block> FACTORY_BLOCK = register("factory_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> INVERTED_FACTORY_BLOCK = register("inverted_factory_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> BLACK_FACTORY_BLOCK = register("black_factory_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> BLACK_INVERTED_FACTORY_BLOCK = register("black_inverted_factory_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
     public static final RegistryObject<Block> INDUSTRAL_BLOCK = register("industrial_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
     public static final RegistryObject<Block> INDUSTRAL_BLOCK_BIG_TILE = register("industrial_block_big_tile", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
     public static final RegistryObject<Block> INDUSTRAL_BLOCK_PAVING = register("industrial_block_paving", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> INDUSTRAL_BLOCK_BRICK = register("industrial_block_brick", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> INDUSTRAL_BLOCK_SMOOTH = register("industrial_block_smooth", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> INDUSTRAL_BLOCK_FLOOR = register("industrial_block_floor", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+
+    public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK = register("black_industrial_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_BIG_TILE = register("black_industrial_block_big_tile", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_PAVING = register("black_industrial_block_paving", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_BRICK = register("black_industrial_block_brick", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_SMOOTH = register("black_industrial_block_smooth", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_FLOOR = register("black_industrial_block_floor", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+
+    public static final RegistryObject<Block> WHITE_INDUSTRAL_BLOCK = register("white_industrial_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WHITE_INDUSTRAL_BLOCK_BIG_TILE = register("white_industrial_block_big_tile", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WHITE_INDUSTRAL_BLOCK_PAVING = register("white_industrial_block_paving", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WHITE_INDUSTRAL_BLOCK_BRICK = register("white_industrial_block_brick", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+    public static final RegistryObject<Block> WHITE_INDUSTRAL_BLOCK_SMOOTH = register("white_industrial_block_smooth", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
 
     public static final RegistryObject<Block> WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT = register("warning_block_lined_black_yellow_left", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
     public static final RegistryObject<Block> WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT = register("warning_block_lined_black_yellow_right", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
@@ -46,6 +66,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT = register("warning_block_lined_white_orange_right", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
     public static final RegistryObject<Block> WARNING_BLOCK_LINED_WHITE_BLACK_LEFT = register("warning_block_lined_white_black_left", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
     public static final RegistryObject<Block> WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT = register("warning_block_lined_white_black_right", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
+
+    public static final RegistryObject<Block> GRATE_FLOOR_BLOCK = register("grate_floor_block", () -> new GrateFloorBlock(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));
 
     // Ores
     public static final RegistryObject<Block> MANGANESE_ORE = register("manganese_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(4f)));

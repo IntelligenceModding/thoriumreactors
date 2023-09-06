@@ -75,7 +75,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
                 valveTankRender(iProbeInfo, valveBlockEntity.getFluidIn(), valveBlockEntity.getFluidCapacityIn(), valveBlockEntity.getFluidAmountIn());
 
             iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.producing")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(entity.isCoilsEngaged() ? FormattingUtil.formatEnergy(entity.getRpm() * (FormattingUtil.getTurbineGenerationModifier(entity.getRpm()))) : "0 FE" + "/t").withStyle(ChatFormatting.WHITE)));
-            iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.speed")).withStyle(FormattingUtil.hex(0x55D38A)).append(Component.literal(Math.floor(entity.getRpm() * 100) / 100 + " ").append(FormattingUtil.getTranslatable("turbine.top_info.rpm")).withStyle(ChatFormatting.WHITE)));
+            iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.speed")).withStyle(FormattingUtil.hex(0x55D38A)).append(Component.literal(Math.floor(entity.getRpm() * 100) / 100 + " ").append(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.rpm"))).withStyle(ChatFormatting.WHITE)));
             iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.flowrate")).withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(entity.getCurrentFlowrate() + " mB/t").withStyle(ChatFormatting.WHITE)));
             iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.best_performing_at")).withStyle(FormattingUtil.hex(0x55D38A)));
         } else if (level.getBlockEntity(iProbeHitData.getPos()) instanceof ReactorControllerBlockEntity entity) {
@@ -140,7 +140,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
             }
 
             if (level.getBlockEntity(iProbeHitData.getPos()) instanceof ReactorValveBlockEntity entity) {
-                iProbeInfo.mcText(Component.literal(FormattingUtil.getTranslatable("reactor.top_info.type")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.translatable(entity.getBlockState().getValue(ReactorValveBlock.TYPE).getSerializedName()).withStyle(ChatFormatting.WHITE)));
+                iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("reactor.top_info.type")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.translatable(entity.getBlockState().getValue(ReactorValveBlock.TYPE).getSerializedName()).withStyle(ChatFormatting.WHITE)));
             }
 
         }

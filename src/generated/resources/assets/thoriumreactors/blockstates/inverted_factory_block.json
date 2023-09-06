@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "thoriumreactors:block/inverted_factory_block"
+    }
+  }
+}

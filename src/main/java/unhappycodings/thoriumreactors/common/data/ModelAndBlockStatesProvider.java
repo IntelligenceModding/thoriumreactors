@@ -31,10 +31,31 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(ModBlocks.FACTORY_BLOCK.get());
+        simpleBlock(ModBlocks.INVERTED_FACTORY_BLOCK.get());
+        simpleBlock(ModBlocks.BLACK_FACTORY_BLOCK.get());
+        simpleBlock(ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get());
 
         simpleBlock(ModBlocks.INDUSTRAL_BLOCK.get());
         simpleBlock(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get());
         simpleBlock(ModBlocks.INDUSTRAL_BLOCK_PAVING.get());
+        simpleBlock(ModBlocks.INDUSTRAL_BLOCK_BRICK.get());
+        simpleBlock(ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get());
+        simpleBlock(ModBlocks.INDUSTRAL_BLOCK_FLOOR.get());
+
+        simpleBlock(ModBlocks.GRATE_FLOOR_BLOCK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.GRATE_FLOOR_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor")).texture("0", new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_smooth")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_smooth")));
+
+        simpleBlock(ModBlocks.BLACK_INDUSTRAL_BLOCK.get());
+        simpleBlock(ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get());
+        simpleBlock(ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get());
+        simpleBlock(ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get());
+        simpleBlock(ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get());
+        simpleBlock(ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get());
+
+        simpleBlock(ModBlocks.WHITE_INDUSTRAL_BLOCK.get());
+        simpleBlock(ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get());
+        simpleBlock(ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get());
+        simpleBlock(ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get());
+        simpleBlock(ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get());
 
         simpleBlock(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get());
         simpleBlock(ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get());
