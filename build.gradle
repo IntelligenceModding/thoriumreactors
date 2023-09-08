@@ -12,6 +12,9 @@ buildscript {
 }
 
 plugins {
+    id "maven-publish"
+    id "org.jetbrains.kotlin.jvm" version "1.6.10"
+    id "java"
 }
 
 apply plugin: 'net.minecraftforge.gradle'
@@ -20,11 +23,14 @@ apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 group = 'unhappycodings'
 version = "${mc_version}-${mod_version}"
+archivesBaseName = 'thoriumreactors'
 
-java {
-    archivesBaseName = 'thoriumreactors'
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+wrapper {
+    gradleVersion = '8.1.1'
+    distributionType = Wrapper.DistributionType.ALL
 }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     mappings channel: "${mappings_channel}", version: "${mappings_version}"
@@ -109,25 +115,18 @@ repositories {
         }
     }
     maven {
-        name = "Intelligence Space repository"
-        url = "https://maven.pkg.jetbrains.space/intelligence/p/advancedperipherals/ap-repository"
-        credentials {
-            username = spaceUsername
-            password = spacePassword
-        }
-    }
-    flatDir {
-        dirs 'lib'
+        name = "Intelligence Minecraft repository"
+        url = "https://mvn.intelligence-modding.de/Minecraft"
     }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    // Apply Mixin AP
+    // Apply Mixin API
     implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${mixin_extras_version}"))
     implementation(jarJar("com.github.llamalad7.mixinextras:mixinextras-forge:${mixin_extras_version}")) {
-        jarJar.ranged(it, "[${mixin_extras_version},)")
+        jarJar.ranged(it, "[${mixin_extras_version},)")-
     }
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
