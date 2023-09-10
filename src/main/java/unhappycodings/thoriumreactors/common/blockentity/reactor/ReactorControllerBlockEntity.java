@@ -183,15 +183,6 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         SoundUtil.stopSound(type, SoundSource.BLOCKS, getBlockPos(), level);
     }
 
-    public BlockPos addParticleOffset(BlockPos pos, Direction direction) {
-        return switch (direction) {
-            case WEST -> pos.offset(0, -1, -2);
-            case EAST -> pos.offset(-4, -1, -2);
-            case SOUTH -> pos.offset(-2, -1, -4);
-            default -> pos.offset(-2, -1, 0);
-        };
-    }
-
     public void scram(String text) {
         setScrammed(true);
         setNotification(text);

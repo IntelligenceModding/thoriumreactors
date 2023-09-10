@@ -69,10 +69,13 @@ public class ReactorControllerBlock extends ReactorFrameBlock {
         if (!entity.isAssembled()) {
             Direction facing = state.getValue(FACING);
             boolean canBeAssembled = false;
+            int height = 0;
             List<Block> reactorBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 4), levelIn);
 
-            if (ReactorMultiblocks.isReactor(ReactorMultiblocks.getReactorFromHeight(5), reactorBlocks))
+            if (ReactorMultiblocks.isReactor(ReactorMultiblocks.getReactorFromHeight(6), reactorBlocks)) {
                 canBeAssembled = true;
+                height = 6;
+            }
 
             if (entity.isAssembled() != canBeAssembled) {
                 entity.valvePos = new ArrayList<>(4);
@@ -87,14 +90,14 @@ public class ReactorControllerBlock extends ReactorFrameBlock {
                 if (entity.valvePos.size() != 4) return InteractionResult.CONSUME;
 
                 entity.setAssembled(canBeAssembled);
-                entity.setReactorHeight(5);
+                entity.setReactorHeight(height);
                 entity.setReactorCapacity((3 * 3 * (entity.getReactorHeight() - 1) * 1000) - 1000);
                 levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, canBeAssembled));
 
                 long x = facing == Direction.WEST || facing == Direction.EAST ? 3 : 5, y = 3;
                 if (x == 3) y = 5;
                 for (Player loopPlayer : levelIn.players()) {
-                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos.relative(Direction.DOWN, 1), state.getValue(ReactorControllerBlock.FACING)), ParticleTypeEnum.REACTOR, x, 5, y), (ServerPlayer) loopPlayer);
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(ReactorControllerBlock.FACING)), ParticleTypeEnum.REACTOR, x, height, y), (ServerPlayer) loopPlayer);
                 }
             }
         } else {
@@ -112,8 +115,8 @@ public class ReactorControllerBlock extends ReactorFrameBlock {
     public BlockPos addParticleOffset(BlockPos pos, Direction direction) {
         return switch (direction) {
             case WEST -> pos.offset(0, -1, -2);
-            case EAST -> pos.offset(-4, -1, -2);
-            case SOUTH -> pos.offset(-2, -1, -4);
+            case EAST -> pos.offset(-2, -1, -2);
+            case SOUTH -> pos.offset(-2, -1, -2);
             default -> pos.offset(-2, -1, 0);
         };
     }
