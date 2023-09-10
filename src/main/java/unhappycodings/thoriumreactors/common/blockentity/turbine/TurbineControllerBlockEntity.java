@@ -34,6 +34,7 @@ public class TurbineControllerBlockEntity extends BlockEntity {
     private boolean assembled, coilsEngaged, activated;
     private float rotation = 0, rpm = 0, lastRpm = 0, ticks = 0, targetFlowrate = 0, currentFlowrate = 0;
     private int turbineHeight;
+    private float energyModifier;
     private long turbinetime = 0;
 
     public TurbineControllerBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -49,8 +50,8 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         if (valvePos != null && powerPortPos != null && level.getBlockEntity(valvePos) instanceof TurbineValveBlockEntity valveBlockEntity && level.getBlockEntity(powerPortPos) instanceof TurbinePowerPortBlockEntity powerPortBlockEntity) {
 
             if (coilsEngaged) {
-                if (powerPortBlockEntity.getEnergy() + (int) (getRpm() * FormattingUtil.getTurbineGenerationModifier(getRpm())) < powerPortBlockEntity.getCapacity()) {
-                    powerPortBlockEntity.setEnergy(powerPortBlockEntity.getEnergy() + (int) (getRpm() * FormattingUtil.getTurbineGenerationModifier(getRpm())));
+                if (powerPortBlockEntity.getEnergy() + (int) (getRpm() * FormattingUtil.getTurbineGenerationModifier(getRpm()) * getEnergyModifier()) < powerPortBlockEntity.getCapacity()) {
+                    powerPortBlockEntity.setEnergy(powerPortBlockEntity.getEnergy() + (int) (getRpm() * FormattingUtil.getTurbineGenerationModifier(getRpm()) * getEnergyModifier()));
                     EnergyUtil.trySendToNeighbors(level, getBlockPos(), powerPortBlockEntity.getEnergyStorage(), powerPortBlockEntity.getEnergy(), (int) powerPortBlockEntity.getMaxEnergyTransfer());
                 } else if (powerPortBlockEntity.getEnergy() != powerPortBlockEntity.getCapacity()) {
                     powerPortBlockEntity.setEnergy(powerPortBlockEntity.getCapacity());
@@ -212,6 +213,14 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         return powerPortPos;
     }
 
+    public float getEnergyModifier() {
+        return energyModifier;
+    }
+
+    public void setEnergyModifier(float energyModifier) {
+        this.energyModifier = energyModifier;
+    }
+
     public long getTurbinetime() {
         return turbinetime;
     }
@@ -246,6 +255,7 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         nbt.putInt("Height", getTurbineHeight());
         nbt.putLong("TurbineTime", getTurbinetime());
         nbt.putFloat("RPM", getRpm());
+        nbt.putFloat("EnergyModifier", getEnergyModifier());
         nbt.putFloat("LastRPM", getLastRpm());
         nbt.putFloat("Rotation", getRotation());
         nbt.putFloat("Ticks", getTicks());
@@ -263,6 +273,7 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         setActivated(tag.getBoolean("Activated"));
         setTurbineHeight(tag.getInt("Height"));
         setTurbinetime(tag.getLong("TurbineTime"));
+        setEnergyModifier(tag.getFloat("EnergyModifier"));
         setRpm(tag.getFloat("RPM"));
         setLastRpm(tag.getFloat("LastRPM"));
         setTargetFlowrate(tag.getFloat("Flowrate"));
@@ -280,6 +291,7 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         nbt.putBoolean("Activated", isActivated());
         nbt.putInt("Height", getTurbineHeight());
         nbt.putLong("TurbineTime", getTurbinetime());
+        nbt.putFloat("EnergyModifier", getEnergyModifier());
         nbt.putFloat("RPM", getRpm());
         nbt.putFloat("LastRPM", getLastRpm());
         nbt.putFloat("Flowrate", getTargetFlowrate());
@@ -295,6 +307,7 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         setActivated(nbt.getBoolean("Activated"));
         setTurbineHeight(nbt.getInt("Height"));
         setTurbinetime(nbt.getLong("TurbineTime"));
+        setEnergyModifier(nbt.getFloat("EnergyModifier"));
         setRpm(nbt.getFloat("RPM"));
         setLastRpm(nbt.getFloat("LastRPM"));
         setTargetFlowrate(nbt.getFloat("Flowrate"));

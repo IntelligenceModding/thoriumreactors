@@ -37,6 +37,7 @@ import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorRenderDataPacket;
 import unhappycodings.thoriumreactors.common.registration.*;
+import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import unhappycodings.thoriumreactors.common.util.SoundUtil;
 
 import java.util.ArrayList;
@@ -47,9 +48,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     public static final int MAX_HEAT = 1320;
     public List<BlockPos> turbinePos;
     public List<BlockPos> valvePos;
-    public boolean canBeAssembled;
     public boolean assembled;
-    public String warning = "";
     public String notification = "";
     public boolean isReactorActive;
     public boolean isExchangerActive;
@@ -64,7 +63,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     private byte reactorCurrentLoadSet; // 0-100%
     private long reactorRunningSince; // timestamp
     private float reactorStatus = 100; // 0-100%
-    private float reactorContainment; // 0-100%
+    private float reactorContainment = 100; // 0-100%
     private float reactorRadiation; // uSv per hour
     private float reactorPressure = 29.98f; // in PSI
     private int reactorHeight = 0;
@@ -223,7 +222,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
 
         setReactorRunningSince(getReactorRunningSince() + 1);
         if (getFluidAmountIn() < 8000 && !isScrammed()) {
-            scram("Warning: Emergency Scram! Molten Salt level low");
+            scram(Component.translatable(FormattingUtil.getTranslatable("reactor.text.molten_salt_low_warning")).getString());
             return;
         } else if (!getNotification().equals("")) {
             setNotification("");

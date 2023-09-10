@@ -44,6 +44,13 @@ import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import java.util.List;
 
 public class TurbineControllerBlock extends BaseEntityBlock {
+    private static final float NICKEL_MODIFIER = 1f;
+    private static final float NIOB_MODIFIER = 1.5f;
+    private static final float MOLYBDENUM_MODIFIER = 2f;
+
+    private static final float NICKEL_BLOCK_VALUE = NICKEL_MODIFIER / 8;
+    private static final float NIOB_BLOCK_VALUE = NIOB_MODIFIER / 8;
+    private static final float MOLYBDENUM_BLOCK_VALUE = MOLYBDENUM_MODIFIER / 8;
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
@@ -135,6 +142,23 @@ public class TurbineControllerBlock extends BaseEntityBlock {
                 for (Player curPlayer : levelIn.players())
                     PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING)), ParticleTypeEnum.TURBINE, 5, 9, 5), (ServerPlayer) curPlayer);
                 entity.setTurbineHeight(turbineSize + 1);
+
+                List<Block> turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, turbineSize), levelIn);
+                List<Block> moderatorBlocks = TurbineMultiblocks.getTurbineModeratorBLocks(TurbineMultiblocks.getTurbineFromSize(turbineSize), turbineBlocks);
+
+                float moderatorModifier = 0f;
+                for (Block moderatorBlock : moderatorBlocks) {
+                    if (moderatorBlock.getStateDefinition().any().is(ModBlocks.NICKEL_BLOCK.get())) {
+                        moderatorModifier += NICKEL_BLOCK_VALUE;
+                    } else if (moderatorBlock.getStateDefinition().any().is(ModBlocks.NIOB_BLOCK.get())) {
+                        moderatorModifier += NIOB_BLOCK_VALUE;
+                    } else if (moderatorBlock.getStateDefinition().any().is(ModBlocks.MOLYBDENUM_BLOCK.get())) {
+                        moderatorModifier += MOLYBDENUM_BLOCK_VALUE;
+                    }
+                }
+
+                entity.setEnergyModifier(moderatorModifier);
+
             }
         } else {
             entity.setAssembled(false);

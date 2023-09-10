@@ -83,6 +83,17 @@ public class TurbineMultiblocks {
         return valveCount == 1 && controllerCount == 1 && powerPortCount == 1;
     }
 
+    public static List<Block> getTurbineModeratorBLocks(List<Block> targetTurbine, List<Block> turbineBlocks) {
+        List<Block> moderatorBlocks = new ArrayList<>(9);
+        for (int i = 0; i < targetTurbine.size(); i++) {
+            if (targetTurbine.get(i) == Blocks.STRUCTURE_VOID && isTurbineModeratorPart(turbineBlocks.get(i))) {
+                moderatorBlocks.add(turbineBlocks.get(i));
+            }
+
+        }
+        return moderatorBlocks;
+    }
+
     public static boolean isTurbineModeratorPart(Block block) {
         return block == ModBlocks.NICKEL_BLOCK.get() || block == ModBlocks.NIOB_BLOCK.get() || block == ModBlocks.MOLYBDENUM_BLOCK.get();
     }

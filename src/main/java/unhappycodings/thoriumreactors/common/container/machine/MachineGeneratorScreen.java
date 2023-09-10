@@ -54,9 +54,9 @@ public class MachineGeneratorScreen extends MachineScreen<MachineGeneratorContai
 
         SimpleDateFormat format = new SimpleDateFormat("mm'm' ss's'");
         float fuel = entity.getFuel() / 20f * 1000 + (entity.getFuel() > 0 ? 1000 : 0);
-        RenderUtil.drawText(Component.literal("Fuel: ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(format.format(fuel)).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 26);
-        RenderUtil.drawText(Component.literal("Tank: ").withStyle(FormattingUtil.hex(0xC6CC3E)).append(Component.literal(entity.getEnergy() + " FE").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 37);
-        RenderUtil.drawText(Component.literal("Gen: ").withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(entity.getCurrentProduction() + " FE/t").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 48);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.fuel")).withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(format.format(fuel)).withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 26);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.tank")).withStyle(FormattingUtil.hex(0xC6CC3E)).append(Component.literal(entity.getEnergy() + " FE").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 37);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.gen")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(entity.getCurrentProduction() + " FE/t").withStyle(ChatFormatting.GRAY)).withStyle(RenderUtil::notoSans), pPoseStack, 52, 48);
 
         if (RenderUtil.mouseInArea(getGuiLeft() + 146, getGuiTop() + 22, getGuiLeft() + 154, getGuiTop() + 59, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatNum(entity.getEnergy()) + "/" + FormattingUtil.formatNum(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity())});

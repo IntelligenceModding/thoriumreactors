@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.gui.GuiUtil;
 import unhappycodings.thoriumreactors.client.gui.widgets.base.BaseWidget;
+import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerScreen;
 
 import java.util.Collections;
 import java.util.function.Supplier;
@@ -40,6 +41,17 @@ public class ModButton extends BaseWidget {
         super.renderToolTip(matrixStack, mouseX, mouseY);
         if (hoverText != null && isMouseOver(mouseX, mouseY))
             renderComponentTooltip(matrixStack, Collections.singletonList(hoverText.get()), mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+        if (ReactorControllerScreen.incrementerFlow != null && ReactorControllerScreen.incrementerFlow.isMouseOver(pMouseX, pMouseY) && pButton == 1) {
+            if (isValid != null && isValid.get() && onClickReverse != null) {
+                onClickReverse.run();
+                playDownSound(minecraft.getSoundManager());
+            }
+        }
+        return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 
     @Override
