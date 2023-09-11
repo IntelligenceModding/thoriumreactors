@@ -301,6 +301,8 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("reactor.text.uran", "Uran: ");
         addGuiText("reactor.text.fuel", "Fuel: ");
         addGuiText("reactor.text.unset", "Unset");
+        addGuiText("reactor.text.select", "Select");
+        addGuiText("reactor.text.rod", "Rod");
         addGuiText("reactor.text.valve_manipulation", "MANUAL VALVE MANIPULATION");
         addGuiText("reactor.text.system_chart", "OPERATIONAL SYSTEM CHART");
         addGuiText("reactor.text.rod_insert", "ROD INSERT");

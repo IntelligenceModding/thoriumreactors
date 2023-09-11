@@ -543,8 +543,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
         RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.valve_manipulation")).withStyle(RenderUtil::notoSans), pPoseStack, -206, -39, 11184810);
         RenderUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.rod_insert")).withStyle(RenderUtil::notoSans), pPoseStack, -184, -17, 16711422);
-        RenderUtil.drawCenteredText(Component.literal(selectedRod == -1 ? "Select" : "Rod").withStyle(RenderUtil::notoSans), pPoseStack, -184, 8, 16711422);
-        RenderUtil.drawCenteredText(Component.literal(selectedRod == -1 ? "Rod" : "#" + selectedRod).withStyle(RenderUtil::notoSans), pPoseStack, -184, 17, 16711422);
+        RenderUtil.drawCenteredText(Component.translatable(selectedRod == -1 ? FormattingUtil.getTranslatable("reactor.text.select") : FormattingUtil.getTranslatable("reactor.text.rod")).withStyle(RenderUtil::notoSans), pPoseStack, -184, 8, 16711422);
+        RenderUtil.drawCenteredText(Component.translatable(selectedRod == -1 ? FormattingUtil.getTranslatable("reactor.text.rod") : "#" + selectedRod).withStyle(RenderUtil::notoSans), pPoseStack, -184, 17, 16711422);
         RenderUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.set")).withStyle(RenderUtil::notoSans), pPoseStack, -184, 68, 11566128);
 
         RenderUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.fuel_load")).withStyle(RenderUtil::notoSans), pPoseStack, -135, -17, 16711422);
@@ -676,7 +676,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.temp")).append(Component.literal(", °C")).withStyle(RenderUtil::notoSans), pPoseStack, -21, 189, 11184810);
         RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.flow")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.mbs")))).withStyle(RenderUtil::notoSans), pPoseStack, 47, 189, 11184810);
         RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.speed_cap")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.rpm")))).withStyle(RenderUtil::notoSans), pPoseStack, 117, 189, 11184810);
-        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.generation")).append(Component.literal("., ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.fet")))).withStyle(RenderUtil::notoSans), pPoseStack, 185, 189, 11184810);
+        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.generation")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.fet")))).withStyle(RenderUtil::notoSans), pPoseStack, 185, 189, 11184810);
         RenderUtil.drawCenteredText(Component.literal(String.valueOf(Math.round(entity.getReactorCurrentTemperature() * 10f) / 10f)).withStyle(RenderUtil::notoSans), pPoseStack, 7, 202, 16711422);
         RenderUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? targetEntity.getCurrentFlowrate() : 0f)).withStyle(RenderUtil::notoSans), pPoseStack, 76, 202, 16711422);
         RenderUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? Math.floor(targetEntity.getRpm() * 100f) / 100f : 0f)).withStyle(RenderUtil::notoSans), pPoseStack, 145, 202, 16711422);

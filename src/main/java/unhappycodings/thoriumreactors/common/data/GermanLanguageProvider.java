@@ -225,7 +225,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("machines.electrolytic_salt_separator.name", "Elektrolyse");
         addGuiText("machines.fluid_centrifuge.name", "Zentrifugation");
         addGuiText("machines.fluid_evaporator.name", "Verdampfung");
-        addGuiText("machines.generator.name", "Energieproduktion");
+        addGuiText("machines.generator.name", "Energiegeneration");
         addGuiText("machines.salt_melter.name", "Salzschmelze");
         addGuiText("machines.fluid_tank.name", "Flüssigkeitstank");
         addGuiText("machines.thorium_crafting_table.name", "Thorium Werkbank");
@@ -233,7 +233,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("turbine.top_info.turbine", "Turbine");
         addGuiText("turbine.top_info.active", "Aktiv");
         addGuiText("turbine.top_info.inactive", "Inaktiv");
-        addGuiText("turbine.top_info.producing", "Produktion: ");
+        addGuiText("turbine.top_info.producing", "Generation: ");
         addGuiText("turbine.top_info.speed", "Geschwindigkeit: ");
         addGuiText("turbine.top_info.flowrate", "Flussrate: ");
         addGuiText("turbine.top_info.best_performing_at", "Beste Leistung bei 1900 - 2050 U/min");
@@ -261,11 +261,11 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("reactor.text.activated", "AKTIVIERT");
         addGuiText("reactor.text.on", "EIN");
         addGuiText("reactor.text.off", "AUS");
-        addGuiText("reactor.text.producing", "Produktion: ");
+        addGuiText("reactor.text.producing", "Generation: ");
         addGuiText("reactor.text.speed", "Geschwindigkeit: ");
         addGuiText("reactor.text.flowrate", "Flussrate: ");
         addGuiText("reactor.text.no_turbine_added", "Keine Turbine hinzugefügt!");
-        addGuiText("reactor.text.use_configurator_to_link", "Verwenden Sie den Konfigurator, um eine zu verbinden.");
+        addGuiText("reactor.text.use_configurator_to_link", "Verbinde mit einem Konfigurator.");
         addGuiText("reactor.text.start", "START");
         addGuiText("reactor.text.run", "BETRIEB");
         addGuiText("reactor.text.stop", "STOP");
@@ -286,9 +286,9 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("reactor.text.containment", "EINDÄMMUNG");
         addGuiText("reactor.text.radiation", "STRAHLUNG");
         addGuiText("reactor.text.temp", "TEMP");
-        addGuiText("reactor.text.flow", "FLUSS");
-        addGuiText("reactor.text.speed_cap", "GESCHW.");
-        addGuiText("reactor.text.generation", "PRODUK.");
+        addGuiText("reactor.text.flow", "FLUSSR.");
+        addGuiText("reactor.text.speed_cap", "GESCH.");
+        addGuiText("reactor.text.generation", "GEN.");
         addGuiText("reactor.text.normal", "NORMAL");
         addGuiText("reactor.text.overload", "ÜBERLAST");
         addGuiText("reactor.text.critical", "KRITISCH");
@@ -300,6 +300,8 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("reactor.text.uran", "Uran: ");
         addGuiText("reactor.text.fuel", "Tank: ");
         addGuiText("reactor.text.unset", "Nicht gesetzt");
+        addGuiText("reactor.text.select", "Stab");
+        addGuiText("reactor.text.rod", "wählen");
         addGuiText("reactor.text.valve_manipulation", "MANUELLE VENTILMANIPULATION");
         addGuiText("reactor.text.system_chart", "BETRIEBLICHES SYSTEMDIAGRAMM");
         addGuiText("reactor.text.rod_insert", "STÄBE");
