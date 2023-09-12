@@ -145,7 +145,6 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
                 setReactorPressure(getReactorPressure() - 0.0001f);
             }
         }
-
         if (level.getGameTime() % 20 == 0) {
             int reactorLoad = (int) (((getReactorCurrentTemperature() - 22) / 949) * 100);
             if (reactorLoad >= 105) {
@@ -224,7 +223,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         if (getFluidAmountIn() < 8000 && !isScrammed()) {
             scram(Component.translatable(FormattingUtil.getTranslatable("reactor.text.molten_salt_low_warning")).getString());
             return;
-        } else if (!getNotification().equals("")) {
+        } else if (!getNotification().isEmpty()) {
             setNotification("");
         }
 
@@ -243,6 +242,39 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
                 getFluidOut().grow(amount);
             }
         }
+
+        // Unfuel reactor by 1 enriched and output one depleted uranium every hour
+        if (getReactorRunningSince() % (60 * 60 * 20f) == 0) {
+            int runs = 0;
+            for (int i = 0; i < 81; i++) {
+                int randomNumber = new Random().nextInt(81);
+                if (getFuelRodStatus((byte) randomNumber) > 0) {
+                    setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) - 1));
+                    runs++;
+
+                }
+                if (runs == 10) {
+                    for (BlockPos blockPos : valvePos) {
+                        if (level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) {
+                            ReactorValveBlockEntity entity = (ReactorValveBlockEntity) level.getBlockEntity(blockPos);
+                            if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) != ValveTypeEnum.ITEM_OUTPUT) continue;
+                            if (((entity.getItem(0).is(ModItems.DEPLETED_URANIUM.get()) && entity.getItem(0).getCount() < entity.getItem(0).getMaxStackSize()) || entity.getItem(0).isEmpty())) {
+
+                                if (entity.getItem(0).isEmpty())
+                                    entity.setItem(0, new ItemStack(ModItems.DEPLETED_URANIUM.get(), 1));
+                                else
+                                    entity.getItem(0).grow(1);
+                            } else {
+                                scram("Not enough space for depleted uranium!");
+                            }
+                        }
+                    }
+                    
+                    break;
+                }
+            }
+        }
+
     }
 
     public void updateTemperature() {
@@ -259,7 +291,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         if (getReactorCurrentTemperature() + calculateTemperature(false) < getReactorTargetTemperature())
             setReactorCurrentTemperature((getReactorCurrentTemperature() + calculateTemperature(false)));
 
-            // Small step heating until target temperature
+        // Small step heating until target temperature
         else if (getReactorCurrentTemperature() < getReactorTargetTemperature() || getReactorCurrentTemperature() > getReactorTargetTemperature())
             setReactorCurrentTemperature((getReactorCurrentTemperature() + (getReactorCurrentTemperature() < getReactorTargetTemperature() ? 1 : -1)));
 

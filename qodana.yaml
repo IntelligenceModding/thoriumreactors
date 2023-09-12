@@ -1,0 +1,21 @@
+#-------------------------------------------------------------------------------#
+#               Qodana analysis is configured by qodana.yaml file               #
+#             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
+#-------------------------------------------------------------------------------#
+version: "1.0"
+
+profile:
+  name: qodana.starter
+
+#Disable inspections
+include:
+  - name: Include assets
+    paths:
+      - src/main/java/unhappycodings/thoriumreactors
+
+projectJDK: temurin-17 #(Applied in CI/CD pipeline)
+
+#Execute shell command before Qodana execution (Applied in CI/CD pipeline)
+#bootstrap: sh ./prepare-qodana.sh
+
+linter: jetbrains/qodana-jvm:latest
