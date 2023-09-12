@@ -53,6 +53,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     public boolean lastScramState;
 
+    public ModButton[] fuelRodsButtons = new ModButton[81];
     public ModButton[] controlRodsButtons = new ModButton[64];
     public static ModButton incrementerFlow;
     public ModButton turbineLeft;
@@ -99,6 +100,12 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
                 inputBox3.setValue(String.valueOf(entity.getControlRodStatus((byte) index)));
             }, null, entity, this, 0, 0, true);
             addWidget(controlRodsButtons[i]);
+        }
+
+        for (int i = 0; i < fuelRodsButtons.length; i++) {
+            int row = i / 9;
+            fuelRodsButtons[i] = new ModButton((64 - (row * 7)) + (i % 9 * 7), (7 + (row * 7)) + (i % 9 * 7), 4, 4, null, null, null, entity, this, 0, 0, false);
+            addWidget(fuelRodsButtons[i]);
         }
 
     }
@@ -495,6 +502,12 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
                     appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getControlRodStatus((byte) i) + "%", "⌠ ±"});
                 }
             }
+
+            for (int i = 0; i < fuelRodsButtons.length; i++) {
+                if (fuelRodsButtons[i].isMouseOver(pMouseX, pMouseY)) {
+                    appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getFuelRodStatus((byte) i) + "% Fuel", entity.getDepletedFuelRodStatus((byte) i) + "% Depleted"});
+                }
+            }
         }
     }
 
@@ -503,8 +516,10 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         pPoseStack.pushPose();
         pPoseStack.scale(0.14f, 0.14f, 0.14f);
         ReactorControllerBlockEntity entity = container.getTile();
+        int fuelValue = 0;
+        for (int i = 0; i < entity.getFuelRodStatus().length; i++) fuelValue += entity.getFuelRodStatus()[i];
         renderRadialProgress(pPoseStack, -1054, -38, selectedRod == -1 ? 0 : entity.getControlRodStatus((byte) selectedRod)); // Left
-        renderRadialProgress(pPoseStack, -808, -38, entity.getFuelRodStatus((byte) 0)); // Middle
+        renderRadialProgress(pPoseStack, -808, -38, (int) (fuelValue / 8100f * 100f)); // Middle
         renderRadialProgress(pPoseStack, -558, -38, (int) Math.floor(container.getTile().getReactorCurrentTemperature() / container.getTile().getReactorTargetTemperature() * 100)); // Right
         pPoseStack.popPose();
     }

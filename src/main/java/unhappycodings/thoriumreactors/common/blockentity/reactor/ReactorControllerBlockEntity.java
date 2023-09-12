@@ -71,6 +71,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     private boolean scrammed;
     private ReactorStateEnum reactorState = ReactorStateEnum.STOP; // STARTING - RUNNING - STOP
     // Rods
+    public byte[] depletedFuelRodStatus = new byte[81];
     public byte[] fuelRodStatus = new byte[81];
     public byte[] controlRodStatus = new byte[64];
     public byte[] targetControlRodStatus = new byte[64];
@@ -244,34 +245,16 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         }
 
         // Unfuel reactor by 1 enriched and output one depleted uranium every hour
-        if (getReactorRunningSince() % (60 * 60 * 20f) == 0) {
+        if (getReactorRunningSince() % (1 * 5 * 20f) == 0) {
             int runs = 0;
-            for (int i = 0; i < 81; i++) {
+            for (int i = 0; i < 810; i++) {
                 int randomNumber = new Random().nextInt(81);
                 if (getFuelRodStatus((byte) randomNumber) > 0) {
                     setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) - 1));
+                    setDepletedFuelRodStatus((byte) randomNumber, (byte) (getDepletedFuelRodStatus((byte) randomNumber) + 1));
                     runs++;
-
                 }
-                if (runs == 10) {
-                    for (BlockPos blockPos : valvePos) {
-                        if (level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) {
-                            ReactorValveBlockEntity entity = (ReactorValveBlockEntity) level.getBlockEntity(blockPos);
-                            if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) != ValveTypeEnum.ITEM_OUTPUT) continue;
-                            if (((entity.getItem(0).is(ModItems.DEPLETED_URANIUM.get()) && entity.getItem(0).getCount() < entity.getItem(0).getMaxStackSize()) || entity.getItem(0).isEmpty())) {
-
-                                if (entity.getItem(0).isEmpty())
-                                    entity.setItem(0, new ItemStack(ModItems.DEPLETED_URANIUM.get(), 1));
-                                else
-                                    entity.getItem(0).grow(1);
-                            } else {
-                                scram("Not enough space for depleted uranium!");
-                            }
-                        }
-                    }
-                    
-                    break;
-                }
+                if (runs == 10) break;
             }
         }
 
@@ -281,6 +264,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         int fuelValue = 0, controlValue = 0;
         for (int i = 0; i < getFuelRodStatus().length; i++) fuelValue += getFuelRodStatus()[i];
         for (int i = 0; i < getControlRodStatus().length; i++) controlValue += getControlRodStatus()[i];
+
         float fuelValuePercent = (fuelValue / 8100f * 100f), controlValuePercent = (1f - (controlValue / 6400f));
         float targetTemperature = (((fuelValuePercent * controlValuePercent) / 100f) * MAX_HEAT) * (reactorStatus / 20f - 4);
         short normalTemp = (short) (level.getBiome(getBlockPos()).is(Tags.Biomes.IS_COLD) ? 4 : 22);
@@ -392,34 +376,56 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
 
     public void tryFuelReactor() {
         if (valvePos != null) {
-            int fuelValue = 0;
+            int fuelValue = 0, depletedFuelValue = 0;
             for (int i = 0; i < getFuelRodStatus().length; i++) fuelValue += getFuelRodStatus()[i];
+            for (int i = 0; i < getDepletedFuelRodStatus().length; i++) depletedFuelValue += getDepletedFuelRodStatus()[i];
             int fuelPercentage = (int) (fuelValue / 8100f * 100f);
 
             setCoreFueled(fuelValue > 0);
 
             for (BlockPos blockPos : valvePos) {
                 if (!level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) return;
-                if (level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) {
-                    ReactorValveBlockEntity entity = (ReactorValveBlockEntity) level.getBlockEntity(blockPos);
-                    if (fuelAdditions == 0 && fuelValue < 8100 && entity.getItem(0).is(ModItems.ENRICHED_URANIUM.get()) && fuelPercentage < getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_INPUT) {
-                        entity.getItem(0).shrink(1);
-                        fuelAdditions = 10;
-                    } else if (fuelPercentage >= getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_OUTPUT) {
-                        if (fuelAdditions == 10) {
-                            if (entity.getItem(0).isEmpty())
-                                entity.setItem(0, new ItemStack(ModItems.ENRICHED_URANIUM.get(), 1));
-                            else
-                                entity.getItem(0).grow(1);
-                            fuelAdditions = 0;
-                        }
+
+                ReactorValveBlockEntity entity = (ReactorValveBlockEntity) level.getBlockEntity(blockPos);
+
+                if (fuelAdditions == 0 && fuelValue + depletedFuelValue < 8100 && entity.getItem(0).is(ModItems.ENRICHED_URANIUM.get()) && fuelPercentage < getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_INPUT) {
+                    entity.getItem(0).shrink(1);
+                    fuelAdditions = 10;
+                } else if (fuelPercentage >= getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_OUTPUT) {
+                    if (fuelAdditions == 10) {
+                        if (entity.getItem(0).isEmpty())
+                            entity.setItem(0, new ItemStack(ModItems.ENRICHED_URANIUM.get(), 1));
+                        else
+                            entity.getItem(0).grow(1);
+                        fuelAdditions = 0;
                     }
                 }
+
+                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) != ValveTypeEnum.ITEM_OUTPUT || depletedFuelValue < 10) continue;
+                if ((entity.getItem(0).is(ModItems.DEPLETED_URANIUM.get()) && entity.getItem(0).getCount() < entity.getItem(0).getMaxStackSize()) || entity.getItem(0).isEmpty()) {
+
+                    int runs = 0;
+                    for (int i = 0; i < 810; i++) {
+                        int randomNumber = new Random().nextInt(81);
+                        if (getDepletedFuelRodStatus((byte) randomNumber) > 0) {
+                            setDepletedFuelRodStatus((byte) randomNumber, (byte) (getDepletedFuelRodStatus((byte) randomNumber) - 1));
+                            runs++;
+                        }
+                        if (runs == 10) break;
+                    }
+
+                    if (entity.getItem(0).isEmpty())
+                        entity.setItem(0, new ItemStack(ModItems.DEPLETED_URANIUM.get(), 1));
+                    else
+                        entity.getItem(0).grow(1);
+
+                }
+
             }
 
             int randomNumber = new Random().nextInt(81);
             if (fuelAdditions != 0) {
-                if (getFuelRodStatus((byte) randomNumber) < getReactorTargetLoadSet()) {
+                if (getFuelRodStatus((byte) randomNumber) < getReactorTargetLoadSet() && getDepletedFuelRodStatus((byte) randomNumber) + getFuelRodStatus((byte) randomNumber) < 100) {
                     setFuelRodStatus((byte) randomNumber, (byte) (getFuelRodStatus((byte) randomNumber) + 1));
                     fuelAdditions--;
                 }
@@ -550,6 +556,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         nbt.putInt("ReactorHeight", reactorHeight);
         nbt.putLong("SoundTicks", soundTicks);
         // Rod
+        nbt.putByteArray("DepletedFuelRodStatus", getDepletedFuelRodStatus());
         nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
         nbt.putByteArray("ControlRodStatus", getControlRodStatus());
         nbt.putByteArray("TargetControlRodStatus", getTargetControlRodStatus());
@@ -584,6 +591,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         reactorHeight = tag.getInt("ReactorHeight");
         soundTicks = tag.getLong("SoundTicks");
         // Rod
+        setDepletedFuelRodStatus(tag.getByteArray("DepletedFuelRodStatus"));
         setFuelRodStatus(tag.getByteArray("FuelRodStatus"));
         setControlRodStatus(tag.getByteArray("ControlRodStatus"));
         setTargetControlRodStatus(tag.getByteArray("TargetControlRodStatus"));
@@ -619,6 +627,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         nbt.putInt("ReactorHeight", reactorHeight);
         nbt.putLong("SoundTicks", soundTicks);
         // Rod
+        nbt.putByteArray("DepletedFuelRodStatus", getDepletedFuelRodStatus());
         nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
         nbt.putByteArray("ControlRodStatus", getControlRodStatus());
         nbt.putByteArray("TargetControlRodStatus", getTargetControlRodStatus());
@@ -652,6 +661,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         reactorHeight = nbt.getInt("ReactorHeight");
         soundTicks = nbt.getLong("SoundTicks");
         // Rod
+        setDepletedFuelRodStatus(nbt.getByteArray("DepletedFuelRodStatus"));
         setFuelRodStatus(nbt.getByteArray("FuelRodStatus"));
         setControlRodStatus(nbt.getByteArray("ControlRodStatus"));
         setTargetControlRodStatus(nbt.getByteArray("TargetControlRodStatus"));
@@ -723,6 +733,24 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
             level.sendBlockUpdated(worldPosition, state, state, 2);
             setChanged(level, getBlockPos(), state);
         }
+    }
+
+    public byte[] getDepletedFuelRodStatus() {
+        return depletedFuelRodStatus;
+    }
+
+    public byte getDepletedFuelRodStatus(byte index) {
+        if (getDepletedFuelRodStatus().length == 0) return 0;
+        return getDepletedFuelRodStatus()[index];
+    }
+
+    public void setDepletedFuelRodStatus(byte[] depletedFuelRodStatus) {
+        this.depletedFuelRodStatus = depletedFuelRodStatus;
+    }
+
+    public void setDepletedFuelRodStatus(byte index, byte value) {
+        getDepletedFuelRodStatus()[index] = value;
+        setChanged();
     }
 
     public byte[] getFuelRodStatus() {
