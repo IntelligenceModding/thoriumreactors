@@ -113,7 +113,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider {
 
     public void updateRenderData() {
         BlockPos p = getBlockPos();
-        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() + -18, p.getY() + -18, p.getZ() + -18, p.getX() + 18, p.getY() + 18, p.getZ() + 18));
+        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -18, p.getY() -18, p.getZ() -18, p.getX() + 18, p.getY() + 18, p.getZ() + 18));
 
         for (ServerPlayer player : players) {
             PacketHandler.sendToClient(new ClientFluidTankRenderDataPacket(getBlockPos(), getFluidIn()), player);

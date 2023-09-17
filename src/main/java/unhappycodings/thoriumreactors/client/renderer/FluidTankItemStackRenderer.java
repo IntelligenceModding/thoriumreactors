@@ -49,7 +49,7 @@ public class FluidTankItemStackRenderer extends BlockEntityWithoutLevelRenderer 
             VertexConsumer boxVertexConsumer = buffer.getBuffer(RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS));
             if (fluidStack.getAmount() > 0) {
                 float height = ((float) fluidStack.getAmount() / (float) getCapacityForType(stack)) * 0.94f;
-                FluidTankBlockEntityRenderer.drawBox(poseStack, boxVertexConsumer, fluidStack, 0, 0f, 0, 11, 0.01f, 11, 0, 0, 16, 16, height, 0.032f);
+                FluidTankBlockEntityRenderer.drawBox(poseStack, boxVertexConsumer, fluidStack, 0, 0f, 0, 11, 0.01f, 11, 0, 0, 16, 16, height, 0.032f, packedLight);
             }
         }
     }
