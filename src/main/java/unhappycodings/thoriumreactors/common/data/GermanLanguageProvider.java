@@ -327,6 +327,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.BLACK_FACTORY_BLOCK.get(), "Schwarzer Fabrikblock");
         add(ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), "Umgekehrter Schwarzer Fabrikblock");
 
+        add(ModBlocks.GRATE_FLOOR_BLOCK.get(), "Gitterboden Block");
         add(ModBlocks.INDUSTRAL_BLOCK.get(), "Industrieblock");
         add(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), "Großer Industrieblock");
         add(ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), "Industrieblock Pflaster");
@@ -376,6 +377,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add("itemGroup.thoriumreactors.machinery", "Thorium R. - Maschinen");
         add("itemGroup.thoriumreactors.building", "Thorium R. - Baublöcke");
         add("death.attack.thoriumreactors.radioactive_overdosis", "%1$s starb an einer radioaktiven Überdosis.");
+        add("death.attack.thoriumreactors.grind", "%1$s wurde von einer Turbine zermahlen.");
 
     }
 

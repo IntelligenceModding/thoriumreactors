@@ -328,6 +328,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.BLACK_FACTORY_BLOCK.get(), "Black Factory Block");
         add(ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), "Inverted Black Factory Block");
 
+        add(ModBlocks.GRATE_FLOOR_BLOCK.get(), "Floor Grate Block");
         add(ModBlocks.INDUSTRAL_BLOCK.get(), "Industrial Block");
         add(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), "Industrial Block Big Tile");
         add(ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), "Industrial Block Paving");
@@ -377,6 +378,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add("itemGroup.thoriumreactors.machinery", "Thorium R. - Machinery");
         add("itemGroup.thoriumreactors.building", "Thorium R. - Building");
         add("death.attack.thoriumreactors.radioactive_overdosis", "%1$s died of a radioactive overdose.");
+        add("death.attack.thoriumreactors.grind", "%1$s met a crushing end in a turbine. Rest in pieces");
     }
 
     private void addGuiText(String name, String text) {
