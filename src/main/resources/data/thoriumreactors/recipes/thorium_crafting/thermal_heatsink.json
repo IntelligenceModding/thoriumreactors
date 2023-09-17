@@ -2,17 +2,20 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "item": "thoriumreactors:steel_nugget"
     },
     "B": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "C": {
       "item": "thoriumreactors:thermal_conductor"
     }
   },
   "pattern": [
     "     ",
     " AAA ",
-    " AAA ",
     " BBB ",
+    " CCC ",
     "     "
   ],
   "result": {

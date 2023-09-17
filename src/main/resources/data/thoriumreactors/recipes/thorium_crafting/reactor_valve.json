@@ -2,10 +2,10 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:steel_ingot"
+      "item": "thoriumreactors:aluminum_ingot"
     },
     "B": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "item": "thoriumreactors:blasted_iron_nugget"
     },
     "C": {
       "item": "thoriumreactors:reactor_casing"
@@ -14,15 +14,21 @@
       "item": "minecraft:bucket"
     },
     "E": {
-      "item": "minecraft:gold_ingot"
+      "item": "minecraft:gold_nugget"
+    },
+    "F": {
+      "item": "thoriumreactors:graphite_ingot"
+    },
+    "G": {
+      "item": "minecraft:redstone"
     }
   },
   "pattern": [
-    " BAB ",
-    "BECEB",
-    "ACDCA",
-    "BECEB",
-    " BAB "
+    "  B  ",
+    " GAG ",
+    " FDF ",
+    " GCG ",
+    "  E  "
   ],
   "result": {
     "item": "thoriumreactors:reactor_valve"

@@ -5,27 +5,33 @@
       "item": "minecraft:gold_ingot"
     },
     "B": {
-      "item": "thoriumreactors:blasted_stone"
+      "item": "minecraft:gold_nugget"
     },
     "C": {
-      "item": "thoriumreactors:graphite_ingot"
+      "item": "minecraft:iron_ingot"
     },
     "D": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "item": "minecraft:iron_nugget"
     },
     "E": {
+      "item": "thoriumreactors:blasted_stone"
+    },
+    "F": {
+      "item": "thoriumreactors:graphite_ingot"
+    },
+    "G": {
       "item": "thoriumreactors:steel_ingot"
     }
   },
   "pattern": [
-    " DED ",
-    "DCBCD",
-    "EBABE",
-    "DCBCD",
-    " DED "
+    " BAB ",
+    "DEFED",
+    "CFGFC",
+    "DEFED",
+    " BAB "
   ],
   "result": {
     "item": "thoriumreactors:reactor_casing",
-    "count": 2
+    "count": 5
   }
 }

@@ -1,0 +1,31 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:nickel_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:redstone_processor"
+    },
+    "C": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "item": "minecraft:gold_ingot"
+    },
+    "E": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " EDE ",
+    "ECACE",
+    "DABAD",
+    "ECACE",
+    " EDE "
+  ],
+  "result": {
+    "item": "thoriumreactors:module_empty"
+  }
+}

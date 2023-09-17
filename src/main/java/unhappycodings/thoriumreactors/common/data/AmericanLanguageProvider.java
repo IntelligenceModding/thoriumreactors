@@ -323,6 +323,8 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("items.text.turbine_saved_to_configurator", "Turbine saved to configurator");
         addGuiText("items.text.turbine_saved_to_reactor", "Turbine saved to reactor.");
 
+        add(ModBlocks.MACHINE_CASING.get(), "Machine Casing");
+
         add(ModBlocks.FACTORY_BLOCK.get(), "Factory Block");
         add(ModBlocks.INVERTED_FACTORY_BLOCK.get(), "Inverted Factory Block");
         add(ModBlocks.BLACK_FACTORY_BLOCK.get(), "Black Factory Block");

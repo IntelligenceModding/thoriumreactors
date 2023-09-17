@@ -2,27 +2,33 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:steel_ingot"
+      "item": "thoriumreactors:steel_nugget"
     },
     "B": {
-      "item": "minecraft:gold_ingot"
+      "item": "thoriumreactors:graphite_ingot"
     },
     "C": {
-      "item": "thoriumreactors:redstone_processor"
+      "item": "thoriumreactors:reactor_casing"
     },
     "D": {
-      "item": "thoriumreactors:blasted_stone"
+      "item": "thoriumreactors:niob_ingot"
     },
     "E": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    "F": {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    "G": {
+      "item": "thoriumreactors:graphite_nugget"
     }
   },
   "pattern": [
-    "EAAAE",
-    "ABDBA",
-    "ADCDA",
-    "ABDBA",
-    "EAAAE"
+    "  A  ",
+    " BDB ",
+    "GCECG",
+    " BFB ",
+    "  A  "
   ],
   "result": {
     "item": "thoriumreactors:reactor_core"

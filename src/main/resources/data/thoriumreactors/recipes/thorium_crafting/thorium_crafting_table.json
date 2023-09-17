@@ -1,0 +1,32 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "minecraft:iron_nugget"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "D": {
+      "item": "thoriumreactors:nickel_nugget"
+    },
+    "E": {
+      "item": "thoriumreactors:thorium"
+    }
+  },
+  "pattern": [
+    " AAA ",
+    "ABEBA",
+    "ADCDA",
+    "ABEBA",
+    " AAA "
+  ],
+  "result": {
+    "item": "thoriumreactors:thorium_crafting_table",
+    "count": 2
+  }
+}

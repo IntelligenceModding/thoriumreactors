@@ -2,27 +2,24 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "minecraft:gold_ingot"
-    },
-    "B": {
       "item": "minecraft:glass"
     },
+    "B": {
+      "item": "thoriumreactors:reactor_casing"
+    },
     "C": {
-      "item": "thoriumreactors:graphite_ingot"
+      "item": "thoriumreactors:steel_ingot"
     },
     "D": {
-      "item": "thoriumreactors:blasted_iron_ingot"
-    },
-    "E": {
-      "item": "thoriumreactors:steel_ingot"
+      "item": "thoriumreactors:graphite_ingot"
     }
   },
   "pattern": [
-    " DED ",
-    "DCBCD",
-    "EBABE",
-    "DCBCD",
-    " DED "
+    "     ",
+    " DAC ",
+    " ABA ",
+    " CAD ",
+    "     "
   ],
   "result": {
     "item": "thoriumreactors:reactor_glass",

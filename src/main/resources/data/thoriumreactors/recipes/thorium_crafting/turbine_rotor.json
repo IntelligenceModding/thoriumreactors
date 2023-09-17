@@ -1,0 +1,26 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "C": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    }
+  },
+  "pattern": [
+    "  B  ",
+    " CAC ",
+    " CAC ",
+    " CAC ",
+    "  B  "
+  ],
+  "result": {
+    "item": "thoriumreactors:turbine_rotor",
+    "count": 2
+  }
+}

@@ -6,11 +6,11 @@
     }
   },
   "pattern": [
-    "     ",
-    " A A ",
-    "  A  ",
-    " A A ",
-    "     "
+    "AAAAA",
+    "AAAAA",
+    "AAAAA",
+    "AAAAA",
+    "AAAAA"
   ],
   "result": {
     "item": "thoriumreactors:reactor_graphite_moderator"

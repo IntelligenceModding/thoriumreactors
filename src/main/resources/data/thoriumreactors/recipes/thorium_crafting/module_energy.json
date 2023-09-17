@@ -1,0 +1,37 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:nickel_nugget"
+    },
+    "B": {
+      "item": "minecraft:redstone_block"
+    },
+    "C": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "item": "minecraft:gold_ingot"
+    },
+    "E": {
+      "item": "minecraft:iron_ingot"
+    },
+    "F": {
+      "item": "thoriumreactors:aluminum_ingot"
+    },
+    "G": {
+      "item": "thoriumreactors:module_empty"
+    }
+  },
+  "pattern": [
+    " EEE ",
+    "ECFCE",
+    "EABAE",
+    "ECGCE",
+    " EDE "
+  ],
+  "result": {
+    "item": "thoriumreactors:module_energy"
+  }
+}

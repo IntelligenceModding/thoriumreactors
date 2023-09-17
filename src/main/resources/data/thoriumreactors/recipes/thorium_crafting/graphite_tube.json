@@ -1,0 +1,22 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:graphite_ingot"
+    }
+  },
+  "pattern": [
+    "  A  ",
+    "  B  ",
+    "  B  ",
+    "  B  ",
+    "  A  "
+  ],
+  "result": {
+    "item": "thoriumreactors:graphite_tube",
+    "count": 2
+  }
+}

@@ -5,17 +5,29 @@
       "item": "thoriumreactors:blasted_iron_ingot"
     },
     "B": {
-      "item": "thoriumreactors:thermal_conductor"
+      "item": "thoriumreactors:titanium_ingot"
     },
     "C": {
+      "item": "thoriumreactors:aluminum_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:thermal_conductor"
+    },
+    "E": {
       "item": "thoriumreactors:redstone_processor"
+    },
+    "F": {
+      "item": "thoriumreactors:nickel_nugget"
+    },
+    "G": {
+      "item": "minecraft:redstone"
     }
   },
   "pattern": [
     "     ",
-    " BAB ",
-    " ACA ",
-    " BAB ",
+    " GCG ",
+    "FADBF",
+    " GEG ",
     "     "
   ],
   "result": {

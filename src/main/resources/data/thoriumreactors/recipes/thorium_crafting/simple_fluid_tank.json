@@ -1,0 +1,30 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:cobalt_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "C": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "item": "minecraft:iron_ingot"
+    },
+    "E": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "pattern": [
+    " DDD ",
+    " BAB ",
+    " CEC ",
+    " BAB ",
+    " DDD "
+  ],
+  "result": {
+    "item": "thoriumreactors:simple_fluid_tank"
+  }
+}

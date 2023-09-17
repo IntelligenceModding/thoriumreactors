@@ -5,21 +5,36 @@
       "item": "thoriumreactors:blasted_iron_ingot"
     },
     "B": {
-      "item": "thoriumreactors:thermal_conductor"
+      "item": "thoriumreactors:titanium_ingot"
     },
     "C": {
+      "item": "thoriumreactors:titanium_nugget"
+    },
+    "D": {
+      "item": "thoriumreactors:aluminum_ingot"
+    },
+    "E": {
+      "item": "thoriumreactors:thermal_conductor"
+    },
+    "F": {
+      "item": "minecraft:redstone"
+    },
+    "G": {
       "item": "minecraft:bucket"
+    },
+    "H": {
+      "item": "minecraft:gold_nugget"
     }
   },
   "pattern": [
-    "     ",
-    " BAB ",
-    " ACA ",
-    " BAB ",
-    "     "
+    "  C  ",
+    " FDF ",
+    " AGB ",
+    " FEF ",
+    "  H  "
   ],
   "result": {
     "item": "thoriumreactors:thermal_valve",
-    "count": 4
+    "count": 2
   }
 }

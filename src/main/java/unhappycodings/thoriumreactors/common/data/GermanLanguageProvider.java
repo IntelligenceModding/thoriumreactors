@@ -322,6 +322,8 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("items.text.turbine_saved_to_configurator", "Turbine im Konfigurator gespeichert");
         addGuiText("items.text.turbine_saved_to_reactor", "Turbine im Reaktor gespeichert");
 
+        add(ModBlocks.MACHINE_CASING.get(), "Maschinengehäuse");
+
         add(ModBlocks.FACTORY_BLOCK.get(), "Fabrikblock");
         add(ModBlocks.INVERTED_FACTORY_BLOCK.get(), "Umgekehrter Fabrikblock");
         add(ModBlocks.BLACK_FACTORY_BLOCK.get(), "Schwarzer Fabrikblock");

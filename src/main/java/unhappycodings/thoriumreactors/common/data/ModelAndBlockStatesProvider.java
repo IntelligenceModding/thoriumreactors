@@ -146,6 +146,8 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         liquidBlock(ModBlocks.ENRICHED_URANIUM_HEXAFLUORITE_BLOCK.get());
         liquidBlock(ModBlocks.STEAM_BLOCK.get());
 
+        simpleBlock(ModBlocks.MACHINE_CASING.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.MACHINE_CASING.get()), new ResourceLocation("block/cube_all")).texture("all", new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_base")));
+
     }
 
     public void liquidBlock(Block block) {
@@ -284,10 +286,6 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
     public void heatSinkBlock(Block block, ResourceLocation texture) {
         horizontalBlock(block, models().withExistingParent(ItemUtil.getRegString(block), new ResourceLocation(ThoriumReactors.MOD_ID, "generation/heat_sink"))
                 .texture("0", texture).texture("particle", texture));
-    }
-
-    public void craftingTableBlock(ThoriumCraftingTableBlock block, ModelFile model) {
-        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(model).build());
     }
 
     public int getRotForDir(Direction side) {

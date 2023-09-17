@@ -1,4 +1,4 @@
-// 1.19.2	2023-09-02T22:03:45.9108093	LootTables
+// 1.19.2	2023-09-17T13:38:52.3350335	LootTables
 427792761fdcf1d99e5e066351fe1116a6cce094 data/thoriumreactors/loot_tables/blocks/aluminum_block.json
 50e805cfb8ccb6371dc60b71864a9e54d45484f3 data/thoriumreactors/loot_tables/blocks/bauxite_ore.json
 db94d903c74bf44a84957ae0da3d2fe689e47484 data/thoriumreactors/loot_tables/blocks/black_factory_block.json
@@ -52,6 +52,7 @@ c265072fbe219fa556bc5308af424e7a3d7ef196 data/thoriumreactors/loot_tables/blocks
 9fe84d255edb3b8d838956467f85610e48fb92ba data/thoriumreactors/loot_tables/blocks/industrial_block_paving.json
 dac98fda05924259a6c2515591ccbccb10062cb6 data/thoriumreactors/loot_tables/blocks/industrial_block_smooth.json
 36d63db297bdff51d0fd97696386f1bd43bd2f43 data/thoriumreactors/loot_tables/blocks/inverted_factory_block.json
+8ba70102aa347c8073d4a03a45507aeb4a0d109b data/thoriumreactors/loot_tables/blocks/machine_casing.json
 c431420980b29efb7568a5c40a28f692b5c3a32b data/thoriumreactors/loot_tables/blocks/manganese_block.json
 0071a11bcda57811dced1d540ea3e2d2e7678e92 data/thoriumreactors/loot_tables/blocks/manganese_ore.json
 2b2a4bde1a1c86393b28fa3ff9b81ef1ddeed22d data/thoriumreactors/loot_tables/blocks/molten_salt_block.json

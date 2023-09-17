@@ -28,6 +28,7 @@ import java.util.function.Supplier;
 public class ModBlocks {
 
     public static final RegistryObject<ThoriumCraftingTableBlock> THORIUM_CRAFTING_TABLE = register("thorium_crafting_table", ThoriumCraftingTableBlock::new);
+    public static final RegistryObject<Block> MACHINE_CASING = register("machine_casing", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
 
     // Tanks
     public static final RegistryObject<FluidTankBlock> SIMPLE_FLUID_TANK = register("simple_fluid_tank", () -> new FluidTankBlock(32000, ModBlockEntities.SIMPLE_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.SIMPLE_FLUID_TANK));

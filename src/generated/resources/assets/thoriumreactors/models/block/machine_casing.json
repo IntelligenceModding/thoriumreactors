@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "thoriumreactors:block/machine_base",
+    "particle": "thoriumreactors:block/machine_base"
+  }
+}

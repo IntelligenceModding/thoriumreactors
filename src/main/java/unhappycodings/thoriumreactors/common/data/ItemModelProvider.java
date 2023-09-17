@@ -197,6 +197,9 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.FLUID_CENTRIFUGE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_centrifuge_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.CRYSTALLIZER_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/crystallizer_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLAST_FURNACE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/blast_furnace_block_off"));
+
+        withExistingParent(ItemUtil.getRegString(ModBlocks.MACHINE_CASING.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/machine_casing"));
+
     }
 
     private void simpleItem(Item item) {

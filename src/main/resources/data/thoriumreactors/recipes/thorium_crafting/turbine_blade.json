@@ -1,0 +1,26 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:steel_nugget"
+    }
+  },
+  "pattern": [
+    "   A ",
+    "  AAA",
+    " AAA ",
+    "BAA  ",
+    "CB   "
+  ],
+  "result": {
+    "item": "thoriumreactors:turbine_blade",
+    "count": 2
+  }
+}
