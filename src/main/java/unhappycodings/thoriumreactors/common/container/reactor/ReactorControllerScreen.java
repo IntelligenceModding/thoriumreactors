@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 public class ReactorControllerScreen extends AbstractContainerScreen<ReactorControllerContainer> {
-    private ReactorControllerContainer container;
+    private final ReactorControllerContainer container;
     public Float[] tempGraphValues = new Float[93];
     public Float[] flowGraphValues = new Float[93];
     public Float[] speedGraphValues = new Float[93];
@@ -357,7 +357,6 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     }
 
     private void changeReactorState(ReactorStateEnum state) {
-        ReactorControllerBlockEntity entity = this.container.getTile();
         PacketHandler.sendToServer(new ReactorControllerStatePacket(this.getMenu().getTile().getBlockPos(), state));
         sendChangedPacket();
     }
@@ -516,11 +515,13 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         pPoseStack.pushPose();
         pPoseStack.scale(0.14f, 0.14f, 0.14f);
         ReactorControllerBlockEntity entity = container.getTile();
-        int fuelValue = 0;
+        int fuelValue = 0, wasteValue = 0;
         for (int i = 0; i < entity.getFuelRodStatus().length; i++) fuelValue += entity.getFuelRodStatus()[i];
-        renderRadialProgress(pPoseStack, -1054, -38, selectedRod == -1 ? 0 : entity.getControlRodStatus((byte) selectedRod)); // Left
-        renderRadialProgress(pPoseStack, -808, -38, (int) (fuelValue / 8100f * 100f)); // Middle
-        renderRadialProgress(pPoseStack, -558, -38, (int) Math.floor(container.getTile().getReactorCurrentTemperature() / container.getTile().getReactorTargetTemperature() * 100)); // Right
+        for (int i = 0; i < entity.getDepletedFuelRodStatus().length; i++) wasteValue += entity.getDepletedFuelRodStatus()[i];
+        renderRadialProgress(pPoseStack, -1054, -38, selectedRod == -1 ? 0 : entity.getControlRodStatus((byte) selectedRod), ""); // Left
+        renderRadialProgress(pPoseStack, -808, -38, (int) (fuelValue / 8100f * 100f), ""); // Middle
+        renderRadialProgress(pPoseStack, -808, -38, (int) ((wasteValue / 8100f * 100f)), "blue/"); // Middle
+        renderRadialProgress(pPoseStack, -558, -38, (int) Math.floor(container.getTile().getReactorCurrentTemperature() / container.getTile().getReactorTargetTemperature() * 100), ""); // Right
         pPoseStack.popPose();
     }
 
@@ -528,12 +529,12 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         pPoseStack.pushPose();
         pPoseStack.scale(0.14f, 0.14f, 0.14f);
         TurbineControllerBlockEntity targetEntity = this.container.getTile().getTurbinePos().size() > 0 ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) : null;
-        renderRadialProgress(pPoseStack, 1550, 14, targetEntity != null ? (int) Math.floor(targetEntity.getTargetFlowrate() / 2500 * 100) : 0); // Middle
+        renderRadialProgress(pPoseStack, 1550, 14, targetEntity != null ? (int) Math.floor(targetEntity.getTargetFlowrate() / 2500 * 100) : 0, ""); // Middle
         pPoseStack.popPose();
     }
 
-    public void renderRadialProgress(PoseStack poseStack, int x, int y, int progress) {
-        RenderSystem.setShaderTexture(0, new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/progress/radial_progress_" + (progress >= 0 && progress <= 100 ? progress : 100) + ".png"));
+    public void renderRadialProgress(PoseStack poseStack, int x, int y, int progress, String section) {
+        RenderSystem.setShaderTexture(0, new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/progress/" + section + "radial_progress_" + (progress >= 0 && progress <= 100 ? progress : 100) + ".png"));
         blit(poseStack, x, y, 0, 0, 222, 222);
     }
     //endregion

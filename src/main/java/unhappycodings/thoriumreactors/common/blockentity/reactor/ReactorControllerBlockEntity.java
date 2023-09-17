@@ -125,7 +125,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
             tryOutputTank(); // Output of Heated Molten Salt into configures valves
             tryFuelReactor(); // Input of Enriched Uranium Pellets from configures valves
             updateTemperature(); // Temperature Simulation
-            if (getFluidAmountIn() > 0 || getFluidAmountOut() > 0)
+            if ((getFluidAmountIn() > 0 || getFluidAmountOut() > 0) && level.getGameTime() % 10 == 0)
                 radiationPlayerCheck(); // Kills players inside the reactor if its fueled
 
             // If scrammed, do simulation
@@ -244,8 +244,8 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
             }
         }
 
-        // Unfuel reactor by 1 enriched and output one depleted uranium every hour
-        if (getReactorRunningSince() % (1 * 5 * 20f) == 0) {
+        // Unfuel reactor by 1 enriched and output one depleted uranium every 12 runtime hours
+        if (getReactorRunningSince() % (12 * 60 * 60 * 20) == 0) {
             int runs = 0;
             for (int i = 0; i < 810; i++) {
                 int randomNumber = new Random().nextInt(81);
@@ -311,7 +311,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
 
     public void radiationPlayerCheck() {
         BlockPos p = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
-        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() + -2, p.getY() + -1, p.getZ() + -2, p.getX() + 3, p.getY() + getReactorHeight(), p.getZ() + 3));
+        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -2, p.getY() -1, p.getZ() -2, p.getX() + 3, p.getY() + getReactorHeight(), p.getZ() + 3));
 
         for (ServerPlayer player : players) {
             player.hurt(ModDamageSources.OVERDOSIS, Float.MAX_VALUE);
@@ -320,7 +320,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
 
     public void updateRenderData() {
         BlockPos p = getBlockPos();
-        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() + -18, p.getY() + -18, p.getZ() + -18, p.getX() + 18, p.getY() + 18, p.getZ() + 18));
+        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -18, p.getY() -18, p.getZ() -18, p.getX() + 18, p.getY() + 18, p.getZ() + 18));
 
         for (ServerPlayer player : players) {
             PacketHandler.sendToClient(new ClientReactorRenderDataPacket(getBlockPos(), getReactorHeight(), getFluidIn(), getFluidOut()), player);

@@ -13,7 +13,7 @@ import java.util.List;
 public class SoundUtil {
 
     public static void stopSound(SoundEvent event, SoundSource source, BlockPos p, Level level) {
-        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() + -18, p.getY() + -18, p.getZ() + -18, p.getX() + 18, p.getY() + 18, p.getZ() + 18));
+        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -18, p.getY() -18, p.getZ() -18, p.getX() + 18, p.getY() + 18, p.getZ() + 18));
 
         if (!players.isEmpty()) {
             ClientboundStopSoundPacket clientboundstopsoundpacket = new ClientboundStopSoundPacket(event.getLocation(), source);

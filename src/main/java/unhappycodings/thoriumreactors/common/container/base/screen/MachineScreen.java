@@ -72,19 +72,19 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     @Override
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         MachineContainerBlockEntity entity = (MachineContainerBlockEntity) getTile();
-        if (RenderUtil.mouseInArea(getGuiLeft() + -18, getGuiTop() + 6, getGuiLeft() + -3, getGuiTop() + 21, pMouseX, pMouseY)) {
+        if (RenderUtil.mouseInArea(getGuiLeft() -18, getGuiTop() + 6, getGuiLeft() -3, getGuiTop() + 21, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.usage")).append(" ").append(Component.literal(FormattingUtil.formatEnergy(entity.getState() ? entity.getNeededEnergy() : 0) + "/t")));
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
-        if (RenderUtil.mouseInArea(getGuiLeft() + -18, getGuiTop() + 24, getGuiLeft() + -3, getGuiTop() + 39, pMouseX, pMouseY)) {
+        if (RenderUtil.mouseInArea(getGuiLeft() -18, getGuiTop() + 24, getGuiLeft() -3, getGuiTop() + 39, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.power")).append(" ").append(Component.literal(entity.isPowerable() + "")));
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
-        if (RenderUtil.mouseInArea(getGuiLeft() + -18, getGuiTop() + 42, getGuiLeft() + -3, getGuiTop() + 57, pMouseX, pMouseY)) {
+        if (RenderUtil.mouseInArea(getGuiLeft() -18, getGuiTop() + 42, getGuiLeft() -3, getGuiTop() + 57, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.redstone")).append(" ").append(Component.translatable((lastRedstoneMode == 0 ? FormattingUtil.getTranslatable("machines.tooltip.ignore") : lastRedstoneMode == 1 ? FormattingUtil.getTranslatable("machines.tooltip.normal") : FormattingUtil.getTranslatable("machines.tooltip.inverted")))));
             this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);

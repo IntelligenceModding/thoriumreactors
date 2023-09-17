@@ -17,15 +17,18 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBlock;
 import unhappycodings.thoriumreactors.common.block.turbine.TurbineControllerBlock;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.turbine.ClientTurbineControllerDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
+import unhappycodings.thoriumreactors.common.registration.ModDamageSources;
 import unhappycodings.thoriumreactors.common.registration.ModFluids;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
+import java.util.List;
 import java.util.Random;
 
 public class TurbineControllerBlockEntity extends BlockEntity {
@@ -95,6 +98,19 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         for (Player player : level.players())
             PacketHandler.sendToClient(new ClientTurbineControllerDataPacket(getBlockPos(), coilsEngaged, activated, targetFlowrate, currentFlowrate, rpm, turbinetime), (ServerPlayer) player);
 
+        if (level.getGameTime() % 10 == 0) {
+            turbinePlayerCheck();
+        }
+
+    }
+
+    public void turbinePlayerCheck() {
+        BlockPos p = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
+        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -2, p.getY() -1, p.getZ() -2, p.getX() + 3, p.getY() + getTurbineHeight(), p.getZ() + 3));
+
+        for (ServerPlayer player : players) {
+            player.hurt(ModDamageSources.GRIND, Float.MAX_VALUE);
+        }
     }
 
     private float getTurbineRotationModifier(boolean upwards) {

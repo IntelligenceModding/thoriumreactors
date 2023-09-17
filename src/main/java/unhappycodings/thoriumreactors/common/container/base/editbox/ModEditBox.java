@@ -584,7 +584,7 @@ public class ModEditBox extends AbstractWidget implements Widget, GuiEventListen
     }
 
     /**
-     * Sets whether or not the background and outline of this text box should be drawn.
+     * Sets whether the background and outline of this text box should be drawn.
      */
     public void setBordered(boolean pEnableBackgroundDrawing) {
         this.bordered = pEnableBackgroundDrawing;
@@ -682,7 +682,7 @@ public class ModEditBox extends AbstractWidget implements Widget, GuiEventListen
     }
 
     /**
-     * Sets whether or not this textbox is visible
+     * Sets whether this textbox is visible
      */
     public void setVisible(boolean pIsVisible) {
         this.visible = pIsVisible;
