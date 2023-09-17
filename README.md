@@ -75,4 +75,5 @@ issue or submit a pull request in this repository.
 ## Modpacks
 
 You are free to use this mod in any modpack.
+
 </font>
