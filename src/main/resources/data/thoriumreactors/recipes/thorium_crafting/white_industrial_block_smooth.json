@@ -1,0 +1,22 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:industrial_block_smooth"
+    },
+    "B": {
+      "item": "minecraft:white_dye"
+    }
+  },
+  "pattern": [
+    "     ",
+    " AAA ",
+    " ABA ",
+    " AAA ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:white_industrial_block_smooth",
+    "count": 8
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    },
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    },
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    },
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    },
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    },
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    },
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    },
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    },
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:molybdenum_block"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:factory_block"
+    },
+    "B": {
+      "item": "minecraft:black_dye"
+    }
+  },
+  "pattern": [
+    "     ",
+    " AAA ",
+    " ABA ",
+    " AAA ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:black_factory_block",
+    "count": 8
+  }
+}

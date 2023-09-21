@@ -1,0 +1,37 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "minecraft:gold_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:aluminum_ingot"
+    },
+    "D": {
+      "item": "minecraft:redstone"
+    },
+    "E": {
+      "item": "thoriumreactors:turbine_casing"
+    },
+    "F": {
+      "item": "minecraft:bucket"
+    },
+    "G": {
+      "item": "thoriumreactors:titanium_nugget"
+    }
+  },
+  "pattern": [
+    "  G  ",
+    " DCD ",
+    " BFB ",
+    " DED ",
+    "  A  "
+  ],
+  "result": {
+    "item": "thoriumreactors:turbine_valve"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "B": {
+      "item": "minecraft:stone"
+    },
+    "C": {
+      "item": "minecraft:black_dye"
+    },
+    "D": {
+      "item": "minecraft:yellow_dye"
+    }
+  },
+  "pattern": [
+    "     ",
+    " BCB ",
+    " DBC ",
+    " BDB ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:warning_block_lined_black_yellow_left",
+    "count": 5
+  }
+}

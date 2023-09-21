@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "thoriumreactors:manganese_nugget"
+  }
+}

@@ -2,19 +2,22 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "item": "thoriumreactors:thorium"
     },
     "B": {
-      "item": "thoriumreactors:blasted_stone"
+      "item": "minecraft:iron_ingot"
     },
     "C": {
-      "item": "minecraft:gold_ingot"
+      "item": "thoriumreactors:nickel_nugget"
+    },
+    "D": {
+      "item": "minecraft:crafting_table"
     }
   },
   "pattern": [
-    "ABA",
-    "BCB",
-    "ABA"
+    "BAB",
+    "CDC",
+    "BAB"
   ],
   "result": {
     "item": "thoriumreactors:thorium_crafting_table"

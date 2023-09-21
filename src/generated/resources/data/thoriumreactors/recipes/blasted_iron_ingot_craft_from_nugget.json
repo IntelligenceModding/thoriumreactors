@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:blasted_iron_ingot"
+  }
+}

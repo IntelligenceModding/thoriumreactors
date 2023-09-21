@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    {
+      "item": "thoriumreactors:nickel_ingot"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:nickel_block"
+  }
+}

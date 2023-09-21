@@ -1,0 +1,35 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:titanium_nugget"
+    },
+    "D": {
+      "item": "minecraft:iron_ingot"
+    },
+    "E": {
+      "item": "thoriumreactors:aluminum_ingot"
+    },
+    "F": {
+      "item": "thoriumreactors:blasted_stone"
+    }
+  },
+  "pattern": [
+    " CDA ",
+    "AEBEC",
+    "DBFBD",
+    "CEBEA",
+    " ADC "
+  ],
+  "result": {
+    "item": "thoriumreactors:turbine_casing",
+    "count": 2
+  }
+}

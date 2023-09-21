@@ -1,0 +1,29 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:steel_block"
+    }
+  },
+  "pattern": [
+    " BAB ",
+    "BCCCB",
+    "ACDCA",
+    "BCCCB",
+    " BAB "
+  ],
+  "result": {
+    "item": "thoriumreactors:electromagnetic_coil",
+    "count": 2
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    {
+      "item": "thoriumreactors:aluminum_nugget"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:aluminum_ingot"
+  }
+}

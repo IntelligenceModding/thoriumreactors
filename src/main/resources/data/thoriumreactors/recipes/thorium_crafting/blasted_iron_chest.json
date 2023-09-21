@@ -1,0 +1,31 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "D": {
+      "item": "minecraft:iron_nugget"
+    },
+    "E": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " EDE ",
+    "EBABE",
+    "DACAD",
+    "EBABE",
+    " EDE "
+  ],
+  "result": {
+    "item": "thoriumreactors:blasted_iron_chest_block"
+  }
+}

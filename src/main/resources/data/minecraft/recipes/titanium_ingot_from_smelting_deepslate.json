@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "thoriumreactors:deepslate_titanic_iron_ore"
+  },
+  "result": "thoriumreactors:titanium_ingot"
+}

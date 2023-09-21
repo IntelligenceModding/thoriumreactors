@@ -1,0 +1,40 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "C": {
+      "item": "thoriumreactors:blasted_iron_chest_block"
+    },
+    "D": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "E": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "F": {
+      "item": "thoriumreactors:steel_block"
+    },
+    "G": {
+      "item": "thoriumreactors:molybdenum_nugget"
+    },
+    "H": {
+      "item": "thoriumreactors:cobalt_nugget"
+    }
+  },
+  "pattern": [
+    " BAB ",
+    "BEDEB",
+    "AGFHA",
+    "BECEB",
+    " BAB "
+  ],
+  "result": {
+    "item": "thoriumreactors:steel_chest_block"
+  }
+}

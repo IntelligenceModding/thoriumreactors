@@ -1,0 +1,37 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:aluminum_ingot"
+    },
+    "D": {
+      "item": "minecraft:redstone"
+    },
+    "E": {
+      "item": "thoriumreactors:turbine_casing"
+    },
+    "F": {
+      "item": "thoriumreactors:nickel_nugget"
+    },
+    "G": {
+      "item": "thoriumreactors:redstone_processor"
+    }
+  },
+  "pattern": [
+    "     ",
+    " DCD ",
+    "FBEAF",
+    " DGD ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:turbine_controller"
+  }
+}

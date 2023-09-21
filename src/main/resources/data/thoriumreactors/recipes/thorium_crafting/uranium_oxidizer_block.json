@@ -1,0 +1,46 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "C": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "E": {
+      "item": "minecraft:redstone"
+    },
+    "F": {
+      "item": "thoriumreactors:machine_casing"
+    },
+    "G": {
+      "item": "thoriumreactors:module_tank"
+    },
+    "H": {
+      "item": "thoriumreactors:manganese_nugget"
+    },
+    "I": {
+      "item": "thoriumreactors:molybdenum_nugget"
+    },
+    "J": {
+      "item": "thoriumreactors:niob_nugget"
+    }
+  },
+  "pattern": [
+    " BAB ",
+    "DEIED",
+    "CJFJC",
+    "DGHGD",
+    " BAB "
+  ],
+  "result": {
+    "item": "thoriumreactors:uranium_oxidizer_block"
+  }
+}

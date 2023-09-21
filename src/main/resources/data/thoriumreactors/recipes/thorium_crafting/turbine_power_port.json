@@ -1,0 +1,40 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:aluminum_ingot"
+    },
+    "D": {
+      "item": "minecraft:redstone"
+    },
+    "E": {
+      "item": "thoriumreactors:turbine_casing"
+    },
+    "F": {
+      "item": "thoriumreactors:nickel_nugget"
+    },
+    "G": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "H": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    }
+  },
+  "pattern": [
+    "  G  ",
+    " DCD ",
+    " BFA ",
+    " DED ",
+    "  H  "
+  ],
+  "result": {
+    "item": "thoriumreactors:turbine_power_port"
+  }
+}

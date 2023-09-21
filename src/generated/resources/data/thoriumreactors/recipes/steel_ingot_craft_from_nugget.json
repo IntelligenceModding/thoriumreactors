@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    {
+      "item": "thoriumreactors:steel_nugget"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:steel_ingot"
+  }
+}

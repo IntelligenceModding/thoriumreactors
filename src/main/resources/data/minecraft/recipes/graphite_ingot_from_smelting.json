@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 150,
+  "experience": 0.2,
+  "ingredient": {
+    "item": "thoriumreactors:graphite_crystal"
+  },
+  "result": "thoriumreactors:graphite_ingot"
+}

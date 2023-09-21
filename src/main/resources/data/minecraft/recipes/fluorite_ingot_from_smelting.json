@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 150,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "thoriumreactors:fluorite"
+  },
+  "result": "thoriumreactors:fluorite_ingot"
+}

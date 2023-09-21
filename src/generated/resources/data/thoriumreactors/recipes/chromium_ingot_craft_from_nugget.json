@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    },
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    },
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    },
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    },
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    },
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    },
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    },
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    },
+    {
+      "item": "thoriumreactors:chromium_nugget"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:chromium_ingot"
+  }
+}

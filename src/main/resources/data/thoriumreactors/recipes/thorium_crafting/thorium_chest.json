@@ -1,0 +1,40 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "C": {
+      "item": "thoriumreactors:steel_chest_block"
+    },
+    "D": {
+      "item": "thoriumreactors:thorium"
+    },
+    "E": {
+      "item": "thoriumreactors:thorium_block"
+    },
+    "F": {
+      "item": "thoriumreactors:chromium_ingot"
+    },
+    "G": {
+      "item": "thoriumreactors:niob_ingot"
+    },
+    "H": {
+      "item": "thoriumreactors:manganese_ingot"
+    }
+  },
+  "pattern": [
+    " ABA ",
+    "ADFDA",
+    "BGEHB",
+    "ADCDA",
+    " ABA "
+  ],
+  "result": {
+    "item": "thoriumreactors:thorium_chest_block"
+  }
+}

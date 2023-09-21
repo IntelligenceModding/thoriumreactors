@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    },
+    {
+      "item": "thoriumreactors:manganese_ingot"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:manganese_block"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    {
+      "item": "thoriumreactors:titanium_ingot"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:titanium_block"
+  }
+}

@@ -1,0 +1,46 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "C": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "E": {
+      "item": "minecraft:bucket"
+    },
+    "F": {
+      "item": "thoriumreactors:machine_casing"
+    },
+    "G": {
+      "item": "thoriumreactors:manganese_nugget"
+    },
+    "H": {
+      "item": "thoriumreactors:niob_nugget"
+    },
+    "I": {
+      "item": "thoriumreactors:module_sensor"
+    },
+    "J": {
+      "item": "thoriumreactors:module_tank"
+    }
+  },
+  "pattern": [
+    " BAB ",
+    "DEGJD",
+    "CHFHC",
+    "DIGED",
+    " BAB "
+  ],
+  "result": {
+    "item": "thoriumreactors:salt_melter_block"
+  }
+}

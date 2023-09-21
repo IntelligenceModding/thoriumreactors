@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:titanium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "thoriumreactors:titanium_ingot"
+  }
+}

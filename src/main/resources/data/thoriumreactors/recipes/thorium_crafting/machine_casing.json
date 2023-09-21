@@ -1,0 +1,37 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:redstone_processor"
+    },
+    "D": {
+      "item": "thoriumreactors:module_energy"
+    },
+    "E": {
+      "item": "thoriumreactors:module_io"
+    },
+    "F": {
+      "item": "thoriumreactors:module_storage"
+    },
+    "G": {
+      "item": "thoriumreactors:module_processing"
+    }
+  },
+  "pattern": [
+    "  A  ",
+    " BDB ",
+    "AGCEA",
+    " BFB ",
+    "  A  "
+  ],
+  "result": {
+    "item": "thoriumreactors:machine_casing"
+  }
+}

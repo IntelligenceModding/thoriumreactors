@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    },
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    },
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    },
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    },
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    },
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    },
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    },
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    },
+    {
+      "item": "thoriumreactors:fluorite_ingot"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:fluorite_block"
+  }
+}

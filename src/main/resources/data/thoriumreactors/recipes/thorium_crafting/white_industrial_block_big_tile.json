@@ -1,0 +1,18 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:white_industrial_block"
+    }
+  },
+  "pattern": [
+    "     ",
+    " A A ",
+    " AAA ",
+    " A A ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:white_industrial_block_big_tile"
+  }
+}

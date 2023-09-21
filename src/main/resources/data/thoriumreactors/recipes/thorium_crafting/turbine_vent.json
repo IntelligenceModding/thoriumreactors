@@ -1,0 +1,34 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:turbine_casing"
+    },
+    "B": {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "D": {
+      "item": "thoriumreactors:turbine_casing"
+    },
+    "E": {
+      "item": "minecraft:iron_nugget"
+    },
+    "F": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " FEF ",
+    "FCCCF",
+    "EBDBE",
+    "FCCCF",
+    " FEF "
+  ],
+  "result": {
+    "item": "thoriumreactors:turbine_vent"
+  }
+}

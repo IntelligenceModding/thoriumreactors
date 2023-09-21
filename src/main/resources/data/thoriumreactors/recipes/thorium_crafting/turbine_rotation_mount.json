@@ -1,0 +1,34 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:titanium_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:titanium_ingot"
+    },
+    "C": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:turbine_casing"
+    },
+    "E": {
+      "item": "thoriumreactors:turbine_rotor"
+    },
+    "F": {
+      "item": "thoriumreactors:steel_nugget"
+    }
+  },
+  "pattern": [
+    "  A  ",
+    " CFB ",
+    "AFEFA",
+    " BFC ",
+    "  D  "
+  ],
+  "result": {
+    "item": "thoriumreactors:turbine_rotation_mount"
+  }
+}

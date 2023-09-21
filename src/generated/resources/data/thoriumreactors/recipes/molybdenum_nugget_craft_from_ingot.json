@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:molybdenum_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "thoriumreactors:molybdenum_nugget"
+  }
+}

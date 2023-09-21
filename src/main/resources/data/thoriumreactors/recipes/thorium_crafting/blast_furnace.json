@@ -1,0 +1,49 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "C": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "E": {
+      "item": "minecraft:redstone"
+    },
+    "F": {
+      "item": "thoriumreactors:machine_casing"
+    },
+    "G": {
+      "item": "thoriumreactors:module_sensor"
+    },
+    "H": {
+      "item": "thoriumreactors:aluminum_nugget"
+    },
+    "I": {
+      "item": "thoriumreactors:molybdenum_nugget"
+    },
+    "J": {
+      "item": "thoriumreactors:cobalt_nugget"
+    },
+    "K": {
+      "item": "thoriumreactors:nickel_nugget"
+    }
+  },
+  "pattern": [
+    " BAB ",
+    "DEHED",
+    "CKFIC",
+    "DEJGD",
+    " BAB "
+  ],
+  "result": {
+    "item": "thoriumreactors:blast_furnace_block"
+  }
+}

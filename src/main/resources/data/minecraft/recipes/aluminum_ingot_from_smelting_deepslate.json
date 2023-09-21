@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "thoriumreactors:deepslate_bauxite_ore"
+  },
+  "result": "thoriumreactors:aluminum_ingot"
+}

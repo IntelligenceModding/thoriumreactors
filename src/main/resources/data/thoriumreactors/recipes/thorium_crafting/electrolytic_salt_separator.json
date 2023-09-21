@@ -1,0 +1,40 @@
+
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "C": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "D": {
+      "item": "thoriumreactors:steel_nugget"
+    },
+    "E": {
+      "item": "minecraft:bucket"
+    },
+    "F": {
+      "item": "thoriumreactors:machine_casing"
+    },
+    "G": {
+      "item": "thoriumreactors:manganese_nugget"
+    },
+    "H": {
+      "item": "thoriumreactors:module_tank"
+    }
+  },
+  "pattern": [
+    " BAB ",
+    "DEGHD",
+    "CGFGC",
+    "DEGED",
+    " BAB "
+  ],
+  "result": {
+    "item": "thoriumreactors:electrolytic_salt_separator"
+  }
+}
