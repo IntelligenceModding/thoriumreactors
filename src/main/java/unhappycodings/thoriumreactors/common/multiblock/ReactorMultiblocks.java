@@ -46,9 +46,69 @@ public class ReactorMultiblocks {
             ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get()
     );
 
+    private static final List<Block> REACTOR_5x5x5 = List.of(
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_ROD_CONTROLLER.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, Blocks.AIR, Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, ModBlocks.REACTOR_GRAPHITE_MODERATOR.get(), Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, Blocks.AIR, Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_CASING.get(),
+
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, Blocks.AIR, Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, ModBlocks.REACTOR_GRAPHITE_MODERATOR.get(), Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, Blocks.AIR, Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_CASING.get(),
+
+            ModBlocks.REACTOR_CASING.get(), Blocks.BARRIER, Blocks.BARRIER, Blocks.BARRIER, ModBlocks.REACTOR_CASING.get(),
+            Blocks.BARRIER, Blocks.AIR, Blocks.AIR, Blocks.AIR, Blocks.BARRIER,
+            Blocks.BARRIER, Blocks.AIR, ModBlocks.REACTOR_CORE.get(), Blocks.AIR, Blocks.BARRIER,
+            Blocks.BARRIER, Blocks.AIR, Blocks.AIR, Blocks.AIR, Blocks.BARRIER,
+            ModBlocks.REACTOR_CASING.get(), Blocks.BARRIER, Blocks.BARRIER, Blocks.BARRIER, ModBlocks.REACTOR_CASING.get(),
+
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get()
+    );
+
+    private static final List<Block> REACTOR_5x5x4 = List.of(
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_ROD_CONTROLLER.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, Blocks.AIR, Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, ModBlocks.REACTOR_GRAPHITE_MODERATOR.get(), Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_GLASS.get(), Blocks.AIR, Blocks.AIR, Blocks.AIR, ModBlocks.REACTOR_GLASS.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.REACTOR_CASING.get(),
+
+            ModBlocks.REACTOR_CASING.get(), Blocks.BARRIER, Blocks.BARRIER, Blocks.BARRIER, ModBlocks.REACTOR_CASING.get(),
+            Blocks.BARRIER, Blocks.AIR, Blocks.AIR, Blocks.AIR, Blocks.BARRIER,
+            Blocks.BARRIER, Blocks.AIR, ModBlocks.REACTOR_CORE.get(), Blocks.AIR, Blocks.BARRIER,
+            Blocks.BARRIER, Blocks.AIR, Blocks.AIR, Blocks.AIR, Blocks.BARRIER,
+            ModBlocks.REACTOR_CASING.get(), Blocks.BARRIER, Blocks.BARRIER, Blocks.BARRIER, ModBlocks.REACTOR_CASING.get(),
+
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(),
+            ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CASING.get()
+    );
+
     public static List<Block> getReactorFromHeight(int height) {
         return switch (height) {
-            default -> REACTOR_5x5x6;
+            case 6 -> REACTOR_5x5x6;
+            case 5 -> REACTOR_5x5x5;
+            default -> REACTOR_5x5x4;
         };
     }
 

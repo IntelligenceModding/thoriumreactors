@@ -69,12 +69,15 @@ public class ReactorControllerBlock extends ReactorFrameBlock {
         if (!entity.isAssembled()) {
             Direction facing = state.getValue(FACING);
             boolean canBeAssembled = false;
-            int height = 0;
-            List<Block> reactorBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, 4), levelIn);
+            int height = 1;
 
-            if (ReactorMultiblocks.isReactor(ReactorMultiblocks.getReactorFromHeight(6), reactorBlocks)) {
-                canBeAssembled = true;
-                height = 6;
+            for (int i = 4; i <= 6; i++) {
+                List<Block> reactorBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, i - 2), levelIn);
+
+                if (ReactorMultiblocks.isReactor(ReactorMultiblocks.getReactorFromHeight(i), reactorBlocks)) {
+                    canBeAssembled = true;
+                    height = i - 1;
+                }
             }
 
             if (entity.isAssembled() != canBeAssembled) {
