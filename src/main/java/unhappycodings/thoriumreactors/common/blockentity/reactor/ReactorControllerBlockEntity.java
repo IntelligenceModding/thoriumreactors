@@ -131,8 +131,9 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
             // If scrammed, do simulation
             if (isScrammed()) doScramSimulation();
             else updateControlRods();
-            if (getReactorState() != ReactorStateEnum.STOP) doReactorSimulation();
-            else {
+            if (getReactorState() != ReactorStateEnum.STOP) {
+                doReactorSimulation();
+            } else {
                 setReactorActive(false);
                 setCoreHeating(false);
             }
@@ -245,7 +246,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         }
 
         // Unfuel reactor by 1 enriched and output one depleted uranium every 12 runtime hours
-        if (getReactorRunningSince() % (12 * 60 * 60 * 20) == 0) {
+        if (false && getReactorRunningSince() % (12 * 60 * 60 * 20) == 0) {
             int runs = 0;
             for (int i = 0; i < 810; i++) {
                 int randomNumber = new Random().nextInt(81);
