@@ -11,6 +11,7 @@ import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControll
 import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientReactorControllerDataPacket implements IPacket {
@@ -36,6 +37,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
     public int reactorCapacity;
     // Rods
     public final byte[] fuelRodStatus;
+    public final byte[] depletedfuelRodStatus;
     public final byte[] controlRodStatus;
     // Turbine
     private final List<BlockPos> turbinePositions;
@@ -48,9 +50,9 @@ public class ClientReactorControllerDataPacket implements IPacket {
 
     public ClientReactorControllerDataPacket(BlockPos pos, float reactorTargetTemperature, float reactorCurrentTemperature, byte reactorTargetLoadSet, byte reactorCurrentLoadSet,
                                              long reactorRunningSince, float reactorStatus, float reactorContainment, float reactorRadiation,
-                                             float reactorPressure, int reactorHeight, ReactorStateEnum reactorState, List<BlockPos> turbinePositions, boolean turbineActivated, boolean turbineCoilsEngaged,
-                                             byte turbineTargetFlow, byte turbineCurrentFlow, long turbinePowerGeneration, byte turbineSpeed, byte[] fuelRodStatus, byte[] controlRodStatus,
-                                             FluidStack fluidIn, FluidStack fluidOut, String notification, boolean isReactorActive, boolean isTurbineActive, boolean isExchangerActive, int reactorCapacity) {
+                                             float reactorPressure, int reactorHeight, ReactorStateEnum reactorState, boolean turbineActivated, boolean turbineCoilsEngaged,
+                                             byte turbineTargetFlow, byte turbineCurrentFlow, long turbinePowerGeneration, byte turbineSpeed, byte[] depletedfuelRodStatus, byte[] fuelRodStatus, byte[] controlRodStatus,
+                                             FluidStack fluidIn, FluidStack fluidOut, String notification, boolean isReactorActive, boolean isTurbineActive, boolean isExchangerActive, int reactorCapacity, List<BlockPos> turbinePositions) {
         this.pos = pos;
         this.reactorTargetTemperature = reactorTargetTemperature;
         this.reactorCurrentTemperature = reactorCurrentTemperature;
@@ -70,6 +72,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
         this.turbineCurrentFlow = turbineCurrentFlow;
         this.turbineTargetFlow = turbineTargetFlow;
         this.turbinePowerGeneration = turbinePowerGeneration;
+        this.depletedfuelRodStatus = depletedfuelRodStatus;
         this.fuelRodStatus = fuelRodStatus;
         this.controlRodStatus = controlRodStatus;
         this.fluidIn = fluidIn;
@@ -79,14 +82,15 @@ public class ClientReactorControllerDataPacket implements IPacket {
         this.isTurbineActive = isTurbineActive;
         this.isExchangerActive = isExchangerActive;
         this.reactorCapacity = reactorCapacity;
+
     }
 
     public static ClientReactorControllerDataPacket decode(FriendlyByteBuf buffer) {
         return new ClientReactorControllerDataPacket(buffer.readBlockPos(), buffer.readFloat(), buffer.readFloat(), buffer.readByte(), buffer.readByte(), buffer.readLong(),
                 buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt(), buffer.readEnum(ReactorStateEnum.class),
-                buffer.readList(FriendlyByteBuf::readBlockPos), buffer.readBoolean(), buffer.readBoolean(), buffer.readByte(), buffer.readByte(), buffer.readLong(), buffer.readByte(), buffer.readByteArray(),
+                buffer.readBoolean(), buffer.readBoolean(), buffer.readByte(), buffer.readByte(), buffer.readLong(), buffer.readByte(), buffer.readByteArray(), buffer.readByteArray(),
                 buffer.readByteArray(), buffer.readFluidStack(), buffer.readFluidStack(), buffer.readUtf(),
-                buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean(), buffer.readInt());
+                buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean(), buffer.readInt(), buffer.readList(FriendlyByteBuf::readBlockPos));
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -106,10 +110,10 @@ public class ClientReactorControllerDataPacket implements IPacket {
         blockEntity.setReactorHeight(reactorHeight);
         blockEntity.setReactorState(reactorState);
         // Rod
+        blockEntity.setDepletedFuelRodStatus(depletedfuelRodStatus);
         blockEntity.setFuelRodStatus(fuelRodStatus);
         blockEntity.setControlRodStatus(controlRodStatus);
         // Turbine
-        blockEntity.setTurbinePos(turbinePositions);
         blockEntity.setTurbineActivated(turbineActivated);
         blockEntity.setTurbineCoilsEngaged(turbineCoilsEngaged);
         blockEntity.setTurbineTargetFlow(turbineTargetFlow);
@@ -124,6 +128,8 @@ public class ClientReactorControllerDataPacket implements IPacket {
         blockEntity.setTurbineActive(isTurbineActive);
         blockEntity.setExchangerActive(isExchangerActive);
         blockEntity.setReactorCapacity(reactorCapacity);
+        // Turbine
+        blockEntity.setTurbinePos(turbinePositions);
     }
 
     public void encode(FriendlyByteBuf buffer) {
@@ -140,8 +146,6 @@ public class ClientReactorControllerDataPacket implements IPacket {
         buffer.writeInt(reactorHeight);
         buffer.writeEnum(reactorState);
         // Turbine
-        if (turbinePositions != null)
-            buffer.writeCollection(turbinePositions, FriendlyByteBuf::writeBlockPos);
         buffer.writeBoolean(turbineActivated);
         buffer.writeBoolean(turbineCoilsEngaged);
         buffer.writeByte(turbineTargetFlow);
@@ -149,6 +153,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
         buffer.writeLong(turbinePowerGeneration);
         buffer.writeByte(turbineSpeed);
         // Rod
+        buffer.writeByteArray(depletedfuelRodStatus);
         buffer.writeByteArray(fuelRodStatus);
         buffer.writeByteArray(controlRodStatus);
 
@@ -159,5 +164,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
         buffer.writeBoolean(isTurbineActive);
         buffer.writeBoolean(isExchangerActive);
         buffer.writeInt(reactorCapacity);
+        // Turbine
+        buffer.writeCollection(turbinePositions != null ? turbinePositions : new ArrayList<>(), FriendlyByteBuf::writeBlockPos);
     }
 }
