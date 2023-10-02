@@ -45,7 +45,7 @@ public class ReactorControllerBlockEntityRenderer implements BlockEntityRenderer
             if (entity.getFluidAmountIn() > 20)
                 drawBox(poseStack, boxVertexConsumer, new FluidStack(ModFluids.FLOWING_MOLTEN_SALT.get(), 1), height, getFluidRenderOffset(FluidOffsetType.X, direction), 0.1f * height * 5, getFluidRenderOffset(FluidOffsetType.Y, direction), 15.999f, height, 15.999f, 0, 0, 16, 16, 0, true, brightness);
             if (entity.getFluidAmountOut() > 20)
-                drawBox(poseStack, boxVertexConsumer, new FluidStack(ModFluids.FLOWING_HEATED_MOLTEN_SALT.get(), 1), heightOut, getFluidRenderOffset(FluidOffsetType.X, direction), 0.1f * heightOut * 5, getFluidRenderOffset(FluidOffsetType.Y, direction), 15.999f, heightOut, 15.999f, 0, 0, 16, 16, height - 0.02f, false, brightness);
+                drawBox(poseStack, boxVertexConsumer, new FluidStack(ModFluids.FLOWING_HEATED_MOLTEN_SALT.get(), 1), heightOut, getFluidRenderOffset(FluidOffsetType.X, direction), 0.1f * heightOut * 5, getFluidRenderOffset(FluidOffsetType.Y, direction), 15.999f, heightOut, 15.999f, 0, 0, 16, 16, height - 0.01f, false, brightness);
         }
 
     }
@@ -92,10 +92,10 @@ public class ReactorControllerBlockEntityRenderer implements BlockEntityRenderer
             for (int i = 0; i < positionIntegers.length; i += 2) {
                 int valueA = positionIntegers[i];
                 int valueB = positionIntegers[i + 1];
-                buffer.vertex(matrix4f, -sX + pX + valueA + 0.1f, yHeightOffset - 0.01f + height, sZ + pZ + valueB).color(color).uv(u1, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 1f, 1f).endVertex();
-                buffer.vertex(matrix4f, sX + pX + valueA + 0.1f, yHeightOffset - 0.01f + height, sZ + pZ + valueB).color(color).uv(u1, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 1f, 1f).endVertex();
-                buffer.vertex(matrix4f, sX + pX + valueA + 0.1f, yHeightOffset - 0.01f + height, -sZ + pZ + valueB).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 1f, 1f).endVertex();
-                buffer.vertex(matrix4f, -sX + pX + valueA + 0.1f, yHeightOffset - 0.01f + height, -sZ + pZ + valueB).color(color).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 1f, 1f).endVertex();
+                buffer.vertex(matrix4f, -sX + pX + valueA, yHeightOffset - 0.01f + height, sZ + pZ + valueB).color(color).uv(u1, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 1f, 1f).endVertex();
+                buffer.vertex(matrix4f, sX + pX + valueA, yHeightOffset - 0.01f + height, sZ + pZ + valueB).color(color).uv(u1, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 1f, 1f).endVertex();
+                buffer.vertex(matrix4f, sX + pX + valueA, yHeightOffset - 0.01f + height, -sZ + pZ + valueB).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 1f, 1f).endVertex();
+                buffer.vertex(matrix4f, -sX + pX + valueA, yHeightOffset - 0.01f + height, -sZ + pZ + valueB).color(color).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 1f, 1f).endVertex();
 
             }
         }
@@ -121,29 +121,29 @@ public class ReactorControllerBlockEntityRenderer implements BlockEntityRenderer
                     v2 = icon.getV(size);
                     buffer.vertex(matrix4f, sX + pX + 0.999f, pY1, sZ + pZ + valueA).color(color).uv(u1, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
                     buffer.vertex(matrix4f, sX + pX + 0.999f, pY1, -sZ + pZ + valueA).color(color).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
-                    buffer.vertex(matrix4f, sX + pX + 0.999f, yHeightOffset + (j), -sZ + pZ + valueA).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
-                    buffer.vertex(matrix4f, sX + pX + 0.999f, yHeightOffset + (j), sZ + pZ + valueA).color(color).uv(u1, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
+                    buffer.vertex(matrix4f, sX + pX + 0.999f, yHeightOffset + j, -sZ + pZ + valueA).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
+                    buffer.vertex(matrix4f, sX + pX + 0.999f, yHeightOffset + j, sZ + pZ + valueA).color(color).uv(u1, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
                 }
                 if (perspective == RenderUtil.Perspective.FRONT) {
                     v2 = icon.getV(size);
                     buffer.vertex(matrix4f, -sX + pX - 0.999f, pY1, sZ + pZ + valueA).color(color).uv(u1, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
-                    buffer.vertex(matrix4f, -sX + pX - 0.999f, yHeightOffset + (j), sZ + pZ + valueA).color(color).uv(u1, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
-                    buffer.vertex(matrix4f, -sX + pX - 0.999f, yHeightOffset + (j), -sZ + pZ + valueA).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
+                    buffer.vertex(matrix4f, -sX + pX - 0.999f, yHeightOffset + j, sZ + pZ + valueA).color(color).uv(u1, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
+                    buffer.vertex(matrix4f, -sX + pX - 0.999f, yHeightOffset + j, -sZ + pZ + valueA).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
                     buffer.vertex(matrix4f, -sX + pX - 0.999f, pY1, -sZ + pZ + valueA).color(color).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(1f, 0f, 0f).endVertex();
                 }
                 if (perspective == RenderUtil.Perspective.RIGHT) {
                     u2 = icon.getU(size);
                     buffer.vertex(matrix4f, -sX + pX + valueA, pY1, -sZ + pZ - 0.999f).color(color).uv(u1, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
-                    buffer.vertex(matrix4f, -sX + pX + valueA, yHeightOffset + (j), -sZ + pZ - 0.999f).color(color).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
-                    buffer.vertex(matrix4f, sX + pX + valueA, yHeightOffset + (j), -sZ + pZ - 0.999f).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
+                    buffer.vertex(matrix4f, -sX + pX + valueA, yHeightOffset + j, -sZ + pZ - 0.999f).color(color).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
+                    buffer.vertex(matrix4f, sX + pX + valueA, yHeightOffset + j, -sZ + pZ - 0.999f).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
                     buffer.vertex(matrix4f, sX + pX + valueA, pY1, -sZ + pZ - 0.999f).color(color).uv(u1, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
                 }
                 if (perspective == RenderUtil.Perspective.LEFT) {
                     u2 = icon.getU(size);
                     buffer.vertex(matrix4f, -sX + pX + valueA, pY1, sZ + pZ + 0.999f).color(color).uv(u1, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
                     buffer.vertex(matrix4f, sX + pX + valueA, pY1, sZ + pZ + 0.999f).color(color).uv(u1, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
-                    buffer.vertex(matrix4f, sX + pX + valueA, yHeightOffset + (j), sZ + pZ + 0.999f).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
-                    buffer.vertex(matrix4f, -sX + pX + valueA, yHeightOffset + (j), sZ + pZ + 0.999f).color(color).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
+                    buffer.vertex(matrix4f, sX + pX + valueA, yHeightOffset + j, sZ + pZ + 0.999f).color(color).uv(u2, v1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
+                    buffer.vertex(matrix4f, -sX + pX + valueA, yHeightOffset + j, sZ + pZ + 0.999f).color(color).uv(u2, v2).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(pPackedLight).normal(0f, 1f, 0f).endVertex();
                 }
 
                 tempHeight = tempHeight - curHeight;
