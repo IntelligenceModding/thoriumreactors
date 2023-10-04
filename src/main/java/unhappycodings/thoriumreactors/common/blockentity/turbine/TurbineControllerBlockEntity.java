@@ -137,6 +137,10 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         }
     }
 
+    public float getTurbineGeneration() {
+        return isCoilsEngaged() ? (float) Math.floor((getRpm() * (FormattingUtil.getTurbineGenerationModifier(getRpm()) * getEnergyModifier())) * 100) / 100 : 0;
+    }
+
     public int getTurbineHeight() {
         return turbineHeight;
     }
