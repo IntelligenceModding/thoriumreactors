@@ -17,7 +17,7 @@ The thorium reactor*</font>
 
 [![Curseforge](https://img.shields.io/badge/CurseForge-E04E14?style=for-the-badge&logoColor=white&logo=CurseForge)](https://www.curseforge.com/minecraft/mc-mods/thorium-reactors)
 [![Discord](https://img.shields.io/badge/Join_Discord-5865F2?style=for-the-badge&logoColor=white&logo=Discord)](https://discord.intelligence-modding.de)
-![Documentation](https://img.shields.io/badge/Documentation_(Soon)-5abcff?style=for-the-badge&logoColor=white&logo=GitBook)
+[![Documentation](https://img.shields.io/badge/Documentation-5abcff?style=for-the-badge&logoColor=white&logo=GitBook)](https://docs.thorium-reactors.de/)
 
 [![Thor](https://img.shields.io/badge/Thor_Approved-43E000?style=for-the-badge&logoColor=white&logo=checkmarx)](CERTIFICATE.pdf)
 </div>
