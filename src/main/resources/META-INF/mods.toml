@@ -6,6 +6,9 @@ license = "All Rights Reserved"
 modId = "thoriumreactors"
 version = "${file.jarVersion}"
 displayName = "ThoriumReactors"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/thorium-reactors"
+logoFile = "thoriumreactors-logo.png"
+authors = "UnhappyWithoutU"
 description = ""
 
 [[dependencies.thoriumreactors]]
@@ -19,5 +22,19 @@ side = "BOTH"
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.19.2,1.20)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.thoriumreactors]]
+modId = "ctm"
+mandatory = false
+versionRange = "[1.1.7+11,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.thoriumreactors]]
+modId = "computercraft"
+mandatory = false
+versionRange = "[1.101.3,)"
 ordering = "NONE"
 side = "BOTH"
