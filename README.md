@@ -6,6 +6,8 @@
 ![License](https://img.shields.io/discord/734726882058174486?style=for-the-badge&label=Discord&color=4B58CC&labelColor=5865F2)
 ![Downloads](https://cf.way2muchnoise.eu/full_thorium-reactors_downloads.svg?badge_style=for_the_badge)
 
+[![Ko-Fi](https://img.shields.io/badge/Buy_Me_A_Coffee-0577ab?style=for-the-badge&logoColor=white&logo=KoFi)](https://ko-fi.com/unhappywithoutu)
+
 ![Thoriumreactors Mod](thumbnail.png)
 
 <br>
@@ -14,6 +16,8 @@
 The thorium reactor*</font>
 
 <br>
+
+<a href='https://ko-fi.com/Q5Q6PTOI8' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 [![Curseforge](https://img.shields.io/badge/CurseForge-E04E14?style=for-the-badge&logoColor=white&logo=CurseForge)](https://www.curseforge.com/minecraft/mc-mods/thorium-reactors)
 [![Discord](https://img.shields.io/badge/Join_Discord-5865F2?style=for-the-badge&logoColor=white&logo=Discord)](https://discord.intelligence-modding.de)
