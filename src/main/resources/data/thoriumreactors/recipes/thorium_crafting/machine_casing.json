@@ -3,10 +3,10 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:steel_nugget"
+      "item": "minecraft:iron_nugget"
     },
     "B": {
-      "item": "thoriumreactors:steel_ingot"
+      "item": "minecraft:iron_ingot"
     },
     "C": {
       "item": "thoriumreactors:redstone_processor"

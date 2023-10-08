@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:electrolytic_salt_separator"
+    },
+    "title": "Separation them!",
+    "description": "Craft a electrolytic separator!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:potassium",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:electrolytic_salt_separator"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

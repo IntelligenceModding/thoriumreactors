@@ -1,11 +1,8 @@
 {
   "type": "thoriumreactors:thorium_crafting",
   "key": {
-    "A": {
-      "item": "thoriumreactors:blasted_iron_ingot"
-    },
     "B": {
-      "item": "thoriumreactors:steel_ingot"
+      "item": "minecraft:gold_ingot"
     },
     "C": {
       "item": "minecraft:redstone"
@@ -31,7 +28,7 @@
     " CDC ",
     " EBF ",
     " CGC ",
-    "  A  "
+    "  H  "
   ],
   "result": {
     "item": "thoriumreactors:redstone_processor"

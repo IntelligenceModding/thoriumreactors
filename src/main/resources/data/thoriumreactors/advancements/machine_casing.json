@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:machine_casing"
+    },
+    "title": "Build a base!",
+    "description": "Craft a machine casing!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:module_empty",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:machine_casing"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

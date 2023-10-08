@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:reactor_core"
+    },
+    "title": "HEAT!",
+    "description": "Craft a reactor core! (Some dangerous stuff)",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:reactor_casing",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:reactor_core"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

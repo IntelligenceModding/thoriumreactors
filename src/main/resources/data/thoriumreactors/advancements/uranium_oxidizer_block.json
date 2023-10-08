@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:uranium_oxidizer_block"
+    },
+    "title": "Oxidization",
+    "description": "Craft a uranium oxidizer!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:decomposer_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:uranium_oxidizer_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

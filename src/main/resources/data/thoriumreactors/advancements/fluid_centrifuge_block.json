@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:fluid_centrifuge_block"
+    },
+    "title": "Turn around!",
+    "description": "Craft a fluid centrifuge!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:uranium_oxidizer_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:fluid_centrifuge_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

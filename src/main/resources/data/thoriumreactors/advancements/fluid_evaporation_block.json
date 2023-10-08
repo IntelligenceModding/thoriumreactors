@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:fluid_evaporation_block"
+    },
+    "title": "Cloud machine!",
+    "description": "Craft a fluid evaporator!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:sodium",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:fluid_evaporation_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

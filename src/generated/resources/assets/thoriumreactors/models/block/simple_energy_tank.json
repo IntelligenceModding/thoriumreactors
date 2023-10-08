@@ -1,0 +1,9 @@
+{
+  "parent": "thoriumreactors:block/fluid_tank",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "1": "thoriumreactors:block/energy_tank",
+    "2": "thoriumreactors:block/energy_tank_valve",
+    "particle": "thoriumreactors:block/energy_tank"
+  }
+}

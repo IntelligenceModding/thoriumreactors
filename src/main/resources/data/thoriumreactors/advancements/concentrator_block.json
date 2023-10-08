@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:concentrator_block"
+    },
+    "title": "Concentrate!",
+    "description": "Craft a concentrator!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:generator_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:concentrator_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

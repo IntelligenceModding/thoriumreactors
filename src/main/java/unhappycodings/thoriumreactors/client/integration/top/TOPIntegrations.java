@@ -15,8 +15,7 @@ public class TOPIntegrations {
 
     public static void sendIMCs(final InterModEnqueueEvent ignored) {
         if (TOPLoaded) {
-            InterModComms.sendTo(TOP_MOD_ID, "getTheOneProbe",
-                    TOPInfoPlugin::new);
+            InterModComms.sendTo(TOP_MOD_ID, "getTheOneProbe", TOPInfoPlugin::new);
         }
     }
 }

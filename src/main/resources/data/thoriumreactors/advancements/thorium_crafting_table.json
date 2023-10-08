@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:thorium_crafting_table"
+    },
+    "title": "First steps!",
+    "description": "Craft a thorium crafting table!",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "background": "thoriumreactors:textures/block/graphite_block.png",
+    "frame": "goal"
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:thorium_crafting_table"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

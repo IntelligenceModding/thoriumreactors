@@ -3,32 +3,26 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "item": "minecraft:iron_ingot"
     },
     "B": {
-      "item": "thoriumreactors:blasted_iron_nugget"
+      "item": "minecraft:iron_nugget"
     },
     "C": {
-      "item": "thoriumreactors:steel_ingot"
-    },
-    "D": {
-      "item": "thoriumreactors:steel_nugget"
-    },
-    "E": {
       "item": "minecraft:coal"
     },
-    "F": {
+    "D": {
       "item": "thoriumreactors:machine_casing"
     },
-    "G": {
+    "E": {
       "item": "thoriumreactors:aluminum_nugget"
     }
   },
   "pattern": [
     " BAB ",
-    "DEGED",
-    "CGFGC",
-    "DEGED",
+    "BCECB",
+    "AEDEA",
+    "BCECB",
     " BAB "
   ],
   "result": {

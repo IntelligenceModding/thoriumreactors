@@ -45,6 +45,7 @@ public class MachineryItemCreativeTab extends CreativeModeTab {
                 ModBlocks.THERMAL_CONDUCTOR.get(), ModBlocks.THERMAL_CONTROLLER.get(), ModBlocks.THERMAL_VALVE.get(), ModBlocks.THERMAL_HEAT_SINK.get(),
                 ModBlocks.REACTOR_GLASS.get(), ModBlocks.TURBINE_GLASS.get(), ModBlocks.REACTOR_GRAPHITE_MODERATOR.get(), ModBlocks.TURBINE_ROTOR.get(), ModBlocks.THORIUM_CRAFTING_TABLE.get(),
                 ModBlocks.BLASTED_IRON_CHEST_BLOCK.get(), ModBlocks.STEEL_CHEST_BLOCK.get(), ModBlocks.THORIUM_CHEST_BLOCK.get(),
+                ModBlocks.SIMPLE_ENERGY_TANK.get(), ModBlocks.GENERIC_ENERGY_TANK.get(), ModBlocks.PROGRESSIVE_ENERGY_TANK.get(),
                 ModBlocks.SIMPLE_FLUID_TANK.get(), ModBlocks.GENERIC_FLUID_TANK.get(), ModBlocks.PROGRESSIVE_FLUID_TANK.get());
 
         for (Block i : blockList) {

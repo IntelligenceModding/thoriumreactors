@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:decomposer_block"
+    },
+    "title": "Mix ‘Em All!",
+    "description": "Craft a decomposer!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:fluorite",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:decomposer_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.client.renderer.EnergyTankBlockEntityRenderer;
 import unhappycodings.thoriumreactors.client.renderer.FluidTankBlockEntityRenderer;
 import unhappycodings.thoriumreactors.client.renderer.ReactorControllerBlockEntityRenderer;
 import unhappycodings.thoriumreactors.client.renderer.TurbineControllerBlockEntityRenderer;
@@ -45,6 +46,7 @@ public class ClientEvents {
     @SubscribeEvent
     public static void onModelAdditionalRegister(ModelEvent.RegisterAdditional event) {
         event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank"));
+        event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/energy_tank"));
     }
 
     @SubscribeEvent
@@ -60,13 +62,10 @@ public class ClientEvents {
         MenuScreens.register(ModContainerTypes.FLUID_CENTRIFUGE_CONTAINER.get(), MachineFluidCentrifugeScreen::new);
         MenuScreens.register(ModContainerTypes.CRYSTALLIZER_CONTAINER.get(), MachineCrystallizerScreen::new);
         MenuScreens.register(ModContainerTypes.BLAST_FURNACE_CONTAINER.get(), MachineBlastFurnaceScreen::new);
-
         MenuScreens.register(ModContainerTypes.THORIUM_CHEST_CONTAINER.get(), ThoriumChestScreen::new);
         MenuScreens.register(ModContainerTypes.STEEL_CHEST_CONTAINER.get(), SteelChestScreen::new);
         MenuScreens.register(ModContainerTypes.BLASTED_IRON_CHEST_CONTAINER.get(), BlastedIronChestScreen::new);
-
         MenuScreens.register(ModContainerTypes.REACTOR_CONTROLLER_CONTAINER.get(), ReactorControllerScreen::new);
-
         MenuScreens.register(ModContainerTypes.FLUID_TANK_CONTAINER.get(), FluidTankScreen::new);
 
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MOLTEN_SALT.get(), RenderType.translucent());
@@ -90,6 +89,9 @@ public class ClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.STEEL_CHEST_BLOCK.get(), SteelChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.BLASTED_IRON_CHEST_BLOCK.get(), BlastedIronChestRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.REACTOR_CONTROLLER.get(), ReactorControllerBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.SIMPLE_ENERGY_TANK.get(), EnergyTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.GENERIC_ENERGY_TANK.get(), EnergyTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_ENERGY_TANK.get(), EnergyTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SIMPLE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.GENERIC_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);

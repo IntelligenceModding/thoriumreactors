@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:salt_melter_block"
+    },
+    "title": "Hot Hot Hot",
+    "description": "Craft a salt melter!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:module_empty",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:salt_melter_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

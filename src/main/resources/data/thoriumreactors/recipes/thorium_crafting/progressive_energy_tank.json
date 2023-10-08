@@ -1,0 +1,33 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:niob_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:steel_ingot"
+    },
+    "C": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "item": "minecraft:iron_ingot"
+    },
+    "E": {
+      "item": "thoriumreactors:generic_energy_tank"
+    },
+    "F": {
+      "item": "thoriumreactors:fluorite_nugget"
+    }
+  },
+  "pattern": [
+    " DDD ",
+    " BAB ",
+    " CEC ",
+    " BFB ",
+    " DDD "
+  ],
+  "result": {
+    "item": "thoriumreactors:progressive_energy_tank"
+  }
+}

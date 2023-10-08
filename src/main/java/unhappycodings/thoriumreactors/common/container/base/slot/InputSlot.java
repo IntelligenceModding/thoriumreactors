@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.container.base.slot;
 
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.IItemHandler;
@@ -23,4 +24,9 @@ public class InputSlot extends BaseSlot {
         CraftingUtil.refreshTable((ThoriumCraftingTableBlockEntity) entity);
     }
 
+    @Override
+    public void onTake(@NotNull Player pPlayer, @NotNull ItemStack pStack) {
+        super.onTake(pPlayer, pStack);
+        CraftingUtil.refreshTable((ThoriumCraftingTableBlockEntity) entity);
+    }
 }

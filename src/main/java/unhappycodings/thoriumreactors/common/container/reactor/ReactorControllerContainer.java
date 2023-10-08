@@ -7,9 +7,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorControllerDataPacket;
+import unhappycodings.thoriumreactors.common.network.toclient.thermal.ClientThermalConversionsPacket;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class ReactorControllerContainer extends BaseContainer {
@@ -30,6 +32,10 @@ public class ReactorControllerContainer extends BaseContainer {
                 entity.getReactorPressure(), entity.getReactorHeight(), entity.getReactorState(), entity.isTurbineActivated(), entity.isTurbineCoilsEngaged(), entity.getTurbineTargetFlow(),
                 entity.getTurbineCurrentFlow(), entity.getTurbinePowerGeneration(), entity.getTurbineSpeed(), entity.getDepletedFuelRodStatus() ,entity.getFuelRodStatus(), entity.getControlRodStatus(),
                 entity.getFluidIn(), entity.getFluidOut(), entity.getNotification(), entity.isReactorActive(), entity.isTurbineActive(), entity.isExchangerActive(), entity.getReactorCapacity(), entity.getTurbinePos()), (ServerPlayer) inventory.player);
+
+        if (entity.getLevel().getBlockEntity(entity.getThermalPos()) instanceof ThermalControllerBlockEntity thermalControllerBlockEntity) {
+            PacketHandler.sendToClient(new ClientThermalConversionsPacket(thermalControllerBlockEntity.getBlockPos(), thermalControllerBlockEntity.getConversions()), (ServerPlayer) inventory.player);
+        };
 
         super.broadcastChanges();
     }

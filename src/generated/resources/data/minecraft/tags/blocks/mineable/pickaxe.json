@@ -2,6 +2,9 @@
   "values": [
     "thoriumreactors:thorium_crafting_table",
     "thoriumreactors:machine_casing",
+    "thoriumreactors:simple_energy_tank",
+    "thoriumreactors:generic_energy_tank",
+    "thoriumreactors:progressive_energy_tank",
     "thoriumreactors:simple_fluid_tank",
     "thoriumreactors:generic_fluid_tank",
     "thoriumreactors:progressive_fluid_tank",

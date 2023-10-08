@@ -12,6 +12,7 @@ import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.machine.*;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
+import unhappycodings.thoriumreactors.common.network.toclient.thermal.ClientThermalConversionsPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.turbine.ClientTurbineControllerDataPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
@@ -47,9 +48,11 @@ public class PacketHandler {
         registerServerToClient(ClientBlastFurnaceDataPacket.class, ClientBlastFurnaceDataPacket::decode);
         registerServerToClient(ClientReactorControllerDataPacket.class, ClientReactorControllerDataPacket::decode);
         registerServerToClient(ClientReactorRenderDataPacket.class, ClientReactorRenderDataPacket::decode);
+        registerServerToClient(ClientEnergyTankRenderDataPacket.class, ClientEnergyTankRenderDataPacket::decode);
         registerServerToClient(ClientFluidTankRenderDataPacket.class, ClientFluidTankRenderDataPacket::decode);
         registerServerToClient(ClientReactorParticleDataPacket.class, ClientReactorParticleDataPacket::decode);
         registerServerToClient(ClientTurbineControllerDataPacket.class, ClientTurbineControllerDataPacket::decode);
+        registerServerToClient(ClientThermalConversionsPacket.class, ClientThermalConversionsPacket::decode);
 
         registerClientToServer(ReactorOpenContainerPacket.class, ReactorOpenContainerPacket::decode);
         registerClientToServer(ReactorControllerScramPacket.class, ReactorControllerScramPacket::decode);

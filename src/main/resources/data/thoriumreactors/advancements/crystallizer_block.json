@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:crystallizer_block"
+    },
+    "title": "Get it hard!",
+    "description": "Craft a crystallizer!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:fluid_centrifuge_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:crystallizer_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

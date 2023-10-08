@@ -80,6 +80,9 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.CRYSTALLIZER_BLOCK.get(), "Kristallisator");
         add(ModBlocks.CRYSTALLIZER_BLOCK.get().getDescriptionId() + "_description", "Der Kristallisator verwandelt Flüssigkeiten in ihre feste Form. Hauptsächlich UF6 (Angereichertes Uran-Hexafluorit)!");
 
+        add(ModBlocks.SIMPLE_ENERGY_TANK.get(), "Einfacher Energietank");
+        add(ModBlocks.SIMPLE_ENERGY_TANK.get().getDescriptionId() + "_description", "Wird verwendet, um Energie in kleinen Mengen zu speichern! Erste Stufe von drei, mit geringer Kapazität");
+
         add(ModBlocks.SIMPLE_FLUID_TANK.get(), "Einfacher Flüssigkeitstank");
         add(ModBlocks.SIMPLE_FLUID_TANK.get().getDescriptionId() + "_description", "Wird verwendet, um Flüssigkeiten in kleinen Mengen zu speichern! Erste Stufe von drei, mit geringer Kapazität");
         add(ModBlocks.GENERIC_FLUID_TANK.get(), "Generischer Flüssigkeitstank");
@@ -201,6 +204,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("machines.tooltip.dump_instantly", "Flüssigkeit sofort ablassen");
         addGuiText("machines.tooltip.auto_dump", "Automatisches Ablassen: ");
         addGuiText("machines.tooltip.fluid", "Flüssigkeit: ");
+        addGuiText("machines.tooltip.energy", "Energie: ");
         addGuiText("machines.tooltip.only_while_running", "Nur während des Betriebes");
         addGuiText("machines.tooltip.infinite", "Unbegrenzt");
         addGuiText("machines.tooltip.usage", "Verbrauch:");
@@ -319,8 +323,11 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("machines.text.gen", "Gener.: ");
 
         addGuiText("items.text.turbine_selected", "Gespeicherte Turbine: ");
+        addGuiText("items.text.thermal_selected", "Gespeicherter Wärmetauscher: ");
         addGuiText("items.text.turbine_saved_to_configurator", "Turbine im Konfigurator gespeichert");
         addGuiText("items.text.turbine_saved_to_reactor", "Turbine im Reaktor gespeichert");
+        addGuiText("items.text.thermal_saved_to_configurator", "Wärmetauscher im Konfigurator gespeichert");
+        addGuiText("items.text.thermal_saved_to_reactor", "Wärmetauscher im Reaktor gespeichert");
 
         add(ModBlocks.MACHINE_CASING.get(), "Maschinengehäuse");
 

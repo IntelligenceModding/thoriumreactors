@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:potassium"
+    },
+    "title": "Separated!",
+    "description": "Obtain some potassium!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:salt_melter_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:potassium"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

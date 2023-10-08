@@ -15,6 +15,7 @@ import unhappycodings.thoriumreactors.common.blockentity.turbine.base.TurbineFra
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
+import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
 public class TurbinePowerPortBlockEntity extends TurbineFrameBlockEntity implements IEnergyCapable {
     public static final int MAX_POWER = 124102300;
@@ -27,10 +28,19 @@ public class TurbinePowerPortBlockEntity extends TurbineFrameBlockEntity impleme
             setChanged();
             energy = ENERGY_STORAGE.getEnergyStored();
         }
+
+        @Override
+        public boolean canReceive() {
+            return false;
+        }
     };
 
     public TurbinePowerPortBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.TURBINE_POWER_PORT.get(), pPos, pBlockState);
+    }
+
+    public void tick() {
+        EnergyUtil.trySendToNeighbors(level, getBlockPos(), ENERGY_STORAGE, getEnergy(), (int) getMaxEnergyTransfer());
     }
 
     @Override

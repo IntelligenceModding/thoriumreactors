@@ -80,8 +80,15 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.CRYSTALLIZER_BLOCK.get(), "Crystallizer");
         add(ModBlocks.CRYSTALLIZER_BLOCK.get().getDescriptionId() + "_description", "The Crystallizer transforms fluids into their solid variant. Mainly UF6 (Enriched Uranium Hexafluorite)!");
 
+        add(ModBlocks.SIMPLE_ENERGY_TANK.get(), "Simple Energy Tank");
+        add(ModBlocks.SIMPLE_ENERGY_TANK.get().getDescriptionId() + "_description", "Used to store energy in small amounts! First stage of three, with small capacity");
+        add(ModBlocks.GENERIC_ENERGY_TANK.get(), "Generic Energy Tank");
+        add(ModBlocks.GENERIC_ENERGY_TANK.get().getDescriptionId() + "_description", "Used to store energy in big amounts! Second stage, with bigger capacity");
+        add(ModBlocks.PROGRESSIVE_ENERGY_TANK.get(), "Progressive Energy Tank");
+        add(ModBlocks.PROGRESSIVE_ENERGY_TANK.get().getDescriptionId() + "_description", "Used to store energy in huge amounts! Last stage, therefore with a huge capacity");
+
         add(ModBlocks.SIMPLE_FLUID_TANK.get(), "Simple Fluid Tank");
-        add(ModBlocks.SIMPLE_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in amounts! First stage of three, with small capacity");
+        add(ModBlocks.SIMPLE_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in small amounts! First stage of three, with small capacity");
         add(ModBlocks.GENERIC_FLUID_TANK.get(), "Generic Fluid Tank");
         add(ModBlocks.GENERIC_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in big amounts! Second stage, with bigger capacity");
         add(ModBlocks.PROGRESSIVE_FLUID_TANK.get(), "Progressive Fluid Tank");
@@ -202,6 +209,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("machines.tooltip.dump_instantly", "Dump stored liquid instantly");
         addGuiText("machines.tooltip.auto_dump", "Auto Dump: ");
         addGuiText("machines.tooltip.fluid", "Fluid: ");
+        addGuiText("machines.tooltip.energy", "Energy: ");
         addGuiText("machines.tooltip.only_while_running", "Only while running");
         addGuiText("machines.tooltip.infinite", "Infinite");
         addGuiText("machines.tooltip.usage", "Usage:");
@@ -216,7 +224,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("machines.tooltip.hold", "Hold ");
         addGuiText("machines.tooltip.for_details", " for further details.");
         addGuiText("machines.tooltip.for_description", " for a block description.");
-        addGuiText("machines.tooltip.capacity", "Capacity:");
+        addGuiText("machines.tooltip.capacity", "Capacity: ");
 
         addGuiText("machines.concentrator.name", "Concentrating");
         addGuiText("machines.blast_furnace.name", "Blasting");
@@ -320,8 +328,11 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("machines.text.gen", "Gen: ");
 
         addGuiText("items.text.turbine_selected", "Turbine selected: ");
+        addGuiText("items.text.thermal_selected", "Thermal selected: ");
         addGuiText("items.text.turbine_saved_to_configurator", "Turbine saved to configurator");
         addGuiText("items.text.turbine_saved_to_reactor", "Turbine saved to reactor.");
+        addGuiText("items.text.thermal_saved_to_configurator", "Thermal saved to configurator");
+        addGuiText("items.text.thermal_saved_to_reactor", "Thermal saved to reactor.");
 
         add(ModBlocks.MACHINE_CASING.get(), "Machine Casing");
 

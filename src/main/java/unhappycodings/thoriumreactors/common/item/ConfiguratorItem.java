@@ -47,10 +47,22 @@ public class ConfiguratorItem extends Item {
             writePos(posTag, pos);
             item.getOrCreateTag().put("turbinePos", posTag);
             player.displayClientMessage(Component.translatable(FormattingUtil.getTranslatable("items.text.turbine_saved_to_configurator")).withStyle(FormattingUtil.hex(0x7ED355)), false);
+        } else if (state.is(ModBlocks.THERMAL_CONTROLLER.get())) {
+            item = new ItemStack(item.getItem());
+            CompoundTag posTag = new CompoundTag();
+            writePos(posTag, pos);
+            item.getOrCreateTag().put("thermalPos", posTag);
+            player.displayClientMessage(Component.translatable(FormattingUtil.getTranslatable("items.text.thermal_saved_to_configurator")).withStyle(FormattingUtil.hex(0x7ED355)), false);
         } else {
-            if (item.getOrCreateTag().contains("turbinePos") && level.getBlockEntity(pos) instanceof ReactorControllerBlockEntity entity) {
-                entity.addTurbinePos(BlockEntity.getPosFromTag(item.getOrCreateTag().getCompound("turbinePos")));
-                player.displayClientMessage(Component.translatable(FormattingUtil.getTranslatable("items.text.turbine_saved_to_reactor")).withStyle(FormattingUtil.hex(0x55D38A)), false);
+            if (level.getBlockEntity(pos) instanceof ReactorControllerBlockEntity entity) {
+                if (item.getOrCreateTag().contains("turbinePos")) {
+                    entity.addTurbinePos(BlockEntity.getPosFromTag(item.getOrCreateTag().getCompound("turbinePos")));
+                    player.displayClientMessage(Component.translatable(FormattingUtil.getTranslatable("items.text.turbine_saved_to_reactor")).withStyle(FormattingUtil.hex(0x55D38A)), false);
+                }
+                if (item.getOrCreateTag().contains("thermalPos")) {
+                    entity.setThermalPos(BlockEntity.getPosFromTag(item.getOrCreateTag().getCompound("thermalPos")));
+                    player.displayClientMessage(Component.translatable(FormattingUtil.getTranslatable("items.text.thermal_saved_to_reactor")).withStyle(FormattingUtil.hex(0x55D38A)), false);
+                }
             }
         }
         player.setItemSlot(EquipmentSlot.MAINHAND, item);
@@ -74,6 +86,10 @@ public class ConfiguratorItem extends Item {
         if (stack.getOrCreateTag().contains("turbinePos")) {
             String pos = stack.getOrCreateTag().get("turbinePos").getAsString().replace("{", "").replace("}", "").replace(",", " ");
             tooltipComponents.add(Component.translatable(FormattingUtil.getTranslatable("items.text.turbine_selected")).append(Component.literal(pos).withStyle(ChatFormatting.GRAY)).withStyle(FormattingUtil.hex(0x55D38A)));
+        }
+        if (stack.getOrCreateTag().contains("thermalPos")) {
+            String pos = stack.getOrCreateTag().get("thermalPos").getAsString().replace("{", "").replace("}", "").replace(",", " ");
+            tooltipComponents.add(Component.translatable(FormattingUtil.getTranslatable("items.text.thermal_selected")).append(Component.literal(pos).withStyle(ChatFormatting.GRAY)).withStyle(FormattingUtil.hex(0x55D38A)));
         }
         super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
     }

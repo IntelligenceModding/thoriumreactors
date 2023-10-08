@@ -15,6 +15,7 @@ import net.minecraftforge.fluids.FluidStack;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
+import unhappycodings.thoriumreactors.common.blockentity.EnergyTankBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
@@ -61,6 +62,10 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
                 });
                 return;
             }
+        } else if (level.getBlockEntity(iProbeHitData.getPos()) instanceof EnergyTankBlockEntity entity) {
+
+            iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(Component.translatable(FormattingUtil.getTranslatable("machines.top_info.energy"))).progress(entity.getEnergy(), entity.getCapacity(), iProbeInfo.defaultProgressStyle().filledColor(COLOR_A).alternateFilledColor(COLOR_B).backgroundColor(Color.rgb(255, 255, 255, 255)).borderColor(Color.rgb(65, 65, 65, 255)).numberFormat(NumberFormat.COMMAS).suffix(" FE").showText(true));
+
         } else if (level.getBlockEntity(iProbeHitData.getPos()) instanceof TurbineControllerBlockEntity entity) {
 
             if (!entity.isActivated()) {

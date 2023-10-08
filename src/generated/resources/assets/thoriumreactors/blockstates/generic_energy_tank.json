@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "thoriumreactors:block/generic_energy_tank"
+    }
+  }
+}

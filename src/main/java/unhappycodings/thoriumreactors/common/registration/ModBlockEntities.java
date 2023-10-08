@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.registration;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.RegistryObject;
+import unhappycodings.thoriumreactors.common.blockentity.EnergyTankBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.SteelChestBlockEntity;
@@ -41,6 +42,10 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ThermalHeatSinkBlockEntity>> THERMAL_HEAT_SINK = Registration.BLOCK_ENTITIES.register("thermal_heat_sink", () -> BlockEntityType.Builder.of(ThermalHeatSinkBlockEntity::new, ModBlocks.THERMAL_HEAT_SINK.get()).build(null));
     public static final RegistryObject<BlockEntityType<ThermalValveBlockEntity>> THERMAL_VALVE = Registration.BLOCK_ENTITIES.register("thermal_valve", () -> BlockEntityType.Builder.of(ThermalValveBlockEntity::new, ModBlocks.THERMAL_VALVE.get()).build(null));
     public static final RegistryObject<BlockEntityType<ThermalControllerBlockEntity>> THERMAL_CONTROLLER = Registration.BLOCK_ENTITIES.register("thermal_controller", () -> BlockEntityType.Builder.of(ThermalControllerBlockEntity::new, ModBlocks.THERMAL_CONTROLLER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EnergyTankBlockEntity>> SIMPLE_ENERGY_TANK = Registration.BLOCK_ENTITIES.register("simple_energy_tank", () -> BlockEntityType.Builder.of((pos, state) -> new EnergyTankBlockEntity(ModBlockEntities.SIMPLE_ENERGY_TANK.get(), pos, state, 2560000), ModBlocks.SIMPLE_ENERGY_TANK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<EnergyTankBlockEntity>> GENERIC_ENERGY_TANK = Registration.BLOCK_ENTITIES.register("generic_energy_tank", () -> BlockEntityType.Builder.of((pos, state) -> new EnergyTankBlockEntity(ModBlockEntities.GENERIC_ENERGY_TANK.get(), pos, state, 5120000), ModBlocks.GENERIC_ENERGY_TANK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<EnergyTankBlockEntity>> PROGRESSIVE_ENERGY_TANK = Registration.BLOCK_ENTITIES.register("progressive_energy_tank", () -> BlockEntityType.Builder.of((pos, state) -> new EnergyTankBlockEntity(ModBlockEntities.PROGRESSIVE_ENERGY_TANK.get(), pos, state, 10240000), ModBlocks.PROGRESSIVE_ENERGY_TANK.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> SIMPLE_FLUID_TANK = Registration.BLOCK_ENTITIES.register("simple_fluid_tank", () -> BlockEntityType.Builder.of((pos, state) -> new FluidTankBlockEntity(pos, state, 32000, ModBlockEntities.SIMPLE_FLUID_TANK.get()), ModBlocks.SIMPLE_FLUID_TANK.get()).build(null));
     public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> GENERIC_FLUID_TANK = Registration.BLOCK_ENTITIES.register("generic_fluid_tank", () -> BlockEntityType.Builder.of((pos, state) -> new FluidTankBlockEntity(pos, state, 64000, ModBlockEntities.GENERIC_FLUID_TANK.get()), ModBlocks.GENERIC_FLUID_TANK.get()).build(null));

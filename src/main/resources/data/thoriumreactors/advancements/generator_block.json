@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:generator_block"
+    },
+    "title": "Real progress!",
+    "description": "Craft a generator to produce energy!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:machine_casing",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:generator_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

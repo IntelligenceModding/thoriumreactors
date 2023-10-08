@@ -31,6 +31,7 @@ import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
 import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
@@ -48,6 +49,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     public static final int MAX_HEAT = 1320;
     public List<BlockPos> turbinePos;
     public List<BlockPos> valvePos;
+    public BlockPos thermalPos;
     public boolean assembled;
     public String notification = "";
     public boolean isReactorActive;
@@ -470,7 +472,11 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     }
 
     public boolean isExchangerActive() {
-        return isExchangerActive;
+        if (level.getBlockEntity(thermalPos) instanceof ThermalControllerBlockEntity entity) {
+            return entity.getConversions() > 0;
+        };
+
+        return false;
     }
 
     public void setExchangerActive(boolean exchangerActive) {
@@ -561,6 +567,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
         nbt.putByteArray("ControlRodStatus", getControlRodStatus());
         nbt.putByteArray("TargetControlRodStatus", getTargetControlRodStatus());
+        nbt.put("ThermalPos", parsePosToTag(thermalPos));
         for (int i = 0; i < 4; i++)
             if (valvePos != null && valvePos.size() - 1 >= i) nbt.put("ValvePos-" + i, parsePosToTag(valvePos.get(i)));
         for (int i = 0; i < 9; i++)
@@ -598,6 +605,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setTargetControlRodStatus(tag.getByteArray("TargetControlRodStatus"));
         valvePos = new ArrayList<>(4);
         turbinePos = new ArrayList<>(9);
+        thermalPos = BlockEntity.getPosFromTag(tag.getCompound("ThermalPos"));
         for (int i = 0; i < 4; i++)
             if (tag.contains("ValvePos-" + i))
                 valvePos.add(BlockEntity.getPosFromTag(tag.getCompound("ValvePos-" + i)));
@@ -632,6 +640,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         nbt.putByteArray("FuelRodStatus", getFuelRodStatus());
         nbt.putByteArray("ControlRodStatus", getControlRodStatus());
         nbt.putByteArray("TargetControlRodStatus", getTargetControlRodStatus());
+        nbt.put("ThermalPos", parsePosToTag(thermalPos));
         for (int i = 0; i < 4; i++)
             if (valvePos != null && valvePos.size() - 1 >= i) nbt.put("ValvePos-" + i, parsePosToTag(valvePos.get(i)));
         for (int i = 0; i < 9; i++)
@@ -668,12 +677,21 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setTargetControlRodStatus(nbt.getByteArray("TargetControlRodStatus"));
         valvePos = new ArrayList<>(4);
         turbinePos = new ArrayList<>(9);
+        thermalPos = BlockEntity.getPosFromTag(nbt.getCompound("ThermalPos"));
         for (int i = 0; i < 4; i++)
             if (nbt.contains("ValvePos-" + i))
                 valvePos.add(BlockEntity.getPosFromTag(nbt.getCompound("ValvePos-" + i)));
         for (int i = 0; i < 9; i++)
             if (nbt.contains("TurbinePos-" + i))
                 turbinePos.add(BlockEntity.getPosFromTag(nbt.getCompound("TurbinePos-" + i)));
+    }
+
+    public void setThermalPos(BlockPos thermalPos) {
+        this.thermalPos = thermalPos;
+    }
+
+    public BlockPos getThermalPos() {
+        return thermalPos;
     }
 
     public void setTurbinePos(List<BlockPos> turbinePos) {

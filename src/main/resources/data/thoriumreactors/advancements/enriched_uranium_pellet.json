@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:enriched_uranium"
+    },
+    "title": "There it is!",
+    "description": "Obtain your first enriched uranium pellet!",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "frame": "goal"
+  },
+  "parent": "thoriumreactors:crystallizer_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:enriched_uranium"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

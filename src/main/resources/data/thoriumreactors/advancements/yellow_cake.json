@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:yellow_cake"
+    },
+    "title": "It's yellow now!",
+    "description": "Bake some (yellow) cake!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:concentrator_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:yellow_cake"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

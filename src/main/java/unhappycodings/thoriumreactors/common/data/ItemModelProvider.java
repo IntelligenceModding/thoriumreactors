@@ -118,6 +118,10 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_white_black_left"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/warning_block_lined_white_black_right"));
 
+        withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_ENERGY_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_ENERGY_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_ENERGY_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
+
         withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));

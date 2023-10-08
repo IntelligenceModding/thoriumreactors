@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:blasted_stone"
+    },
+    "title": "Harder!",
+    "description": "Obtain some blasted stone!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:thorium_crafting_table",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:blasted_stone"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

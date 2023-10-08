@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:fluorite"
+    },
+    "title": "Is it flour?",
+    "description": "Obtain fluorite!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:module_empty",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:fluorite"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

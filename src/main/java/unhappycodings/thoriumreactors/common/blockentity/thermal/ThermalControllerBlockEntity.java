@@ -125,11 +125,20 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
         return FLUID_TANK_IN.getFluidAmount();
     }
 
+    public int getConversions() {
+        return conversions;
+    }
+
+    public void setConversions(int conversions) {
+        this.conversions = conversions;
+    }
+
     @NotNull
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag nbt = super.getUpdateTag();
         nbt.putBoolean("Assembled", isAssembled());
+        nbt.putInt("Conversions", conversions);
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
         for (int i = 0; i < 4; i++)
             if (valvePos != null && valvePos.size() > i) nbt.put("ValvePos-" + (i + 1), parsePosToTag(valvePos.get(i)));
@@ -139,6 +148,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
     @Override
     public void handleUpdateTag(final CompoundTag tag) {
         setAssembled(tag.getBoolean("Assembled"));
+        setConversions(tag.getInt("Conversions"));
         FLUID_TANK_IN.readFromNBT(tag.getCompound("FluidIn"));
         valvePos = new ArrayList<>(4);
         for (int i = 0; i < 4; i++) valvePos.add(BlockEntity.getPosFromTag(tag.getCompound("ValvePos-" + (i + 1))));
@@ -148,6 +158,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         nbt.putBoolean("Assembled", isAssembled());
+        nbt.putInt("Conversions", conversions);
         nbt.put("FluidIn", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
         for (int i = 0; i < 4; i++)
             if (valvePos != null && valvePos.size() > i) nbt.put("ValvePos-" + (i + 1), parsePosToTag(valvePos.get(i)));
@@ -157,6 +168,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
     @Override
     public void load(@NotNull CompoundTag nbt) {
         setAssembled(nbt.getBoolean("Assembled"));
+        setConversions(nbt.getInt("Conversions"));
         FLUID_TANK_IN.readFromNBT(nbt.getCompound("FluidIn"));
         valvePos = new ArrayList<>(4);
         for (int i = 0; i < 4; i++) valvePos.add(BlockEntity.getPosFromTag(nbt.getCompound("ValvePos-" + (i + 1))));

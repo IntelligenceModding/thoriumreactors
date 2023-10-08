@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:redstone_processor"
+    },
+    "title": "Automate d' things!",
+    "description": "Craft a redstone processor!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:thorium_crafting_table",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:redstone_processor"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

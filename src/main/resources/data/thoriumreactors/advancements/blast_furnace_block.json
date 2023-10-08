@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:blast_furnace_block"
+    },
+    "title": "Metal fabrication!",
+    "description": "Craft a blast furnace to produce alloys!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:generator_block",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:blast_furnace_block"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

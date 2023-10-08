@@ -1,4 +1,4 @@
-// 1.19.2	2023-09-17T13:38:52.3365337	Item Models: thoriumreactors
+// 1.19.2	2023-10-06T22:31:03.3308956	Item Models: thoriumreactors
 04a4c724152af60d219cfae9ca203d2861e972dd assets/thoriumreactors/models/item/aluminum_block.json
 297e1af5609489ae4af515cc8364f140c050db9e assets/thoriumreactors/models/item/aluminum_ingot.json
 992b62b637873048447a8bebaef602f01828282e assets/thoriumreactors/models/item/aluminum_nugget.json
@@ -52,6 +52,7 @@ c8da8a031540abeadbe0b57e31dfd6bcf4c98618 assets/thoriumreactors/models/item/fluo
 572145ac708389c60e92a72d52e5124dbb60c29a assets/thoriumreactors/models/item/fluorite_nugget.json
 6f552035dc1344fb5d21c092d19b73a6ec383ad3 assets/thoriumreactors/models/item/fluorite_ore.json
 80207409351333961f63719a4d01150923fe482e assets/thoriumreactors/models/item/generator_block.json
+445c05ef00edbbb67851b6f19eef3033470423ed assets/thoriumreactors/models/item/generic_energy_tank.json
 445c05ef00edbbb67851b6f19eef3033470423ed assets/thoriumreactors/models/item/generic_fluid_tank.json
 cafad6e101fa39114df2de50ac24d3bd34947102 assets/thoriumreactors/models/item/graphite_block.json
 144e80a79aea3544e3672010cd8b54424e3ca8c9 assets/thoriumreactors/models/item/graphite_crystal.json
@@ -94,6 +95,7 @@ b10ee23726d11f3e2ec329786626caa4f222e4c4 assets/thoriumreactors/models/item/nick
 91e2f02491d75613d30cd0ca5af6f07351ad8302 assets/thoriumreactors/models/item/niob_ingot.json
 9c39b40241a6b93eb101a810deefd09802d3cbb8 assets/thoriumreactors/models/item/niob_nugget.json
 ee2b3c39e4d8248bce1687af1a6ef2f001cb9634 assets/thoriumreactors/models/item/potassium.json
+445c05ef00edbbb67851b6f19eef3033470423ed assets/thoriumreactors/models/item/progressive_energy_tank.json
 445c05ef00edbbb67851b6f19eef3033470423ed assets/thoriumreactors/models/item/progressive_fluid_tank.json
 c0836f5adb3b0687d90c42e30e28821c3451494c assets/thoriumreactors/models/item/pyrochlor_ore.json
 d16539deca4bd29e1021c684dddb5d725d4639f6 assets/thoriumreactors/models/item/raw_uranium.json
@@ -106,6 +108,7 @@ f2fa0932e25e5d2310e33d881e09ecf4d91b2c22 assets/thoriumreactors/models/item/reac
 e45ad6db0ed918d49ea50e26d546f526ba08b9cd assets/thoriumreactors/models/item/reactor_valve.json
 75bcb29214ba826e395621576e1946163fd43646 assets/thoriumreactors/models/item/redstone_processor.json
 3024f6bb477e88e91ecbc23c04d576f52b2ade7d assets/thoriumreactors/models/item/salt_melter_block.json
+445c05ef00edbbb67851b6f19eef3033470423ed assets/thoriumreactors/models/item/simple_energy_tank.json
 445c05ef00edbbb67851b6f19eef3033470423ed assets/thoriumreactors/models/item/simple_fluid_tank.json
 140175611d2bc5c1a6789b5e8005156341eb4449 assets/thoriumreactors/models/item/sodium.json
 1a1d7ccaebd3589766984bd76a5ea3b5a7029522 assets/thoriumreactors/models/item/steam_bucket.json

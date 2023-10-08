@@ -14,6 +14,7 @@ public class ModEvents {
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_chest"));
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/steel_chest"));
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/blasted_iron_chest"));
+        event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/energy"));
 
     }
 

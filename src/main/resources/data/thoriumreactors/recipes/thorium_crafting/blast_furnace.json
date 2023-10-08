@@ -3,16 +3,16 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "item": "minecraft:gold_ingot"
     },
     "B": {
-      "item": "thoriumreactors:blasted_iron_nugget"
+      "item": "minecraft:gold_nugget"
     },
     "C": {
-      "item": "thoriumreactors:steel_ingot"
+      "item": "minecraft:iron_ingot"
     },
     "D": {
-      "item": "thoriumreactors:steel_nugget"
+      "item": "minecraft:iron_nugget"
     },
     "E": {
       "item": "minecraft:redstone"

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:module_empty"
+    },
+    "title": "Modular crafting!",
+    "description": "Craft a empty module!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:redstone_processor",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:module_empty"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

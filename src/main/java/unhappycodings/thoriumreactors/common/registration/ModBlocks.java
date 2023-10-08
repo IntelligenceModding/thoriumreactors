@@ -15,12 +15,14 @@ import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.ThoriumChestBlock;
 import unhappycodings.thoriumreactors.common.block.machine.*;
 import unhappycodings.thoriumreactors.common.block.reactor.*;
+import unhappycodings.thoriumreactors.common.block.tank.EnergyTankBlock;
 import unhappycodings.thoriumreactors.common.block.tank.FluidTankBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalConductorBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalSinkBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.block.turbine.*;
+import unhappycodings.thoriumreactors.common.item.EnergyTankBlockItem;
 import unhappycodings.thoriumreactors.common.item.FluidTankBlockItem;
 
 import java.util.function.Supplier;
@@ -31,6 +33,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> MACHINE_CASING = register("machine_casing", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
 
     // Tanks
+    public static final RegistryObject<EnergyTankBlock> SIMPLE_ENERGY_TANK = register("simple_energy_tank", () -> new EnergyTankBlock(ModBlockEntities.SIMPLE_ENERGY_TANK, 2560000), () -> new EnergyTankBlockItem(ModBlocks.SIMPLE_ENERGY_TANK));
+    public static final RegistryObject<EnergyTankBlock> GENERIC_ENERGY_TANK = register("generic_energy_tank", () -> new EnergyTankBlock(ModBlockEntities.GENERIC_ENERGY_TANK, 5120000), () -> new EnergyTankBlockItem(ModBlocks.GENERIC_ENERGY_TANK));
+    public static final RegistryObject<EnergyTankBlock> PROGRESSIVE_ENERGY_TANK = register("progressive_energy_tank", () -> new EnergyTankBlock(ModBlockEntities.PROGRESSIVE_ENERGY_TANK, 10240000), () -> new EnergyTankBlockItem(ModBlocks.PROGRESSIVE_ENERGY_TANK));
+
     public static final RegistryObject<FluidTankBlock> SIMPLE_FLUID_TANK = register("simple_fluid_tank", () -> new FluidTankBlock(32000, ModBlockEntities.SIMPLE_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.SIMPLE_FLUID_TANK));
     public static final RegistryObject<FluidTankBlock> GENERIC_FLUID_TANK = register("generic_fluid_tank", () -> new FluidTankBlock(64000, ModBlockEntities.GENERIC_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.GENERIC_FLUID_TANK));
     public static final RegistryObject<FluidTankBlock> PROGRESSIVE_FLUID_TANK = register("progressive_fluid_tank", () -> new FluidTankBlock(128000, ModBlockEntities.PROGRESSIVE_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.PROGRESSIVE_FLUID_TANK));

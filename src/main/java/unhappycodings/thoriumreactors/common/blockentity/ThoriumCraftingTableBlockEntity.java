@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -11,18 +12,23 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 
-public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity implements MenuProvider {
+public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, MenuProvider {
+    private final net.minecraftforge.common.util.LazyOptional<?> itemHandler = net.minecraftforge.common.util.LazyOptional.of(() -> createUnSidedHandler());
     public NonNullList<ItemStack> items;
 
     public ThoriumCraftingTableBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -33,6 +39,22 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         if (getLevel().isClientSide && net.getDirection() == PacketFlow.CLIENTBOUND) handleUpdateTag(pkt.getTag());
+    }
+
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER)
+            return itemHandler.cast();
+        return LazyOptional.empty();
+    }
+
+    @NotNull
+    @Override
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER && side == null)
+            return itemHandler.cast();
+        return LazyOptional.empty();
     }
 
     @Nullable
@@ -47,6 +69,7 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
         updateBlock(); // TESTING
     }
 
+    @NotNull
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag nbt = super.getUpdateTag();
@@ -148,4 +171,18 @@ public class ThoriumCraftingTableBlockEntity extends BaseContainerBlockEntity im
         items.clear();
     }
 
+    @Override
+    public int @NotNull [] getSlotsForFace(@NotNull Direction pSide) {
+        return new int[0];
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int pIndex, @NotNull ItemStack pItemStack, @Nullable Direction pDirection) {
+        return false;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int pIndex, @NotNull ItemStack pStack, @NotNull Direction pDirection) {
+        return false;
+    }
 }

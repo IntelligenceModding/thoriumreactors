@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:reactor_glass"
+    },
+    "title": "Visability",
+    "description": "Craft some reactor glass!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:reactor_casing",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:reactor_glass"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
