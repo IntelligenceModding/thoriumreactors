@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.block.reactor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -33,6 +34,7 @@ import unhappycodings.thoriumreactors.common.multiblock.ReactorMultiblocks;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
+import unhappycodings.thoriumreactors.common.util.AdvancementUtil;
 import unhappycodings.thoriumreactors.common.util.CalculationUtil;
 
 import java.util.ArrayList;
@@ -102,6 +104,10 @@ public class ReactorControllerBlock extends ReactorFrameBlock {
                 for (Player loopPlayer : levelIn.players()) {
                     PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(ReactorControllerBlock.FACING)), ParticleTypeEnum.REACTOR, x, height, y), (ServerPlayer) loopPlayer);
                 }
+
+                if (!levelIn.isClientSide)
+                    AdvancementUtil.awardAdvancement((ServerLevel) levelIn, (ServerPlayer) player, "reactor_assembled", "impossible");
+
             }
         } else {
             MenuProvider namedContainerProvider = this.getMenuProvider(state, levelIn, pos);

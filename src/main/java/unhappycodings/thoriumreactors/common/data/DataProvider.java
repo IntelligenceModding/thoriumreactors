@@ -17,7 +17,8 @@ public class DataProvider {
 
         generator.addProvider(true, new ModelAndBlockStatesProvider(generator, existingFileHelper));
         generator.addProvider(true, new ItemModelProvider(generator, existingFileHelper));
-        generator.addProvider(true, new TagsProvider(generator, existingFileHelper));
+        generator.addProvider(true, new BlockTagsProvider(generator, existingFileHelper));
+        generator.addProvider(true, new ItemTagsProvider(generator, existingFileHelper));
         generator.addProvider(true, new RecipeProvider(generator));
         generator.addProvider(true, new AmericanLanguageProvider(generator, "en_US"));
         generator.addProvider(true, new GermanLanguageProvider(generator, "de_DE"));

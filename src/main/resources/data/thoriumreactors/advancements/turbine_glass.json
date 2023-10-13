@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:turbine_glass"
+    },
+    "title": "See-through",
+    "description": "Craft some turbine glass!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:turbine_vent",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:turbine_glass"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

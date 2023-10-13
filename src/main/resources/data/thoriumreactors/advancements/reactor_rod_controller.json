@@ -8,7 +8,7 @@
     "show_toast": true,
     "announce_to_chat": true
   },
-  "parent": "thoriumreactors:reactor_casing",
+  "parent": "thoriumreactors:reactor_controller",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",

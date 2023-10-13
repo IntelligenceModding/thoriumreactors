@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:turbine_rotation_mount"
+    },
+    "title": "Stability",
+    "description": "Craft a turbine rotation mount!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:turbine_valve",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:turbine_rotation_mount"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

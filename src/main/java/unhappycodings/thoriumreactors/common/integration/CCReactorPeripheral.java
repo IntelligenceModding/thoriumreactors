@@ -1,4 +1,4 @@
-package unhappycodings.thoriumreactors.common.ccperipherals;
+package unhappycodings.thoriumreactors.common.integration;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IComputerAccess;
@@ -14,7 +14,6 @@ import unhappycodings.thoriumreactors.common.util.LuaUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class CCReactorPeripheral implements IPeripheral {
     private final List<IComputerAccess> connectedComputers = new ArrayList<>();

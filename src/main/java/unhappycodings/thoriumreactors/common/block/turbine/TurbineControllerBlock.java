@@ -1,9 +1,14 @@
 package unhappycodings.thoriumreactors.common.block.turbine;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.*;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.PlayerAdvancements;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -28,8 +33,10 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.base.TurbineFrameBlockEntity;
 import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
@@ -38,10 +45,13 @@ import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
+import unhappycodings.thoriumreactors.common.util.AdvancementUtil;
 import unhappycodings.thoriumreactors.common.util.CalculationUtil;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
+import javax.imageio.spi.ServiceRegistry;
 import java.util.List;
+import java.util.Map;
 
 public class TurbineControllerBlock extends BaseEntityBlock {
     private static final float NICKEL_MODIFIER = 1f;
@@ -158,6 +168,9 @@ public class TurbineControllerBlock extends BaseEntityBlock {
                 }
 
                 entity.setEnergyModifier(moderatorModifier);
+
+                if (!levelIn.isClientSide)
+                    AdvancementUtil.awardAdvancement((ServerLevel) levelIn, (ServerPlayer) player, "turbine_assembled", "impossible");
 
             }
         } else {

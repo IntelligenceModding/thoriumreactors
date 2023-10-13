@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:turbine_valve"
+    },
+    "title": "Let it flow",
+    "description": "Craft a turbine valve!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:turbine_power_port",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:turbine_valve"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -52,7 +52,7 @@ public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> impleme
         if (entity.isAssembled()) {
             poseStack.pushPose();
             poseStack.translate(0.5f + getRenderOffset(OffsetType.X, facing), -0.5f, 0.5f + getRenderOffset(OffsetType.Y, facing));
-            poseStack.mulPose(Vector3f.YN.rotation(entity.getRotation() / 5));
+            poseStack.mulPose(Vector3f.YN.rotation(entity.getRotation() / 5.1F));
             for (int i = 0; i < entity.getTurbineHeight() - 1; i++) {
                 if (i < entity.getTurbineHeight() - 3) {
                     modelTurbine.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutout(new ResourceLocation(ThoriumReactors.MOD_ID, "textures/block/turbine_blades.png"))), getLightLevel(level, rotorPos), pPackedOverlay, 1f, 1f, 1f, 1f);

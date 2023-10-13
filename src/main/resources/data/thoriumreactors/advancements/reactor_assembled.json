@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:reactor_controller"
+    },
+    "title": "A reactor",
+    "description": "Assemble a reactor by clicking it!",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "frame": "challenge"
+  },
+  "parent": "thoriumreactors:graphite_moderator",
+  "criteria": {
+    "impossible": {
+      "trigger": "impossible"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:turbine_casing"
+    },
+    "title": "Getting near the end!",
+    "description": "Craft your first turbine casing!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:blasted_stone",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:turbine_casing"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

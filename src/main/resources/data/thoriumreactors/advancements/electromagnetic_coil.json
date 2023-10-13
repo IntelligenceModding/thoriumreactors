@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:electromagnetic_coil"
+    },
+    "title": "Electromagnetic Energy",
+    "description": "Craft a electromagnetic coil!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:turbine_glass",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:electromagnetic_coil"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

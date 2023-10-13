@@ -49,7 +49,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     public static final int MAX_HEAT = 1320;
     public List<BlockPos> turbinePos;
     public List<BlockPos> valvePos;
-    public BlockPos thermalPos;
+    public BlockPos thermalPos = BlockPos.ZERO;
     public boolean assembled;
     public String notification = "";
     public boolean isReactorActive;

@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:turbine_blade"
+    },
+    "title": "Fly high",
+    "description": "Craft some turbine blades!",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "thoriumreactors:turbine_rotor",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:turbine_blade"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

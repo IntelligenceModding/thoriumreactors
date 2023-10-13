@@ -3,7 +3,7 @@
     "icon": {
       "item": "thoriumreactors:electrolytic_salt_separator"
     },
-    "title": "Separation them!",
+    "title": "Separate them!",
     "description": "Craft a electrolytic separator!",
     "show_toast": true,
     "announce_to_chat": true

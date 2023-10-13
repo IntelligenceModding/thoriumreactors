@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": {
+      "item": "thoriumreactors:turbine_controller"
+    },
+    "title": "A turbine",
+    "description": "Assemble a turbine by clicking it!",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "frame": "challenge"
+  },
+  "parent": "thoriumreactors:turbine_blade",
+  "criteria": {
+    "impossible": {
+      "trigger": "impossible"
+    }
+  }
+}

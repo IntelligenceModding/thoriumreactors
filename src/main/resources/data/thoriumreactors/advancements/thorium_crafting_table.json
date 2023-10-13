@@ -3,7 +3,7 @@
     "icon": {
       "item": "thoriumreactors:thorium_crafting_table"
     },
-    "title": "First steps!",
+    "title": "Thorium Reactors",
     "description": "Craft a thorium crafting table!",
     "show_toast": true,
     "announce_to_chat": true,

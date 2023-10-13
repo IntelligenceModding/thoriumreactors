@@ -1,0 +1,16 @@
+// 1.19.2	2023-10-12T06:32:33.7976489	Block Tags
+a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/aluminium.json
+a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/aluminum.json
+a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/bauxite.json
+d8c1a63ea7290f0b5a82351d543a10d8a5d39738 data/forge/tags/blocks/ores/chromite.json
+9f75c30f0b87df661486d0eca9c6dfae267de4b4 data/forge/tags/blocks/ores/fluorite.json
+7fc93413a7ffb0e3ca57620842b73044c9d507dc data/forge/tags/blocks/ores/graphite.json
+c05bc0e10dc3dde402b743a78855a0207c8097cd data/forge/tags/blocks/ores/manganese.json
+25b2a0b97b900c30cf19c4ead2699a979ce695a1 data/forge/tags/blocks/ores/molybdenum.json
+fe278c3f5863da3a0eb8c7fe02b5a3b25b3c0b69 data/forge/tags/blocks/ores/nickel.json
+d4c5187d1723fafeaffc660088684b3ed2711dce data/forge/tags/blocks/ores/pyrochlore.json
+a6f590a8c5c0ebbbe6b9db80fa8bfbc0b465538a data/forge/tags/blocks/ores/titanic_iron.json
+a6f590a8c5c0ebbbe6b9db80fa8bfbc0b465538a data/forge/tags/blocks/ores/titanium.json
+fec741e7577746eebc6326e72fe6eddfe49f3734 data/forge/tags/blocks/ores/uranium.json
+6a1d779a373b9b9a27fd13c57b747f0e67edd226 data/minecraft/tags/blocks/mineable/pickaxe.json
+6a1d779a373b9b9a27fd13c57b747f0e67edd226 data/minecraft/tags/blocks/needs_iron_tool.json

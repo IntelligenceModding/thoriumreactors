@@ -70,7 +70,6 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
 
             if (!entity.isActivated()) {
                 iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.turbine")).append(" ").append(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.inactive"))).withStyle(FormattingUtil.hex(0x9F0006)));
-                return;
             } else {
                 iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.turbine")).append(" ").append(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.active"))).withStyle(FormattingUtil.hex(0x00A90B)));
             }
