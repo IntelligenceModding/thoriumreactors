@@ -11,6 +11,8 @@
     }
   },
   "output": {
-    "item": "thoriumreactors:steel_ingot"
+    "slot-0": {
+      "item": "thoriumreactors:steel_ingot"
+    }
   }
 }

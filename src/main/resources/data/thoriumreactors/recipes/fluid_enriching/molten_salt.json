@@ -1,0 +1,20 @@
+{
+  "type": "thoriumreactors:fluid_enriching",
+  "ticks": 100,
+  "operationAfterTicks": 1,
+  "input": {
+    "slot-0": {
+      "item": "thoriumreactors:thorium"
+    },
+    "tank-0": {
+      "FluidName": "thoriumreactors:depleted_molten_salt",
+      "Amount": 60
+    }
+  },
+  "output": {
+    "tank-0": {
+      "FluidName": "thoriumreactors:molten_salt",
+      "Amount": 60
+    }
+  }
+}

@@ -1,3 +1,30 @@
-// 1.19.2	2023-10-12T06:41:06.8638403	Item Tags
-c871880f248de72ef872d04a986e82fff00d9997 data/forge/tags/items/tool/configurator.json
-c871880f248de72ef872d04a986e82fff00d9997 data/forge/tags/items/tool/wrench.json
+// 1.19.2	2023-10-15T03:13:35.1930691	Item Tags
+abefcf5ec7164626622d4d1b67393816faa6d612 data/forge/tags/items/ingots/aluminum.json
+12cc0c2ecd5ba92f82fe2a480ee6d7b02bb0d978 data/forge/tags/items/ingots/blasted_iron.json
+c82355c6d60b83060e60544726ab385a3c640a9f data/forge/tags/items/ingots/chromium.json
+b9021220b79d8e07634e9b1f49e559774ed0aaf3 data/forge/tags/items/ingots/cobalt.json
+2c353b2b8e7fbae6c2aaa7bc11e76126dae2beb1 data/forge/tags/items/ingots/fluorite.json
+391e24ffead0a6f6da50943cf71d32e163708467 data/forge/tags/items/ingots/graphite.json
+ec248d3ac1b16cb90f29f3e3b2714c1bd41a9b1a data/forge/tags/items/ingots/manganese.json
+a10f969415e5b1ef566bf26891754908c6f277d5 data/forge/tags/items/ingots/molybdenum.json
+a513d18c8114ab641a26dde2a27aaeeee8dc6b81 data/forge/tags/items/ingots/nickel.json
+b81d17402dfe69bc3be11e0f41bf1c794ce0c19d data/forge/tags/items/ingots/niob.json
+81e8df255b263890cd56e0341f07bfdf6506e2cd data/forge/tags/items/ingots/steel.json
+4e9311aedcc7fd31559f4a01df0fa08cba17dda3 data/forge/tags/items/ingots/titanium.json
+19516434d82d121ed69f350af8fd9bcf48148531 data/forge/tags/items/ingots/uranium.json
+27852ea07ee75638e17c3f8e3e2b9f6ee666f5ad data/forge/tags/items/nuggets/aluminum.json
+a1b5647b7eceb281ec156544544cd6b9e9c3b880 data/forge/tags/items/nuggets/blasted_iron.json
+a9505526c6da09862642bb07995a89a9dcb4fcab data/forge/tags/items/nuggets/chromium.json
+77305f0d0ba4a1dfad6f3f616b9ba317bf3187b0 data/forge/tags/items/nuggets/cobalt.json
+c0c885a890a06644e215369a2a5a39d04263eee8 data/forge/tags/items/nuggets/fluorite.json
+ba755852b6ea05abc697889ea516505cc5a10452 data/forge/tags/items/nuggets/graphite.json
+f6cb18e8a1fe9dcf9688f1b3f6fb45ee68096839 data/forge/tags/items/nuggets/manganese.json
+1931c751345df45cc306dbe8ed15c2bc6b4c2899 data/forge/tags/items/nuggets/molybdenum.json
+f6afcfca0d1ffea4de2242a54eb4bed39f8a754a data/forge/tags/items/nuggets/nickel.json
+608e7bb1117a58eaf10dbe537f812767527d1f2f data/forge/tags/items/nuggets/niob.json
+e5d13ee25949d3977f9e928742d236a1a91a4dbc data/forge/tags/items/nuggets/steel.json
+22e21daf0cf01118b1eae7674930a70c1ed280be data/forge/tags/items/nuggets/titanium.json
+eb6d9681e75bca3890e401756acce3b8789a4af1 data/forge/tags/items/nuggets/uranium.json
+c871880f248de72ef872d04a986e82fff00d9997 data/forge/tags/items/tools.json
+c871880f248de72ef872d04a986e82fff00d9997 data/forge/tags/items/tools/wrench.json
+c871880f248de72ef872d04a986e82fff00d9997 data/forge/tags/items/wrenches.json

@@ -65,20 +65,9 @@ public class SteelChestBlockEntity extends ChestBlockEntity {
         this.chestLidController = new ChestLidController();
     }
 
-    protected void updateBlock() {
-        BlockState blockState = level.getBlockState(this.getBlockPos());
-        this.level.sendBlockUpdated(this.getBlockPos(), blockState, blockState, 3);
-        this.setChanged();
-    }
-
     public <T extends BlockEntity> void lidAnimateTick() {
         chestLidController.tickLid();
     }
-
-    public static int clamp(float val, float min, float max) {
-        return (int) Math.max(min, Math.min(max, val));
-    }
-
     @Override
     public void setChanged() {
         super.setChanged();
@@ -214,10 +203,6 @@ public class SteelChestBlockEntity extends ChestBlockEntity {
     @Override
     protected AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory) {
         return new SteelChestContainer(pContainerId, pInventory, getBlockPos(), getLevel(), getContainerSize());
-    }
-
-    public void tick() {
-
     }
 
     @Override

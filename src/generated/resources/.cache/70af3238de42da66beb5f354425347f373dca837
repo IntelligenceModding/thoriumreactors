@@ -1,4 +1,4 @@
-// 1.19.2	2023-10-12T06:32:33.7976489	Block Tags
+// 1.19.2	2023-10-15T03:13:35.1940721	Block Tags
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/aluminium.json
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/aluminum.json
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/bauxite.json
@@ -12,5 +12,20 @@ d4c5187d1723fafeaffc660088684b3ed2711dce data/forge/tags/blocks/ores/pyrochlore.
 a6f590a8c5c0ebbbe6b9db80fa8bfbc0b465538a data/forge/tags/blocks/ores/titanic_iron.json
 a6f590a8c5c0ebbbe6b9db80fa8bfbc0b465538a data/forge/tags/blocks/ores/titanium.json
 fec741e7577746eebc6326e72fe6eddfe49f3734 data/forge/tags/blocks/ores/uranium.json
-6a1d779a373b9b9a27fd13c57b747f0e67edd226 data/minecraft/tags/blocks/mineable/pickaxe.json
-6a1d779a373b9b9a27fd13c57b747f0e67edd226 data/minecraft/tags/blocks/needs_iron_tool.json
+eae1c0baf6d6a711c4e6880a0d6f00c2b54c8361 data/forge/tags/blocks/storage_blocks/aluminium.json
+eae1c0baf6d6a711c4e6880a0d6f00c2b54c8361 data/forge/tags/blocks/storage_blocks/aluminum.json
+20c48b02ed93ffdabc66e677dd56bd29c307f1f1 data/forge/tags/blocks/storage_blocks/blasted_iron.json
+8587c23bde93c254f6b97bfdf05bc3c6e19c7635 data/forge/tags/blocks/storage_blocks/chromium.json
+d1e4b3aa35a94123a05cbefaa0148f240b8314f0 data/forge/tags/blocks/storage_blocks/cobalt.json
+1a9f42eee657a1cc1a3a78f2d9752dddef9ac4cf data/forge/tags/blocks/storage_blocks/fluorite.json
+93e4c3e3b9f11dfdbdfd68a5d00cdc3e5bbb4a82 data/forge/tags/blocks/storage_blocks/graphite.json
+8a878959d71bdfcfc4c4e6e45f5bccf9252ebf21 data/forge/tags/blocks/storage_blocks/manganese.json
+34cebf4ddca6ba2894be3a714121990b4c03eea6 data/forge/tags/blocks/storage_blocks/molybdenum.json
+66c07ab3bef1844b7585bdf03c7cdcf1c79b0a3e data/forge/tags/blocks/storage_blocks/nickel.json
+c9a7123c7eea0a22f4e24220854ee77ed22e4fe4 data/forge/tags/blocks/storage_blocks/pyrochlore.json
+0a3d2bbc0c19897e35fa438a5f31442298e101df data/forge/tags/blocks/storage_blocks/steel.json
+db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/blocks/storage_blocks/titanic_iron.json
+db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/blocks/storage_blocks/titanium.json
+b224eb8423908182c0097920c8b62c5c36f692cf data/forge/tags/blocks/storage_blocks/uranium.json
+c8eab1a10f06dd4ea5f8987c464e150abea8bb3f data/minecraft/tags/blocks/mineable/pickaxe.json
+c8eab1a10f06dd4ea5f8987c464e150abea8bb3f data/minecraft/tags/blocks/needs_iron_tool.json

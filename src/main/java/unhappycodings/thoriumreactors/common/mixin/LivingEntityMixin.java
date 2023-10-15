@@ -26,7 +26,7 @@ public abstract class LivingEntityMixin extends Entity {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;getFluidHeight(Lnet/minecraft/tags/TagKey;)D", ordinal = 1),
             require = 0)
     private double thoriumreactors_customFluidJumpWeaker(LivingEntity livingEntity, TagKey<Fluid> tagKey, Operation<Double> original) {
-        List<FluidType> fluidTypes = List.of(ModFluidTypes.MOLTEN_SALT.get(), ModFluidTypes.HEATED_MOLTEN_SALT.get(), ModFluidTypes.HYDROFLUORITE.get(), ModFluidTypes.STEAM.get(), ModFluidTypes.URANIUM_HEXAFLUORITE.get(), ModFluidTypes.ENRICHED_URANIUM_HEXAFLUORITE.get());
+        List<FluidType> fluidTypes = List.of(ModFluidTypes.MOLTEN_SALT.get(), ModFluidTypes.DEPLETED_MOLTEN_SALT.get(), ModFluidTypes.HEATED_MOLTEN_SALT.get(), ModFluidTypes.HYDROFLUORITE.get(), ModFluidTypes.STEAM.get(), ModFluidTypes.URANIUM_HEXAFLUORITE.get(), ModFluidTypes.ENRICHED_URANIUM_HEXAFLUORITE.get());
         for (FluidType fluidType : fluidTypes) {
             double newFluidHeight = this.getFluidTypeHeight(fluidType);
             if (newFluidHeight > 0) {

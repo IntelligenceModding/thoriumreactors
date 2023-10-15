@@ -499,7 +499,7 @@ public class MachineUraniumOxidizerBlockEntity extends MachineContainerBlockEnti
 
     @Override
     public int getContainerSize() {
-        return 3;
+        return 4;
     }
 
     @Override

@@ -11,9 +11,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.slf4j.Logger;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.client.integration.top.TOPIntegrations;
-import unhappycodings.thoriumreactors.common.BuildingItemCreativeTab;
-import unhappycodings.thoriumreactors.common.MachineryItemCreativeTab;
-import unhappycodings.thoriumreactors.common.ResourcesItemCreativeTab;
+import unhappycodings.thoriumreactors.common.CompleteItemCreativeTab;
 import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.registration.*;
@@ -25,9 +23,7 @@ public class ThoriumReactors {
     public static final String MOD_ID = "thoriumreactors";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final CreativeModeTab buildingCreativeTab = new BuildingItemCreativeTab();
-    public static final CreativeModeTab machineryCreativeTab = new MachineryItemCreativeTab();
-    public static final CreativeModeTab resourcesCreativeTab = new ResourcesItemCreativeTab();
+    public static final CreativeModeTab creativeTab = new CompleteItemCreativeTab();
 
     public ThoriumReactors() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

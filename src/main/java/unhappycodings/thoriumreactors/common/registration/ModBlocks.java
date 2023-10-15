@@ -163,12 +163,14 @@ public class ModBlocks {
     public static final RegistryObject<MachineConcentratorBlock> CONCENTRATOR_BLOCK = register("concentrator_block", MachineConcentratorBlock::new);
     public static final RegistryObject<MachineDecomposerBlock> DECOMPOSER_BLOCK = register("decomposer_block", MachineDecomposerBlock::new);
     public static final RegistryObject<MachineUraniumOxidizerBlock> URANIUM_OXIDIZER_BLOCK = register("uranium_oxidizer_block", MachineUraniumOxidizerBlock::new);
+    public static final RegistryObject<MachineFluidEnricherBlock> FLUID_ENRICHER_BLOCK = register("fluid_enricher_block", MachineFluidEnricherBlock::new);
     public static final RegistryObject<MachineFluidCentrifugeBlock> FLUID_CENTRIFUGE_BLOCK = register("fluid_centrifuge_block", MachineFluidCentrifugeBlock::new);
     public static final RegistryObject<MachineCrystallizerBlock> CRYSTALLIZER_BLOCK = register("crystallizer_block", MachineCrystallizerBlock::new);
     public static final RegistryObject<MachineBlastFurnaceBlock> BLAST_FURNACE_BLOCK = register("blast_furnace_block", MachineBlastFurnaceBlock::new);
 
     // Fluids
     public static final RegistryObject<LiquidBlock> MOLTEN_SALT_BLOCK = Registration.BLOCKS.register("molten_salt_block", () -> new LiquidBlock(ModFluids.SOURCE_MOLTEN_SALT, BlockBehaviour.Properties.of(Material.LAVA).noCollission().strength(100.0F)));
+    public static final RegistryObject<LiquidBlock> DEPLETED_MOLTEN_SALT_BLOCK = Registration.BLOCKS.register("depleted_molten_salt_block", () -> new LiquidBlock(ModFluids.SOURCE_DEPLETED_MOLTEN_SALT, BlockBehaviour.Properties.of(Material.LAVA).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> HEATED_MOLTEN_SALT_BLOCK = Registration.BLOCKS.register("heated_molten_salt_block", () -> new LiquidBlock(ModFluids.SOURCE_HEATED_MOLTEN_SALT, BlockBehaviour.Properties.of(Material.LAVA).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> HYDROFLUORITE_BLOCK = Registration.BLOCKS.register("hydrofluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_HYDROFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)));
@@ -184,7 +186,7 @@ public class ModBlocks {
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = Registration.BLOCKS.register(name, block);
-        Registration.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(ThoriumReactors.resourcesCreativeTab)));
+        Registration.ITEMS.register(name, () -> new BlockItem(toReturn.get(), new Item.Properties().tab(ThoriumReactors.creativeTab)));
         return toReturn;
     }
 

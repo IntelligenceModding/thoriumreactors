@@ -20,13 +20,14 @@ public class MachineBlastFurnaceContainer extends BaseContainer {
     public MachineBlastFurnaceContainer(int id, Inventory inventory, BlockPos pos, Level level, int containerSize) {
         super(ModContainerTypes.BLAST_FURNACE_CONTAINER.get(), id, inventory, pos, level, containerSize);
         this.inventory = inventory;
-        layoutPlayerInventorySlots(8, 116);
+        layoutPlayerInventorySlots(8, 112);
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
                 addSlot(new SlotItemHandler(handler, 0, 12, 45));
                 addSlot(new SlotItemHandler(handler, 1, 38, 45));
-                addSlot(new SlotItemHandler(handler, 2, 120, 45));
-                addSlot(new SlotItemHandler(handler, 3, 150, 70));
+                addSlot(new SlotItemHandler(handler, 2, 113, 45));
+                addSlot(new SlotItemHandler(handler, 3, 131, 45));
+                addSlot(new SlotItemHandler(handler, 4, 150, 70));
             });
         }
     }

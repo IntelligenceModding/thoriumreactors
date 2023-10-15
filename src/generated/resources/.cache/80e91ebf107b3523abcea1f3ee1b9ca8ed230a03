@@ -1,4 +1,4 @@
-// 1.19.2	2023-10-06T22:31:03.3308956	Item Models: thoriumreactors
+// 1.19.2	2023-10-14T13:47:25.0031953	Item Models: thoriumreactors
 04a4c724152af60d219cfae9ca203d2861e972dd assets/thoriumreactors/models/item/aluminum_block.json
 297e1af5609489ae4af515cc8364f140c050db9e assets/thoriumreactors/models/item/aluminum_ingot.json
 992b62b637873048447a8bebaef602f01828282e assets/thoriumreactors/models/item/aluminum_nugget.json
@@ -38,6 +38,7 @@ c543a5a42a6aad2967b611635a1f1f2e31e812a3 assets/thoriumreactors/models/item/deep
 1898e8e26bcee5846348c5a07c0e303f16f25838 assets/thoriumreactors/models/item/deepslate_pyrochlor_ore.json
 0920acbef4e402045ce0072b99f2a5597aeb856e assets/thoriumreactors/models/item/deepslate_titanic_iron_ore.json
 5f3a1dd4f118385c4605083d7881c68b09399295 assets/thoriumreactors/models/item/deepslate_uranium_ore.json
+656139a01cd6bf62c25860cc28015a2ff7369091 assets/thoriumreactors/models/item/depleted_molten_salt_bucket.json
 b07f9296428715840ecfc66bd613bb0c7e1ccc45 assets/thoriumreactors/models/item/depleted_uranium.json
 0c7bd345bb54ca6bd1a9c2d6af8f43fa11512a49 assets/thoriumreactors/models/item/electrolytic_salt_separator.json
 ab1c0829fe09a289bf65bb0e514c0a75edc9c8b8 assets/thoriumreactors/models/item/electromagnetic_coil.json
@@ -45,6 +46,7 @@ cb55f61327b4fd6ba275f556b0768ff3aaee2d3a assets/thoriumreactors/models/item/enri
 4f51a3bc2aa3b131490bf90f52811c80c19bcee4 assets/thoriumreactors/models/item/enriched_uranium_hexafluorite_bucket.json
 b9d46118c6a35b651d37f9c2dd4dd1e1a2905c10 assets/thoriumreactors/models/item/factory_block.json
 c823d3255e8a8cafc5f438765357618d2641d243 assets/thoriumreactors/models/item/fluid_centrifuge_block.json
+3a59d8de405b3ed33988babf49da4f531bfa166e assets/thoriumreactors/models/item/fluid_enricher_block.json
 0acadf5c6902d59cab33627a87124cf82df8bd6e assets/thoriumreactors/models/item/fluid_evaporation_block.json
 a7357b80d77c11f69a8c745c8e8c952ef1258c21 assets/thoriumreactors/models/item/fluorite.json
 3f6384d9dde8984141cbcab3fe11a524345d0c23 assets/thoriumreactors/models/item/fluorite_block.json

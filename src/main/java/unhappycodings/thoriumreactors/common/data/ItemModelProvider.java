@@ -72,6 +72,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.CONFIGURATOR.get());
 
         simpleItem(ModItems.MOLTEN_SALT_BUCKET.get());
+        simpleItem(ModItems.DEPLETED_MOLTEN_SALT_BUCKET.get(), ModItems.MOLTEN_SALT_BUCKET.get());
         simpleItem(ModItems.HEATED_MOLTEN_SALT_BUCKET.get());
         simpleItem(ModItems.HYDROFLUORITE_BUCKET.get());
         simpleItem(ModItems.URANIUM_HEXAFLUORITE_BUCKET.get());
@@ -198,6 +199,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.CONCENTRATOR_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/concentrator_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.DECOMPOSER_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/decomposer_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.URANIUM_OXIDIZER_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/uranium_oxidizer_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.FLUID_ENRICHER_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_enricher_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.FLUID_CENTRIFUGE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_centrifuge_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.CRYSTALLIZER_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/crystallizer_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLAST_FURNACE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/blast_furnace_block_off"));
@@ -208,6 +210,10 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
     private void simpleItem(Item item) {
         withExistingParent(ItemUtil.getRegString(item), "item/generated").texture("layer0", new ResourceLocation(this.modid, "item/" + ItemUtil.getRegName(item).getPath()));
+    }
+
+    private void simpleItem(Item item, Item textureItem) {
+        withExistingParent(ItemUtil.getRegString(item), "item/generated").texture("layer0", new ResourceLocation(this.modid, "item/" + ItemUtil.getRegName(textureItem).getPath()));
     }
 
     private void simpleItem(Item item, ResourceLocation texture) {

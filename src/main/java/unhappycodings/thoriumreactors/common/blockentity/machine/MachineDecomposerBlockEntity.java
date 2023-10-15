@@ -494,7 +494,7 @@ public class MachineDecomposerBlockEntity extends MachineContainerBlockEntity im
 
     @Override
     public int getContainerSize() {
-        return 3;
+        return 4;
     }
 
     @Override

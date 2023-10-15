@@ -30,73 +30,77 @@ public class ModFluidTypes {
     public static final ResourceLocation WATER_FLOWING_RL = new ResourceLocation("block/water_flow");
     public static final ResourceLocation SOAP_OVERLAY_RL = new ResourceLocation(ThoriumReactors.MOD_ID, "misc/in_molten_salt");
 
-    public static final RegistryObject<FluidType> MOLTEN_SALT = Registration.FLUID_TYPES.register("molten_salt", () ->
-            new FluidType(FluidType.Properties.create().density(3000).viscosity(6000).temperature(140).motionScale(0.0023333333333333335D)) {
+    public static final RegistryObject<FluidType> MOLTEN_SALT = Registration.FLUID_TYPES.register("molten_salt", ModFluidTypes::getMoltenSaltFluidType);
+    public static final RegistryObject<FluidType> DEPLETED_MOLTEN_SALT = Registration.FLUID_TYPES.register("depleted_molten_salt", ModFluidTypes::getMoltenSaltFluidType);
 
-                @Override
-                public double motionScale(Entity entity) {
-                    return 0.0013333333333333335D;
-                }
+    private static FluidType getMoltenSaltFluidType() {
+        return new FluidType(FluidType.Properties.create().density(3000).viscosity(6000).temperature(140).motionScale(0.0023333333333333335D)) {
 
-                @Override
-                public boolean canDrownIn(LivingEntity entity) {
-                    return false;
-                }
+            @Override
+            public double motionScale(Entity entity) {
+                return 0.0013333333333333335D;
+            }
 
-                @Override
-                public boolean canHydrate(Entity entity) {
-                    return false;
-                }
+            @Override
+            public boolean canDrownIn(LivingEntity entity) {
+                return false;
+            }
 
-                @Override
-                public @Nullable SoundEvent getSound(SoundAction action) {
-                    return action.name() == "bucket_empty" ? SoundEvents.BUCKET_EMPTY : SoundEvents.BUCKET_FILL;
-                }
+            @Override
+            public boolean canHydrate(Entity entity) {
+                return false;
+            }
 
-                @Override
-                public void setItemMovement(ItemEntity entity) {
-                    Vec3 vec3 = entity.getDeltaMovement();
-                    entity.setDeltaMovement(vec3.x * (double) 0.95F, vec3.y + (double) (vec3.y < (double) 0.06F ? 5.0E-4F : 0.0F), vec3.z * (double) 0.95F);
-                }
+            @Override
+            public @Nullable SoundEvent getSound(SoundAction action) {
+                return action.name() == "bucket_empty" ? SoundEvents.BUCKET_EMPTY : SoundEvents.BUCKET_FILL;
+            }
 
-                @Override
-                public float getFallDistanceModifier(Entity entity) {
-                    return Fluids.LAVA.getFluidType().getFallDistanceModifier(entity);
-                }
+            @Override
+            public void setItemMovement(ItemEntity entity) {
+                Vec3 vec3 = entity.getDeltaMovement();
+                entity.setDeltaMovement(vec3.x * (double) 0.95F, vec3.y + (double) (vec3.y < (double) 0.06F ? 5.0E-4F : 0.0F), vec3.z * (double) 0.95F);
+            }
 
-                @Override
-                public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-                    consumer.accept(new IClientFluidTypeExtensions() {
-                        private static final ResourceLocation WATER_STILL = new ResourceLocation("block/water_still"), WATER_FLOW = new ResourceLocation("block/water_flow");
+            @Override
+            public float getFallDistanceModifier(Entity entity) {
+                return Fluids.LAVA.getFluidType().getFallDistanceModifier(entity);
+            }
 
-                        @Override
-                        public ResourceLocation getStillTexture() {
-                            return WATER_STILL;
-                        }
+            @Override
+            public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+                consumer.accept(new IClientFluidTypeExtensions() {
+                    private static final ResourceLocation WATER_STILL = new ResourceLocation("block/water_still"), WATER_FLOW = new ResourceLocation("block/water_flow");
 
-                        @Override
-                        public ResourceLocation getFlowingTexture() {
-                            return WATER_FLOW;
-                        }
+                    @Override
+                    public ResourceLocation getStillTexture() {
+                        return WATER_STILL;
+                    }
 
-                        @Override
-                        public int getTintColor() {
-                            return 0xE68C8E6A;
-                        }
+                    @Override
+                    public ResourceLocation getFlowingTexture() {
+                        return WATER_FLOW;
+                    }
 
-                        @Override
-                        public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
-                            return new Vector3f(140f / 255f, 142f / 255f, 106f / 255f);
-                        }
+                    @Override
+                    public int getTintColor() {
+                        return 0xE68C8E6A;
+                    }
 
-                        @Override
-                        public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
-                            RenderSystem.setShaderFogStart(0f);
-                            RenderSystem.setShaderFogEnd(1f); // distance when the fog starts
-                        }
-                    });
-                }
-            });
+                    @Override
+                    public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
+                        return new Vector3f(140f / 255f, 142f / 255f, 106f / 255f);
+                    }
+
+                    @Override
+                    public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
+                        RenderSystem.setShaderFogStart(0f);
+                        RenderSystem.setShaderFogEnd(1f); // distance when the fog starts
+                    }
+                });
+            }
+        };
+    }
 
     public static final RegistryObject<FluidType> HEATED_MOLTEN_SALT = Registration.FLUID_TYPES.register("heated_molten_salt", () ->
             new FluidType(FluidType.Properties.create().density(3000 * 2).viscosity(6000 * 2).temperature(460).motionScale(0.0023333333333333335D)) {

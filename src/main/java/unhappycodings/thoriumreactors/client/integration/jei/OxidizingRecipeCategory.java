@@ -100,7 +100,7 @@ public class OxidizingRecipeCategory implements IRecipeCategory<OxidizingRecipe>
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, OxidizingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 2, getGuiTop() + 1).addItemStack(recipe.getIngredients().get(0).getItems()[0]);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 1, getGuiTop() + 23).setFluidRenderer(6000, true, 18, 44)
+        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 23).setFluidRenderer(6000, true, 18, 44)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));
         builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 83, getGuiTop() + 1).setFluidRenderer(10000, true, 18, 66)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getResultFluid(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getResultFluid().getAmount()))));

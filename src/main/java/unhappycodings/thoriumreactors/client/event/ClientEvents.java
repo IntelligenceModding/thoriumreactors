@@ -59,6 +59,7 @@ public class ClientEvents {
         MenuScreens.register(ModContainerTypes.CONCENTRATOR_CONTAINER.get(), MachineConcentratorScreen::new);
         MenuScreens.register(ModContainerTypes.DECOMPOSER_CONTAINER.get(), MachineDecomposerScreen::new);
         MenuScreens.register(ModContainerTypes.URANIUM_OXIDIZER_CONTAINER.get(), MachineUraniumOxidizerScreen::new);
+        MenuScreens.register(ModContainerTypes.FLUID_ENRICHER_CONTAINER.get(), MachineFluidEnricherScreen::new);
         MenuScreens.register(ModContainerTypes.FLUID_CENTRIFUGE_CONTAINER.get(), MachineFluidCentrifugeScreen::new);
         MenuScreens.register(ModContainerTypes.CRYSTALLIZER_CONTAINER.get(), MachineCrystallizerScreen::new);
         MenuScreens.register(ModContainerTypes.BLAST_FURNACE_CONTAINER.get(), MachineBlastFurnaceScreen::new);
@@ -70,6 +71,8 @@ public class ClientEvents {
 
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MOLTEN_SALT.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_DEPLETED_MOLTEN_SALT.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_DEPLETED_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_HEATED_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_HYDROFLUORITE.get(), RenderType.translucent());

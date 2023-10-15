@@ -533,7 +533,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
 
     @Override
     public int getContainerSize() {
-        return 4;
+        return 5;
     }
 
     @Override

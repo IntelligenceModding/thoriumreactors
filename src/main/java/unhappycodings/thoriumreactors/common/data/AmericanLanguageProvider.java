@@ -75,6 +75,8 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.DECOMPOSER_BLOCK.get().getDescriptionId() + "_description", "The Decomposer mixes fluor with fluids into others. Mainly used for Hydrofluorite production!");
         add(ModBlocks.URANIUM_OXIDIZER_BLOCK.get(), "Uranium Oxidizer");
         add(ModBlocks.URANIUM_OXIDIZER_BLOCK.get().getDescriptionId() + "_description", "The Uranium Oxidizer mixes uranium with fluids. Mainly used for Uranium Hexafluorite production!");
+        add(ModBlocks.FLUID_ENRICHER_BLOCK.get(), "Fluid Enricher");
+        add(ModBlocks.FLUID_ENRICHER_BLOCK.get().getDescriptionId() + "_description", "The Fluid Enricher mixes substances into fluids. Mainly used for Molten Salt regeneration!");
         add(ModBlocks.FLUID_CENTRIFUGE_BLOCK.get(), "Fluid Centrifuge");
         add(ModBlocks.FLUID_CENTRIFUGE_BLOCK.get().getDescriptionId() + "_description", "The Fluid Centrifuge is mainly used to modify fluids by atomic separation at fast rotation. Mainy used to enrich UF6 (Hexafluorite)!");
         add(ModBlocks.CRYSTALLIZER_BLOCK.get(), "Crystallizer");
@@ -187,6 +189,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModItems.YELLOW_CAKE.get(), "Uranium Yellow Cake");
         add(ModItems.FLUORITE.get(), "Fluorite");
         add(ModItems.MOLTEN_SALT_BUCKET.get(), "Molten Salt Bucket");
+        add(ModItems.DEPLETED_MOLTEN_SALT_BUCKET.get(), "Depleted Molten Salt Bucket");
         add(ModItems.HEATED_MOLTEN_SALT_BUCKET.get(), "Heated Molten Salt Bucket");
         add(ModItems.HYDROFLUORITE_BUCKET.get(), "Hydrofluorite Bucket");
         add(ModItems.URANIUM_HEXAFLUORITE_BUCKET.get(), "Uranium Hexafluorite Bucket");
@@ -229,6 +232,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("machines.concentrator.name", "Concentrating");
         addGuiText("machines.blast_furnace.name", "Blasting");
         addGuiText("machines.oxidizer.name", "Oxidizing");
+        addGuiText("machines.fluid_enricher.name", "Fluid Enriching");
         addGuiText("machines.decomposer.name", "Decomposing");
         addGuiText("machines.crystallizer.name", "Crystallizing");
         addGuiText("machines.electrolytic_salt_separator.name", "Electrolysing");
@@ -380,6 +384,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
 
         add("fluid_type.thoriumreactors.hydrofluorite", "Hydrofluorite");
         add("fluid_type.thoriumreactors.molten_salt", "Molten Salt");
+        add("fluid_type.thoriumreactors.depleted_molten_salt", "Depleted Molten Salt");
         add("fluid_type.thoriumreactors.heated_molten_salt", "Heated Molten Salt");
         add("fluid_type.thoriumreactors.uranium_hexafluorite", "Uranium Hexafluorite");
         add("fluid_type.thoriumreactors.enriched_uranium_hexafluorite", "Enriched Uranium Hexafluorite");
@@ -387,6 +392,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
 
         add("keybind.thoriumreactors.description", "Show Description");
         add("keybind.thoriumreactors.details", "Show Details");
+        add("itemGroup.thoriumreactors", "Thorium Reactors");
         add("itemGroup.thoriumreactors.resources", "Thorium R. - Resources");
         add("itemGroup.thoriumreactors.machinery", "Thorium R. - Machinery");
         add("itemGroup.thoriumreactors.building", "Thorium R. - Building");

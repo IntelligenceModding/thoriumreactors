@@ -14,6 +14,7 @@ public class ModRecipes {
     public static final RegistryObject<RecipeSerializer<BlastingRecipe>> BLASTING_SERIALIZER = Registration.SERIALIZERS.register(BlastingRecipe.Serializer.ID.getPath(), () -> BlastingRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<DecomposingRecipe>> DECOMPOSING_SERIALIZER = Registration.SERIALIZERS.register(DecomposingRecipe.Serializer.ID.getPath(), () -> DecomposingRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<OxidizingRecipe>> OXIDIZING_SERIALIZER = Registration.SERIALIZERS.register(OxidizingRecipe.Serializer.ID.getPath(), () -> OxidizingRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<FluidEnrichingRecipe>> FLUID_ENRICHING_SERIALIZER = Registration.SERIALIZERS.register(FluidEnrichingRecipe.Serializer.ID.getPath(), () -> FluidEnrichingRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<CentrifugingRecipe>> CENTRIFUGING_SERIALIZER = Registration.SERIALIZERS.register(CentrifugingRecipe.Serializer.ID.getPath(), () -> CentrifugingRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<CrystallizingRecipe>> CRYSTALLIZING_SERIALIZER = Registration.SERIALIZERS.register(CrystallizingRecipe.Serializer.ID.getPath(), () -> CrystallizingRecipe.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<ElectrolysingRecipe>> ELECTROLYSING_SERIALIZER = Registration.SERIALIZERS.register(ElectrolysingRecipe.Serializer.ID.getPath(), () -> ElectrolysingRecipe.Serializer.INSTANCE);
@@ -25,6 +26,7 @@ public class ModRecipes {
     public static final RegistryObject<RecipeType<BlastingRecipe>> BLASTING_RECIPE_TYPE = registerType(BlastingRecipe.Serializer.ID);
     public static final RegistryObject<RecipeType<DecomposingRecipe>> DECOMPOSING_RECIPE_TYPE = registerType(DecomposingRecipe.Serializer.ID);
     public static final RegistryObject<RecipeType<OxidizingRecipe>> OXIDIZING_RECIPE_TYPE = registerType(OxidizingRecipe.Serializer.ID);
+    public static final RegistryObject<RecipeType<FluidEnrichingRecipe>> FLUID_ENRICHING_RECIPE_TYPE = registerType(FluidEnrichingRecipe.Serializer.ID);
     public static final RegistryObject<RecipeType<CentrifugingRecipe>> CENTRIFUGING_RECIPE_TYPE = registerType(CentrifugingRecipe.Serializer.ID);
     public static final RegistryObject<RecipeType<CrystallizingRecipe>> CRYSTALLIZING_RECIPE_TYPE = registerType(CrystallizingRecipe.Serializer.ID);
     public static final RegistryObject<RecipeType<ElectrolysingRecipe>> ELECTROLYSING_RECIPE_TYPE = registerType(ElectrolysingRecipe.Serializer.ID);

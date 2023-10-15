@@ -16,6 +16,11 @@ public class ModFluids {
     public static final RegistryObject<FlowingFluid> FLOWING_MOLTEN_SALT = Registration.FLUIDS.register("flowing_molten_salt",
             () -> new ForgeFlowingFluid.Flowing(ModFluids.MOLTEN_SALT_PROPERTIES));
 
+    public static final RegistryObject<FlowingFluid> SOURCE_DEPLETED_MOLTEN_SALT = Registration.FLUIDS.register("depleted_molten_salt",
+            () -> new ForgeFlowingFluid.Source(ModFluids.DEPLETED_MOLTEN_SALT_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> FLOWING_DEPLETED_MOLTEN_SALT = Registration.FLUIDS.register("flowing_depleted_molten_salt",
+            () -> new ForgeFlowingFluid.Flowing(ModFluids.DEPLETED_MOLTEN_SALT_PROPERTIES));
+
     public static final RegistryObject<FlowingFluid> SOURCE_HEATED_MOLTEN_SALT = Registration.FLUIDS.register("heated_molten_salt",
             () -> new ForgeFlowingFluid.Source(ModFluids.HEATED_MOLTEN_SALT_PROPERTIES));
     public static final RegistryObject<FlowingFluid> FLOWING_HEATED_MOLTEN_SALT = Registration.FLUIDS.register("flowing_heated_molten_salt",
@@ -43,6 +48,9 @@ public class ModFluids {
 
     public static final ForgeFlowingFluid.Properties MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.MOLTEN_SALT, SOURCE_MOLTEN_SALT, FLOWING_MOLTEN_SALT)
+            .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.MOLTEN_SALT_BLOCK).bucket(ModItems.MOLTEN_SALT_BUCKET);
+    public static final ForgeFlowingFluid.Properties DEPLETED_MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
+            ModFluidTypes.DEPLETED_MOLTEN_SALT, SOURCE_DEPLETED_MOLTEN_SALT, FLOWING_DEPLETED_MOLTEN_SALT)
             .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.MOLTEN_SALT_BLOCK).bucket(ModItems.MOLTEN_SALT_BUCKET);
     public static final ForgeFlowingFluid.Properties HEATED_MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.HEATED_MOLTEN_SALT, SOURCE_HEATED_MOLTEN_SALT, FLOWING_HEATED_MOLTEN_SALT)

@@ -20,7 +20,10 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -30,7 +33,9 @@ import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.util.LootUtil;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ThoriumCraftingTableBlock extends BaseEntityBlock {
@@ -40,6 +45,18 @@ public class ThoriumCraftingTableBlock extends BaseEntityBlock {
 
     public ThoriumCraftingTableBlock() {
         super(Properties.of(Material.STONE).strength(5f));
+    }
+
+    @SuppressWarnings("deprecation")
+    @NotNull
+    @Override
+    public List<ItemStack> getDrops(@NotNull BlockState pState, LootContext.Builder pBuilder) {
+        return Collections.singletonList(LootUtil.getLoot(pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+        return LootUtil.getLoot(level.getBlockEntity(pos), this);
     }
 
     @SuppressWarnings("deprecation")

@@ -18,15 +18,19 @@ public class BlastingRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final Ingredient inputLeft;
     private final Ingredient inputRight;
-    private final ItemStack output;
+    private final ItemStack outputLeft;
+    private final ItemStack outputRight;
+    private final int secondaryChance;
     private final int ticks;
     private final int temperature;
 
-    public BlastingRecipe(ResourceLocation id, Ingredient inputLeft, Ingredient inputRight, ItemStack output, int ticks, int temperature) {
+    public BlastingRecipe(ResourceLocation id, Ingredient inputLeft, Ingredient inputRight, ItemStack output, ItemStack secondOutput, int secondaryChance, int ticks, int temperature) {
         this.id = id;
-        this.output = output;
+        this.outputLeft = output;
+        this.outputRight = secondOutput;
         this.inputLeft = inputLeft;
         this.inputRight = inputRight;
+        this.secondaryChance = secondaryChance;
         this.ticks = ticks;
         this.temperature = temperature;
     }
@@ -40,7 +44,7 @@ public class BlastingRecipe implements Recipe<SimpleContainer> {
     @NotNull
     @Override
     public ItemStack assemble(@NotNull SimpleContainer container) {
-        return output;
+        return outputLeft;
     }
 
     @Override
@@ -51,7 +55,15 @@ public class BlastingRecipe implements Recipe<SimpleContainer> {
     @NotNull
     @Override
     public ItemStack getResultItem() {
-        return output.copy();
+        return outputLeft.copy();
+    }
+
+    public ItemStack getSecondaryResultItem() {
+        return outputRight.copy();
+    }
+
+    public int getSecondaryChance() {
+        return secondaryChance;
     }
 
     @NotNull
@@ -96,20 +108,32 @@ public class BlastingRecipe implements Recipe<SimpleContainer> {
             Ingredient inputLeft = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-0"));
             if (inputLeft.isEmpty())
                 throw new IllegalArgumentException("Invalid pattern: Input left ingredient must be set! (" + inputLeft + ")");
-            Ingredient inputRight = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-1"));
-            if (inputRight.isEmpty())
-                throw new IllegalArgumentException("Invalid pattern: Input right ingredient must be set! (" + inputRight + ")");
+            Ingredient inputRight = Ingredient.EMPTY;
+            if (GsonHelper.getAsJsonObject(pSerializedRecipe, "input").has("slot-1")) {
+                inputRight = Ingredient.fromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "input").getAsJsonObject("slot-1"));
+                if (inputRight.isEmpty()) {
+                    throw new IllegalArgumentException("Invalid pattern: Input right ingredient must be set! (" + inputRight + ")");
+                }
+            }
 
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
-            if (output.isEmpty())
-                throw new IllegalArgumentException("Invalid pattern: Output ingredient must be set! (" + output + ")");
+            ItemStack outputLeft = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output").getAsJsonObject("slot-0"));
+            ItemStack outputRight = ItemStack.EMPTY;
+            int secondaryChance = 0;
+            if (GsonHelper.getAsJsonObject(pSerializedRecipe, "output").has("slot-1")) {
+                outputRight = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output").getAsJsonObject("slot-1"));
+                secondaryChance = GsonHelper.getAsJsonObject(pSerializedRecipe, "output").get("chance").getAsInt();
+            }
+            if (!outputRight.isEmpty() && secondaryChance == 0)
+                throw new IllegalArgumentException("Invalid pattern: Output right ingredient chance must be greater 0 and less or equal to 100 if ingredient is set! (" + secondaryChance + ")");
+            if (outputLeft.isEmpty())
+                throw new IllegalArgumentException("Invalid pattern: Output left ingredient must be set! (" + outputLeft + ")");
             int ticks = GsonHelper.getAsInt(pSerializedRecipe, "ticks");
             if (ticks <= 0 || ticks > 2500)
                 throw new IllegalArgumentException("Invalid pattern: Needed ticks cannot be zero or higher than 2500! (" + ticks + ")");
             int temperature = GsonHelper.getAsInt(pSerializedRecipe, "temperature");
             if (temperature <= 0 || temperature > 2500)
                 throw new IllegalArgumentException("Invalid pattern: Needed temperature cannot be zero or higher than 2500! (" + ticks + ")");
-            return new BlastingRecipe(pRecipeId, inputLeft, inputRight, output, ticks, temperature);
+            return new BlastingRecipe(pRecipeId, inputLeft, inputRight, outputLeft, outputRight, secondaryChance, ticks, temperature);
         }
 
         @Nullable
@@ -117,17 +141,21 @@ public class BlastingRecipe implements Recipe<SimpleContainer> {
         public BlastingRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
             Ingredient inputLeft = Ingredient.fromNetwork(buf);
             Ingredient inputRight = Ingredient.fromNetwork(buf);
-            ItemStack output = buf.readItem();
+            ItemStack outputLeft = buf.readItem();
+            ItemStack outputRight = buf.readItem();
+            int secondaryChance = buf.readInt();
             int ticks = buf.readInt();
             int temperature = buf.readInt();
-            return new BlastingRecipe(id, inputLeft, inputRight, output, ticks, temperature);
+            return new BlastingRecipe(id, inputLeft, inputRight, outputLeft, outputRight, secondaryChance, ticks, temperature);
         }
 
         @Override
         public void toNetwork(@NotNull FriendlyByteBuf buf, BlastingRecipe recipe) {
             recipe.inputLeft.toNetwork(buf);
             recipe.inputRight.toNetwork(buf);
-            buf.writeItem(recipe.output);
+            buf.writeItem(recipe.outputLeft);
+            buf.writeItem(recipe.outputRight);
+            buf.writeInt(recipe.secondaryChance);
             buf.writeInt(recipe.ticks);
             buf.writeInt(recipe.temperature);
         }

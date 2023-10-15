@@ -44,6 +44,8 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
     private final LazyOptional<? extends IItemHandler>[] itemHandler = SidedInvWrapper.create(this, Direction.values());
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
     public ItemStack outputItem = new ItemStack(Items.AIR);
+    public ItemStack secondaryOutputItem = new ItemStack(Items.AIR);
+    public int secondaryChance = 0;
     public NonNullList<ItemStack> items;
     int recipeTime = 0;
     int maxRecipeTime = 0;
@@ -99,7 +101,7 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
 
     public void tick() {
         // Energy Input Slot
-        items.get(2).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
+        items.get(4).getCapability(ForgeCapabilities.ENERGY).ifPresent(storage -> EnergyUtil.tryDischargeItem(storage, ENERGY_STORAGE, getMaxInput()));
 
         if (isPowerable() && isSpaceAbove()) {
             switch (getRedstoneMode()) {
@@ -133,7 +135,8 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
             }
 
             ItemStack outputSlot = getItem(2);
-            if (NEEDED_ENERGY <= getEnergy() && getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize()) {
+            ItemStack secondaryOutputSlot = getItem(3);
+            if (getRecipeTime() > 0 && getMaxRecipeTime() > 0 && outputSlot.getCount() + 1 <= outputSlot.getMaxStackSize()&& secondaryOutputSlot.getCount() + 1 <= secondaryOutputSlot.getMaxStackSize()) {
                 if (getDegree() >= getWorkingDegree()) {
 
                     // Play Sounds
@@ -147,6 +150,9 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
                     setRecipeTime(getRecipeTime() - 1);
                     if (getRecipeTime() == 0) {
                         setItem(2, new ItemStack(getOutputItem().getItem(), outputSlot.getCount() + 1));
+                        if (!getSecondaryOutputItem().isEmpty() && getSecondaryChance() <= Math.random() * 100f) {
+                            setItem(3, new ItemStack(getSecondaryOutputItem().getItem(), secondaryOutputSlot.getCount() + 1));
+                        }
                         setMaxRecipeTime(0);
                         setRecipeDefinedTicks(0);
                         setMaxRecipeTime(0);
@@ -163,12 +169,14 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
                 setDegree(getDegree() - getDegreeHeating(true));
             }
             if (getState()) setState(false);
-            if (getItem(0).isEmpty() || getItem(1).isEmpty()) {
+            if (getRecipeTime() == 0 || (getItem(0).isEmpty() && getItem(1).isEmpty())) {
                 setMaxRecipeTime(0);
                 setRecipeTime(0);
+                setSecondaryChance(0);
+                setSecondaryOutputItem(ItemStack.EMPTY);
+                setOutputItem(ItemStack.EMPTY);
+                setRecipeDefinedTicks(0);
             }
-            setOutputItem(ItemStack.EMPTY);
-            setRecipeDefinedTicks(0);
         }
     }
 
@@ -190,6 +198,8 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
         for (BlastingRecipe blastingRecipe : recipe) {
             if (blastingRecipe.matches(container, getLevel()) && getOutputItem().isEmpty() && recipeTime == 0 && maxRecipeTime == 0) {
                 setOutputItem(blastingRecipe.getResultItem());
+                setSecondaryOutputItem(blastingRecipe.getSecondaryResultItem());
+                setSecondaryChance(blastingRecipe.getSecondaryChance());
                 setRecipeDefinedTicks(blastingRecipe.getTicks());
                 setWorkingDegree(blastingRecipe.getTemperature());
                 return outputSlot.is(Items.AIR) || outputSlot.is(getOutputItem().getItem());
@@ -314,6 +324,22 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
         this.outputItem = outputItem;
     }
 
+    public void setSecondaryOutputItem(ItemStack secondaryOutputItem) {
+        this.secondaryOutputItem = secondaryOutputItem;
+    }
+
+    public ItemStack getSecondaryOutputItem() {
+        return secondaryOutputItem;
+    }
+
+    public void setSecondaryChance(int secondaryChance) {
+        this.secondaryChance = secondaryChance;
+    }
+
+    public int getSecondaryChance() {
+        return secondaryChance;
+    }
+
     public void setRecipeDefinedTicks(int recipeDefinedTicks) {
         this.recipeDefinedTicks = recipeDefinedTicks;
     }
@@ -363,6 +389,8 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
         nbt.putInt("Fuel", getFuel());
         nbt.putBoolean("Powerable", isPowerable());
         nbt.put("OutputItem", getOutputItem().save(new CompoundTag()));
+        nbt.put("SecondaryOutputItem", getSecondaryOutputItem().save(new CompoundTag()));
+        nbt.putInt("SecondaryChance", getSecondaryChance());
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -380,11 +408,13 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
         setFuel(nbt.getInt("Fuel"));
         setPowerable(nbt.getBoolean("Powerable"));
         setOutputItem(ItemStack.of(nbt.getCompound("OutputItem")));
+        setSecondaryOutputItem(ItemStack.of(nbt.getCompound("SecondaryOutputItem")));
+        setSecondaryChance(nbt.getInt("SecondaryChance"));
     }
 
     @Override
     public int getContainerSize() {
-        return 4;
+        return 5;
     }
 
     @Override

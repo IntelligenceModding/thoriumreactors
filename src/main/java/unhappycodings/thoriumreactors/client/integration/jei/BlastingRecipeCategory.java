@@ -34,7 +34,7 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
     private IDrawable heating;
 
     public BlastingRecipeCategory(IGuiHelper helper) {
-        this.background = helper.drawableBuilder(TEXTURE, 0, 108, 98, 35).addPadding(20, 20, 10, 32).build();
+        this.background = helper.drawableBuilder(TEXTURE, 0, 108, 98 + 18, 35).addPadding(20, 20, 10, 22).build();
         this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.BLAST_FURNACE_BLOCK.get()));
         this.helper = helper;
     }
@@ -60,6 +60,8 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
         heating.draw(stack, 10 + 52, 20);
         RenderUtil.drawCenteredText("Blasting", stack, getBackground().getWidth() / 2, 6);
         RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", stack, getBackground().getWidth() / 2, 20 + 40);
+        if (recipe.getSecondaryChance() > 0)
+            RenderUtil.drawCenteredText(recipe.getSecondaryChance() + "%", stack, 120, 20 + 40);
 
     }
 
@@ -90,7 +92,8 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BlastingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, 10 + 1, 20 + 18).addItemStack(recipe.getIngredients().get(0).getItems()[0]);
-        builder.addSlot(RecipeIngredientRole.INPUT, 10 + 22, 20 + 18).addItemStack(recipe.getIngredients().get(1).getItems()[0]);
+        builder.addSlot(RecipeIngredientRole.INPUT, 10 + 22, 20 + 18).addItemStack(recipe.getIngredients().get(1).getItems().length > 0 ? recipe.getIngredients().get(1).getItems()[0] : ItemStack.EMPTY);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 10 + 81, 20 + 18).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 10 + 81 + 18, 20 + 18).addItemStack(recipe.getSecondaryResultItem());
     }
 }

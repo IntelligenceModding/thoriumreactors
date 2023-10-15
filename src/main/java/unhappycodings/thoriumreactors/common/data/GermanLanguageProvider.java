@@ -75,6 +75,8 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.DECOMPOSER_BLOCK.get().getDescriptionId() + "_description", "Der Zersetzer mischt Fluor mit Flüssigkeiten. Hauptsächlich für die Hydrofluorit-Produktion!");
         add(ModBlocks.URANIUM_OXIDIZER_BLOCK.get(), "Uranoxidierer");
         add(ModBlocks.URANIUM_OXIDIZER_BLOCK.get().getDescriptionId() + "_description", "Der Uranoxidierer mischt Uran mit Flüssigkeiten. Hauptsächlich für die Produktion von Uran-Hexafluorit!");
+        add(ModBlocks.FLUID_ENRICHER_BLOCK.get(), "Flüssigkeitsanreicherer");
+        add(ModBlocks.FLUID_ENRICHER_BLOCK.get().getDescriptionId() + "_description", "Der Flüssigkeitsanreicherer mischt Substanzen mit Flüssigkeiten. Hauptsächlich für die Regeneration von Schmelzsalz genutzt!");
         add(ModBlocks.FLUID_CENTRIFUGE_BLOCK.get(), "Flüssigkeitszentrifuge");
         add(ModBlocks.FLUID_CENTRIFUGE_BLOCK.get().getDescriptionId() + "_description", "Die Flüssigkeitszentrifuge dient hauptsächlich zur Modifikation von Flüssigkeiten durch atomare Trennung bei schneller Rotation. Hauptsächlich zur Anreicherung von UF6 (Hexafluorit)!");
         add(ModBlocks.CRYSTALLIZER_BLOCK.get(), "Kristallisator");
@@ -182,6 +184,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModItems.YELLOW_CAKE.get(), "Uranerz-Gelbes Kuchen");
         add(ModItems.FLUORITE.get(), "Fluorit");
         add(ModItems.MOLTEN_SALT_BUCKET.get(), "Eimer mit geschmolzenem Salz");
+        add(ModItems.DEPLETED_MOLTEN_SALT_BUCKET.get(), "Eimer mit aufgebrauchtem geschmolzenem Salz");
         add(ModItems.HEATED_MOLTEN_SALT_BUCKET.get(), "Eimer mit erhitztem geschmolzenem Salz");
         add(ModItems.HYDROFLUORITE_BUCKET.get(), "Eimer mit Hydrofluorit");
         add(ModItems.URANIUM_HEXAFLUORITE_BUCKET.get(), "Eimer mit Uranhexafluorit");
@@ -224,6 +227,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("machines.concentrator.name", "Konzentration");
         addGuiText("machines.blast_furnace.name", "Verhüttung");
         addGuiText("machines.oxidizer.name", "Oxidation");
+        addGuiText("machines.fluid_enricher.name", "Flüssigkeitsanreicherung");
         addGuiText("machines.decomposer.name", "Zersetzung");
         addGuiText("machines.crystallizer.name", "Kristallisierung");
         addGuiText("machines.electrolytic_salt_separator.name", "Elektrolyse");
@@ -282,7 +286,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("reactor.text.fuel_status", "BRENNSTOFFSTATUS");
         addGuiText("reactor.text.turbine", "Turbine");
         addGuiText("reactor.text.thorium_reactor", "Thoriumreaktor");
-        addGuiText("reactor.text.reactor_overview_interface", "REAKTOR EINGABE ÜBERSICHT");
+        addGuiText("reactor.text.reactor_overview_interface", "REAKTOR ÜBERSICHT");
         addGuiText("reactor.text.operating_time", "BETRIEBSZEIT");
         addGuiText("reactor.text.main_power", "HAUPTSTROM");
         addGuiText("reactor.text.reactor_status", "REAKTORSTATUS");
@@ -306,12 +310,12 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("reactor.text.unset", "Nicht gesetzt");
         addGuiText("reactor.text.select", "Stab");
         addGuiText("reactor.text.rod", "wählen");
-        addGuiText("reactor.text.valve_manipulation", "MANUELLE VENTILMANIPULATION");
-        addGuiText("reactor.text.system_chart", "BETRIEBLICHES SYSTEMDIAGRAMM");
+        addGuiText("reactor.text.valve_manipulation", "VENTILMANIPULATION");
+        addGuiText("reactor.text.system_chart", "SYSTEMDIAGRAMM");
         addGuiText("reactor.text.rod_insert", "STÄBE");
         addGuiText("reactor.text.set", "OK");
         addGuiText("reactor.text.fuel_load", "STOFF");
-        addGuiText("reactor.text.molten_salt_low_warning", "Warnung: Notabschaltung! Niedriger Salz pegel!");
+        addGuiText("reactor.text.molten_salt_low_warning", "Warnung: Notabschaltung! Niedriger Salzpegel!");
 
         addGuiText("machines.top_info.energy", "Energie: ");
         addGuiText("machines.top_info.recipe", "Rezept: ");
@@ -375,6 +379,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
 
         add("fluid_type.thoriumreactors.hydrofluorite", "Hydrofluorit");
         add("fluid_type.thoriumreactors.molten_salt", "Schmelzsalz");
+        add("fluid_type.thoriumreactors.depleted_molten_salt", "Aufgebrauchted Schmelzsalz");
         add("fluid_type.thoriumreactors.heated_molten_salt", "Erhitztes Schmelzsalz");
         add("fluid_type.thoriumreactors.uranium_hexafluorite", "Uran-Hexafluorit");
         add("fluid_type.thoriumreactors.enriched_uranium_hexafluorite", "Angereichertes Uran-Hexafluorit");

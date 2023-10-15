@@ -139,7 +139,6 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
                     setMaxRecipeTime(0);
                     setRecipeTime(0);
                     setOutputItem(ItemStack.EMPTY);
-
                 }
             } else {
                 if (getState()) setState(false);

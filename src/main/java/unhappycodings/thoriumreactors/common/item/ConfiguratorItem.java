@@ -15,6 +15,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ToolAction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
@@ -24,9 +25,15 @@ import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import java.util.List;
 
 public class ConfiguratorItem extends Item {
+    public static final ToolAction WRENCH = ToolAction.get("wrench");
 
     public ConfiguratorItem(Properties pProperties) {
         super(pProperties);
+    }
+
+    @Override
+    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+        return toolAction == WRENCH;
     }
 
     @SuppressWarnings("ConstantConditions")

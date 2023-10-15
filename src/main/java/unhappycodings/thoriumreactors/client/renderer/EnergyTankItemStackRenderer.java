@@ -56,8 +56,8 @@ public class EnergyTankItemStackRenderer extends BlockEntityWithoutLevelRenderer
 
     private int getCapacityForType(ItemStack stack) {
         if (stack.is(ModBlocks.SIMPLE_ENERGY_TANK.get().asItem())) return ModBlocks.SIMPLE_ENERGY_TANK.get().capacity;
-        if (stack.is(ModBlocks.GENERIC_FLUID_TANK.get().asItem())) return ModBlocks.GENERIC_ENERGY_TANK.get().capacity;
-        if (stack.is(ModBlocks.PROGRESSIVE_FLUID_TANK.get().asItem())) return ModBlocks.PROGRESSIVE_ENERGY_TANK.get().capacity;
+        if (stack.is(ModBlocks.GENERIC_ENERGY_TANK.get().asItem())) return ModBlocks.GENERIC_ENERGY_TANK.get().capacity;
+        if (stack.is(ModBlocks.PROGRESSIVE_ENERGY_TANK.get().asItem())) return ModBlocks.PROGRESSIVE_ENERGY_TANK.get().capacity;
         else return Integer.MAX_VALUE;
     }
 

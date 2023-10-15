@@ -131,8 +131,4 @@ public class ThoriumChestBlock extends BaseEntityBlock {
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return ModBlockEntities.THORIUM_CHEST_BLOCK.get().create(pos, state);
     }
-
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> type) {
-        return level.isClientSide ? (a, b, c, blockEntity) -> ((ThoriumChestBlockEntity) blockEntity).lidAnimateTick() : (a, b, c, blockEntity) -> ((ThoriumChestBlockEntity) blockEntity).tick();
-    }
 }

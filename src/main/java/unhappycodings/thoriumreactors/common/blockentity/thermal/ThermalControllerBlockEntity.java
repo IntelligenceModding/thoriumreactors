@@ -69,9 +69,9 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
                     entity.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storage -> {
                         int amount = Math.min(getFluidAmountIn(), 10);
                         if (getFluidIn().getFluid().isSame(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get()) && amount > 0) {
-                            int fillable = storage.fill(new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), amount), IFluidHandler.FluidAction.SIMULATE);
+                            int fillable = storage.fill(new FluidStack(ModFluids.SOURCE_DEPLETED_MOLTEN_SALT.get(), amount), IFluidHandler.FluidAction.SIMULATE);
                             if (fillable > 0 && conversions + fillable <= 1000) {
-                                storage.fill(new FluidStack(ModFluids.SOURCE_MOLTEN_SALT.get(), fillable), IFluidHandler.FluidAction.EXECUTE);
+                                storage.fill(new FluidStack(ModFluids.SOURCE_DEPLETED_MOLTEN_SALT.get(), fillable), IFluidHandler.FluidAction.EXECUTE);
                                 conversions += amount;
                                 getFluidIn().shrink(fillable);
                             }

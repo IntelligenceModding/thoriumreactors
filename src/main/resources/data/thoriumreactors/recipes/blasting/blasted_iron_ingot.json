@@ -11,6 +11,8 @@
     }
   },
   "output": {
-    "item": "thoriumreactors:blasted_iron_ingot"
+    "slot-0": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    }
   }
 }
