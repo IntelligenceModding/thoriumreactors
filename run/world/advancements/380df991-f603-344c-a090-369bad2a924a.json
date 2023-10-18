@@ -1,0 +1,490 @@
+{
+  "minecraft:recipes/building_blocks/pink_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/red_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_axe": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/compass": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/repeater": {
+    "criteria": {
+      "has_redstone_torch": "2023-10-17 08:36:40 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/purple_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_core": {
+    "criteria": {
+      "requirement": "2023-10-17 08:33:50 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/magenta_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_valve": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/golden_pickaxe": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/gold_block": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "mekanism:configurator": {
+    "criteria": {
+      "configurator": "2023-10-17 08:38:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/golden_chestplate": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:redstone_processor": {
+    "criteria": {
+      "requirement": "2023-10-17 08:32:19 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_valve": {
+    "criteria": {
+      "requirement": "2023-10-17 08:33:48 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_vent": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:57 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/lime_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/target": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:enriched_uranium_pellet": {
+    "criteria": {
+      "requirement": "2023-10-17 09:51:44 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/yellow_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_power_port": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:56 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_rod_controller": {
+    "criteria": {
+      "requirement": "2023-10-17 08:33:49 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:thorium_crafting_table": {
+    "criteria": {
+      "requirement": "2023-10-17 08:32:02 +0200"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:beach": "2023-10-17 08:31:06 +0200",
+      "minecraft:forest": "2023-10-17 08:30:23 +0200"
+    },
+    "done": false
+  },
+  "minecraft:recipes/building_blocks/sandstone": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/campfire": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_assembled": {
+    "criteria": {
+      "impossible": "2023-10-17 08:35:41 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/golden_hoe": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "computercraft:recipes/computercraft/computer_normal": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/copper_block": {
+    "criteria": {
+      "has_copper_ingot": "2023-10-17 08:36:32 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_pickaxe": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/redstone_torch": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/ladder": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chest": {
+    "criteria": {
+      "has_lots_of_items": "2023-10-17 08:34:17 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/golden_sword": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/golden_apple": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/brown_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/green_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_shovel": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_controller": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:56 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_blade": {
+    "criteria": {
+      "requirement": "2023-10-17 10:12:00 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_casing": {
+    "criteria": {
+      "requirement": "2023-10-17 08:33:46 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/light_weighted_pressure_plate": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:graphite_moderator": {
+    "criteria": {
+      "requirement": "2023-10-17 08:33:51 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/white_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/wooden_sword": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/blue_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:electromagnetic_coil": {
+    "criteria": {
+      "requirement": "2023-10-17 10:13:28 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_controller": {
+    "criteria": {
+      "requirement": "2023-10-17 08:33:47 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/clock": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/gray_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_rotation_mount": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:58 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:generator_block": {
+    "criteria": {
+      "requirement": "2023-10-17 08:31:45 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/lightning_rod": {
+    "criteria": {
+      "has_copper_ingot": "2023-10-17 08:36:32 +0200"
+    },
+    "done": true
+  },
+  "computercraft:recipes/computercraft/computer_advanced": {
+    "criteria": {
+      "has_components": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:recipes/thoriumreactors/nickel_ingot_craft_from_block": {
+    "criteria": {
+      "has_nickel_block": "2023-10-17 10:13:43 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/gold_nugget": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "mekanism:root": {
+    "criteria": {
+      "automatic": "2023-10-17 08:30:22 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/golden_axe": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/redstone_block": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/wooden_hoe": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/piston": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/golden_leggings": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/golden_helmet": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/black_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/note_block": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_casing": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:55 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/redstone/dropper": {
+    "criteria": {
+      "has_redstone": "2023-10-17 08:36:20 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_glass": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:57 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/soul_campfire": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/crossbow": {
+    "criteria": {
+      "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_rotor": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:58 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/light_gray_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/light_blue_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_assembled": {
+    "criteria": {
+      "impossible": "2023-10-17 10:18:15 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/orange_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_glass": {
+    "criteria": {
+      "requirement": "2023-10-17 08:34:10 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/cyan_concrete_powder": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/glass": {
+    "criteria": {
+      "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/golden_shovel": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/golden_boots": {
+    "criteria": {
+      "has_gold_ingot": "2023-10-17 08:36:33 +0200"
+    },
+    "done": true
+  },
+  "DataVersion": 3120
+}

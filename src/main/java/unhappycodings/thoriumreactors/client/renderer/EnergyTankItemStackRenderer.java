@@ -16,7 +16,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.RenderTypeHelper;
-import net.minecraftforge.fluids.FluidStack;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 
@@ -49,6 +48,9 @@ public class EnergyTankItemStackRenderer extends BlockEntityWithoutLevelRenderer
             VertexConsumer boxVertexConsumer = buffer.getBuffer(RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS));
             if (amount > 0) {
                 float height = ((float) amount / (float) getCapacityForType(stack)) * 0.94f;
+                if (stack.is(ModBlocks.CREATIVE_ENERGY_TANK.get().asItem())) {
+                    height = 0.94f;
+                };
                 EnergyTankBlockEntityRenderer.drawBox(poseStack, boxVertexConsumer, 0, 0f, 0, 11, 0.01f, 11, 0, 0, 16, 16, height, 0.032f, packedLight);
             }
         }
@@ -58,6 +60,7 @@ public class EnergyTankItemStackRenderer extends BlockEntityWithoutLevelRenderer
         if (stack.is(ModBlocks.SIMPLE_ENERGY_TANK.get().asItem())) return ModBlocks.SIMPLE_ENERGY_TANK.get().capacity;
         if (stack.is(ModBlocks.GENERIC_ENERGY_TANK.get().asItem())) return ModBlocks.GENERIC_ENERGY_TANK.get().capacity;
         if (stack.is(ModBlocks.PROGRESSIVE_ENERGY_TANK.get().asItem())) return ModBlocks.PROGRESSIVE_ENERGY_TANK.get().capacity;
+        if (stack.is(ModBlocks.CREATIVE_ENERGY_TANK.get().asItem())) return ModBlocks.CREATIVE_ENERGY_TANK.get().capacity;
         else return Integer.MAX_VALUE;
     }
 

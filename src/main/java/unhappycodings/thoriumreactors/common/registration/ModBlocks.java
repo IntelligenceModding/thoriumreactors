@@ -36,6 +36,7 @@ public class ModBlocks {
     public static final RegistryObject<EnergyTankBlock> SIMPLE_ENERGY_TANK = register("simple_energy_tank", () -> new EnergyTankBlock(ModBlockEntities.SIMPLE_ENERGY_TANK, 2560000), () -> new EnergyTankBlockItem(ModBlocks.SIMPLE_ENERGY_TANK));
     public static final RegistryObject<EnergyTankBlock> GENERIC_ENERGY_TANK = register("generic_energy_tank", () -> new EnergyTankBlock(ModBlockEntities.GENERIC_ENERGY_TANK, 5120000), () -> new EnergyTankBlockItem(ModBlocks.GENERIC_ENERGY_TANK));
     public static final RegistryObject<EnergyTankBlock> PROGRESSIVE_ENERGY_TANK = register("progressive_energy_tank", () -> new EnergyTankBlock(ModBlockEntities.PROGRESSIVE_ENERGY_TANK, 10240000), () -> new EnergyTankBlockItem(ModBlocks.PROGRESSIVE_ENERGY_TANK));
+    public static final RegistryObject<EnergyTankBlock> CREATIVE_ENERGY_TANK = register("creative_energy_tank", () -> new EnergyTankBlock(ModBlockEntities.CREATIVE_ENERGY_TANK, -1), () -> new EnergyTankBlockItem(ModBlocks.CREATIVE_ENERGY_TANK));
 
     public static final RegistryObject<FluidTankBlock> SIMPLE_FLUID_TANK = register("simple_fluid_tank", () -> new FluidTankBlock(32000, ModBlockEntities.SIMPLE_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.SIMPLE_FLUID_TANK));
     public static final RegistryObject<FluidTankBlock> GENERIC_FLUID_TANK = register("generic_fluid_tank", () -> new FluidTankBlock(64000, ModBlockEntities.GENERIC_FLUID_TANK), () -> new FluidTankBlockItem(ModBlocks.GENERIC_FLUID_TANK));

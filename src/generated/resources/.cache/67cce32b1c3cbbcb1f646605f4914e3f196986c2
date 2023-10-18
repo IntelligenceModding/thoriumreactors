@@ -1,4 +1,4 @@
-// 1.19.2	2023-10-14T13:47:24.9968595	LootTables
+// 1.19.2	2023-10-18T13:32:58.6727545	LootTables
 427792761fdcf1d99e5e066351fe1116a6cce094 data/thoriumreactors/loot_tables/blocks/aluminum_block.json
 50e805cfb8ccb6371dc60b71864a9e54d45484f3 data/thoriumreactors/loot_tables/blocks/bauxite_ore.json
 db94d903c74bf44a84957ae0da3d2fe689e47484 data/thoriumreactors/loot_tables/blocks/black_factory_block.json
@@ -17,6 +17,7 @@ b44ef870d268ffb94c9bf6a7debd07d36a575bba data/thoriumreactors/loot_tables/blocks
 30de9892bdb5104fdfd1bb70c2f0c7d7e4ce6fe5 data/thoriumreactors/loot_tables/blocks/chromium_block.json
 68c05384cc1963d5f6eb07fd1490861404770498 data/thoriumreactors/loot_tables/blocks/cobalt_block.json
 c6e02fa3a1e8086c83b9279ac05a656740dfdae4 data/thoriumreactors/loot_tables/blocks/concentrator_block.json
+05f5bc489aa6c55ffdf491674bf109fc31fa139b data/thoriumreactors/loot_tables/blocks/creative_energy_tank.json
 0ba40b5c47e20b0761847eedd9ca2d3ec1383202 data/thoriumreactors/loot_tables/blocks/creative_fluid_tank.json
 2ad82707e5846dce9e47eecc07762aa65cc39e64 data/thoriumreactors/loot_tables/blocks/crystallizer_block.json
 2effdb6cfaa519c30fd8183f505100df5d29a995 data/thoriumreactors/loot_tables/blocks/decomposer_block.json

@@ -7,11 +7,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.client.util.RenderUtil;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineSaltMelterBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.screen.MachineScreen;
 import unhappycodings.thoriumreactors.common.registration.ModFluids;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 public class MachineSaltMelterScreen extends MachineScreen<MachineSaltMelterContainer> {
     private final int[][] positionList = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -86,20 +87,20 @@ public class MachineSaltMelterScreen extends MachineScreen<MachineSaltMelterCont
         super.renderLabels(pPoseStack, pMouseX, pMouseY);
         MachineSaltMelterBlockEntity entity = this.container.getTile();
 
-        RenderUtil.drawText(Component.translatable("key.categories.inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 106, 11184810);
+        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), pPoseStack, 8, 106, 11184810);
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.salt_melter.name")).withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
-        RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 242, 2, 11184810);
+        ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.salt_melter.name")).withStyle(ScreenUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), pPoseStack, 242, 2, 11184810);
         pPoseStack.popPose();
-        RenderUtil.drawCenteredText(Component.translatable(entity.getState() ? FormattingUtil.getTranslatable("machines.state.running") : FormattingUtil.getTranslatable("machines.state.idle")).withStyle(RenderUtil::notoSans), pPoseStack, 87, 78, 4182051);
+        ScreenUtil.drawCenteredText(Component.translatable(entity.getState() ? FormattingUtil.getTranslatable("machines.state.running") : FormattingUtil.getTranslatable("machines.state.idle")).withStyle(ScreenUtil::notoSans), pPoseStack, 87, 78, 4182051);
 
-        if (RenderUtil.mouseInArea(getGuiLeft() + 39, getGuiTop() + 45, getGuiLeft() + 54, getGuiTop() + 60, pMouseX, pMouseY))
+        if (ScreenUtil.mouseInArea(getGuiLeft() + 39, getGuiTop() + 45, getGuiLeft() + 54, getGuiTop() + 60, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getDegree() + "°C (" + FormattingUtil.formatPercentNum(entity.getDegree() - 25, entity.getWorkingDegree() - 25, false) + ")"});
 
-        if (RenderUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
+        if (ScreenUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});
-        if (RenderUtil.mouseInArea(getGuiLeft() + 119, getGuiTop() + 20, getGuiLeft() + 136, getGuiTop() + 85, pMouseX, pMouseY))
+        if (ScreenUtil.mouseInArea(getGuiLeft() + 119, getGuiTop() + 20, getGuiLeft() + 136, getGuiTop() + 85, pMouseX, pMouseY))
             appendHoverText(pPoseStack, pMouseX, pMouseY, new Component[]{entity.getFluidAmountOut() > 0 ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.fluid")).append(" ").append(entity.getFluidOut().getFluid().getFluidType().getDescription().getString()) : Component.empty(), Component.literal(entity.getFluidAmountOut() + " mb / " + entity.getFluidCapacityOut() + " mb"), Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountOut(), entity.getFluidCapacityOut(), true))});
 
     }

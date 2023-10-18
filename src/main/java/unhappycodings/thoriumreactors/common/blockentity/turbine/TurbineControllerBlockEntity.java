@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBlock;
 import unhappycodings.thoriumreactors.common.block.turbine.TurbineControllerBlock;
+import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.turbine.ClientTurbineControllerDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
@@ -53,8 +54,8 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         if (valvePos != null && powerPortPos != null && level.getBlockEntity(valvePos) instanceof TurbineValveBlockEntity valveBlockEntity && level.getBlockEntity(powerPortPos) instanceof TurbinePowerPortBlockEntity powerPortBlockEntity) {
 
             if (coilsEngaged) {
-                if (powerPortBlockEntity.getEnergy() + (int) (getRpm() * FormattingUtil.getTurbineGenerationModifier(getRpm()) * getEnergyModifier()) < powerPortBlockEntity.getCapacity()) {
-                    powerPortBlockEntity.setEnergy(powerPortBlockEntity.getEnergy() + (int) (getRpm() * FormattingUtil.getTurbineGenerationModifier(getRpm()) * getEnergyModifier()));
+                if (powerPortBlockEntity.getEnergy() + getTurbineGeneration() < powerPortBlockEntity.getCapacity()) {
+                    powerPortBlockEntity.setEnergy((int) (powerPortBlockEntity.getEnergy() + getTurbineGeneration()));
                     EnergyUtil.trySendToNeighbors(level, getBlockPos(), powerPortBlockEntity.getEnergyStorage(), powerPortBlockEntity.getEnergy(), (int) powerPortBlockEntity.getMaxEnergyTransfer());
                 } else if (powerPortBlockEntity.getEnergy() != powerPortBlockEntity.getCapacity()) {
                     powerPortBlockEntity.setEnergy(powerPortBlockEntity.getCapacity());
@@ -138,7 +139,7 @@ public class TurbineControllerBlockEntity extends BlockEntity {
     }
 
     public float getTurbineGeneration() {
-        return isCoilsEngaged() ? (float) Math.floor((getRpm() * (FormattingUtil.getTurbineGenerationModifier(getRpm()) * getEnergyModifier())) * 100) / 100 : 0;
+        return isCoilsEngaged() ? (float) Math.floor((getRpm() * (FormattingUtil.getTurbineGenerationModifier(getRpm()) * getEnergyModifier() * CommonConfig.turbineEnergyGenerationModifier.get())) * 100) / 100 : 0;
     }
 
     public int getTurbineHeight() {

@@ -14,14 +14,10 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.util.RenderUtil;
-import unhappycodings.thoriumreactors.common.blockentity.EnergyTankBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
-import unhappycodings.thoriumreactors.common.registration.ModFluids;
+import unhappycodings.thoriumreactors.common.blockentity.tank.EnergyTankBlockEntity;
 
 public class EnergyTankBlockEntityRenderer implements BlockEntityRenderer<EnergyTankBlockEntity> {
 

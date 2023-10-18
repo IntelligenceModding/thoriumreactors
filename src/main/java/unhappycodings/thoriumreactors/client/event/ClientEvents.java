@@ -8,6 +8,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -95,6 +96,7 @@ public class ClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.SIMPLE_ENERGY_TANK.get(), EnergyTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.GENERIC_ENERGY_TANK.get(), EnergyTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_ENERGY_TANK.get(), EnergyTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.CREATIVE_ENERGY_TANK.get(), EnergyTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.SIMPLE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.GENERIC_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
@@ -106,6 +108,15 @@ public class ClientEvents {
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(TurbineBladeModel.LAYER_LOCATION, TurbineBladeModel::createBodyLayer);
         event.registerLayerDefinition(TurbineRotorModel.LAYER_LOCATION, TurbineRotorModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void onTextureStitchEvent(TextureStitchEvent.Pre event) {
+        event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_chest"));
+        event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/steel_chest"));
+        event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/blasted_iron_chest"));
+        event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/energy"));
+
     }
 
 }

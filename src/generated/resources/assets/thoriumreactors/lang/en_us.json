@@ -20,6 +20,8 @@
   "block.thoriumreactors.cobalt_block": "Cobalt Block",
   "block.thoriumreactors.concentrator_block": "Concentrator",
   "block.thoriumreactors.concentrator_block_description": "The Concentrator compacts materials. Mainly used for obtaining Uranium Yellow Cake from Uranium!",
+  "block.thoriumreactors.creative_energy_tank": "Creative Energy Tank",
+  "block.thoriumreactors.creative_energy_tank_description": "Has infinite storage. Not obtainable in survival!",
   "block.thoriumreactors.creative_fluid_tank": "Creative Fluid Tank",
   "block.thoriumreactors.creative_fluid_tank_description": "Has infinite storage. Not obtainable in survival!",
   "block.thoriumreactors.crystallizer_block": "Crystallizer",

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.ConcentratingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 public class ConcentratingRecipeCategory implements IRecipeCategory<ConcentratingRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(ThoriumReactors.MOD_ID, "concentrating");
@@ -42,8 +42,8 @@ public class ConcentratingRecipeCategory implements IRecipeCategory<Concentratin
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 181, 246, 41, 10), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
         }
         progress.draw(stack, 50, 24);
-        RenderUtil.drawCenteredText("Concentrating", stack, getBackground().getWidth() / 2, 6);
-        RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 40);
+        ScreenUtil.drawCenteredText("Concentrating", stack, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 40);
     }
 
     @NotNull

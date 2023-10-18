@@ -3,7 +3,6 @@ package unhappycodings.thoriumreactors.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -11,10 +10,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.util.RenderUtil;
@@ -62,7 +57,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
     public static void drawPlane(PoseStack stack, VertexConsumer buffer, FluidStack fluidStack, RenderUtil.Perspective perspective, float height, float pX, float pY, float pZ, float sX, float sY, float sZ, float pUOffset, float pVOffset, float pWidth, float pHeight, float yHeightOffset, int pPackedLight) {
         stack.pushPose();
         Matrix4f matrix4f = stack.last().pose();
-        TextureAtlasSprite icon = unhappycodings.thoriumreactors.common.util.RenderUtil.getStillFluidSprite(fluidStack);
+        TextureAtlasSprite icon = RenderUtil.getStillFluidSprite(fluidStack);
 
         sX = sX / 2;
         sY = sY / 2;
@@ -73,7 +68,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
         float v1 = icon.getV(pVOffset);
         float v2 = icon.getV(pHeight);
 
-        int color = unhappycodings.thoriumreactors.common.util.RenderUtil.getColorTint(fluidStack);
+        int color = RenderUtil.getColorTint(fluidStack);
 
         if (perspective == RenderUtil.Perspective.UP) {
             // middle

@@ -35,8 +35,8 @@ import java.util.List;
 public class FluidTankBlockEntity extends BlockEntity implements MenuProvider {
     public int capacity = 0;
     private final boolean isCreative;
-    private final ModFluidTank FLUID_TANK_IN;
     private LazyOptional<FluidTank> lazyFluidInHandler = LazyOptional.empty();
+    private final ModFluidTank FLUID_TANK_IN;
 
     public FluidTankBlockEntity(BlockPos pPos, BlockState pBlockState, int capacity, BlockEntityType<FluidTankBlockEntity> type) {
         super(type, pPos, pBlockState);

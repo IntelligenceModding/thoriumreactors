@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.OxidizingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 import java.util.List;
 
@@ -53,8 +53,8 @@ public class OxidizingRecipeCategory implements IRecipeCategory<OxidizingRecipe>
         tankScaleL.draw(stack, getGuiLeft() + 1, getGuiTop() + 25);
         tankScaleR.draw(stack, getGuiLeft() + 83, getGuiTop() + 2);
 
-        RenderUtil.drawCenteredText("Uranium Oxidization", stack, getBackground().getWidth() / 2, 6);
-        RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 65);
+        ScreenUtil.drawCenteredText("Uranium Oxidization", stack, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 65);
     }
 
     public int getGuiTop() {

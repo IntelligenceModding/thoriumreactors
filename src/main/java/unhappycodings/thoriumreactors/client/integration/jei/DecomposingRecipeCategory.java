@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.DecomposingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 import java.util.List;
 
@@ -53,8 +53,8 @@ public class DecomposingRecipeCategory implements IRecipeCategory<DecomposingRec
         tankGroin1.draw(stack, getGuiLeft() + 1, getGuiTop() + 25);
         tankGroin2.draw(stack, getGuiLeft() + 82, getGuiTop() + 2);
 
-        RenderUtil.drawCenteredText("Decomposing", stack, getBackground().getWidth() / 2, 6);
-        RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 40);
+        ScreenUtil.drawCenteredText("Decomposing", stack, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 40);
     }
 
     public int getGuiTop() {

@@ -15,11 +15,11 @@ import net.minecraftforge.fluids.FluidStack;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
-import unhappycodings.thoriumreactors.common.blockentity.EnergyTankBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.tank.EnergyTankBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalValveBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.base.ThermalFrameBlockEntity;
@@ -78,7 +78,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
             if (level.getBlockEntity(entity.getValvePos()) instanceof TurbineValveBlockEntity valveBlockEntity)
                 valveTankRender(iProbeInfo, valveBlockEntity.getFluidIn(), valveBlockEntity.getFluidCapacityIn(), valveBlockEntity.getFluidAmountIn());
 
-            iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.producing")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(entity.isCoilsEngaged() ? FormattingUtil.formatEnergy(entity.getRpm() * (FormattingUtil.getTurbineGenerationModifier(entity.getRpm()) * entity.getEnergyModifier())) : "0 FE" + "/t").withStyle(ChatFormatting.WHITE)));
+            iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.producing")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(entity.isCoilsEngaged() ? FormattingUtil.formatEnergy(entity.getTurbineGeneration()) : "0 FE" + "/t").withStyle(ChatFormatting.WHITE)));
             iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.speed")).withStyle(FormattingUtil.hex(0x55D38A)).append(Component.literal(Math.floor(entity.getRpm() * 100) / 100 + " ").append(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.rpm"))).withStyle(ChatFormatting.WHITE)));
             iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.flowrate")).withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(entity.getCurrentFlowrate() + " mB/t").withStyle(ChatFormatting.WHITE)));
             iProbeInfo.mcText(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.best_performing_at")).withStyle(FormattingUtil.hex(0x55D38A)));

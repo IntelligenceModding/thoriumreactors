@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.CrystallizingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 import java.util.List;
 
@@ -50,8 +50,8 @@ public class CrystallizingRecipeCategory implements IRecipeCategory<Crystallizin
         progress.draw(stack, getGuiLeft() + 31, getGuiTop() + 23);
         tankScale.draw(stack, getGuiLeft() + 1, getGuiTop() + 1);
 
-        RenderUtil.drawCenteredText("Crystallizing", stack, getBackground().getWidth() / 2, 6);
-        RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 71);
+        ScreenUtil.drawCenteredText("Crystallizing", stack, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 71);
     }
 
     public int getGuiTop() {

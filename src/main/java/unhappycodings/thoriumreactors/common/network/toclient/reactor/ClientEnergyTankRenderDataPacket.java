@@ -5,10 +5,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent;
-import unhappycodings.thoriumreactors.common.blockentity.EnergyTankBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.tank.EnergyTankBlockEntity;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
 public class ClientEnergyTankRenderDataPacket implements IPacket {

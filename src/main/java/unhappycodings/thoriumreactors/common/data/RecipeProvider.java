@@ -5,12 +5,10 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
-import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import unhappycodings.thoriumreactors.common.util.ItemUtil;
 
 import java.util.function.Consumer;

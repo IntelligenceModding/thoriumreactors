@@ -10,9 +10,7 @@ public class CommonConfig {
 
     public static ForgeConfigSpec commonConfig;
 
-    //region General
-    public static ForgeConfigSpec.ConfigValue<String> somewhat;
-    //endregion
+    public static ForgeConfigSpec.DoubleValue turbineEnergyGenerationModifier;
 
     static {
         ForgeConfigSpec.Builder commonBuilder = new ForgeConfigSpec.Builder();
@@ -23,7 +21,7 @@ public class CommonConfig {
 
     private static void init(ForgeConfigSpec.Builder commonBuilder) {
         commonBuilder.push("General");
-        //somewhat = commonBuilder.comment("What Color should the overlay at the first corner be [Format: #RRGGBB]").define("first_corner_overlay_color", "#116300");
+        turbineEnergyGenerationModifier = commonBuilder.comment("Modifier of turbine energy generation. 1.0 is default and means normal generation 2.0 means doubled, 0.5 half!").defineInRange("turbine_energy_generation_modifier", 1.0f, 0.0f, 100.0f);
         commonBuilder.pop();
     }
 

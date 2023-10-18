@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.renderer.EnergyTankItemStackRenderer;
 import unhappycodings.thoriumreactors.common.block.tank.EnergyTankBlock;
+import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 
 import java.util.function.Consumer;
 
@@ -39,6 +40,6 @@ public class EnergyTankBlockItem extends BlockItem {
     @NotNull
     @Override
     public Rarity getRarity(@NotNull ItemStack pStack) {
-        return Rarity.COMMON;
+        return block.asItem().getDefaultInstance().is(ModBlocks.CREATIVE_ENERGY_TANK.get().asItem()) ? Rarity.EPIC : Rarity.COMMON;
     }
 }

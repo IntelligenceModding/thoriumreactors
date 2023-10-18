@@ -1,4 +1,4 @@
-// 1.19.2	2023-10-14T13:47:24.999195	Block States: thoriumreactors
+// 1.19.2	2023-10-18T13:32:58.6737539	Block States: thoriumreactors
 f0767c95dd3015417ce1e765ed78f72dccbf3c25 assets/thoriumreactors/blockstates/aluminum_block.json
 3f00fba95c4c4d3886b5c9dbd917fdf841f6ebae assets/thoriumreactors/blockstates/bauxite_ore.json
 1b6984ea8d903a7422a2711ad1b54f4e73131dde assets/thoriumreactors/blockstates/black_factory_block.json
@@ -16,6 +16,7 @@ f1ff332ea15b9599bfa59d78609a2aaceaf4f836 assets/thoriumreactors/blockstates/blas
 fbb3d86a7ee35d9ff159998806710bf219c2154a assets/thoriumreactors/blockstates/chromium_block.json
 9ed47b5235df21737a40bf2f3a6b8deebb0f46ef assets/thoriumreactors/blockstates/cobalt_block.json
 72b159e56e7af44598bf3e086a613c0e064fa6f1 assets/thoriumreactors/blockstates/concentrator_block.json
+8dfd79a543107ef51aeede217a18b35229441380 assets/thoriumreactors/blockstates/creative_energy_tank.json
 279f5b2f614fd102ae750f57004cbb84c4bfdccb assets/thoriumreactors/blockstates/creative_fluid_tank.json
 93bad1081f249f65fcf7ef1b0b6bb8b3bbf8f7b5 assets/thoriumreactors/blockstates/crystallizer_block.json
 63fc1a71e7503950032683b969a2b573d1b6ff2a assets/thoriumreactors/blockstates/decomposer_block.json
@@ -125,6 +126,7 @@ dd164b18b8c5b49278837107b7e550ef3c61afe5 assets/thoriumreactors/models/block/bla
 2cc628fb56e9feb37e8448687999f5a66f5cac73 assets/thoriumreactors/models/block/chromium_block.json
 bb0662e645d36da21a6fa63d480099b88bc9885f assets/thoriumreactors/models/block/cobalt_block.json
 1da9b636f6301ad6e23634b6deb906540927faab assets/thoriumreactors/models/block/concentrator_block.json
+935dcfee7175304ee62307b92d4f47434796f7c2 assets/thoriumreactors/models/block/creative_energy_tank.json
 8af1770d445d0528a104ba933e264fef6b7da8e2 assets/thoriumreactors/models/block/creative_fluid_tank.json
 b3e4bd896f92770c4c833a4b404c2cab28691a47 assets/thoriumreactors/models/block/crystallizer_block.json
 2568fb6dd280d647e36259fdbffbd440b40b25d5 assets/thoriumreactors/models/block/decomposer_block.json

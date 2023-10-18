@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.EvaporatingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 import java.util.List;
 
@@ -50,8 +50,8 @@ public class EvaporatingRecipeCategory implements IRecipeCategory<EvaporatingRec
         progress.draw(stack, getGuiLeft() + 35, getGuiTop() + 13);
         tankGroin1.draw(stack, getGuiLeft() + 1, getGuiTop() + 2);
 
-        RenderUtil.drawCenteredText("Evaporating", stack, getBackground().getWidth() / 2, 6);
-        RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 80);
+        ScreenUtil.drawCenteredText("Evaporating", stack, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 80);
     }
 
     public int getGuiTop() {

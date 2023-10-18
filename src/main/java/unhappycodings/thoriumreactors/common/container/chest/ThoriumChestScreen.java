@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.blockentity.chest.ThoriumChestBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.screen.BaseScreen;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 public class ThoriumChestScreen extends BaseScreen<ThoriumChestContainer> {
     ThoriumChestContainer container;
@@ -24,10 +24,10 @@ public class ThoriumChestScreen extends BaseScreen<ThoriumChestContainer> {
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        RenderUtil.drawText(Component.translatable("block.thoriumreactors.steel_chest_block").withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
-        RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 343, 2, 11184810);
+        ScreenUtil.drawText(Component.translatable("block.thoriumreactors.steel_chest_block").withStyle(ScreenUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), pPoseStack, 343, 2, 11184810);
         pPoseStack.popPose();
-        RenderUtil.drawText(Component.translatable("key.categories.inventory").withStyle(RenderUtil::notoSans), pPoseStack, 44, 163, 11184810);
+        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), pPoseStack, 44, 163, 11184810);
     }
 
     @Override

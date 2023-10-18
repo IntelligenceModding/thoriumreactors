@@ -1,4 +1,4 @@
-// 1.19.2	2023-10-14T13:47:25.0031953	Item Models: thoriumreactors
+// 1.19.2	2023-10-18T13:32:58.6757535	Item Models: thoriumreactors
 04a4c724152af60d219cfae9ca203d2861e972dd assets/thoriumreactors/models/item/aluminum_block.json
 297e1af5609489ae4af515cc8364f140c050db9e assets/thoriumreactors/models/item/aluminum_ingot.json
 992b62b637873048447a8bebaef602f01828282e assets/thoriumreactors/models/item/aluminum_nugget.json
@@ -25,6 +25,7 @@ ce3d2eeb6e9b4b976cbb3309103f6088a812ad37 assets/thoriumreactors/models/item/coba
 bd56218a3aea2eafc2245ae0fa09f7c811192005 assets/thoriumreactors/models/item/cobalt_nugget.json
 205eff03fb9e932bd4e9f8b281a732feb10e59fe assets/thoriumreactors/models/item/concentrator_block.json
 e773b88d2f1d21f7db6acbfdbdbec831300c609a assets/thoriumreactors/models/item/configurator.json
+445c05ef00edbbb67851b6f19eef3033470423ed assets/thoriumreactors/models/item/creative_energy_tank.json
 445c05ef00edbbb67851b6f19eef3033470423ed assets/thoriumreactors/models/item/creative_fluid_tank.json
 a5c5c5eb9a516a5873a6633916909ce8f97cd8b9 assets/thoriumreactors/models/item/crystallizer_block.json
 81f240c8843c592b7f704c2126b09896ad3e0ab0 assets/thoriumreactors/models/item/decomposer_block.json

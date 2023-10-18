@@ -5,14 +5,12 @@ import dan200.computercraft.shared.Capabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.NotNull;
-import unhappycodings.thoriumreactors.common.integration.CCReactorPeripheral;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
+import unhappycodings.thoriumreactors.common.integration.CCReactorPeripheral;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 
 public class ReactorCasingBlockEntity extends ReactorFrameBlockEntity {

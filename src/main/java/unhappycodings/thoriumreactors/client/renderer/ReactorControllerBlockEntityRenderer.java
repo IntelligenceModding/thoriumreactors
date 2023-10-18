@@ -15,7 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.util.RenderUtil;
@@ -73,7 +72,7 @@ public class ReactorControllerBlockEntityRenderer implements BlockEntityRenderer
         stack.pushPose();
         Matrix4f matrix4f = stack.last().pose();
 
-        TextureAtlasSprite icon = unhappycodings.thoriumreactors.common.util.RenderUtil.getStillFluidSprite(fluidStack);
+        TextureAtlasSprite icon = RenderUtil.getStillFluidSprite(fluidStack);
 
         sX = sX / 2;
         sY = sY / 2;
@@ -84,7 +83,7 @@ public class ReactorControllerBlockEntityRenderer implements BlockEntityRenderer
         float v1 = icon.getV(pVOffset);
         float v2 = icon.getV(pHeight);
 
-        int color = unhappycodings.thoriumreactors.common.util.RenderUtil.getColorTint(fluidStack);
+        int color = RenderUtil.getColorTint(fluidStack);
 
         if (perspective == RenderUtil.Perspective.UP) {
             // middle

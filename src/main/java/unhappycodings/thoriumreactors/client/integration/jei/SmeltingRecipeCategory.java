@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.SaltSmeltingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SaltSmeltingRecip
     @Override
     public List<Component> getTooltipStrings(@NotNull SaltSmeltingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         List<Component> list = new ArrayList<>();
-        if (RenderUtil.mouseInArea(getGuiLeft() + 23, getGuiTop() + 26, getGuiLeft() + 38, getGuiTop() + 41, (int) mouseX, (int) mouseY)) {
+        if (ScreenUtil.mouseInArea(getGuiLeft() + 23, getGuiTop() + 26, getGuiLeft() + 38, getGuiTop() + 41, (int) mouseX, (int) mouseY)) {
             list.add(Component.literal(recipe.getTemperature() + "°C"));
         }
         return list;
@@ -59,8 +59,8 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SaltSmeltingRecip
             this.heating = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE_ONE, 240, 231, 16, 16), 80, IDrawableAnimated.StartDirection.BOTTOM, false);
         }
         heating.draw(stack, getGuiLeft() + 23, getGuiTop() + 26);
-        RenderUtil.drawCenteredText("Salt Melting", stack, getBackground().getWidth() / 2, 6);
-        RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", stack, getBackground().getWidth() / 2, getGuiTop() + 60);
+        ScreenUtil.drawCenteredText("Salt Melting", stack, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", stack, getBackground().getWidth() / 2, getGuiTop() + 60);
 
     }
 

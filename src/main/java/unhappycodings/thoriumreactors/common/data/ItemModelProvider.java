@@ -122,6 +122,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_ENERGY_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_ENERGY_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_ENERGY_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.CREATIVE_ENERGY_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.SIMPLE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));

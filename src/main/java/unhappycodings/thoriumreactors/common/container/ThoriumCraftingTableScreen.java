@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.container.base.screen.BaseScreen;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 public class ThoriumCraftingTableScreen extends BaseScreen<ThoriumCraftingTableContainer> {
     ThoriumCraftingTableContainer container;
@@ -22,11 +22,11 @@ public class ThoriumCraftingTableScreen extends BaseScreen<ThoriumCraftingTableC
     @Override
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
 
-        RenderUtil.drawText(Component.translatable("key.categories.inventory").withStyle(RenderUtil::notoSans), pPoseStack, 8, 117, 11184810);
+        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), pPoseStack, 8, 117, 11184810);
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        RenderUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.thorium_crafting_table.name")).withStyle(RenderUtil::notoSans), pPoseStack, 10, 2, 11184810);
-        RenderUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(RenderUtil::notoSans), pPoseStack, 242, 2, 11184810);
+        ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.thorium_crafting_table.name")).withStyle(ScreenUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), pPoseStack, 242, 2, 11184810);
         pPoseStack.popPose();
     }
 

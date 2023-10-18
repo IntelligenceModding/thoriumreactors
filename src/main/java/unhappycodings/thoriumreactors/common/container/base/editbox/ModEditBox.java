@@ -25,7 +25,7 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -463,7 +463,7 @@ public class ModEditBox extends AbstractWidget implements Widget, GuiEventListen
 
             if (!s.isEmpty()) {
                 String s1 = flag ? s.substring(0, j) : s;
-                j1 = this.font.draw(pPoseStack, Component.literal(s1).withStyle(RenderUtil::notoSans), (float) l, (float) i1, i2);
+                j1 = this.font.draw(pPoseStack, Component.literal(s1).withStyle(ScreenUtil::notoSans), (float) l, (float) i1, i2);
             }
 
             boolean flag2 = this.cursorPos < this.value.length() || this.value.length() >= this.getMaxLength();
@@ -476,18 +476,18 @@ public class ModEditBox extends AbstractWidget implements Widget, GuiEventListen
             }
 
             if (!s.isEmpty() && flag && j < s.length()) {
-                this.font.draw(pPoseStack, Component.literal(s.substring(j)).withStyle(RenderUtil::notoSans), (float) j1, (float) i1, i2);
+                this.font.draw(pPoseStack, Component.literal(s.substring(j)).withStyle(ScreenUtil::notoSans), (float) j1, (float) i1, i2);
             }
 
             if (!flag2 && this.suggestion != null) {
-                this.font.draw(pPoseStack, Component.literal(this.suggestion).withStyle(RenderUtil::notoSans), (float) (k1 - 1), (float) i1, -8355712);
+                this.font.draw(pPoseStack, Component.literal(this.suggestion).withStyle(ScreenUtil::notoSans), (float) (k1 - 1), (float) i1, -8355712);
             }
 
             if (flag1) {
                 if (flag2) {
                     GuiComponent.fill(pPoseStack, k1, i1 - 1, k1 + 1, i1 + 1 + 9, -3092272);
                 } else {
-                    this.font.draw(pPoseStack, Component.literal("_").withStyle(RenderUtil::notoSans), (float) k1, (float) i1, i2);
+                    this.font.draw(pPoseStack, Component.literal("_").withStyle(ScreenUtil::notoSans), (float) k1, (float) i1, i2);
                 }
             }
 

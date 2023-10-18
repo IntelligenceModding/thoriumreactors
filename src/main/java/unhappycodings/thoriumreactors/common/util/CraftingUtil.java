@@ -5,7 +5,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.recipe.ThoriumCraftingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;

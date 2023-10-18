@@ -36,7 +36,6 @@ import unhappycodings.thoriumreactors.common.container.machine.MachineFluidEnric
 import unhappycodings.thoriumreactors.common.energy.IEnergyCapable;
 import unhappycodings.thoriumreactors.common.energy.ModEnergyStorage;
 import unhappycodings.thoriumreactors.common.recipe.FluidEnrichingRecipe;
-import unhappycodings.thoriumreactors.common.recipe.OxidizingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModRecipes;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;

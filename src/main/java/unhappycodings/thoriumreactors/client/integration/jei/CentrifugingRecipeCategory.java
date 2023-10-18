@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.CentrifugingRecipe;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.util.RenderUtil;
+import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 import java.util.List;
 
@@ -51,8 +51,8 @@ public class CentrifugingRecipeCategory implements IRecipeCategory<CentrifugingR
         tankScale.draw(stack, getGuiLeft() + 1, getGuiTop() + 1);
         tankScale.draw(stack, getGuiLeft() + 83, getGuiTop() + 2);
 
-        RenderUtil.drawCenteredText("Centrifuging", stack, getBackground().getWidth() / 2, 6);
-        RenderUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 71);
+        ScreenUtil.drawCenteredText("Centrifuging", stack, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 71);
     }
 
     public int getGuiTop() {

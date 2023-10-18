@@ -88,6 +88,8 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.GENERIC_ENERGY_TANK.get().getDescriptionId() + "_description", "Used to store energy in big amounts! Second stage, with bigger capacity");
         add(ModBlocks.PROGRESSIVE_ENERGY_TANK.get(), "Progressive Energy Tank");
         add(ModBlocks.PROGRESSIVE_ENERGY_TANK.get().getDescriptionId() + "_description", "Used to store energy in huge amounts! Last stage, therefore with a huge capacity");
+        add(ModBlocks.CREATIVE_ENERGY_TANK.get(), "Creative Energy Tank");
+        add(ModBlocks.CREATIVE_ENERGY_TANK.get().getDescriptionId() + "_description", "Has infinite storage. Not obtainable in survival!");
 
         add(ModBlocks.SIMPLE_FLUID_TANK.get(), "Simple Fluid Tank");
         add(ModBlocks.SIMPLE_FLUID_TANK.get().getDescriptionId() + "_description", "Used to store fluids in small amounts! First stage of three, with small capacity");

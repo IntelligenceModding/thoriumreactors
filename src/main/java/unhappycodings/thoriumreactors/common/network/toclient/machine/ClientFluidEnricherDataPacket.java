@@ -10,7 +10,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineFluidEnricherBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.machine.MachineUraniumOxidizerBlockEntity;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
 public class ClientFluidEnricherDataPacket implements IPacket {

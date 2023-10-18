@@ -6,7 +6,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.LavaFluid;
 import net.minecraft.world.level.material.WaterFluid;
@@ -46,18 +45,28 @@ public class CompleteItemCreativeTab extends CreativeModeTab {
         }
 
         // Fluid Tanks
-        ArrayList<Block> tanks = new ArrayList<>();
-        Collections.addAll(tanks, ModBlocks.SIMPLE_ENERGY_TANK.get(), ModBlocks.GENERIC_ENERGY_TANK.get(), ModBlocks.PROGRESSIVE_ENERGY_TANK.get(), ModBlocks.SIMPLE_FLUID_TANK.get(), ModBlocks.GENERIC_FLUID_TANK.get(), ModBlocks.PROGRESSIVE_FLUID_TANK.get());
-        for (Block i : tanks) {
+        ArrayList<Block> tanksOne = new ArrayList<>();
+        Collections.addAll(tanksOne, ModBlocks.SIMPLE_ENERGY_TANK.get(), ModBlocks.GENERIC_ENERGY_TANK.get(), ModBlocks.PROGRESSIVE_ENERGY_TANK.get(), ModBlocks.CREATIVE_ENERGY_TANK.get());
+        for (Block i : tanksOne) {
+            items.add(index, new ItemStack(i));
+            index++;
+        }
+        ItemStack blockStack = ModBlocks.CREATIVE_ENERGY_TANK.get().asItem().getDefaultInstance();
+        blockStack.getOrCreateTag().put("BlockEntityTag", writeEnergyToNbt(Integer.MAX_VALUE));
+        items.add(index, blockStack);
+        index++;
+        ArrayList<Block> tanksTwo = new ArrayList<>();
+        Collections.addAll(tanksTwo, ModBlocks.SIMPLE_FLUID_TANK.get(), ModBlocks.GENERIC_FLUID_TANK.get(), ModBlocks.PROGRESSIVE_FLUID_TANK.get());
+        for (Block i : tanksTwo) {
             items.add(index, new ItemStack(i));
             index++;
         }
         for (Fluid fluid : getKnownFluids()) {
             if (fluid instanceof ForgeFlowingFluid.Source || fluid instanceof LavaFluid.Source || fluid instanceof WaterFluid.Source) {
-                ItemStack blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
+                blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
                 FluidStack stack = new FluidStack(fluid, Integer.MAX_VALUE);
 
-                blockStack.getOrCreateTag().put("BlockEntityTag", writeToNBT(stack));
+                blockStack.getOrCreateTag().put("BlockEntityTag", writeFluidToNbt(stack));
                 if (!items.contains(blockStack)) {
                     items.add(index, blockStack);
                     index++;
@@ -91,14 +100,7 @@ public class CompleteItemCreativeTab extends CreativeModeTab {
 
         // Resource Items
         ArrayList<Item> resourceItems = new ArrayList<>();
-        Collections.addAll(resourceItems, ModItems.SODIUM.get(), ModItems.POTASSIUM.get(),
-                ModItems.URAN_THREE_CHLORIDE.get(), ModItems.YELLOW_CAKE.get(), ModItems.THORIUM.get(), ModItems.RAW_URANIUM.get(),
-                ModItems.ENRICHED_URANIUM.get(), ModItems.DEPLETED_URANIUM.get(), ModItems.FLUORITE.get(), ModItems.GRAPHITE_CRYSTAL.get(), ModItems.CHROMIUM_NUGGET.get(), ModItems.GRAPHITE_NUGGET.get(), ModItems.STEEL_NUGGET.get(), ModItems.BLASTED_IRON_NUGGET.get(), ModItems.TITANIUM_NUGGET.get(),
-                ModItems.MOLYBDENUM_NUGGET.get(), ModItems.COBALT_NUGGET.get(), ModItems.FLUORITE_NUGGET.get(), ModItems.NICKEL_NUGGET.get(),
-                ModItems.URANIUM_NUGGET.get(), ModItems.ALUMINUM_NUGGET.get(), ModItems.MANGANESE_NUGGET.get(), ModItems.NIOB_NUGGET.get(), ModItems.CHROMIUM_INGOT.get(), ModItems.GRAPHITE_INGOT.get(), ModItems.STEEL_INGOT.get(), ModItems.BLASTED_IRON_INGOT.get(),
-                ModItems.TITANIUM_INGOT.get(), ModItems.MOLYBDENUM_INGOT.get(), ModItems.COBALT_INGOT.get(), ModItems.FLUORITE_INGOT.get(),
-                ModItems.NICKEL_INGOT.get(), ModItems.URANIUM_INGOT.get(), ModItems.ALUMINUM_INGOT.get(), ModItems.MANGANESE_INGOT.get(),
-                ModItems.NIOB_INGOT.get());
+        Collections.addAll(resourceItems, ModItems.SODIUM.get(), ModItems.POTASSIUM.get(), ModItems.URAN_THREE_CHLORIDE.get(), ModItems.YELLOW_CAKE.get(), ModItems.THORIUM.get(), ModItems.RAW_URANIUM.get(), ModItems.ENRICHED_URANIUM.get(), ModItems.DEPLETED_URANIUM.get(), ModItems.FLUORITE.get(), ModItems.GRAPHITE_CRYSTAL.get(), ModItems.CHROMIUM_NUGGET.get(), ModItems.GRAPHITE_NUGGET.get(), ModItems.STEEL_NUGGET.get(), ModItems.BLASTED_IRON_NUGGET.get(), ModItems.TITANIUM_NUGGET.get(), ModItems.MOLYBDENUM_NUGGET.get(), ModItems.COBALT_NUGGET.get(), ModItems.FLUORITE_NUGGET.get(), ModItems.NICKEL_NUGGET.get(), ModItems.URANIUM_NUGGET.get(), ModItems.ALUMINUM_NUGGET.get(), ModItems.MANGANESE_NUGGET.get(), ModItems.NIOB_NUGGET.get(), ModItems.CHROMIUM_INGOT.get(), ModItems.GRAPHITE_INGOT.get(), ModItems.STEEL_INGOT.get(), ModItems.BLASTED_IRON_INGOT.get(), ModItems.TITANIUM_INGOT.get(), ModItems.MOLYBDENUM_INGOT.get(), ModItems.COBALT_INGOT.get(), ModItems.FLUORITE_INGOT.get(), ModItems.NICKEL_INGOT.get(), ModItems.URANIUM_INGOT.get(), ModItems.ALUMINUM_INGOT.get(), ModItems.MANGANESE_INGOT.get(), ModItems.NIOB_INGOT.get());
         for (Item i : resourceItems) {
             items.add(index, new ItemStack(i));
             index++;
@@ -106,16 +108,7 @@ public class CompleteItemCreativeTab extends CreativeModeTab {
 
         // Resource Blocks
         ArrayList<Block> resourceBlocks = new ArrayList<>();
-        Collections.addAll(resourceBlocks, ModBlocks.CHROMIUM_BLOCK.get(), ModBlocks.GRAPHITE_BLOCK.get(), ModBlocks.STEEL_BLOCK.get(),
-                ModBlocks.BLASTED_IRON_BLOCK.get(), ModBlocks.TITANIUM_BLOCK.get(), ModBlocks.MOLYBDENUM_BLOCK.get(), ModBlocks.COBALT_BLOCK.get(),
-                ModBlocks.FLUORITE_BLOCK.get(), ModBlocks.NICKEL_BLOCK.get(), ModBlocks.URANIUM_BLOCK.get(), ModBlocks.ALUMINUM_BLOCK.get(), ModBlocks.MANGANESE_BLOCK.get(),
-                ModBlocks.NIOB_BLOCK.get(), ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get(), ModBlocks.TITANIC_IRON_ORE.get(), ModBlocks.DEEPSLATE_CHROMITE_ORE.get(),
-                ModBlocks.CHROMITE_ORE.get(), ModBlocks.DEEPSLATE_GRAPHITE_ORE.get(), ModBlocks.GRAPHITE_ORE.get(),
-                ModBlocks.DEEPSLATE_MOLYBDENUM_ORE.get(), ModBlocks.MOLYBDENUM_ORE.get(), ModBlocks.DEEPSLATE_FLUORITE_ORE.get(),
-                ModBlocks.FLUORITE_ORE.get(), ModBlocks.DEEPSLATE_NICKEL_ORE.get(), ModBlocks.NICKEL_ORE.get(),
-                ModBlocks.DEEPSLATE_URANIUM_ORE.get(), ModBlocks.URANIUM_ORE.get(), ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get(),
-                ModBlocks.PYROCHLOR_ORE.get(), ModBlocks.DEEPSLATE_MANGANESE_ORE.get(), ModBlocks.MANGANESE_ORE.get(),
-                ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), ModBlocks.BAUXITE_ORE.get(), ModBlocks.BLASTED_STONE.get());
+        Collections.addAll(resourceBlocks, ModBlocks.CHROMIUM_BLOCK.get(), ModBlocks.GRAPHITE_BLOCK.get(), ModBlocks.STEEL_BLOCK.get(), ModBlocks.BLASTED_IRON_BLOCK.get(), ModBlocks.TITANIUM_BLOCK.get(), ModBlocks.MOLYBDENUM_BLOCK.get(), ModBlocks.COBALT_BLOCK.get(), ModBlocks.FLUORITE_BLOCK.get(), ModBlocks.NICKEL_BLOCK.get(), ModBlocks.URANIUM_BLOCK.get(), ModBlocks.ALUMINUM_BLOCK.get(), ModBlocks.MANGANESE_BLOCK.get(), ModBlocks.NIOB_BLOCK.get(), ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get(), ModBlocks.TITANIC_IRON_ORE.get(), ModBlocks.DEEPSLATE_CHROMITE_ORE.get(), ModBlocks.CHROMITE_ORE.get(), ModBlocks.DEEPSLATE_GRAPHITE_ORE.get(), ModBlocks.GRAPHITE_ORE.get(), ModBlocks.DEEPSLATE_MOLYBDENUM_ORE.get(), ModBlocks.MOLYBDENUM_ORE.get(), ModBlocks.DEEPSLATE_FLUORITE_ORE.get(), ModBlocks.FLUORITE_ORE.get(), ModBlocks.DEEPSLATE_NICKEL_ORE.get(), ModBlocks.NICKEL_ORE.get(), ModBlocks.DEEPSLATE_URANIUM_ORE.get(), ModBlocks.URANIUM_ORE.get(), ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get(), ModBlocks.PYROCHLOR_ORE.get(), ModBlocks.DEEPSLATE_MANGANESE_ORE.get(), ModBlocks.MANGANESE_ORE.get(), ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), ModBlocks.BAUXITE_ORE.get(), ModBlocks.BLASTED_STONE.get());
         for (Block i : resourceBlocks) {
             items.add(index, new ItemStack(i));
             index++;
@@ -123,25 +116,26 @@ public class CompleteItemCreativeTab extends CreativeModeTab {
 
         // Building Blocks
         ArrayList<Block> buildingBlocks = new ArrayList<>();
-        Collections.addAll(buildingBlocks, ModBlocks.INDUSTRAL_BLOCK.get(), ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(),
-                ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(),
-                ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get(),
-                ModBlocks.FACTORY_BLOCK.get(), ModBlocks.INVERTED_FACTORY_BLOCK.get(), ModBlocks.BLACK_FACTORY_BLOCK.get(), ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get(),
-                ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get(),
-                ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.GRATE_FLOOR_BLOCK.get());
+        Collections.addAll(buildingBlocks, ModBlocks.INDUSTRAL_BLOCK.get(), ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.FACTORY_BLOCK.get(), ModBlocks.INVERTED_FACTORY_BLOCK.get(), ModBlocks.BLACK_FACTORY_BLOCK.get(), ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get(), ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.GRATE_FLOOR_BLOCK.get());
         for (Block i : buildingBlocks) {
             items.add(index, new ItemStack(i));
             index++;
         }
     }
 
-    public CompoundTag writeToNBT(FluidStack fluidStack) {
+    public CompoundTag writeFluidToNbt(FluidStack fluidStack) {
         CompoundTag dataTag = new CompoundTag();
         CompoundTag fluidTag = new CompoundTag();
         dataTag.putString("FluidName", ForgeRegistries.FLUIDS.getKey(fluidStack.getFluid()).toString());
         dataTag.putInt("Amount", fluidStack.getAmount());
 
         fluidTag.put("Fluid", dataTag);
+        return fluidTag;
+    }
+
+    public CompoundTag writeEnergyToNbt(int energy) {
+        CompoundTag fluidTag = new CompoundTag();
+        fluidTag.putInt("Energy", energy);
         return fluidTag;
     }
 

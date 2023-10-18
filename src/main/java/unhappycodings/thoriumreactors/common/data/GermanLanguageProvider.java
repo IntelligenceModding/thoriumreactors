@@ -84,6 +84,12 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
 
         add(ModBlocks.SIMPLE_ENERGY_TANK.get(), "Einfacher Energietank");
         add(ModBlocks.SIMPLE_ENERGY_TANK.get().getDescriptionId() + "_description", "Wird verwendet, um Energie in kleinen Mengen zu speichern! Erste Stufe von drei, mit geringer Kapazität");
+        add(ModBlocks.GENERIC_ENERGY_TANK.get(), "Generischer Energietank");
+        add(ModBlocks.GENERIC_ENERGY_TANK.get().getDescriptionId() + "_description", "Wird verwendet, um Energie in großen Mengen zu speichern! Zweite Stufe, mit größerer Kapazität");
+        add(ModBlocks.PROGRESSIVE_ENERGY_TANK.get(), "Progressiver Energietank");
+        add(ModBlocks.PROGRESSIVE_ENERGY_TANK.get().getDescriptionId() + "_description", "Wird verwendet, um Energie in riesigen Mengen zu speichern! Letzte Stufe, mit größter Kapazität");
+        add(ModBlocks.CREATIVE_ENERGY_TANK.get(), "Kreativ Energietank");
+        add(ModBlocks.CREATIVE_ENERGY_TANK.get().getDescriptionId() + "_description", "Hat unbegrenzte Kapazität. In Überleben nicht erhältlich!");
 
         add(ModBlocks.SIMPLE_FLUID_TANK.get(), "Einfacher Flüssigkeitstank");
         add(ModBlocks.SIMPLE_FLUID_TANK.get().getDescriptionId() + "_description", "Wird verwendet, um Flüssigkeiten in kleinen Mengen zu speichern! Erste Stufe von drei, mit geringer Kapazität");
