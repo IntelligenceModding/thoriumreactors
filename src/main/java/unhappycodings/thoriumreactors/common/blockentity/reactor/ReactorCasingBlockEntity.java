@@ -20,7 +20,7 @@ public class ReactorCasingBlockEntity extends ReactorFrameBlockEntity {
     }
 
     protected CCReactorPeripheral peripheral;
-    private LazyOptional<IPeripheral> peripheralCap;
+    private LazyOptional<?> peripheralCap;
 
     /**
      * When a computer modem tries to wrap our block, the modem will call getCapability to receive our peripheral.
