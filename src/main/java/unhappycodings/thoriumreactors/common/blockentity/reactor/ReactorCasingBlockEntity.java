@@ -1,6 +1,5 @@
 package unhappycodings.thoriumreactors.common.blockentity.reactor;
 
-import dan200.computercraft.api.peripheral.IPeripheral;
 import dan200.computercraft.shared.Capabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -16,6 +16,7 @@
     "     "
   ],
   "result": {
-    "item": "thoriumreactors:industrial_block_floor"
+    "item": "thoriumreactors:industrial_block_floor",
+    "count": 16
   }
 }
