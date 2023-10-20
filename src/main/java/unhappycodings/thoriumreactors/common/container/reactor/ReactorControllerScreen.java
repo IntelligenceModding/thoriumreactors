@@ -289,7 +289,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
             // blinking indicators
             String status = entity.isScrammed() ? "SCRAM" : ((entity.getReactorCurrentTemperature() / 971) * 100) > 104 ? ((entity.getReactorCurrentTemperature() / 971) * 100) > 114 ? "CRITICAL" : "OVERLOAD" : "NORMAL";
-            blit(matrixStack, xPos - 205, yPos + 340, (ticks % 20 < 10 ? 991 : 1003) + (entity.isScrammed() ? -24 : 0), 154, 12, 12, 1024, 1024); // left right bottom
+            blit(matrixStack, xPos - 205, yPos + 342, (ticks % 20 < 10 ? 991 : 1003) + (entity.isScrammed() ? -24 : 0), 154, 12, 12, 1024, 1024); // left right bottom
             blit(matrixStack, xPos + (450 - Minecraft.getInstance().font.width(status) * 2 - 8), yPos + 181, (ticks % 20 < 10 ? 991 : 1003) - (entity.isScrammed() ? 24 : 0) - (((entity.getReactorCurrentTemperature() / 971) * 100) > 104 && !entity.isScrammed() ? 24 : 0), 154 + (entity.isScrammed() ? 0 : 12), 12, 12, 1024, 1024); // left right bottom
         }
 
@@ -311,7 +311,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             blit(matrixStack, xPos + 627, yPos + 301, 166, scramButton.isMouseOver(curMouseX, curMouseY) ? 540 : 506, 80, 34, 1024, 1024);
 
             // turbine buttons
-            TurbineControllerBlockEntity targetEntity = entity.getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) : null;
+            TurbineControllerBlockEntity targetEntity = !entity.getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) : null;
             if (targetEntity != null) {
                 blit(matrixStack, xPos + 590, yPos + 86, 82, (!coilEngageButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (targetEntity.isCoilsEngaged() ? 44 : 0), 52, 22, 1024, 1024);
                 blit(matrixStack, xPos + 655, yPos + 86, 30, (!coilDisengageButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (!targetEntity.isCoilsEngaged() ? 44 : 0), 52, 22, 1024, 1024);
@@ -457,6 +457,12 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         } else if (increase && selectedTurbine + 1 < this.container.getTile().getTurbinePos().size()) {
             selectedTurbine++;
         }
+        generationIntegers = 0;
+        generationGraphValues = new Float[93];
+        speedIntegers = 0;
+        speedGraphValues = new Float[93];
+        flowIntegers = 0;
+        flowGraphValues = new Float[93];
     }
 
     public void resetWidgets() {
@@ -579,14 +585,14 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
         // normal text
         pPoseStack.pushPose();
-        ScreenUtil.drawText(Component.translatable(entity.isScrammed() ? FormattingUtil.getTranslatable("reactor.text.scram") : ((entity.getReactorCurrentTemperature() / 971) * 100) > 104 ? ((entity.getReactorCurrentTemperature() / 971) * 100) > 114 ? FormattingUtil.getTranslatable("reactor.text.critical") : FormattingUtil.getTranslatable("reactor.text.overload") : FormattingUtil.getTranslatable("reactor.text.normal")).withStyle(ScreenUtil::notoSans), pPoseStack, -130, 141, entity.isScrammed() ? 11075598 : 16711422);
+        ScreenUtil.drawText(Component.translatable(entity.isScrammed() ? FormattingUtil.getTranslatable("reactor.text.scram") : ((entity.getReactorCurrentTemperature() / 971) * 100) > 104 ? ((entity.getReactorCurrentTemperature() / 971) * 100) > 114 ? FormattingUtil.getTranslatable("reactor.text.critical") : FormattingUtil.getTranslatable("reactor.text.overload") : FormattingUtil.getTranslatable("reactor.text.normal")).withStyle(ScreenUtil::notoSans), pPoseStack, -132, 141, entity.isScrammed() ? 11075598 : 16711422);
         pPoseStack.popPose();
 
         // big text
         pPoseStack.pushPose();
-        pPoseStack.scale(1.8f, 1.8f, 1.8f);
+        pPoseStack.scale(1.7f, 1.7f, 1.7f);
         float value = (float) (Math.floor((entity.getReactorStatus()) * 10f) / 10f);
-        ScreenUtil.drawRightboundText(Component.literal((entity.getReactorStatus() == 100f ? "100" : value) + "%").withStyle(ScreenUtil::notoSans), pPoseStack, -25, 77, 16711422);
+        ScreenUtil.drawRightboundText(Component.literal((entity.getReactorStatus() == 100f ? "100" : value) + "%").withStyle(ScreenUtil::notoSans), pPoseStack, -26, 80, 16711422);
         pPoseStack.popPose();
     }
 
@@ -598,13 +604,13 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
                 fuelValue += container.getTile().getFuelRodStatus()[i];
         }
 
-        TurbineControllerBlockEntity targetEntity = entity.getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) : null;
+        TurbineControllerBlockEntity targetEntity = !entity.getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) : null;
 
         // very, very small text
         pPoseStack.pushPose();
         pPoseStack.scale(0.4f, 0.4f, 0.4f);
         ScreenUtil.drawCenteredText(Component.literal((targetEntity != null ? (int) targetEntity.getTargetFlowrate() : 0) + "mb").withStyle(ScreenUtil::notoSans), pPoseStack, 587, 63, 16711422);
-        ScreenUtil.drawCenteredText(Component.literal(entity.getTurbinePos().isEmpty() ? entity.turbinePos.get(selectedTurbine).toString().replace("BlockPos{", "").replace("}", "") : "").withStyle(ScreenUtil::notoSans), pPoseStack, 676, -22, 16711422);
+        ScreenUtil.drawCenteredText(Component.literal(!entity.getTurbinePos().isEmpty() ? entity.turbinePos.get(selectedTurbine).toString().replace("BlockPos{", "").replace("}", "") : "").withStyle(ScreenUtil::notoSans), pPoseStack, 676, -22, 16711422);
 
         ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.enriched")).withStyle(ScreenUtil::notoSans), pPoseStack, 577, 407, 16711422);
         ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.molten_salt")).withStyle(ScreenUtil::notoSans), pPoseStack, 577, 433, 16711422);
@@ -688,7 +694,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         ScreenUtil.drawCenteredText(Component.literal(entity.getNotification()).withStyle(ScreenUtil::notoSans), pPoseStack, this.getXSize() / 2, 170, 16711422);
 
         // Graphs
-        TurbineControllerBlockEntity targetEntity = entity.getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) : null;
+        TurbineControllerBlockEntity targetEntity = !entity.getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) : null;
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.temp")).append(Component.literal(", °C")).withStyle(ScreenUtil::notoSans), pPoseStack, -21, 189, 11184810);
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.flow")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.mbs")))).withStyle(ScreenUtil::notoSans), pPoseStack, 47, 189, 11184810);
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.speed_cap")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.rpm")))).withStyle(ScreenUtil::notoSans), pPoseStack, 117, 189, 11184810);
@@ -696,7 +702,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         ScreenUtil.drawCenteredText(Component.literal(String.valueOf(Math.round(entity.getReactorCurrentTemperature() * 10f) / 10f)).withStyle(ScreenUtil::notoSans), pPoseStack, 7, 202, 16711422);
         ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? targetEntity.getCurrentFlowrate() : 0f)).withStyle(ScreenUtil::notoSans), pPoseStack, 76, 202, 16711422);
         ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? Math.floor(targetEntity.getRpm() * 100f) / 100f : 0f)).withStyle(ScreenUtil::notoSans), pPoseStack, 145, 202, 16711422);
-        ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? targetEntity.getTurbineGeneration() : "")).withStyle(ScreenUtil::notoSans), pPoseStack, 215, 202, 16711422);
+        ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? targetEntity.getTurbineGeneration() : 0f)).withStyle(ScreenUtil::notoSans), pPoseStack, 215, 202, 16711422);
         pPoseStack.popPose();
 
         // normal text
