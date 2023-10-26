@@ -3,8 +3,8 @@
   "textures": {
     "down": "thoriumreactors:block/machine_valve_blue",
     "east": "thoriumreactors:block/machine_valve_cyan",
-    "north": "thoriumreactors:block/machine_no_front",
-    "particle": "thoriumreactors:block/machine_no_front",
+    "north": "thoriumreactors:block/fluid_enricher",
+    "particle": "thoriumreactors:block/fluid_enricher",
     "south": "thoriumreactors:block/machine_power",
     "up": "thoriumreactors:block/machine_vent",
     "west": "thoriumreactors:block/machine_valve_yellow"

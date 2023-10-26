@@ -472,9 +472,8 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
 
     public boolean isExchangerActive() {
         if (level.getBlockEntity(thermalPos) instanceof ThermalControllerBlockEntity entity) {
-            return entity.getConversions() > 0;
-        };
-
+            return entity.getConversions() > 3;
+        }
         return false;
     }
 

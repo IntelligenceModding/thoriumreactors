@@ -396,6 +396,12 @@
     },
     "done": true
   },
+  "thoriumreactors:recipes/thoriumreactors/cobalt_nugget_craft_from_ingot": {
+    "criteria": {
+      "has_cobalt_ingot": "2023-10-26 01:41:30 +0200"
+    },
+    "done": true
+  },
   "thoriumreactors:turbine_casing": {
     "criteria": {
       "requirement": "2023-10-17 10:11:55 +0200"
@@ -408,12 +414,6 @@
     },
     "done": true
   },
-  "thoriumreactors:turbine_glass": {
-    "criteria": {
-      "requirement": "2023-10-17 10:11:57 +0200"
-    },
-    "done": true
-  },
   "minecraft:recipes/decorations/soul_campfire": {
     "criteria": {
       "has_stick": "2023-10-17 10:06:56 +0200"
@@ -423,6 +423,12 @@
   "minecraft:recipes/combat/crossbow": {
     "criteria": {
       "has_stick": "2023-10-17 10:06:56 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_glass": {
+    "criteria": {
+      "requirement": "2023-10-17 10:11:57 +0200"
     },
     "done": true
   },
@@ -471,6 +477,12 @@
   "minecraft:recipes/building_blocks/glass": {
     "criteria": {
       "has_sand": "2023-10-17 08:37:25 +0200"
+    },
+    "done": true
+  },
+  "thoriumreactors:recipes/thoriumreactors/cobalt_block_craft_from_ingot": {
+    "criteria": {
+      "has_cobalt_ingot": "2023-10-26 01:41:31 +0200"
     },
     "done": true
   },
