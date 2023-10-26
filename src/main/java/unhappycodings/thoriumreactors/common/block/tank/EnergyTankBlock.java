@@ -23,6 +23,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,6 +49,12 @@ public class EnergyTankBlock extends BaseEntityBlock {
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         CompoundTag tag = pStack.getOrCreateTag().getCompound("BlockEntityTag");
+
+        if (this.defaultBlockState().is(ModBlocks.CREATIVE_ENERGY_TANK.get()) && tag.getInt("Energy") == Integer.MAX_VALUE) {
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.energy")).withStyle(FormattingUtil.hex(0x3FD023)).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite")).withStyle(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.capacity")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite")).withStyle(ChatFormatting.GRAY)));
+            return;
+        }
 
         if (tag.get("Energy") == null) {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.not_placed")).withStyle(FormattingUtil.hex(0xCE1F0A)));

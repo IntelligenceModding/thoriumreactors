@@ -51,9 +51,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
     @Override
     public void addProbeInfo(ProbeMode probeMode, IProbeInfo iProbeInfo, Player player, Level level, BlockState blockState, IProbeHitData iProbeHitData) {
         if (!player.isShiftKeyDown() || probeMode != ProbeMode.EXTENDED) return;
-
         if (level.getBlockEntity(iProbeHitData.getPos()) instanceof FluidTankBlockEntity) {
-
             for (Direction value : Direction.values()) {
                 level.getBlockEntity(iProbeHitData.getPos()).getCapability(ForgeCapabilities.FLUID_HANDLER, value).ifPresent(storage -> {
                     boolean isCreative = storage.getFluidInTank(0).getAmount() == Integer.MAX_VALUE;
@@ -63,9 +61,8 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
                 return;
             }
         } else if (level.getBlockEntity(iProbeHitData.getPos()) instanceof EnergyTankBlockEntity entity) {
-
-            iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(Component.translatable(FormattingUtil.getTranslatable("machines.top_info.energy"))).progress(entity.getEnergy(), entity.getCapacity(), iProbeInfo.defaultProgressStyle().filledColor(COLOR_A).alternateFilledColor(COLOR_B).backgroundColor(Color.rgb(255, 255, 255, 255)).borderColor(Color.rgb(65, 65, 65, 255)).numberFormat(NumberFormat.COMMAS).suffix(" FE").showText(true));
-
+            boolean isCreative = entity.getEnergy() == Integer.MAX_VALUE;
+            iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(Component.translatable(FormattingUtil.getTranslatable("machines.top_info.energy"))).progress(entity.getEnergy(), entity.getCapacity(), iProbeInfo.defaultProgressStyle().filledColor(COLOR_A).alternateFilledColor(COLOR_B).backgroundColor(Color.rgb(255, 255, 255, 255)).borderColor(Color.rgb(65, 65, 65, 255)).numberFormat(isCreative ? NumberFormat.NONE : NumberFormat.FULL).suffix(isCreative ? "Infinite " : " FE").showText(true));
         } else if (level.getBlockEntity(iProbeHitData.getPos()) instanceof TurbineControllerBlockEntity entity) {
 
             if (!entity.isActivated()) {
