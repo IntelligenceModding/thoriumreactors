@@ -10,6 +10,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -34,6 +35,12 @@ public class ConfiguratorItem extends Item {
     @Override
     public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
         return toolAction == WRENCH;
+    }
+
+    @NotNull
+    @Override
+    public Rarity getRarity(@NotNull ItemStack pStack) {
+        return Rarity.RARE;
     }
 
     @SuppressWarnings("ConstantConditions")
