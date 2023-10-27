@@ -111,7 +111,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public static void onTextureStitchEvent(TextureStitchEvent.Pre event) {
+    public static void onTextureStitchEvent(TextureStitchEvent event) {
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_chest"));
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/steel_chest"));
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/blasted_iron_chest"));
