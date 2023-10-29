@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.client.gui.widgets;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.sounds.SoundManager;
@@ -10,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.gui.GuiUtil;
 import unhappycodings.thoriumreactors.client.gui.widgets.base.BaseWidget;
+import unhappycodings.thoriumreactors.common.container.base.screen.BaseScreen;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerScreen;
 
 import java.util.Collections;
@@ -37,13 +39,6 @@ public class ModButton extends BaseWidget {
     }
 
     @Override
-    public void renderToolTip(@NotNull PoseStack matrixStack, int mouseX, int mouseY) {
-        super.renderToolTip(matrixStack, mouseX, mouseY);
-        if (hoverText != null && isMouseOver(mouseX, mouseY))
-            renderComponentTooltip(matrixStack, Collections.singletonList(hoverText.get()), mouseX, mouseY);
-    }
-
-    @Override
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
         if (ReactorControllerScreen.incrementerFlow != null && ReactorControllerScreen.incrementerFlow.isMouseOver(pMouseX, pMouseY) && pButton == 1) {
             if (isValid != null && isValid.get() && onClickReverse != null) {
@@ -52,6 +47,11 @@ public class ModButton extends BaseWidget {
             }
         }
         return super.mouseClicked(pMouseX, pMouseY, pButton);
+    }
+
+    @Override
+    protected void renderWidget(@NotNull GuiGraphics graphics, int x, int y, float partialTicks) {
+        render(graphics, x, y, partialTicks);
     }
 
     @Override
@@ -66,18 +66,18 @@ public class ModButton extends BaseWidget {
     }
 
     @Override
-    public void render(@NotNull PoseStack matrixStack, int x, int y, float partialTicks) {
-        super.render(matrixStack, x, y, partialTicks);
+    public void render(@NotNull GuiGraphics graphics, int x, int y, float partialTicks) {
+        super.render(graphics, x, y, partialTicks);
         GuiUtil.bind(texture);
 
         if (!isMouseOver(x, y) || (isValid != null && !isValid.get()))
-            blit(matrixStack, this.x, this.y, 0, 0, width, height, tX, tY);
+            graphics.blit(texture, this.getX(), this.getY(), 0, 0, width, height, tX, tY);
         if (isMouseOver(x, y) && (isValid != null && isValid.get()))
-            blit(matrixStack, this.x, this.y, 0, tY / 2f, width, height, tX, tY);
+            graphics.blit(texture, this.getX(), this.getY(), 0, tY / 2f, width, height, tX, tY);
     }
 
     @Override
-    public void updateNarration(@NotNull NarrationElementOutput pNarrationElementOutput) {
+    protected void updateWidgetNarration(NarrationElementOutput pNarrationElementOutput) {
         // overridden by purpose
     }
 

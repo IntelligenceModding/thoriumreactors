@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -43,21 +44,21 @@ public class ElectrolysingRecipeCategory implements IRecipeCategory<Electrolysin
     }
 
     @Override
-    public void draw(@NotNull ElectrolysingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(ElectrolysingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         if (progressUp == null) {
             this.progressUp = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 235, 236, 20, 7), recipe.getTicks(), IDrawableAnimated.StartDirection.BOTTOM, false);
             this.progressDown = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 235, 250, 20, 6), recipe.getTicks(), IDrawableAnimated.StartDirection.TOP, false);
             this.tankScaleL = helper.createDrawable(TEXTURE, 242, 168, 4, 63); // 1st stage
             this.tankScaleR = helper.createDrawable(TEXTURE, 246, 168, 4, 41); // 2nd stage
         }
-        progressUp.draw(stack, getGuiLeft() + 41, getGuiTop() + 19);
-        progressDown.draw(stack, getGuiLeft() + 41, getGuiTop() + 32);
-        tankScaleL.draw(stack, getGuiLeft() + 1, getGuiTop() + 2);
-        tankScaleR.draw(stack, getGuiLeft() + 83, getGuiTop() + 24);
+        progressUp.draw(guiGraphics, getGuiLeft() + 41, getGuiTop() + 19);
+        progressDown.draw(guiGraphics, getGuiLeft() + 41, getGuiTop() + 32);
+        tankScaleL.draw(guiGraphics, getGuiLeft() + 1, getGuiTop() + 2);
+        tankScaleR.draw(guiGraphics, getGuiLeft() + 83, getGuiTop() + 24);
 
-        ScreenUtil.drawCenteredText("Electrolytic Separation", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 71);
+        ScreenUtil.drawCenteredText("Electrolytic Separation", guiGraphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 71);
     }
 
     public int getGuiTop() {
@@ -106,6 +107,6 @@ public class ElectrolysingRecipeCategory implements IRecipeCategory<Electrolysin
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));
         builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 83, getGuiTop() + 23).setFluidRenderer(3000, true, 18, 44)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getResultFluid(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getResultFluid().getAmount()))));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 84, getGuiTop() + 1).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 84, getGuiTop() + 1).addItemStack(recipe.getResultItem(null));
     }
 }

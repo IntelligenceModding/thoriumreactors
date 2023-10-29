@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.container.machine;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -42,8 +43,8 @@ public class MachineElectrolyticSaltSeparatorScreen extends MachineScreen<Machin
     }
 
     @Override
-    protected void renderBg(@NotNull PoseStack matrixStack, float partialTicks, int x, int y) {
-        super.renderBg(matrixStack, partialTicks, x, y);
+    protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int x, int y) {
+        super.renderBg(graphics, partialTicks, x, y);
         MachineElectrolyticSaltSeparatorBlockEntity entity = this.container.getTile();
         RenderUtil.renderFluid(getGuiLeft() + 36, getGuiTop() + 64, 45, 16, entity.getFluidAmountIn(), entity.getFluidCapacityIn(), Fluids.WATER);
         RenderUtil.renderFluid(getGuiLeft() + 36 + 16, getGuiTop() + 64, 45, 2, entity.getFluidAmountIn(), entity.getFluidCapacityIn(), Fluids.WATER);
@@ -54,58 +55,59 @@ public class MachineElectrolyticSaltSeparatorScreen extends MachineScreen<Machin
 
         RenderUtil.resetGuiTextures(getTexture());
         int energyBlitSize = (int) Math.floor(38 / ((double) 25000 / entity.getEnergy()));
-        blit(matrixStack, getGuiLeft() + 153, getGuiTop() + 25 + (38 - energyBlitSize), 176, 14, 9, energyBlitSize); // Energy Tank
-        blit(matrixStack, getGuiLeft() + 119, getGuiTop() + 42, 180, 52, 2, 22); // Right Tank
-        blit(matrixStack, getGuiLeft() + 37, getGuiTop() + 20, 176, 52, 4, 45); // Left Tank
+        graphics.blit(getTexture(), getGuiLeft() + 153, getGuiTop() + 25 + (38 - energyBlitSize), 176, 14, 9, energyBlitSize); // Energy Tank
+        graphics.blit(getTexture(), getGuiLeft() + 119, getGuiTop() + 42, 180, 52, 2, 22); // Right Tank
+        graphics.blit(getTexture(), getGuiLeft() + 37, getGuiTop() + 20, 176, 52, 4, 45); // Left Tank
 
         int height = entity.getMaxRecipeTime() != 0 ? 6 - (int) Math.floor((entity.getRecipeTime() / 200f) * 6) : 0;
-        blit(matrixStack, getGuiLeft() + 77, getGuiTop() + 39 + (6 - height), 185, (6 - height), 20, height); // Top Process
-        blit(matrixStack, getGuiLeft() + 77, getGuiTop() + 52, 185, 13, 20, height); // Bottom Process
+        graphics.blit(getTexture(), getGuiLeft() + 77, getGuiTop() + 39 + (6 - height), 185, (6 - height), 20, height); // Top Process
+        graphics.blit(getTexture(), getGuiLeft() + 77, getGuiTop() + 52, 185, 13, 20, height); // Bottom Process
 
         if (entity.getEnergy() > 0) {
-            blit(matrixStack, getGuiLeft() + 77, getGuiTop() + 34, 185, 19, 21, 3); // Top Pole
-            blit(matrixStack, getGuiLeft() + 77, getGuiTop() + 60, 185, 22, 21, 3); // Bottom Pole
+            graphics.blit(getTexture(), getGuiLeft() + 77, getGuiTop() + 34, 185, 19, 21, 3); // Top Pole
+            graphics.blit(getTexture(), getGuiLeft() + 77, getGuiTop() + 60, 185, 22, 21, 3); // Bottom Pole
         }
 
         if (entity.isInputDump())
-            blit(matrixStack, getGuiLeft() + 35, getGuiTop() + 91, 185, 25, 1, 3); // Left Dump - Green
-        else blit(matrixStack, getGuiLeft() + 35, getGuiTop() + 94, 185, 28, 1, 3); // Left Dump - Red
+            graphics.blit(getTexture(), getGuiLeft() + 35, getGuiTop() + 91, 185, 25, 1, 3); // Left Dump - Green
+        else graphics.blit(getTexture(), getGuiLeft() + 35, getGuiTop() + 94, 185, 28, 1, 3); // Left Dump - Red
 
         if (entity.isOutputDump())
-            blit(matrixStack, getGuiLeft() + 117, getGuiTop() + 91, 185, 25, 1, 3); // Right Dump - Green
-        else blit(matrixStack, getGuiLeft() + 117, getGuiTop() + 94, 185, 28, 1, 3); // Right Dump - Red
+            graphics.blit(getTexture(), getGuiLeft() + 117, getGuiTop() + 91, 185, 25, 1, 3); // Right Dump - Green
+        else graphics.blit(getTexture(), getGuiLeft() + 117, getGuiTop() + 94, 185, 28, 1, 3); // Right Dump - Red
 
         if (entity.getState())
-            blit(matrixStack, getGuiLeft() + 81, getGuiTop() + 89, 185, 25, 6, 1); // Power Indicator - Green
-        else blit(matrixStack, getGuiLeft() + 88, getGuiTop() + 89, 185, 28, 6, 1); // Power Indicator - Green
+            graphics.blit(getTexture(), getGuiLeft() + 81, getGuiTop() + 89, 185, 25, 6, 1); // Power Indicator - Green
+        else graphics.blit(getTexture(), getGuiLeft() + 88, getGuiTop() + 89, 185, 28, 6, 1); // Power Indicator - Green
     }
 
     @Override
-    protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        super.renderLabels(pPoseStack, pMouseX, pMouseY);
+    protected void renderLabels(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY) {
+        super.renderLabels(graphics, pMouseX, pMouseY);
         MachineElectrolyticSaltSeparatorBlockEntity entity = this.container.getTile();
+        PoseStack pPoseStack = graphics.pose();
 
-        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), pPoseStack, 8, 102, 11184810);
+        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), graphics, 8, 102, 11184810);
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.electrolytic_salt_separator.name")).withStyle(ScreenUtil::notoSans), pPoseStack, 10, 2, 11184810);
-        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), pPoseStack, 242, 2, 11184810);
+        ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.electrolytic_salt_separator.name")).withStyle(ScreenUtil::notoSans), graphics, 10, 2, 11184810);
+        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), graphics, 242, 2, 11184810);
         pPoseStack.popPose();
-        ScreenUtil.drawCenteredText(Component.translatable(entity.getState() ? FormattingUtil.getTranslatable("machines.state.running") : FormattingUtil.getTranslatable("machines.state.idle")).withStyle(ScreenUtil::notoSans), pPoseStack, 87, 78, 4182051);
+        ScreenUtil.drawCenteredText(Component.translatable(entity.getState() ? FormattingUtil.getTranslatable("machines.state.running") : FormattingUtil.getTranslatable("machines.state.idle")).withStyle(ScreenUtil::notoSans), graphics, 87, 78, 4182051);
 
         if (ScreenUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});
+            appendHoverText(graphics, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});
         if (ScreenUtil.mouseInArea(getGuiLeft() + 37, getGuiTop() + 20, getGuiLeft() + 54, getGuiTop() + 64, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new Component[]{entity.getFluidAmountIn() > 0 ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.fluid")).append(" ").append(entity.getFluidIn().getFluid().getFluidType().getDescription().getString()) : Component.empty(), Component.literal(entity.getFluidAmountIn() + " mb / " + entity.getFluidCapacityIn() + " mb"), Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true))});
+            appendHoverText(graphics, pMouseX, pMouseY, new Component[]{entity.getFluidAmountIn() > 0 ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.fluid")).append(" ").append(entity.getFluidIn().getFluid().getFluidType().getDescription().getString()) : Component.empty(), Component.literal(entity.getFluidAmountIn() + " mb / " + entity.getFluidCapacityIn() + " mb"), Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true))});
         if (ScreenUtil.mouseInArea(getGuiLeft() + 119, getGuiTop() + 42, getGuiLeft() + 136, getGuiTop() + 64, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new Component[]{entity.getFluidAmountOut() > 0 ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.fluid")).append(" ").append(entity.getFluidOut().getFluid().getFluidType().getDescription().getString()) : Component.empty(), Component.literal(entity.getFluidAmountOut() + " mb / " + entity.getFluidCapacityOut() + " mb"), Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountOut(), entity.getFluidCapacityOut(), true))});
+            appendHoverText(graphics, pMouseX, pMouseY, new Component[]{entity.getFluidAmountOut() > 0 ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.fluid")).append(" ").append(entity.getFluidOut().getFluid().getFluidType().getDescription().getString()) : Component.empty(), Component.literal(entity.getFluidAmountOut() + " mb / " + entity.getFluidCapacityOut() + " mb"), Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountOut(), entity.getFluidCapacityOut(), true))});
 
         if (ScreenUtil.mouseInArea(getGuiLeft() + 34, getGuiTop() + 90, getGuiLeft() + 36, getGuiTop() + 97, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new Component[]{Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.auto_dump")).append(" " + entity.isInputDump()), Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.only_while_running"))});
+            appendHoverText(graphics, pMouseX, pMouseY, new Component[]{Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.auto_dump")).append(" " + entity.isInputDump()), Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.only_while_running"))});
         if (ScreenUtil.mouseInArea(getGuiLeft() + 116, getGuiTop() + 90, getGuiLeft() + 118, getGuiTop() + 97, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new Component[]{Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.auto_dump")).append(" " + entity.isOutputDump()), Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.only_while_running"))});
+            appendHoverText(graphics, pMouseX, pMouseY, new Component[]{Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.auto_dump")).append(" " + entity.isOutputDump()), Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.only_while_running"))});
         if (ScreenUtil.mouseInArea(getGuiLeft() + 37, getGuiTop() + 90, getGuiLeft() + 55, getGuiTop() + 97, pMouseX, pMouseY) || ScreenUtil.mouseInArea(getGuiLeft() + 119, getGuiTop() + 90, getGuiLeft() + 137, getGuiTop() + 97, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new Component[]{Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.dump_instantly"))});
+            appendHoverText(graphics, pMouseX, pMouseY, new Component[]{Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.dump_instantly"))});
 
     }
 

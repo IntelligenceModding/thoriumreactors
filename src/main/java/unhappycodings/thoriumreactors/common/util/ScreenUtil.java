@@ -1,7 +1,8 @@
 package unhappycodings.thoriumreactors.common.util;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
@@ -26,52 +27,52 @@ public class ScreenUtil {
         return style.withFont(new ResourceLocation(ThoriumReactors.MOD_ID, "notosans"));
     }
 
-    public static void drawRightboundText(String text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text)), y, 1315860);
+    public static void drawRightboundText(String text, GuiGraphics graphics, int x, int y) {
+        graphics.drawString(Minecraft.getInstance().font, text, x - (Minecraft.getInstance().font.width(text)), y, 1315860);
     }
 
-    public static void drawRightboundText(String text, PoseStack stack, int x, int y, int color) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text)), y, color);
+    public static void drawRightboundText(String text, GuiGraphics graphics, int x, int y, int color) {
+        drawRightboundText(Component.literal(text), graphics, x, y, color);
     }
 
-    public static void drawRightboundText(MutableComponent text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text)), y, 1315860);
+    public static void drawRightboundText(MutableComponent text, GuiGraphics graphics, int x, int y) {
+        graphics.drawString(Minecraft.getInstance().font, text, x - (Minecraft.getInstance().font.width(text)), y, 1315860);
     }
 
-    public static void drawRightboundText(MutableComponent text, PoseStack stack, int x, int y, int color) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text)), y, color);
+    public static void drawRightboundText(MutableComponent text, GuiGraphics graphics, int x, int y, int color) {
+        graphics.drawString(Minecraft.getInstance().font, text, x - (Minecraft.getInstance().font.width(text)), y, color);
     }
 
-    public static void drawCenteredText(String text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, 1315860);
+    public static void drawCenteredText(String text, GuiGraphics graphics, int x, int y) {
+        drawCenteredText(Component.literal(text), graphics, x, y);
     }
 
-    public static void drawCenteredText(String text, PoseStack stack, int x, int y, int color) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, color);
+    public static void drawCenteredText(String text, GuiGraphics graphics, int x, int y, int color) {
+        drawCenteredText(Component.literal(text), graphics, x, y, color);
     }
 
-    public static void drawCenteredText(MutableComponent text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, 1315860);
+    public static void drawCenteredText(MutableComponent text, GuiGraphics graphics, int x, int y) {
+        graphics.drawCenteredString(Minecraft.getInstance().font, text, x, y, 1315860);
     }
 
-    public static void drawCenteredText(MutableComponent text, PoseStack stack, int x, int y, int color) {
-        Minecraft.getInstance().font.draw(stack, text, x - (Minecraft.getInstance().font.width(text) / 2f), y, color);
+    public static void drawCenteredText(MutableComponent text, GuiGraphics graphics, int x, int y, int color) {
+        graphics.drawCenteredString(Minecraft.getInstance().font, text, x, y, color);
     }
 
-    public static void drawText(String text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, x, y, 1315860);
+    public static void drawText(String text, GuiGraphics graphics, int x, int y) {
+        drawText(Component.literal(text), graphics, x, y);
     }
 
-    public static void drawText(MutableComponent text, PoseStack stack, int x, int y) {
-        Minecraft.getInstance().font.draw(stack, text, x, y, 1315860);
+    public static void drawText(MutableComponent text, GuiGraphics graphics, int x, int y) {
+        graphics.drawString(Minecraft.getInstance().font, text, x, y, 1315860);
     }
 
-    public static void drawText(String text, PoseStack stack, int x, int y, int color) {
-        Minecraft.getInstance().font.draw(stack, text, x, y, color);
+    public static void drawText(String text, GuiGraphics graphics, int x, int y, int color) {
+        drawText(Component.literal(text), graphics, x, y, color);
     }
 
-    public static void drawText(MutableComponent text, PoseStack stack, int x, int y, int color) {
-        Minecraft.getInstance().font.draw(stack, text, x, y, color);
+    public static void drawText(MutableComponent text, GuiGraphics graphics, int x, int y, int color) {
+        graphics.drawString(Minecraft.getInstance().font, text, x, y, color);
     }
 
 }

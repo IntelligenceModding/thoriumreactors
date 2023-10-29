@@ -29,8 +29,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -53,7 +53,7 @@ public class MachineCrystallizerBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public MachineCrystallizerBlock() {
-        super(Properties.of(Material.STONE).strength(5f));
+        super(Properties.copy(Blocks.STONE).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false));
     }
 
@@ -72,8 +72,8 @@ public class MachineCrystallizerBlock extends BaseEntityBlock {
     @SuppressWarnings("deprecation")
     @NotNull
     @Override
-    public List<ItemStack> getDrops(@NotNull BlockState pState, LootContext.Builder pBuilder) {
-        return Collections.singletonList(LootUtil.getLoot(pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
+    public List<ItemStack> getDrops(@NotNull BlockState pState, LootParams.@NotNull Builder pParams) {
+        return Collections.singletonList(LootUtil.getLoot(pParams.getParameter(LootContextParams.BLOCK_ENTITY), this));
     }
 
     @Override

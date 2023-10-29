@@ -1,0 +1,44 @@
+reactor = peripheral.find("thorium_reactor")
+monitor = peripheral.find("monitor")
+
+monitor.clear()
+
+monitor.setCursorPos(15,1)
+monitor.write("Turbine")
+monitor.setCursorPos(1,2)
+monitor.write("Turbines: " .. reactor.getTurbineCount())
+
+offset = 3
+for i=reactor.getTurbineCount() - 1,0,-1 do
+    monitor.setCursorPos(1,offset)
+    monitor.write("Turbine #" .. i)
+    monitor.setCursorPos(20,offset)
+    monitor.write("x:" .. reactor.getTurbinePosition(i).x .. " y:" .. reactor.getTurbinePosition(i).y .. " z:" .. reactor.getTurbinePosition(i).z)
+    monitor.setCursorPos(20,offset + 1)
+    monitor.write(tostring(reactor.isTurbineActive(i) and "Active" or "Inactive"))
+    monitor.setCursorPos(30,offset + 1)
+    monitor.write(tostring(reactor.isTurbineAssembled(i) and "Assembled" or "Incomplete"))
+    monitor.setCursorPos(20,offset + 2)
+    monitor.write(string.format("%.1f", reactor.getTurbineGeneration(i)) .. "FE/t")
+    monitor.setCursorPos(20,offset + 3)
+    monitor.write(string.format("%.1f", reactor.getTurbineSpeed(i)) .. "RPM")
+    monitor.setCursorPos(30,offset + 3)
+    monitor.write(string.format("%.1f", reactor.getTurbineHeight(i)) .. "B")
+    monitor.setCursorPos(20,offset + 4)
+    monitor.write(tostring(reactor.getTurbineCurrentFlow(i)) .. " / " .. tostring(reactor.getTurbineTargetFlow(i)) .. "mB/t")
+    offset = offset + 5
+end
+
+offset = offset + 1
+monitor.setCursorPos(15,offset)
+monitor.write("Reactor")
+monitor.setCursorPos(1,offset + 1)
+monitor.write(reactor.isAssembled() and "Assembled" or "Incomplete")
+monitor.setCursorPos(30,offset + 1)
+monitor.write(string.upper(reactor.getReactorState()))
+monitor.setCursorPos(1,offset + 2)
+monitor.write("Temperature: " .. string.format("%.1f", reactor.getReactorCurrentTemperature()) .. " / " .. string.format("%.1f", reactor.getReactorTargetTemperature()) .. "°C")
+monitor.setCursorPos(1,offset + 3) 
+monitor.write("Molten Salt: " .. tostring(reactor.getReactorFluidAmountIn()) .. " / " .. tostring(reactor.getReactorFluidCapacityIn()) .. "mB")
+monitor.setCursorPos(1,offset + 4) 
+monitor.write("Heated Molten Salt: " .. tostring(reactor.getReactorFluidAmountOut()) .. " / " .. tostring(reactor.getReactorFluidCapacityOut()) .. "mB")

@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -45,7 +46,7 @@ public class EvaporatingRecipe implements Recipe<SimpleContainer> {
 
     @NotNull
     @Override
-    public ItemStack assemble(@NotNull SimpleContainer container) {
+    public ItemStack assemble(@NotNull SimpleContainer container, @Nullable RegistryAccess pRegistryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -56,7 +57,7 @@ public class EvaporatingRecipe implements Recipe<SimpleContainer> {
 
     @NotNull
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(@Nullable RegistryAccess pRegistryAccess) {
         return outputSlot.getItems()[0];
     }
 

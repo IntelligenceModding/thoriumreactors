@@ -6,7 +6,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -18,7 +18,7 @@ import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineGlassBlo
 public class TurbineGlassBlock extends TurbineFrameBlock {
 
     public TurbineGlassBlock() {
-        super(Properties.of(Material.GLASS).noOcclusion().sound(SoundType.GLASS).strength(3f));
+        super(Properties.copy(Blocks.GLASS).noOcclusion().sound(SoundType.GLASS).strength(3f));
     }
 
     @SuppressWarnings("deprecation")

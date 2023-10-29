@@ -11,6 +11,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -50,18 +51,18 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
     }
 
     @Override
-    public void draw(@NotNull BlastingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(@NotNull BlastingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         if (progress == null || heating == null) {
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 222, 247, 34, 9), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
             this.heating = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 240, 231, 16, 16), 80, IDrawableAnimated.StartDirection.BOTTOM, false);
         }
-        progress.draw(stack, 10 + 43, 20 + 21);
-        heating.draw(stack, 10 + 52, 20);
-        ScreenUtil.drawCenteredText("Blasting", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", stack, getBackground().getWidth() / 2, 20 + 40);
+        progress.draw(guiGraphics, 10 + 43, 20 + 21);
+        heating.draw(guiGraphics, 10 + 52, 20);
+        ScreenUtil.drawCenteredText("Blasting", guiGraphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", guiGraphics, getBackground().getWidth() / 2, 20 + 40);
         if (recipe.getSecondaryChance() > 0)
-            ScreenUtil.drawCenteredText(recipe.getSecondaryChance() + "%", stack, 120, 20 + 40);
+            ScreenUtil.drawCenteredText(recipe.getSecondaryChance() + "%", guiGraphics, 120, 20 + 40);
 
     }
 
@@ -93,7 +94,7 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
     public void setRecipe(IRecipeLayoutBuilder builder, BlastingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, 10 + 1, 20 + 18).addItemStack(recipe.getIngredients().get(0).getItems()[0]);
         builder.addSlot(RecipeIngredientRole.INPUT, 10 + 22, 20 + 18).addItemStack(recipe.getIngredients().get(1).getItems().length > 0 ? recipe.getIngredients().get(1).getItems()[0] : ItemStack.EMPTY);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 10 + 81, 20 + 18).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 10 + 81, 20 + 18).addItemStack(recipe.getResultItem(null));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 10 + 81 + 18, 20 + 18).addItemStack(recipe.getSecondaryResultItem());
     }
 }

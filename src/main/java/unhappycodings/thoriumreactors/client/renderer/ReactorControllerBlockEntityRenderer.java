@@ -2,7 +2,7 @@ package unhappycodings.thoriumreactors.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
+import org.joml.Matrix4f;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -71,8 +71,8 @@ public class ReactorControllerBlockEntityRenderer implements BlockEntityRenderer
     public static void drawPlane(PoseStack stack, VertexConsumer buffer, FluidStack fluidStack, RenderUtil.Perspective perspective, float height, float pX, float pY, float pZ, float sX, float sY, float sZ, float pUOffset, float pVOffset, float pWidth, float pHeight, float yHeightOffset, int pPackedLight) {
         stack.pushPose();
         Matrix4f matrix4f = stack.last().pose();
-
         TextureAtlasSprite icon = RenderUtil.getStillFluidSprite(fluidStack);
+        if (icon == null) return;
 
         sX = sX / 2;
         sY = sY / 2;

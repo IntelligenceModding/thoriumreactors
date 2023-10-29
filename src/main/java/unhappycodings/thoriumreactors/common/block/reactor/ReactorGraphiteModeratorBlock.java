@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +32,7 @@ public class ReactorGraphiteModeratorBlock extends ReactorFrameBlock implements 
     public static final VoxelShape ALL = Block.box(4, 0, 4, 11.5, 16, 11.5);
 
     public ReactorGraphiteModeratorBlock() {
-        super(Properties.of(Material.STONE).strength(5f));
+        super(Properties.copy(Blocks.STONE).strength(5f));
         this.registerDefaultState(this.defaultBlockState().setValue(SALTLOGGED, false));
     }
 

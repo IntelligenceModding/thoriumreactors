@@ -1,7 +1,7 @@
 package unhappycodings.thoriumreactors.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -17,6 +17,7 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineBladeModel;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineRotorModel;
@@ -52,7 +53,7 @@ public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> impleme
         if (entity.isAssembled()) {
             poseStack.pushPose();
             poseStack.translate(0.5f + getRenderOffset(OffsetType.X, facing), -0.5f, 0.5f + getRenderOffset(OffsetType.Y, facing));
-            poseStack.mulPose(Vector3f.YN.rotation(entity.getRotation() / 5.1F));
+            poseStack.mulPose(Axis.YN.rotation(entity.getRotation() / 5.1F));
             for (int i = 0; i < entity.getTurbineHeight() - 1; i++) {
                 if (i < entity.getTurbineHeight() - 3) {
                     modelTurbine.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.entityCutout(new ResourceLocation(ThoriumReactors.MOD_ID, "textures/block/turbine_blades.png"))), getLightLevel(level, rotorPos), pPackedOverlay, 1f, 1f, 1f, 1f);

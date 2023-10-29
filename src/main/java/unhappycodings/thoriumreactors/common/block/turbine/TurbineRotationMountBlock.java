@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.turbine.base.TurbineFrameBlock;
@@ -19,7 +19,7 @@ public class TurbineRotationMountBlock extends TurbineFrameBlock {
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
 
     public TurbineRotationMountBlock() {
-        super(Properties.of(Material.METAL).strength(5f));
+        super(Properties.copy(Blocks.IRON_BLOCK).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 

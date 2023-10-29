@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.container.machine;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -40,42 +41,43 @@ public class MachineBlastFurnaceScreen extends MachineScreen<MachineBlastFurnace
     }
 
     @Override
-    protected void renderBg(@NotNull PoseStack matrixStack, float partialTicks, int x, int y) {
-        super.renderBg(matrixStack, partialTicks, x, y);
+    protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int x, int y) {
+        super.renderBg(graphics, partialTicks, x, y);
         MachineBlastFurnaceBlockEntity entity = this.container.getTile();
 
         int energyBlitSize = (int) Math.floor(38 / ((double) 25000 / entity.getEnergy()));
-        blit(matrixStack, getGuiLeft() + 153, getGuiTop() + 25 + (38 - energyBlitSize), 176, 14, 9, energyBlitSize); // Energy Tank
+        graphics.blit(getTexture(), getGuiLeft() + 153, getGuiTop() + 25 + (38 - energyBlitSize), 176, 14, 9, energyBlitSize); // Energy Tank
 
         int fanBlitSize = (int) Math.floor(16 / ((double) entity.getWorkingDegree() / entity.getDegree()));
-        blit(matrixStack, getGuiLeft() + 79, getGuiTop() + 27 + (16 - fanBlitSize), 190, 0 + (16 - fanBlitSize), 16, fanBlitSize); // Degree
+        graphics.blit(getTexture(), getGuiLeft() + 79, getGuiTop() + 27 + (16 - fanBlitSize), 190, 0 + (16 - fanBlitSize), 16, fanBlitSize); // Degree
 
         int height = entity.getMaxRecipeTime() != 0 ? 34 - (int) Math.floor((entity.getRecipeTime() / (float) entity.getMaxRecipeTime()) * 34) : 0;
-        blit(matrixStack, getGuiLeft() + 70, getGuiTop() + 48, 184, 16, height, 11); // Progress
+        graphics.blit(getTexture(), getGuiLeft() + 70, getGuiTop() + 48, 184, 16, height, 11); // Progress
 
         if (entity.getState())
-            blit(matrixStack, getGuiLeft() + 81, getGuiTop() + 89, 177, 8, 6, 1); // Power Indicator - Green
-        else blit(matrixStack, getGuiLeft() + 88, getGuiTop() + 89, 177, 11, 6, 1); // Power Indicator - Red
+            graphics.blit(getTexture(), getGuiLeft() + 81, getGuiTop() + 89, 177, 8, 6, 1); // Power Indicator - Green
+        else graphics.blit(getTexture(), getGuiLeft() + 88, getGuiTop() + 89, 177, 11, 6, 1); // Power Indicator - Red
     }
 
     @Override
-    protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        super.renderLabels(pPoseStack, pMouseX, pMouseY);
+    protected void renderLabels(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY) {
+        super.renderLabels(graphics, pMouseX, pMouseY);
         MachineBlastFurnaceBlockEntity entity = this.container.getTile();
+        PoseStack pPoseStack = graphics.pose();
 
-        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), pPoseStack, 8, 102, 11184810);
+        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), graphics, 8, 102, 11184810);
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.blast_furnace.name")).withStyle(ScreenUtil::notoSans), pPoseStack, 10, 2, 11184810);
-        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), pPoseStack, 242, 2, 11184810);
+        ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.blast_furnace.name")).withStyle(ScreenUtil::notoSans), graphics, 10, 2, 11184810);
+        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), graphics, 242, 2, 11184810);
         pPoseStack.popPose();
-        ScreenUtil.drawCenteredText(Component.translatable(entity.getState() ? FormattingUtil.getTranslatable("machines.state.running") : FormattingUtil.getTranslatable("machines.state.idle")).withStyle(ScreenUtil::notoSans), pPoseStack, 87, 78, 4182051);
+        ScreenUtil.drawCenteredText(Component.translatable(entity.getState() ? FormattingUtil.getTranslatable("machines.state.running") : FormattingUtil.getTranslatable("machines.state.idle")).withStyle(ScreenUtil::notoSans), graphics, 87, 78, 4182051);
 
         if (ScreenUtil.mouseInArea(getGuiLeft() + 79, getGuiTop() + 27, getGuiLeft() + 94, getGuiTop() + 42, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{entity.getDegree() + "°C (" + FormattingUtil.formatPercentNum(entity.getDegree() - 25, entity.getWorkingDegree() - 25, false) + ")"});
+            appendHoverText(graphics, pMouseX, pMouseY, new String[]{entity.getDegree() + "°C (" + FormattingUtil.formatPercentNum(entity.getDegree() - 25, entity.getWorkingDegree() - 25, false) + ")"});
 
         if (ScreenUtil.mouseInArea(getGuiLeft() + 153, getGuiTop() + 25, getGuiLeft() + 161, getGuiTop() + 62, pMouseX, pMouseY))
-            appendHoverText(pPoseStack, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});
+            appendHoverText(graphics, pMouseX, pMouseY, new String[]{FormattingUtil.formatEnergy(entity.getEnergy()) + " / " + FormattingUtil.formatEnergy(entity.getCapacity()), FormattingUtil.formatPercentNum(entity.getEnergy(), entity.getCapacity(), true)});
 
     }
 

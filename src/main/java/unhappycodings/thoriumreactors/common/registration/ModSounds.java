@@ -37,7 +37,7 @@ public class ModSounds {
     }
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-        return Registration.SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(ThoriumReactors.MOD_ID, name)));
+        return Registration.SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ThoriumReactors.MOD_ID, name)));
     }
 
 }

@@ -21,7 +21,7 @@ public class EnergyTankBlockItem extends BlockItem {
     private final EnergyTankBlock block;
 
     public EnergyTankBlockItem(RegistryObject<EnergyTankBlock> block) {
-        super(block.get(), new Properties().tab(ThoriumReactors.creativeTab));
+        super(block.get(), new Properties());
         this.block = block.get();
     }
 

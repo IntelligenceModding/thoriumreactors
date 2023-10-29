@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:thorium"
+    },
+    {
+      "item": "thoriumreactors:thorium"
+    },
+    {
+      "item": "thoriumreactors:thorium"
+    },
+    {
+      "item": "thoriumreactors:thorium"
+    },
+    {
+      "item": "thoriumreactors:thorium"
+    },
+    {
+      "item": "thoriumreactors:thorium"
+    },
+    {
+      "item": "thoriumreactors:thorium"
+    },
+    {
+      "item": "thoriumreactors:thorium"
+    },
+    {
+      "item": "thoriumreactors:thorium"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:thorium_block"
+  }
+}

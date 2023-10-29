@@ -63,6 +63,6 @@ public class ThoriumCraftingRecipeCategory implements IRecipeCategory<ThoriumCra
                 index++;
             }
         }
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 143 - 12, 53 - 16).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 143 - 12, 53 - 16).addItemStack(recipe.getResultItem(null));
     }
 }

@@ -68,4 +68,6 @@ public class ModFluids {
             ModFluidTypes.STEAM, SOURCE_STEAM, FLOWING_STEAM)
             .slopeFindDistance(1).levelDecreasePerBlock(1).block(ModBlocks.STEAM_BLOCK).bucket(ModItems.STEAM_BUCKET);
 
+    public static void register() {}
+
 }

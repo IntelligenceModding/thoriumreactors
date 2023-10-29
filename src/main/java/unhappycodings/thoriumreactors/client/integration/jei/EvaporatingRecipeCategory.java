@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -41,17 +42,17 @@ public class EvaporatingRecipeCategory implements IRecipeCategory<EvaporatingRec
     }
 
     @Override
-    public void draw(@NotNull EvaporatingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(@NotNull EvaporatingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics graphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, graphics, mouseX, mouseY);
         if (progress == null) {
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 202, 234, 32, 22), recipe.getTicks(), IDrawableAnimated.StartDirection.BOTTOM, false);
             this.tankGroin1 = helper.createDrawable(TEXTURE, 242, 168, 4, 63); // 2nd stage
         }
-        progress.draw(stack, getGuiLeft() + 35, getGuiTop() + 13);
-        tankGroin1.draw(stack, getGuiLeft() + 1, getGuiTop() + 2);
+        progress.draw(graphics, getGuiLeft() + 35, getGuiTop() + 13);
+        tankGroin1.draw(graphics, getGuiLeft() + 1, getGuiTop() + 2);
 
-        ScreenUtil.drawCenteredText("Evaporating", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 80);
+        ScreenUtil.drawCenteredText("Evaporating", graphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", graphics, getBackground().getWidth() / 2, 80);
     }
 
     public int getGuiTop() {
@@ -98,6 +99,6 @@ public class EvaporatingRecipeCategory implements IRecipeCategory<EvaporatingRec
     public void setRecipe(IRecipeLayoutBuilder builder, EvaporatingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).setFluidRenderer(3000, true, 18, 66)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 83, getGuiTop() + 22).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 83, getGuiTop() + 22).addItemStack(recipe.getResultItem(null));
     }
 }

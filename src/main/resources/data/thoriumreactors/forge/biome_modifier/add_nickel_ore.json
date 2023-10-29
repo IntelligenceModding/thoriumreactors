@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "thoriumreactors:nickel_ore_placed",
+  "features": "thoriumreactors:nickel_ore",
   "step": "underground_ores"
 }

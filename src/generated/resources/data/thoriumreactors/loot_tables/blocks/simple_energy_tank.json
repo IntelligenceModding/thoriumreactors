@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "thoriumreactors:blocks/simple_energy_tank"
 }

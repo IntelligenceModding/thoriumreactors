@@ -12,7 +12,7 @@ import unhappycodings.thoriumreactors.common.util.ItemUtil;
 public class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
 
     public ItemModelProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, ThoriumReactors.MOD_ID, exFileHelper);
+        super(gen.getPackOutput(), ThoriumReactors.MOD_ID, exFileHelper);
     }
 
     @Override

@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +46,7 @@ public class ReactorControllerBlock extends ReactorFrameBlock {
     public static final BooleanProperty SCRAMMED = BooleanProperty.create("scrammed");
 
     public ReactorControllerBlock() {
-        super(Properties.of(Material.METAL).strength(5f));
+        super(Properties.copy(Blocks.IRON_BLOCK).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false).setValue(SCRAMMED, false));
     }
 
@@ -67,7 +67,7 @@ public class ReactorControllerBlock extends ReactorFrameBlock {
     public InteractionResult use(@NotNull BlockState state, @NotNull Level levelIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
 
         ReactorControllerBlockEntity entity = (ReactorControllerBlockEntity) levelIn.getBlockEntity(pos);
-        if (player.level.isClientSide) return InteractionResult.SUCCESS;
+        if (player.level().isClientSide) return InteractionResult.SUCCESS;
         if (!entity.isAssembled()) {
             Direction facing = state.getValue(FACING);
             boolean canBeAssembled = false;

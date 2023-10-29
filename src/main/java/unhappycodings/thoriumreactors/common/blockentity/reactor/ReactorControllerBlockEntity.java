@@ -316,7 +316,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -2, p.getY() -1, p.getZ() -2, p.getX() + 3, p.getY() + getReactorHeight(), p.getZ() + 3));
 
         for (ServerPlayer player : players) {
-            player.hurt(ModDamageSources.OVERDOSIS, Float.MAX_VALUE);
+            player.hurt(level.damageSources().source(ModDamageSources.OVERDOSIS), Float.MAX_VALUE);
         }
     }
 

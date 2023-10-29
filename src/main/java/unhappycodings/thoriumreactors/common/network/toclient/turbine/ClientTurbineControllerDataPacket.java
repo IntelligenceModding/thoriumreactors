@@ -35,7 +35,7 @@ public class ClientTurbineControllerDataPacket implements IPacket {
     @SuppressWarnings("ConstantConditions")
     public void handle(NetworkEvent.Context context) {
         LocalPlayer player = Minecraft.getInstance().player;
-        BlockEntity machine = player.level.getBlockEntity(pos);
+        BlockEntity machine = player.level().getBlockEntity(pos);
         if (!(machine instanceof TurbineControllerBlockEntity blockEntity)) return;
         blockEntity.setCoilsEngaged(coilsEngaged);
         blockEntity.setActivated(activated);

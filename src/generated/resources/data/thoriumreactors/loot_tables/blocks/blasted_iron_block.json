@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "thoriumreactors:blocks/blasted_iron_block"
 }

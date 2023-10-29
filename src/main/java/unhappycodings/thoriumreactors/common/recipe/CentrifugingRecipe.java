@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -35,7 +36,7 @@ public class CentrifugingRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(@NotNull SimpleContainer container, Level level) {
+    public boolean matches(@NotNull SimpleContainer container, @NotNull Level level) {
         return false;
     }
 
@@ -46,7 +47,7 @@ public class CentrifugingRecipe implements Recipe<SimpleContainer> {
 
     @NotNull
     @Override
-    public ItemStack assemble(@NotNull SimpleContainer container) {
+    public ItemStack assemble(@Nullable SimpleContainer pContainer, @NotNull RegistryAccess pRegistryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -57,7 +58,7 @@ public class CentrifugingRecipe implements Recipe<SimpleContainer> {
 
     @NotNull
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(@Nullable RegistryAccess pRegistryAccess) {
         return ItemStack.EMPTY;
     }
 

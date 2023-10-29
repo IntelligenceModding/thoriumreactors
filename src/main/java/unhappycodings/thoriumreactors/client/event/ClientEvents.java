@@ -8,7 +8,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -110,13 +109,13 @@ public class ClientEvents {
         event.registerLayerDefinition(TurbineRotorModel.LAYER_LOCATION, TurbineRotorModel::createBodyLayer);
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void onTextureStitchEvent(TextureStitchEvent event) {
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_chest"));
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/steel_chest"));
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/blasted_iron_chest"));
         event.addSprite(new ResourceLocation(ThoriumReactors.MOD_ID, "block/energy"));
 
-    }
+    }*/
 
 }

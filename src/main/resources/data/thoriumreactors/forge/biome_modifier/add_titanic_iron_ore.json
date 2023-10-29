@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "thoriumreactors:titanic_iron_ore_placed",
+  "features": "thoriumreactors:titanic_iron_ore",
   "step": "underground_ores"
 }

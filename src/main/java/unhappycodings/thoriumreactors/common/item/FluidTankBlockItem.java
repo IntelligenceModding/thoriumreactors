@@ -22,7 +22,7 @@ public class FluidTankBlockItem extends BlockItem {
     private final FluidTankBlock block;
 
     public FluidTankBlockItem(RegistryObject<FluidTankBlock> block) {
-        super(block.get(), new Item.Properties().tab(ThoriumReactors.creativeTab));
+        super(block.get(), new Item.Properties());
         this.block = block.get();
     }
 

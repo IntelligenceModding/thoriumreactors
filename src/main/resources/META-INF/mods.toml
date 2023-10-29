@@ -14,27 +14,20 @@ description = ""
 [[dependencies.thoriumreactors]]
 modId = "forge"
 mandatory = true
-versionRange = "[43,)"
+versionRange = "[47.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.thoriumreactors]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.2,1.20)"
+versionRange = "[1.20.1,1.21)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.thoriumreactors]]
-modId = "ctm"
-mandatory = false
-versionRange = "[1.1.7+11,)"
-ordering = "NONE"
-side = "CLIENT"
-
-[[dependencies.thoriumreactors]]
 modId = "computercraft"
 mandatory = false
-versionRange = "[1.101.3,)"
+versionRange = "[1.108.3,)"
 ordering = "NONE"
 side = "BOTH"

@@ -25,7 +25,7 @@ public class CraftingUtil {
 
         if (recipe.isPresent()) {
             if (recipe.get().matches(inventory, entity.getLevel())) {
-                ItemStack result = recipe.get().getResultItem();
+                ItemStack result = recipe.get().getResultItem(null);
                 if (result.is(ModBlocks.STEEL_CHEST_BLOCK.get().asItem()) || result.is(ModBlocks.THORIUM_CHEST_BLOCK.get().asItem())) {
                     CompoundTag tag = entity.getItem(17).getOrCreateTag();
                     if (!tag.isEmpty())

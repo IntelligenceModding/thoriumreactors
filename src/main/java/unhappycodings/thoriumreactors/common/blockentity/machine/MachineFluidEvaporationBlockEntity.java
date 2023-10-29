@@ -201,7 +201,7 @@ public class MachineFluidEvaporationBlockEntity extends MachineContainerBlockEnt
             if (evaporatingRecipe.matchesFluid(getFluidIn()) && recipeTime == 0 && maxRecipeTime == 0) {
                 setRecipeDefinedTicks(evaporatingRecipe.getTicks());
                 setInputFluid(evaporatingRecipe.getFluidIngredient());
-                setOutputItem(evaporatingRecipe.getResultItem());
+                setOutputItem(evaporatingRecipe.getResultItem(null));
                 setOperationAfterTicks(evaporatingRecipe.getOperationAfterTicks());
                 return true;
             } else if (recipeTime != 0 && maxRecipeTime != 0 && evaporatingRecipe.matchesFluid(getFluidIn())) {

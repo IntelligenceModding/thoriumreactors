@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_manganese_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:manganese_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "thoriumreactors:manganese_nugget_craft_from_ingot"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_manganese_ingot",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "thoriumreactors:manganese_nugget_craft_from_ingot"
+    ]
+  },
+  "sends_telemetry_event": false
+}

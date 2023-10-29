@@ -25,7 +25,7 @@ public class ClientThermalConversionsPacket implements IPacket {
     @SuppressWarnings("ConstantConditions")
     public void handle(NetworkEvent.Context context) {
         LocalPlayer player = Minecraft.getInstance().player;
-        BlockEntity machine = player.level.getBlockEntity(pos);
+        BlockEntity machine = player.level().getBlockEntity(pos);
         if (!(machine instanceof ThermalControllerBlockEntity blockEntity)) return;
         blockEntity.setConversions(conversions);
     }

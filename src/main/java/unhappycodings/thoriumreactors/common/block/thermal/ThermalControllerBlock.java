@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +41,7 @@ public class ThermalControllerBlock extends ThermalFrameBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public ThermalControllerBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL).strength(5f));
+        super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false));
     }
 
@@ -61,7 +61,7 @@ public class ThermalControllerBlock extends ThermalFrameBlock {
     @Override
     public InteractionResult use(@NotNull BlockState state, @NotNull Level levelIn, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand, @NotNull BlockHitResult hitResult) {
         ThermalControllerBlockEntity entity = (ThermalControllerBlockEntity) levelIn.getBlockEntity(pos);
-        if (player.level.isClientSide) return InteractionResult.SUCCESS;
+        if (player.level().isClientSide) return InteractionResult.SUCCESS;
         if (!entity.isAssembled()) {
             Direction facing = state.getValue(FACING);
             boolean canBeAssembled = false;

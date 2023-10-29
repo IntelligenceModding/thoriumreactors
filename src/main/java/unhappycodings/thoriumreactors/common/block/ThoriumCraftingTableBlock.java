@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -44,14 +44,14 @@ public class ThoriumCraftingTableBlock extends BaseEntityBlock {
             Block.box(0, 0, 13, 3, 12, 16));
 
     public ThoriumCraftingTableBlock() {
-        super(Properties.of(Material.STONE).strength(5f));
+        super(Properties.copy(Blocks.STONE).strength(5f));
     }
 
     @SuppressWarnings("deprecation")
     @NotNull
     @Override
-    public List<ItemStack> getDrops(@NotNull BlockState pState, LootContext.Builder pBuilder) {
-        return Collections.singletonList(LootUtil.getLoot(pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
+    public List<ItemStack> getDrops(@NotNull BlockState pState, LootParams.@NotNull Builder pParams) {
+        return Collections.singletonList(LootUtil.getLoot(pParams.getParameter(LootContextParams.BLOCK_ENTITY), this));
     }
 
     @Override

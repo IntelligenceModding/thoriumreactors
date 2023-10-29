@@ -29,9 +29,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.LavaFluid;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.material.WaterFluid;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -61,7 +61,7 @@ public class FluidTankBlock extends BaseEntityBlock {
     public final RegistryObject<BlockEntityType<FluidTankBlockEntity>> type;
 
     public FluidTankBlock(int capacity, RegistryObject<BlockEntityType<FluidTankBlockEntity>> type) {
-        super(BlockBehaviour.Properties.of(Material.GLASS).noOcclusion().sound(SoundType.GLASS).strength(3f));
+        super(BlockBehaviour.Properties.copy(Blocks.GLASS).noOcclusion().sound(SoundType.GLASS).strength(3f));
         this.capacity = capacity;
         this.type = type;
     }
@@ -126,8 +126,8 @@ public class FluidTankBlock extends BaseEntityBlock {
     @SuppressWarnings("deprecation")
     @NotNull
     @Override
-    public List<ItemStack> getDrops(@NotNull BlockState pState, LootContext.Builder pBuilder) {
-        return Collections.singletonList(LootUtil.getLoot(pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
+    public List<ItemStack> getDrops(@NotNull BlockState pState, LootParams.@NotNull Builder pParams) {
+        return Collections.singletonList(LootUtil.getLoot(pParams.getParameter(LootContextParams.BLOCK_ENTITY), this));
     }
 
     @Override
@@ -135,7 +135,7 @@ public class FluidTankBlock extends BaseEntityBlock {
         return LootUtil.getLoot(level.getBlockEntity(pos), this);
     }
 
-    @Override
+    /*@Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
         super.fillItemCategory(tab, items);
         if (tab == CreativeModeTab.TAB_SEARCH && this.asItem().getDefaultInstance().is(ModBlocks.CREATIVE_FLUID_TANK.get().asItem())) {
@@ -155,7 +155,7 @@ public class FluidTankBlock extends BaseEntityBlock {
                 }
             }
         }
-    }
+    }*/
 
     public CompoundTag writeToNBT(FluidStack fluidStack) {
         CompoundTag dataTag = new CompoundTag();

@@ -110,7 +110,7 @@ public class TurbineControllerBlockEntity extends BlockEntity {
         List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -2, p.getY() -1, p.getZ() -2, p.getX() + 3, p.getY() + getTurbineHeight(), p.getZ() + 3));
 
         for (ServerPlayer player : players) {
-            player.hurt(ModDamageSources.GRIND, Float.MAX_VALUE);
+            player.hurt(level.damageSources().source(ModDamageSources.GRIND), Float.MAX_VALUE);
         }
     }
 

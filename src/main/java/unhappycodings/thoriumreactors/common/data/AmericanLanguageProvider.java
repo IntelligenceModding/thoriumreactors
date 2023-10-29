@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
@@ -8,7 +9,7 @@ import unhappycodings.thoriumreactors.common.registration.ModItems;
 public class AmericanLanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
 
     public AmericanLanguageProvider(DataGenerator gen, String locale) {
-        super(gen, ThoriumReactors.MOD_ID, locale);
+        super(gen.getPackOutput(), ThoriumReactors.MOD_ID, locale);
     }
 
     @Override
@@ -395,9 +396,6 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add("keybind.thoriumreactors.description", "Show Description");
         add("keybind.thoriumreactors.details", "Show Details");
         add("itemGroup.thoriumreactors", "Thorium Reactors");
-        add("itemGroup.thoriumreactors.resources", "Thorium R. - Resources");
-        add("itemGroup.thoriumreactors.machinery", "Thorium R. - Machinery");
-        add("itemGroup.thoriumreactors.building", "Thorium R. - Building");
         add("death.attack.thoriumreactors.radioactive_overdosis", "%1$s died of a radioactive overdose.");
         add("death.attack.thoriumreactors.grind", "%1$s met a crushing end in a turbine. Rest in pieces");
     }

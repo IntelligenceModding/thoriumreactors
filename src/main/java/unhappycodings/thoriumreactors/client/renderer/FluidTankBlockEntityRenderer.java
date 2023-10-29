@@ -2,7 +2,6 @@ package unhappycodings.thoriumreactors.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix4f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -12,6 +11,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
 import unhappycodings.thoriumreactors.client.util.RenderUtil;
 import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
 
@@ -58,6 +58,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTa
         stack.pushPose();
         Matrix4f matrix4f = stack.last().pose();
         TextureAtlasSprite icon = RenderUtil.getStillFluidSprite(fluidStack);
+        if (icon == null) return;
 
         sX = sX / 2;
         sY = sY / 2;

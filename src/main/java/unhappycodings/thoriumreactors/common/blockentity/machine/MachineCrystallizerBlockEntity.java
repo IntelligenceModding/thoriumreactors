@@ -193,7 +193,7 @@ public class MachineCrystallizerBlockEntity extends MachineContainerBlockEntity 
             if (decomposingRecipe.matchesFluid(getFluidIn()) && recipeTime == 0 && maxRecipeTime == 0) {
                 setRecipeDefinedTicks(decomposingRecipe.getTicks());
                 setInputFluid(decomposingRecipe.getFluidIngredient());
-                setOutputItem(decomposingRecipe.getResultItem());
+                setOutputItem(decomposingRecipe.getResultItem(null));
                 setOperationAfterTicks(decomposingRecipe.getOperationAfterTicks());
                 return true;
             } else if (recipeTime != 0 && maxRecipeTime != 0 && decomposingRecipe.matchesFluid(getFluidIn())) {

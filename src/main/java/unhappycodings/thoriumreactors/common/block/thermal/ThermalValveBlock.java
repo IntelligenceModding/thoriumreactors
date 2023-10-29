@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +34,7 @@ public class ThermalValveBlock extends ThermalFrameBlock {
     public static final EnumProperty<ThermalValveTypeEnum> TYPE = EnumProperty.create("type", ThermalValveTypeEnum.class);
 
     public ThermalValveBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL).strength(5f));
+        super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ThermalValveTypeEnum.COOLANT_INPUT));
     }
 

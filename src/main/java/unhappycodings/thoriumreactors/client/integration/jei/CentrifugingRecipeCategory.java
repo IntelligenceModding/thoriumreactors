@@ -1,6 +1,5 @@
 package unhappycodings.thoriumreactors.client.integration.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -12,6 +11,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -41,18 +41,18 @@ public class CentrifugingRecipeCategory implements IRecipeCategory<CentrifugingR
     }
 
     @Override
-    public void draw(@NotNull CentrifugingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(CentrifugingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         if (progress == null) {
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 222, 247, 34, 9), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
             this.tankScale = helper.createDrawable(TEXTURE, 242, 168, 4, 63); // 1st stage
         }
-        progress.draw(stack, getGuiLeft() + 34, getGuiTop() + 39);
-        tankScale.draw(stack, getGuiLeft() + 1, getGuiTop() + 1);
-        tankScale.draw(stack, getGuiLeft() + 83, getGuiTop() + 2);
+        progress.draw(guiGraphics, getGuiLeft() + 34, getGuiTop() + 39);
+        tankScale.draw(guiGraphics, getGuiLeft() + 1, getGuiTop() + 1);
+        tankScale.draw(guiGraphics, getGuiLeft() + 83, getGuiTop() + 2);
 
-        ScreenUtil.drawCenteredText("Centrifuging", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 71);
+        ScreenUtil.drawCenteredText("Centrifuging", guiGraphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 71);
     }
 
     public int getGuiTop() {

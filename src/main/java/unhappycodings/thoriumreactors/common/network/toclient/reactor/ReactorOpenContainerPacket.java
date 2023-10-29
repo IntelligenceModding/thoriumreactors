@@ -24,7 +24,7 @@ public class ReactorOpenContainerPacket implements IPacket {
     @SuppressWarnings("ConstantConditions")
     public void handle(NetworkEvent.Context context) {
         ServerPlayer player = context.getSender();
-        BlockEntity machine = player.level.getBlockEntity(pos);
+        BlockEntity machine = player.level().getBlockEntity(pos);
         if (!(machine instanceof ReactorControllerBlockEntity blockEntity)) return;
 
         MenuProvider namedContainerProvider = blockEntity.getBlockState().getBlock().getMenuProvider(blockEntity.getBlockState(), blockEntity.getLevel(), pos);

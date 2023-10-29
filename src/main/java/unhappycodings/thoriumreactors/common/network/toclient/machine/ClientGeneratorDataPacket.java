@@ -35,7 +35,7 @@ public class ClientGeneratorDataPacket implements IPacket {
     @SuppressWarnings("ConstantConditions")
     public void handle(NetworkEvent.Context context) {
         LocalPlayer player = Minecraft.getInstance().player;
-        BlockEntity machine = player.level.getBlockEntity(pos);
+        BlockEntity machine = player.level().getBlockEntity(pos);
         if (!(machine instanceof MachineGeneratorBlockEntity blockEntity)) return;
         blockEntity.setCurrentProduction(currentProduction);
         blockEntity.setEnergy(energy);

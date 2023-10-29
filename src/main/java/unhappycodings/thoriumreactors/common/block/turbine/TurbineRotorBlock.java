@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -30,7 +30,7 @@ public class TurbineRotorBlock extends TurbineFrameBlock {
     public static final BooleanProperty RENDERING = BooleanProperty.create("rendering");
 
     public TurbineRotorBlock() {
-        super(Properties.of(Material.METAL).strength(5f));
+        super(Properties.copy(Blocks.IRON_BLOCK).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(BLADES, 0).setValue(RENDERING, false));
     }
 

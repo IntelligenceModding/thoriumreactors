@@ -2,6 +2,8 @@ package unhappycodings.thoriumreactors.common.container.base.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -70,24 +72,24 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     }
 
     @Override
-    protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    protected void renderLabels(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY) {
         MachineContainerBlockEntity entity = (MachineContainerBlockEntity) getTile();
         if (ScreenUtil.mouseInArea(getGuiLeft() -18, getGuiTop() + 6, getGuiLeft() -3, getGuiTop() + 21, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.usage")).append(" ").append(Component.literal(FormattingUtil.formatEnergy(entity.getState() ? entity.getNeededEnergy() : 0) + "/t")));
-            this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
+            graphics.renderComponentTooltip(Minecraft.getInstance().font, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
         if (ScreenUtil.mouseInArea(getGuiLeft() -18, getGuiTop() + 24, getGuiLeft() -3, getGuiTop() + 39, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.power")).append(" ").append(Component.literal(entity.isPowerable() + "")));
-            this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
+            graphics.renderComponentTooltip(Minecraft.getInstance().font, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
         if (ScreenUtil.mouseInArea(getGuiLeft() -18, getGuiTop() + 42, getGuiLeft() -3, getGuiTop() + 57, pMouseX, pMouseY)) {
             List<Component> list = new ArrayList<>();
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.redstone")).append(" ").append(Component.translatable((lastRedstoneMode == 0 ? FormattingUtil.getTranslatable("machines.tooltip.ignore") : lastRedstoneMode == 1 ? FormattingUtil.getTranslatable("machines.tooltip.normal") : FormattingUtil.getTranslatable("machines.tooltip.inverted")))));
-            this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
+            graphics.renderComponentTooltip(Minecraft.getInstance().font, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
         if (ScreenUtil.mouseInArea(getGuiLeft() + getSizeX() + 2, getGuiTop() + 6, getGuiLeft() + getSizeX() + 17, getGuiTop() + 21, pMouseX, pMouseY) && !isSpaceAbove()) {
@@ -95,7 +97,7 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.warning")).withStyle(ChatFormatting.RED));
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.needs_air")));
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.make_space")));
-            this.renderComponentTooltip(pPoseStack, list, pMouseX - leftPos, pMouseY - topPos);
+            graphics.renderComponentTooltip(Minecraft.getInstance().font, list, pMouseX - leftPos, pMouseY - topPos);
         }
     }
 
@@ -122,23 +124,23 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
         PacketHandler.sendToServer(new MachineChangedPacket(getTile().getBlockPos()));
     }
 
-    public void appendHoverText(PoseStack poseStack, int x, int y, String[] texts) {
+    public void appendHoverText(GuiGraphics graphics, int x, int y, String[] texts) {
         List<Component> list = new ArrayList<>();
         for (String text : texts)
             if (!text.equals("")) list.add(Component.literal(text));
-        this.renderComponentTooltip(poseStack, list, x - leftPos, y - topPos);
+        graphics.renderComponentTooltip(Minecraft.getInstance().font, list, x - leftPos, y - topPos);
     }
 
-    public void appendHoverText(PoseStack poseStack, int x, int y, Component[] texts) {
+    public void appendHoverText(GuiGraphics graphics, int x, int y, Component[] texts) {
         List<Component> list = new ArrayList<>();
         for (Component text : texts)
             if (!text.getString().equals("")) list.add(text);
-        this.renderComponentTooltip(poseStack, list, x - leftPos, y - topPos);
+        graphics.renderComponentTooltip(Minecraft.getInstance().font, list, x - leftPos, y - topPos);
     }
 
     @Override
-    protected void renderBg(@NotNull PoseStack matrixStack, float partialTicks, int x, int y) {
-        super.renderBg(matrixStack, partialTicks, x, y);
+    protected void renderBg(@NotNull GuiGraphics graphics, float partialTicks, int x, int y) {
+        super.renderBg(graphics, partialTicks, x, y);
         refreshWidgets();
     }
 

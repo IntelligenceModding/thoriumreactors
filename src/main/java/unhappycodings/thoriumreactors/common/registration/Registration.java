@@ -1,7 +1,9 @@
 package unhappycodings.thoriumreactors.common.registration;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -26,6 +28,7 @@ public class Registration {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, ThoriumReactors.MOD_ID);
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, ThoriumReactors.MOD_ID);
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, ThoriumReactors.MOD_ID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ThoriumReactors.MOD_ID);
 
     public static void register() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -38,6 +41,7 @@ public class Registration {
         SOUND_EVENTS.register(eventBus);
         FLUID_TYPES.register(eventBus);
         FLUIDS.register(eventBus);
+        CREATIVE_MODE_TABS.register(eventBus);
     }
 
 }

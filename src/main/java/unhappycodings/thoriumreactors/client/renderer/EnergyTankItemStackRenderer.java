@@ -14,8 +14,10 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.RenderTypeHelper;
+import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 
@@ -27,14 +29,14 @@ public class EnergyTankItemStackRenderer extends BlockEntityWithoutLevelRenderer
     }
 
     @Override
-    public void renderByItem(ItemStack stack, ItemTransforms.TransformType transformType, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
+    public void renderByItem(ItemStack stack, @NotNull ItemDisplayContext displayContext, PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay) {
         ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
 
         // Pop off the transformations applied by ItemRenderer before calling this
         poseStack.popPose();
         poseStack.pushPose();
         BakedModel mainModel = Minecraft.getInstance().getModelManager().getModel(MODEL_LOCATION);
-        mainModel = mainModel.applyTransform(transformType, poseStack, isLeftHand(transformType));
+        mainModel = mainModel.applyTransform(displayContext, poseStack, isLeftHand(displayContext));
         poseStack.translate(-0.5, -0.5, -0.5); // Replicate ItemRenderer's translation
 
         boolean glint = stack.hasFoil();
@@ -64,7 +66,7 @@ public class EnergyTankItemStackRenderer extends BlockEntityWithoutLevelRenderer
         else return Integer.MAX_VALUE;
     }
 
-    private static boolean isLeftHand(ItemTransforms.TransformType type) {
-        return type == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND || type == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND;
+    private static boolean isLeftHand(ItemDisplayContext type) {
+        return type == ItemDisplayContext.FIRST_PERSON_LEFT_HAND|| type == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
     }
 }

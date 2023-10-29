@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.lwjgl.opengl.WGLARBCreateContextNoError;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBlock;
@@ -23,7 +24,7 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
     DataGenerator gen;
 
     public ModelAndBlockStatesProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, ThoriumReactors.MOD_ID, exFileHelper);
+        super(gen.getPackOutput(), ThoriumReactors.MOD_ID, exFileHelper);
         this.gen = gen;
     }
 

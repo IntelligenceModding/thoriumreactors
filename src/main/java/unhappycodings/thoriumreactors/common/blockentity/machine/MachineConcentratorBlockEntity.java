@@ -155,7 +155,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
         List<ConcentratingRecipe> recipe = level.getRecipeManager().getAllRecipesFor(ModRecipes.CONCENTRATING_RECIPE_TYPE.get());
         for (ConcentratingRecipe concentratingRecipe : recipe) {
             if (concentratingRecipe.matches(container, getLevel()) && getOutputItem().isEmpty() && recipeTime == 0 && maxRecipeTime == 0) {
-                setOutputItem(concentratingRecipe.getResultItem());
+                setOutputItem(concentratingRecipe.getResultItem(null));
                 setRecipeDefinedTicks(concentratingRecipe.getTicks());
                 return outputSlot.is(Items.AIR) || outputSlot.is(getOutputItem().getItem());
             } else if (recipeTime != 0 && maxRecipeTime != 0) {

@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,7 +33,7 @@ public class ReactorValveBlock extends ReactorFrameBlock {
     public static final EnumProperty<ValveTypeEnum> TYPE = EnumProperty.create("type", ValveTypeEnum.class);
 
     public ReactorValveBlock() {
-        super(Properties.of(Material.METAL).strength(5f));
+        super(Properties.copy(Blocks.IRON_BLOCK).strength(5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ValveTypeEnum.ITEM_INPUT));
     }
 

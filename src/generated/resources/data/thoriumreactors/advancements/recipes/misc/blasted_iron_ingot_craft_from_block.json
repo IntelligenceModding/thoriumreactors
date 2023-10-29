@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blasted_iron_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:blasted_iron_block"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "thoriumreactors:blasted_iron_ingot_craft_from_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_blasted_iron_block",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "thoriumreactors:blasted_iron_ingot_craft_from_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

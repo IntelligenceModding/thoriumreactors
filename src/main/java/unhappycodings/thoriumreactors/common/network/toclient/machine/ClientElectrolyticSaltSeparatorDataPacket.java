@@ -44,7 +44,7 @@ public class ClientElectrolyticSaltSeparatorDataPacket implements IPacket {
     @SuppressWarnings("ConstantConditions")
     public void handle(NetworkEvent.Context context) {
         LocalPlayer player = Minecraft.getInstance().player;
-        BlockEntity machine = player.level.getBlockEntity(pos);
+        BlockEntity machine = player.level().getBlockEntity(pos);
         if (!(machine instanceof MachineElectrolyticSaltSeparatorBlockEntity blockEntity)) return;
         blockEntity.setEnergy(energy);
         blockEntity.setMaxRecipeTime(maxRecipeTime);

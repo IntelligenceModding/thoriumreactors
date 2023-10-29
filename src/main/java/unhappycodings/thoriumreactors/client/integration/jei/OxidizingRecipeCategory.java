@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -42,19 +43,19 @@ public class OxidizingRecipeCategory implements IRecipeCategory<OxidizingRecipe>
     }
 
     @Override
-    public void draw(@NotNull OxidizingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(@NotNull OxidizingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics graphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, graphics, mouseX, mouseY);
         if (progress == null) {
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 222, 247, 34, 9), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
             this.tankScaleL = helper.createDrawable(TEXTURE, 246, 168, 4, 41); // 2nd stage
             this.tankScaleR = helper.createDrawable(TEXTURE, 242, 168, 4, 63); // 1st stage
         }
-        progress.draw(stack, getGuiLeft() + 34, getGuiTop() + 33);
-        tankScaleL.draw(stack, getGuiLeft() + 1, getGuiTop() + 25);
-        tankScaleR.draw(stack, getGuiLeft() + 83, getGuiTop() + 2);
+        progress.draw(graphics, getGuiLeft() + 34, getGuiTop() + 33);
+        tankScaleL.draw(graphics, getGuiLeft() + 1, getGuiTop() + 25);
+        tankScaleR.draw(graphics, getGuiLeft() + 83, getGuiTop() + 2);
 
-        ScreenUtil.drawCenteredText("Uranium Oxidization", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 65);
+        ScreenUtil.drawCenteredText("Uranium Oxidization", graphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", graphics, getBackground().getWidth() / 2, 65);
     }
 
     public int getGuiTop() {

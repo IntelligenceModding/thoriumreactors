@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -42,19 +43,19 @@ public class DecomposingRecipeCategory implements IRecipeCategory<DecomposingRec
     }
 
     @Override
-    public void draw(@NotNull DecomposingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(@NotNull DecomposingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         if (progress == null) {
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 204, 240, 36, 8), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
             this.tankGroin1 = helper.createDrawable(TEXTURE, 246, 168, 4, 41); // 2nd stage
             this.tankGroin2 = helper.createDrawable(TEXTURE, 242, 168, 4, 63); // 1st stage
         }
-        progress.draw(stack, getGuiLeft() + 32, getGuiTop() + 32);
-        tankGroin1.draw(stack, getGuiLeft() + 1, getGuiTop() + 25);
-        tankGroin2.draw(stack, getGuiLeft() + 82, getGuiTop() + 2);
+        progress.draw(guiGraphics, getGuiLeft() + 32, getGuiTop() + 32);
+        tankGroin1.draw(guiGraphics, getGuiLeft() + 1, getGuiTop() + 25);
+        tankGroin2.draw(guiGraphics, getGuiLeft() + 82, getGuiTop() + 2);
 
-        ScreenUtil.drawCenteredText("Decomposing", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 40);
+        ScreenUtil.drawCenteredText("Decomposing", guiGraphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 40);
     }
 
     public int getGuiTop() {

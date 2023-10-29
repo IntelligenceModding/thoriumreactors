@@ -11,6 +11,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -36,14 +37,14 @@ public class ConcentratingRecipeCategory implements IRecipeCategory<Concentratin
     }
 
     @Override
-    public void draw(@NotNull ConcentratingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(ConcentratingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         if (progress == null) {
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 181, 246, 41, 10), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
         }
-        progress.draw(stack, 50, 24);
-        ScreenUtil.drawCenteredText("Concentrating", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 40);
+        progress.draw(guiGraphics, 50, 24);
+        ScreenUtil.drawCenteredText("Concentrating", guiGraphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 40);
     }
 
     @NotNull
@@ -73,6 +74,6 @@ public class ConcentratingRecipeCategory implements IRecipeCategory<Concentratin
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ConcentratingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, 21, 21).addItemStack(recipe.getIngredients().get(0).getItems()[0]);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 103, 21).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 103, 21).addItemStack(recipe.getResultItem(null));
     }
 }

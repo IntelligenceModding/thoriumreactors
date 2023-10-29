@@ -197,7 +197,7 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
         List<BlastingRecipe> recipe = level.getRecipeManager().getAllRecipesFor(ModRecipes.BLASTING_RECIPE_TYPE.get());
         for (BlastingRecipe blastingRecipe : recipe) {
             if (blastingRecipe.matches(container, getLevel()) && getOutputItem().isEmpty() && recipeTime == 0 && maxRecipeTime == 0) {
-                setOutputItem(blastingRecipe.getResultItem());
+                setOutputItem(blastingRecipe.getResultItem(null));
                 setSecondaryOutputItem(blastingRecipe.getSecondaryResultItem());
                 setSecondaryChance(blastingRecipe.getSecondaryChance());
                 setRecipeDefinedTicks(blastingRecipe.getTicks());

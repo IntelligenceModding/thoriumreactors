@@ -173,7 +173,7 @@
 		#Cost in Joules of using the Meka-Tool to teleport 10 blocks.
 		energyUsageTeleport = "1000"
 		#Maximum distance a player can teleport with the Meka-Tool.
-		#Range: 2 ~ 1024
+		#Range: 3 ~ 1024
 		maxTeleportReach = 100
 		#Base bonus damage applied by the Meka-Tool without using any energy.
 		#Range: 0 ~ 100000
@@ -267,70 +267,18 @@
 		knockbackResistance = 0.10000000149011612
 
 		[gear.mekasuit.damage_absorption]
-			#Percent of damage taken from fall that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
+			#Percent of damage taken from falling that can be absorbed by MekaSuit Boots when they have enough power.
 			#Range: 0.0 ~ 1.0
 			fallDamageReductionRatio = 1.0
 			#Percent of damage taken from magic damage that can be absorbed by MekaSuit Helmet with Purification unit when it has enough power.
 			#Range: 0.0 ~ 1.0
 			magicDamageReductionRatio = 1.0
 			#Percent of damage taken from other non explicitly supported damage types that don't bypass armor when the MekaSuit has enough power and a full suit is equipped.
+			#Note: Support for specific damage types can be added by adding an entry for the damage type in the damageReductionRatio config.
 			#Range: 0.0 ~ 1.0
 			unspecifiedDamageReductionRatio = 1.0
-			#Percent of damage taken from anvil that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			anvilDamageReductionRatio = 1.0
-			#Percent of damage taken from cactus that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			cactusDamageReductionRatio = 1.0
-			#Percent of damage taken from cramming that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			crammingDamageReductionRatio = 1.0
-			#Percent of damage taken from dragonBreath that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			dragonBreathDamageReductionRatio = 1.0
-			#Percent of damage taken from dryout that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			dryoutDamageReductionRatio = 1.0
-			#Percent of damage taken from fallingBlock that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			fallingBlockDamageReductionRatio = 1.0
-			#Percent of damage taken from flyIntoWall that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			flyIntoWallDamageReductionRatio = 1.0
-			#Percent of damage taken from generic that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			genericDamageReductionRatio = 1.0
-			#Percent of damage taken from hotFloor that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			hotFloorDamageReductionRatio = 1.0
-			#Percent of damage taken from inFire that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			inFireDamageReductionRatio = 1.0
-			#Percent of damage taken from inWall that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			inWallDamageReductionRatio = 1.0
-			#Percent of damage taken from lava that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			lavaDamageReductionRatio = 1.0
-			#Percent of damage taken from lightningBolt that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			lightningBoltDamageReductionRatio = 1.0
-			#Percent of damage taken from onFire that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			onFireDamageReductionRatio = 1.0
-			#Percent of damage taken from sweetBerryBush that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			sweetBerryBushDamageReductionRatio = 1.0
-			#Percent of damage taken from wither that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			witherDamageReductionRatio = 1.0
-			#Percent of damage taken from freeze that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			freezeDamageReductionRatio = 1.0
-			#Percent of damage taken from fallingStalactite that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			fallingStalactiteDamageReductionRatio = 1.0
-			#Percent of damage taken from stalagmite that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
-			#Range: 0.0 ~ 1.0
-			stalagmiteDamageReductionRatio = 1.0
+			#Map representing the percent of damage from different damage types that can be absorbed by the MekaSuit when there is enough power and a full suit is equipped.
+			#Values may be in the range [0.0, 1.0].
+			#See the #mekainsm:mekasuit_always_supported damage type tag for allowing damage that bypasses armor to be blocked.
+			damageReductionRatio = ["minecraft:cactus,1.0", "minecraft:cramming,1.0", "minecraft:dragon_breath,1.0", "minecraft:dry_out,1.0", "minecraft:fall,1.0", "minecraft:falling_anvil,1.0", "minecraft:falling_block,1.0", "minecraft:falling_stalactite,1.0", "minecraft:fly_into_wall,1.0", "minecraft:freeze,1.0", "minecraft:generic,1.0", "minecraft:hot_floor,1.0", "minecraft:in_fire,1.0", "minecraft:in_wall,1.0", "minecraft:lava,1.0", "minecraft:lightning_bolt,1.0", "minecraft:on_fire,1.0", "minecraft:sonic_boom,0.75", "minecraft:stalagmite,1.0", "minecraft:sweet_berry_bush,1.0", "minecraft:wither,1.0"]
 

@@ -25,6 +25,7 @@ public class RenderUtil {
     public static void renderFluid(int x, int y, int h, int w, int volumeFilled, int volumeTotal, Fluid fluid) {
         FluidStack stack = new FluidStack(fluid, 1);
         TextureAtlasSprite icon = getStillFluidSprite(stack);
+        if (icon == null) return;
 
         GuiUtil.bind(TextureAtlas.LOCATION_BLOCKS);
         Tesselator tesselator = Tesselator.getInstance();
@@ -59,6 +60,7 @@ public class RenderUtil {
         Fluid fluid = fluidStack.getFluid();
         IClientFluidTypeExtensions renderProperties = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation fluidStill = renderProperties.getStillTexture(fluidStack);
+        if (fluidStill == null) return null;
         return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
     }
 

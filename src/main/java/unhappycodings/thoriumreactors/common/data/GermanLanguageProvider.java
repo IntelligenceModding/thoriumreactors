@@ -8,7 +8,7 @@ import unhappycodings.thoriumreactors.common.registration.ModItems;
 public class GermanLanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
 
     public GermanLanguageProvider(DataGenerator gen, String locale) {
-        super(gen, ThoriumReactors.MOD_ID, locale);
+        super(gen.getPackOutput(), ThoriumReactors.MOD_ID, locale);
     }
 
     @Override
@@ -393,9 +393,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
 
         add("keybind.thoriumreactors.description", "Beschreibung anzeigen");
         add("keybind.thoriumreactors.details", "Details anzeigen");
-        add("itemGroup.thoriumreactors.resources", "Thorium R. - Rohstoffe");
-        add("itemGroup.thoriumreactors.machinery", "Thorium R. - Maschinen");
-        add("itemGroup.thoriumreactors.building", "Thorium R. - Baublöcke");
+        add("itemGroup.thoriumreactors", "Thorium Reactors");
         add("death.attack.thoriumreactors.radioactive_overdosis", "%1$s starb an einer radioaktiven Überdosis.");
         add("death.attack.thoriumreactors.grind", "%1$s wurde von einer Turbine zermahlen.");
 

@@ -42,7 +42,7 @@ public class ClientSaltMelterDataPacket implements IPacket {
     @SuppressWarnings("ConstantConditions")
     public void handle(NetworkEvent.Context context) {
         LocalPlayer player = Minecraft.getInstance().player;
-        BlockEntity machine = player.level.getBlockEntity(pos);
+        BlockEntity machine = player.level().getBlockEntity(pos);
         if (!(machine instanceof MachineSaltMelterBlockEntity blockEntity)) return;
         blockEntity.setEnergy(energy);
         blockEntity.setMaxRecipeTime(maxRecipeTime);

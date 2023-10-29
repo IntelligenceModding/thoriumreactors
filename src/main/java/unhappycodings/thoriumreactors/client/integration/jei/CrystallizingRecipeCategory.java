@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -41,17 +42,17 @@ public class CrystallizingRecipeCategory implements IRecipeCategory<Crystallizin
     }
 
     @Override
-    public void draw(@NotNull CrystallizingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(@NotNull CrystallizingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         if (progress == null) {
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 139, 246, 41, 10), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
             this.tankScale = helper.createDrawable(TEXTURE, 242, 168, 4, 63); // 1st stage
         }
-        progress.draw(stack, getGuiLeft() + 31, getGuiTop() + 23);
-        tankScale.draw(stack, getGuiLeft() + 1, getGuiTop() + 1);
+        progress.draw(guiGraphics, getGuiLeft() + 31, getGuiTop() + 23);
+        tankScale.draw(guiGraphics, getGuiLeft() + 1, getGuiTop() + 1);
 
-        ScreenUtil.drawCenteredText("Crystallizing", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", stack, getBackground().getWidth() / 2, 71);
+        ScreenUtil.drawCenteredText("Crystallizing", guiGraphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 71);
     }
 
     public int getGuiTop() {
@@ -98,6 +99,6 @@ public class CrystallizingRecipeCategory implements IRecipeCategory<Crystallizin
     public void setRecipe(IRecipeLayoutBuilder builder, CrystallizingRecipe recipe, @NotNull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).setFluidRenderer(6000, true, 18, 66)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 84, getGuiTop() + 20).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 84, getGuiTop() + 20).addItemStack(recipe.getResultItem(null));
     }
 }

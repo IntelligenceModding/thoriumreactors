@@ -3,7 +3,7 @@ package unhappycodings.thoriumreactors.common.blockentity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -53,7 +53,7 @@ public class SteelChestRenderer<T extends BlockEntity & LidBlockEntity> implemen
         pPoseStack.pushPose();
         float f = blockstate.getValue(ChestBlock.FACING).toYRot();
         pPoseStack.translate(0.5D, 0.5D, 0.5D);
-        pPoseStack.mulPose(Vector3f.YP.rotationDegrees(-f));
+        pPoseStack.mulPose(Axis.YP.rotationDegrees(-f));
         pPoseStack.translate(-0.5D, -0.5D, -0.5D);
         DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> neighborcombineresult = DoubleBlockCombiner.Combiner::acceptNone;
 

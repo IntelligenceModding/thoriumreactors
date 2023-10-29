@@ -222,7 +222,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
                 setRecipeDefinedTicks(electrolysingRecipe.getTicks());
                 setInputFluid(electrolysingRecipe.getFluidIngredient());
                 setOutputFluid(electrolysingRecipe.getResultFluid());
-                setOutputItem(electrolysingRecipe.getResultItem());
+                setOutputItem(electrolysingRecipe.getResultItem(null));
                 setOperationAfterTicks(electrolysingRecipe.getOperationAfterTicks());
                 return true;
             } else if (recipeTime != 0 && maxRecipeTime != 0 && electrolysingRecipe.matchesFluid(getFluidIn(), getFluidOut())) {

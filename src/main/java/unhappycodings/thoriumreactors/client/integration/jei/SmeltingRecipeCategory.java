@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -53,15 +54,14 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SaltSmeltingRecip
     }
 
     @Override
-    public void draw(@NotNull SaltSmeltingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(@NotNull SaltSmeltingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics graphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, graphics, mouseX, mouseY);
         if (heating == null) {
             this.heating = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE_ONE, 240, 231, 16, 16), 80, IDrawableAnimated.StartDirection.BOTTOM, false);
         }
-        heating.draw(stack, getGuiLeft() + 23, getGuiTop() + 26);
-        ScreenUtil.drawCenteredText("Salt Melting", stack, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", stack, getBackground().getWidth() / 2, getGuiTop() + 60);
-
+        heating.draw(graphics, getGuiLeft() + 23, getGuiTop() + 26);
+        ScreenUtil.drawCenteredText("Salt Melting", graphics, getBackground().getWidth() / 2, 6);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", graphics, getBackground().getWidth() / 2, getGuiTop() + 60);
     }
 
     public int getGuiTop() {

@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.container.chest;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,13 +22,14 @@ public class BlastedIronChestScreen extends BaseScreen<BlastedIronChestContainer
     }
 
     @Override
-    protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    protected void renderLabels(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY) {
+        PoseStack pPoseStack = graphics.pose();
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        ScreenUtil.drawText(Component.translatable("block.thoriumreactors.blasted_iron_chest_block").withStyle(ScreenUtil::notoSans), pPoseStack, 10, 2, 11184810);
-        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), pPoseStack, 242, 2, 11184810);
+        ScreenUtil.drawText(Component.translatable("block.thoriumreactors.blasted_iron_chest_block").withStyle(ScreenUtil::notoSans), graphics, 10, 2, 11184810);
+        ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), graphics, 242, 2, 11184810);
         pPoseStack.popPose();
-        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), pPoseStack, 8, 127, 11184810);
+        ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), graphics, 8, 127, 11184810);
     }
 
     @Override

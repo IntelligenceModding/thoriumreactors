@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#minecraft:is_overworld",
-  "features": "thoriumreactors:molybdenum_ore_placed",
+  "features": "thoriumreactors:molybdenum_ore",
   "step": "underground_ores"
 }

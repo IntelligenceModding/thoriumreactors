@@ -9,18 +9,15 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-apply plugin: 'org.spongepowered.mixin'
-
-group = 'unhappycodings'
 version = "${mc_version}-${mod_version}"
 archivesBaseName = 'thoriumreactors'
+group = 'unhappycodings'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     mappings channel: "${mappings_channel}", version: "${mappings_version}"
 
-    copyIdeResources = true
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
@@ -108,15 +105,17 @@ void exclusiveRepo(RepositoryHandler handler, String url, Consumer<InclusiveRepo
 
 repositories { RepositoryHandler handler ->
     maven {
-        url = 'https://jitpack.io'
-        content {
-            includeGroup 'com.github.llamalad7.mixinextras'
-        }
-    }
-    maven {
         name = "Intelligence Minecraft repository"
         url = "https://mvn.intelligence-modding.de/Minecraft"
     }
+    maven {
+        url "https://squiddev.cc/maven/"
+        content {
+            includeGroup("cc.tweaked")
+            includeModule("org.squiddev", "Cobalt")
+        }
+    }
+    exclusiveRepo(handler, 'https://jitpack.io', 'com.github.llamalad7.mixinextras')
     exclusiveRepo(handler, 'https://www.cursemaven.com', 'curse.maven')
     exclusiveRepo(handler, 'https://maven.parchmentmc.org/', 'org.parchmentmc.data')
 }
@@ -134,21 +133,20 @@ dependencies {
     // Implementation for API usage
     implementation fg.deobf("curse.maven:jei-${jei_version}")
     implementation fg.deobf("curse.maven:top-${top_version}")
-    implementation fg.deobf("org.squiddev:cc-tweaked-1.19.2:${cc_version}")
+    implementation fg.deobf("cc.tweaked:cc-tweaked-1.20.1-forge:${cc_version}")
 
     // Runtime only
     runtimeOnly fg.deobf("curse.maven:mek-${mek_version}")
     runtimeOnly fg.deobf("curse.maven:mekgen-${mekgen_version}")
     runtimeOnly fg.deobf("curse.maven:we-${we_version}")
-    //runtimeOnly fg.deobf("curse.maven:biggerreactors-${biggerreactors_version}")
-    //runtimeOnly fg.deobf("curse.maven:corezero-${corezero_version}")
 }
 
 mixin {
     add sourceSets.main, "thoriumreactors.refmap.json"
 }
 
-jar {
+// Example for how to get properties into the manifest for reading at runtime.
+tasks.named('jar', Jar).configure {
     manifest {
         attributes([
                 "Specification-Title"     : "thoriumreactors",
@@ -161,9 +159,10 @@ jar {
                 "MixinConfigs"            : "thoriumreactors.mixins.json"
         ])
     }
-}
 
-jar.finalizedBy('reobfJar')
+    // This is the preferred method to reobfuscate your jar file
+    finalizedBy 'reobfJar'
+}
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'

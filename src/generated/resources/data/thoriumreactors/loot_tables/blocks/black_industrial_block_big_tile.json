@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "thoriumreactors:blocks/black_industrial_block_big_tile"
 }

@@ -1,6 +1,6 @@
 package unhappycodings.thoriumreactors.common.network.toclient.reactor;
 
-import com.mojang.math.Vector3f;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -8,6 +8,7 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
+import org.joml.Vector3f;
 import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
@@ -34,15 +35,15 @@ public class ClientReactorParticleDataPacket implements IPacket {
     public void handle(NetworkEvent.Context context) {
         LocalPlayer player = Minecraft.getInstance().player;
 
-        DustParticleOptions particleOne = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 4960000 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 6757901 : 0)), 1.0F);
-        DustParticleOptions particleTwo = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 4443136 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 7152401 : 0)), 1.0F);
-        DustParticleOptions particleThree = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 5279232 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 7481365 : 0)), 1.0F);
+        DustParticleOptions particleOne = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 4960000 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 6757901 : 0).toVector3f()), 1.0F);
+        DustParticleOptions particleTwo = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 4443136 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 7152401 : 0).toVector3f()), 1.0F);
+        DustParticleOptions particleThree = new DustParticleOptions(new Vector3f(Vec3.fromRGB24(type == ParticleTypeEnum.REACTOR ? 5279232 : type == ParticleTypeEnum.TURBINE ? 16777215 : type == ParticleTypeEnum.THERMAL ? 7481365 : 0).toVector3f()), 1.0F);
         Random random = new Random();
         for (float x = 0.0f; x <= xOffset; x += 0.5f) {
             for (float y = 0.0f; y <= yOffset; y += 0.5f) {
                 for (float z = 0.0f; z <= zOffset; z += 0.5f) {
                     float value = random.nextFloat();
-                    player.level.addParticle(value < 0.33 ? particleOne : value < 0.66 ? particleTwo : particleThree, pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0, 0, 0);
+                    player.level().addParticle(value < 0.33 ? particleOne : value < 0.66 ? particleTwo : particleThree, pos.getX() + x, pos.getY() + y, pos.getZ() + z, 0, 0, 0);
                 }
             }
         }

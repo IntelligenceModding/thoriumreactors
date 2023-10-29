@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.reactor.base.ReactorFrameBlock;
@@ -23,7 +23,7 @@ public class ReactorCoreBlock extends ReactorFrameBlock {
     public static final BooleanProperty FUELED = BooleanProperty.create("fueled");
 
     public ReactorCoreBlock() {
-        super(Properties.of(Material.METAL).strength(6f));
+        super(Properties.copy(Blocks.IRON_BLOCK).strength(6f));
         this.registerDefaultState(this.stateDefinition.any().setValue(HEATING, false).setValue(FUELED, false));
     }
 

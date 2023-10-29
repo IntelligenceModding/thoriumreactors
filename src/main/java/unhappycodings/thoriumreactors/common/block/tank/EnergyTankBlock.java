@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -41,7 +41,7 @@ public class EnergyTankBlock extends BaseEntityBlock {
     public int capacity = 0;
 
     public EnergyTankBlock(RegistryObject<BlockEntityType<EnergyTankBlockEntity>> type, int capacity) {
-        super(Properties.of(Material.GLASS).noOcclusion().sound(SoundType.GLASS).strength(3f));
+        super(Properties.copy(Blocks.GLASS).noOcclusion().sound(SoundType.GLASS).strength(3f));
         this.type = type;
         this.capacity = capacity;
     }
@@ -83,8 +83,8 @@ public class EnergyTankBlock extends BaseEntityBlock {
     @SuppressWarnings("deprecation")
     @NotNull
     @Override
-    public List<ItemStack> getDrops(@NotNull BlockState pState, LootContext.Builder pBuilder) {
-        return Collections.singletonList(LootUtil.getLoot(pBuilder.getParameter(LootContextParams.BLOCK_ENTITY), this));
+    public List<ItemStack> getDrops(@NotNull BlockState pState, LootParams.@NotNull Builder pParams) {
+        return Collections.singletonList(LootUtil.getLoot(pParams.getParameter(LootContextParams.BLOCK_ENTITY), this));
     }
 
     @Override
