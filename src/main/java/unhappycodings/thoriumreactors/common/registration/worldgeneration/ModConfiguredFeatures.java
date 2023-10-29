@@ -67,6 +67,11 @@ public class ModConfiguredFeatures {
                     OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, ModBlocks.URANIUM_ORE.get().defaultBlockState()),
                     OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.DEEPSLATE_URANIUM_ORE.get().defaultBlockState())), 3)));
 
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> THORIUM_BLOCK = CONFIGURED_FEATURES.register("thorium_block",
+            () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(List.of(
+                    OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, ModBlocks.THORIUM_BLOCK.get().defaultBlockState())), 50)));
+
     public static void register(IEventBus bus) {
         CONFIGURED_FEATURES.register(bus);
     }

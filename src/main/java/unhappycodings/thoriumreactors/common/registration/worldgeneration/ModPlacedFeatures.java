@@ -84,6 +84,13 @@ public class ModPlacedFeatures {
                             VerticalAnchor.top()
                     ))));
 
+    public static final RegistryObject<PlacedFeature> THORIUM_BLOCK = PLACED_FEATURES.register("thorium_block_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.THORIUM_BLOCK.getHolder().get(),
+                    OrePlacements.commonOrePlacement(3, HeightRangePlacement.uniform(
+                            VerticalAnchor.bottom(),
+                            VerticalAnchor.top()
+                    ))));
+
     public static void register(IEventBus bus) {
         PLACED_FEATURES.register(bus);
     }
