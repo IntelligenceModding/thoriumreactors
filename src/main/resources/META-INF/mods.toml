@@ -38,3 +38,17 @@ mandatory = false
 versionRange = "[1.101.3,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.thoriumreactors]]
+modId = "theoneprobe"
+mandatory = false
+versionRange = "[1.19-6.2.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.thoriumreactors]]
+modId = "jei"
+mandatory = false
+versionRange = "[11.4.0.288,)"
+ordering = "NONE"
+side = "BOTH"
