@@ -112,12 +112,15 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     public void trySetValue(ReactorButtonTypeEnum typeEnum) {
         ReactorControllerBlockEntity entity = container.getTile();
-        if (typeEnum == ReactorButtonTypeEnum.TEMP)
-            PacketHandler.sendToServer(new ReactorControllerTemperaturePacket(entity.getBlockPos(), Short.parseShort(inputBox1.getValue())));
-        if (typeEnum == ReactorButtonTypeEnum.LOAD && Integer.parseInt(inputBox2.getValue()) <= 100 && Integer.parseInt(inputBox2.getValue()) >= 0)
-            PacketHandler.sendToServer(new ReactorControllerLoadPacket(entity.getBlockPos(), Byte.parseByte(inputBox2.getValue())));
-        if (typeEnum == ReactorButtonTypeEnum.RODS && Integer.parseInt(inputBox3.getValue()) <= 100 && Integer.parseInt(inputBox3.getValue()) >= 0)
-            PacketHandler.sendToServer(new ReactorControllerRodInsertPacket(entity.getBlockPos(), Byte.parseByte(inputBox3.getValue()), (byte) selectedRod, hasShiftDown()));
+        try {
+            if (typeEnum == ReactorButtonTypeEnum.TEMP && Integer.parseInt(inputBox1.getValue()) <= ReactorControllerBlockEntity.MAX_HEAT && Integer.parseInt(inputBox1.getValue()) >= 0)
+                PacketHandler.sendToServer(new ReactorControllerTemperaturePacket(entity.getBlockPos(), Short.parseShort(inputBox1.getValue())));
+            if (typeEnum == ReactorButtonTypeEnum.LOAD && Integer.parseInt(inputBox2.getValue()) <= 100 && Integer.parseInt(inputBox2.getValue()) >= 0)
+                PacketHandler.sendToServer(new ReactorControllerLoadPacket(entity.getBlockPos(), Byte.parseByte(inputBox2.getValue())));
+            if (typeEnum == ReactorButtonTypeEnum.RODS && Integer.parseInt(inputBox3.getValue()) <= 100 && Integer.parseInt(inputBox3.getValue()) >= 0)
+                PacketHandler.sendToServer(new ReactorControllerRodInsertPacket(entity.getBlockPos(), Byte.parseByte(inputBox3.getValue()), (byte) selectedRod, hasShiftDown()));
+        } catch (NumberFormatException ignored) {
+        }
     }
 
     public void setTurbineCoils(boolean value) {
@@ -180,7 +183,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         ReactorControllerBlockEntity entity = container.getTile();
         inputBox3.setValue("0");
         inputBox2.setValue(String.valueOf(entity.getReactorTargetLoadSet()));
-        inputBox1.setValue(String.valueOf(entity.getReactorTargetTemperature()));
+        inputBox1.setValue(String.valueOf((int) entity.getReactorTargetTemperature()));
     }
 
     @Override
