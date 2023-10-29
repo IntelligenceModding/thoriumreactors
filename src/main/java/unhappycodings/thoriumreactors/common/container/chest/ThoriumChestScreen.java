@@ -24,7 +24,7 @@ public class ThoriumChestScreen extends BaseScreen<ThoriumChestContainer> {
     protected void renderLabels(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         pPoseStack.pushPose();
         pPoseStack.scale(0.7f, 0.7f, 0.7f);
-        ScreenUtil.drawText(Component.translatable("block.thoriumreactors.steel_chest_block").withStyle(ScreenUtil::notoSans), pPoseStack, 10, 2, 11184810);
+        ScreenUtil.drawText(Component.translatable("block.thoriumreactors.thorium_chest_block").withStyle(ScreenUtil::notoSans), pPoseStack, 10, 2, 11184810);
         ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), pPoseStack, 343, 2, 11184810);
         pPoseStack.popPose();
         ScreenUtil.drawText(Component.translatable("key.categories.inventory").withStyle(ScreenUtil::notoSans), pPoseStack, 44, 163, 11184810);
