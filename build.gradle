@@ -133,6 +133,7 @@ dependencies {
     // Implementation for API usage
     implementation fg.deobf("curse.maven:jei-${jei_version}")
     implementation fg.deobf("curse.maven:top-${top_version}")
+    implementation fg.deobf("curse.maven:fusion-${fusion_version}")
     implementation fg.deobf("cc.tweaked:cc-tweaked-1.20.1-forge:${cc_version}")
 
     // Runtime only

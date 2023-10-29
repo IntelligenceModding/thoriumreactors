@@ -1,17 +1,6 @@
 {
-  "ctm": {
-    "ctm_version": 1,
-    "type": "CTM",
-    "layer": "SOLID",
-    "textures": [
-      "thoriumreactors:block/black_industrial_block_floor-ctm"
-    ],
-    "extra": {
-      "connect_to": [
-        {
-          "block": "thoriumreactors:black_industrial_block_floor"
-        }
-      ]
-    }
+  "fusion": {
+    "type": "connecting",
+    "layout": "full"
   }
 }

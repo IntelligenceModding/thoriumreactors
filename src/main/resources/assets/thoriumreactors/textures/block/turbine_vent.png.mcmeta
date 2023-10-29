@@ -1,32 +1,6 @@
 {
-  "ctm": {
-    "ctm_version": 1,
-    "type": "CTM",
-    "layer": "SOLID",
-    "textures": [
-      "thoriumreactors:block/turbine_vent-ctm"
-    ],
-    "extra": {
-      "connect_to": [
-        {
-          "block": "thoriumreactors:turbine_casing"
-        },
-        {
-          "block": "thoriumreactors:turbine_controller"
-        },
-        {
-          "block": "thoriumreactors:turbine_valve"
-        },
-        {
-          "block": "thoriumreactors:turbine_power_port"
-        },
-        {
-          "block": "thoriumreactors:turbine_vent"
-        },
-        {
-          "block": "thoriumreactors:turbine_rotation_mount"
-        }
-      ]
-    }
+  "fusion": {
+    "type": "connecting",
+    "layout": "full"
   }
 }

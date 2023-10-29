@@ -1,26 +1,6 @@
 {
-  "ctm": {
-    "ctm_version": 1,
-    "type": "CTM",
-    "layer": "SOLID",
-    "textures": [
-      "thoriumreactors:block/thermal_controller-ctm"
-    ],
-    "extra": {
-      "connect_to": [
-        {
-          "block": "thoriumreactors:thermal_conductor"
-        },
-        {
-          "block": "thoriumreactors:thermal_valve"
-        },
-        {
-          "block": "thoriumreactors:thermal_controller"
-        },
-        {
-          "block": "thoriumreactors:thermal_heat_sink"
-        }
-      ]
-    }
+  "fusion": {
+    "type": "connecting",
+    "layout": "full"
   }
 }

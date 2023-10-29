@@ -1,0 +1,31 @@
+{
+  "loader":"fusion:model",
+  "type":"connecting",
+  "connections":[
+    {
+      "type":"is_same_block"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:thermal_conductor"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:thermal_heat_sink"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:thermal_controller"
+    }
+  ],
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "thoriumreactors:block/thermal_conductor",
+    "east": "thoriumreactors:block/thermal_conductor",
+    "north": "thoriumreactors:block/thermal_valve",
+    "particle": "thoriumreactors:block/thermal_valve",
+    "south": "thoriumreactors:block/thermal_conductor",
+    "up": "thoriumreactors:block/thermal_conductor",
+    "west": "thoriumreactors:block/thermal_conductor"
+  }
+}

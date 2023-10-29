@@ -1,11 +1,13 @@
 package unhappycodings.thoriumreactors.common.util;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 
 public class ScreenUtil {
@@ -57,6 +59,11 @@ public class ScreenUtil {
 
     public static void drawCenteredText(MutableComponent text, GuiGraphics graphics, int x, int y, int color) {
         graphics.drawCenteredString(Minecraft.getInstance().font, text, x, y, color);
+    }
+
+    public static void drawCenteredText(MutableComponent text, GuiGraphics graphics, int x, int y, int color, boolean dropShadow) {
+        FormattedCharSequence formattedcharsequence = text.getVisualOrderText();
+        graphics.drawString(Minecraft.getInstance().font, formattedcharsequence, x - Minecraft.getInstance().font.width(formattedcharsequence) / 2, y, color, dropShadow);
     }
 
     public static void drawText(String text, GuiGraphics graphics, int x, int y) {

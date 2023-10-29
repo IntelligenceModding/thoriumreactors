@@ -1,0 +1,22 @@
+{
+  "loader":"fusion:model",
+  "type":"connecting",
+  "connections":[
+    {
+      "type":"is_same_block"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:reactor_controller"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:reactor_valve"
+    }
+  ],
+  "parent": "minecraft:block/cube_all",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "thoriumreactors:block/reactor_casing"
+  }
+}

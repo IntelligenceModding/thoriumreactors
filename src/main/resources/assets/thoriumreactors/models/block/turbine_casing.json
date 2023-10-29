@@ -1,0 +1,34 @@
+{
+  "loader":"fusion:model",
+  "type":"connecting",
+  "connections":[
+    {
+      "type":"is_same_block"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:turbine_controller"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:turbine_vent"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:turbine_rotation_mount"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:turbine_power_port"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:turbine_valve"
+    }
+  ],
+  "parent": "minecraft:block/cube_all",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "thoriumreactors:block/turbine_casing"
+  }
+}

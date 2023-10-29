@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "all": "thoriumreactors:block/reactor_glass",
-    "particle": "thoriumreactors:block/reactor_glass"
-  }
-}

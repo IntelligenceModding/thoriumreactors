@@ -1,0 +1,196 @@
+{
+  "thoriumreactors:blast_furnace_block": {
+    "criteria": {
+      "requirement": "2023-10-29 10:20:20 +0100"
+    },
+    "done": true
+  },
+  "mekanism:root": {
+    "criteria": {
+      "automatic": "2023-10-29 10:20:20 +0100"
+    },
+    "done": true
+  },
+  "mekanism:configurator": {
+    "criteria": {
+      "configurator": "2023-10-29 10:20:20 +0100"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_glass": {
+    "criteria": {
+      "requirement": "2023-10-29 10:20:20 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2023-10-29 10:20:21 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:river": "2023-10-29 10:20:33 +0100",
+      "minecraft:forest": "2023-10-29 10:20:21 +0100"
+    },
+    "done": false
+  },
+  "minecraft:recipes/building_blocks/red_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/light_blue_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/brewing/glass_bottle": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/green_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/brown_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/light_gray_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/blue_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/orange_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/cyan_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/pink_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/black_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/gray_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/purple_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/yellow_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/lime_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/glass_pane": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/magenta_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/white_stained_glass": {
+    "criteria": {
+      "has_glass": "2023-10-29 12:19:50 +0100"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_glass": {
+    "criteria": {
+      "requirement": "2023-10-29 12:20:04 +0100"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_casing": {
+    "criteria": {
+      "requirement": "2023-10-29 16:20:18 +0100"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_casing": {
+    "criteria": {
+      "requirement": "2023-10-29 16:49:27 +0100"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_controller": {
+    "criteria": {
+      "requirement": "2023-10-29 17:20:11 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chest": {
+    "criteria": {
+      "has_lots_of_items": "2023-10-29 17:20:15 +0100"
+    },
+    "done": true
+  },
+  "thoriumreactors:reactor_valve": {
+    "criteria": {
+      "requirement": "2023-10-29 17:20:19 +0100"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_vent": {
+    "criteria": {
+      "requirement": "2023-10-29 18:46:34 +0100"
+    },
+    "done": true
+  },
+  "thoriumreactors:turbine_assembled": {
+    "criteria": {
+      "impossible": "2023-10-29 19:15:31 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 3465
+}

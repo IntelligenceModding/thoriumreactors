@@ -26,8 +26,22 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.thoriumreactors]]
+modId = "fusion"
+mandatory = true
+versionRange = "[1.0.6,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.thoriumreactors]]
 modId = "computercraft"
 mandatory = false
 versionRange = "[1.108.3,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.thoriumreactors]]
+modId = "theoneprobe"
+mandatory = false
+versionRange = "[1.20.1-10.0.1,)"
 ordering = "NONE"
 side = "BOTH"

@@ -1,0 +1,26 @@
+{
+  "loader":"fusion:model",
+  "type":"connecting",
+  "connections":[
+    {
+      "type":"is_same_block"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:thermal_valve"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:thermal_conductor"
+    },
+    {
+      "type": "match_block",
+      "block": "thoriumreactors:thermal_controller"
+    }
+  ],
+  "parent": "thoriumreactors:generation/heat_sink",
+  "textures": {
+    "0": "thoriumreactors:block/thermal_conductor",
+    "particle": "thoriumreactors:block/thermal_conductor"
+  }
+}
