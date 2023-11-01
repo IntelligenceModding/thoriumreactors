@@ -385,6 +385,14 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add("heating_fluid_input", "Heat Input");
         add("heating_fluid_output", "Heat Output");
 
+        add("block.thoriumreactors.hydrofluorite_block", "Hydrofluorite");
+        add("block.thoriumreactors.molten_salt_block", "Molten Salt");
+        add("block.thoriumreactors.depleted_molten_salt_block", "Depleted Molten Salt");
+        add("block.thoriumreactors.heated_molten_salt_block", "Heated Molten Salt");
+        add("block.thoriumreactors.uranium_hexafluorite_block", "Uranium Hexafluorite");
+        add("block.thoriumreactors.enriched_uranium_hexafluorite_block", "Enriched Uranium Hexafluorite");
+        add("block.thoriumreactors.steam_block", "Steam");
+
         add("fluid_type.thoriumreactors.hydrofluorite", "Hydrofluorite");
         add("fluid_type.thoriumreactors.molten_salt", "Molten Salt");
         add("fluid_type.thoriumreactors.depleted_molten_salt", "Depleted Molten Salt");
