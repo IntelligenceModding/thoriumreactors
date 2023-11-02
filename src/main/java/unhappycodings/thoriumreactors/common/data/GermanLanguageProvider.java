@@ -391,6 +391,14 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add("fluid_type.thoriumreactors.enriched_uranium_hexafluorite", "Angereichertes Uran-Hexafluorit");
         add("fluid_type.thoriumreactors.steam", "Dampf");
 
+        add("block.thoriumreactors.hydrofluorite_block", "Hydrofluorit");
+        add("block.thoriumreactors.molten_salt_block", "Schmelzsalz");
+        add("block.thoriumreactors.depleted_molten_salt_block", "Aufgebrauchted Schmelzsalz");
+        add("block.thoriumreactors.heated_molten_salt_block", "Erhitztes Schmelzsalz");
+        add("block.thoriumreactors.uranium_hexafluorite_block", "Uran-Hexafluorit");
+        add("block.thoriumreactors.enriched_uranium_hexafluorite_block", "Angereichertes Uran-Hexafluorit");
+        add("block.thoriumreactors.steam_block", "Dampf");
+
         add("keybind.thoriumreactors.description", "Beschreibung anzeigen");
         add("keybind.thoriumreactors.details", "Details anzeigen");
         add("itemGroup.thoriumreactors.resources", "Thorium R. - Rohstoffe");
