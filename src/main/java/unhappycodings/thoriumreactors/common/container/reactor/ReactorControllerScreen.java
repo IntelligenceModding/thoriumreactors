@@ -252,7 +252,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         boolean mouseOverStart = ScreenUtil.mouseInArea((xPos + 514) / 2, (yPos + 261) / 2, (xPos + 514 + 83) / 2, (yPos + 261 + 21) / 2, x, y);
         boolean mouseOverRunning = ScreenUtil.mouseInArea((xPos + 514) / 2, (yPos + 289) / 2, (xPos + 514 + 83) / 2, (yPos + 289 + 21) / 2, x, y);
         boolean mouseOverStop = ScreenUtil.mouseInArea((xPos + 514) / 2, (yPos + 316) / 2, (xPos + 514 + 83) / 2, (yPos + 316 + 21) / 2, x, y);
-        boolean mouseOverIncrementFlow = ScreenUtil.mouseInArea((xPos + 583) / 2, (yPos + 135) / 2, (xPos + 583 + 28) / 2, (yPos + 135 + 19) / 2, x, y);
+        boolean mouseOverIncrementFlow = ScreenUtil.mouseInArea((xPos + 514) / 2, (yPos + 149) / 2, (xPos + 514 + 28) / 2, (yPos + 149 + 19) / 2, curMouseX, curMouseY);
 
         matrixStack.pushPose();
         matrixStack.scale(0.5f, 0.5f, 0.5f);
@@ -301,7 +301,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             blit(matrixStack, xPos + getMainSizeX() + 1, yPos, 728, 0, getRightSideX(), getRightSideY(), 1024, 1024); //right
 
             // incrementer buttons
-            blit(matrixStack, xPos + 515, yPos + 149, 166, entity.getTurbinePos().isEmpty() ? incrementerFlow.isMouseOver(curMouseX, curMouseY) ? (mouseOverIncrementFlow ? 449 + 19 : 449 + 38) : 449 : 900, 58, 19, 1024, 1024); // right incrementer speed bottom
+            blit(matrixStack, xPos + 515, yPos + 149, 166, !entity.getTurbinePos().isEmpty() ? incrementerFlow.isMouseOver(curMouseX, curMouseY) ? (mouseOverIncrementFlow ? 449 + 19 : 449 + 38) : 449 : 900, 58, 19, 1024, 1024); // right incrementer speed bottom
 
             // state buttons right
             if (entity.getReactorState() != ReactorStateEnum.STARTING)
