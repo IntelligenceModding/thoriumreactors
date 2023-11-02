@@ -97,7 +97,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             int index = i;
             controlRodsButtons[i] = new ModButton((64 - (row * 7)) + (i % 8 * 7), (14 + (row * 7)) + (i % 8 * 7), 4, 4, null, () -> {
                 selectedRod = index;
-                inputBox3.setValue(String.valueOf(entity.getControlRodStatus((byte) index)));
+                if (inputBox3 != null)
+                    inputBox3.setValue(String.valueOf(entity.getControlRodStatus((byte) index)));
             }, null, entity, this, 0, 0, true);
             addWidget(controlRodsButtons[i]);
         }
@@ -161,7 +162,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
                 int inputValue = entity.getControlRodStatus((byte) i);
                 byte finalValue = (byte) (inputValue + (hasShiftDown() ? pDelta * 10 : pDelta));
                 if (finalValue <= 100 && finalValue >= 0) {
-                    if (i == selectedRod) inputBox3.setValue(String.valueOf(finalValue));
+                    if (i == selectedRod && inputBox3 != null) inputBox3.setValue(String.valueOf(finalValue));
                     PacketHandler.sendToServer(new ReactorControllerRodInsertPacket(entity.getBlockPos(), finalValue, (byte) i, false));
                     minecraft.getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.DIGITALBEEP_0.get(), pDelta > 0 ? 1F : 0.99f));
                 }
