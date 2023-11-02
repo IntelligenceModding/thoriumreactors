@@ -133,6 +133,7 @@ dependencies {
     // Implementation for API usage
     implementation fg.deobf("curse.maven:jei-${jei_version}")
     implementation fg.deobf("curse.maven:top-${top_version}")
+    implementation fg.deobf("curse.maven:jade-${jade_version}")
     implementation fg.deobf("org.squiddev:cc-tweaked-1.19.2:${cc_version}")
 
     // Runtime only
