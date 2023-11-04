@@ -56,7 +56,6 @@ public class EnergyTankBlockEntity extends BlockEntity implements IEnergyCapable
 
     public void tick() {
         if (isCreative) {
-            System.out.println("---");
             boolean isAir = ENERGY_STORAGE.getEnergyStored() < Integer.MAX_VALUE;
             ENERGY_STORAGE.setEnergy(isAir ? 0 : Integer.MAX_VALUE);
         }
