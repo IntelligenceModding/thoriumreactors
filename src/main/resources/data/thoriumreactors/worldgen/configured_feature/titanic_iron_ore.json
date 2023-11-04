@@ -10,7 +10,7 @@
           "tag": "minecraft:stone_ore_replaceables"
         },
         "state": {
-          "Name": "thoriumreactors:titanic_iron_ore_ore"
+          "Name": "thoriumreactors:titanic_iron_ore"
         }
       },
       {
@@ -19,7 +19,7 @@
           "tag": "minecraft:deepslate_ore_replaceables"
         },
         "state": {
-          "Name": "thoriumreactors:deepslate_titanic_iron_ore_ore"
+          "Name": "thoriumreactors:deepslate_titanic_iron_ore"
         }
       }
     ]

@@ -54,8 +54,8 @@ public class DecomposingRecipeCategory implements IRecipeCategory<DecomposingRec
         tankGroin1.draw(guiGraphics, getGuiLeft() + 1, getGuiTop() + 25);
         tankGroin2.draw(guiGraphics, getGuiLeft() + 82, getGuiTop() + 2);
 
-        ScreenUtil.drawCenteredText("Decomposing", guiGraphics, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 40);
+        ScreenUtil.drawCenteredText("Decomposing", guiGraphics, getBackground().getWidth() / 2, 6, false);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 40, false);
     }
 
     public int getGuiTop() {

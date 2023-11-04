@@ -43,8 +43,8 @@ public class ConcentratingRecipeCategory implements IRecipeCategory<Concentratin
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 181, 246, 41, 10), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
         }
         progress.draw(guiGraphics, 50, 24);
-        ScreenUtil.drawCenteredText("Concentrating", guiGraphics, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 40);
+        ScreenUtil.drawCenteredText("Concentrating", guiGraphics, getBackground().getWidth() / 2, 6, false);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 40, false);
     }
 
     @NotNull

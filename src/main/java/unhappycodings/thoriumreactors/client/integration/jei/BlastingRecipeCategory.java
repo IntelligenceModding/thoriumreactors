@@ -51,7 +51,7 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
     }
 
     @Override
-    public void draw(@NotNull BlastingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull BlastingRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
         if (progress == null || heating == null) {
             this.progress = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE, 222, 247, 34, 9), recipe.getTicks(), IDrawableAnimated.StartDirection.LEFT, false);
@@ -59,10 +59,10 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
         }
         progress.draw(guiGraphics, 10 + 43, 20 + 21);
         heating.draw(guiGraphics, 10 + 52, 20);
-        ScreenUtil.drawCenteredText("Blasting", guiGraphics, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", guiGraphics, getBackground().getWidth() / 2, 20 + 40);
+        ScreenUtil.drawCenteredText("Blasting", guiGraphics, getBackground().getWidth() / 2, 6, false);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", guiGraphics, getBackground().getWidth() / 2, 20 + 40, false);
         if (recipe.getSecondaryChance() > 0)
-            ScreenUtil.drawCenteredText(recipe.getSecondaryChance() + "%", guiGraphics, 120, 20 + 40);
+            ScreenUtil.drawCenteredText(recipe.getSecondaryChance() + "%", guiGraphics, 120, 20 + 40, false);
 
     }
 

@@ -53,12 +53,27 @@ public class ScreenUtil {
         drawCenteredText(Component.literal(text), graphics, x, y, color);
     }
 
+    public static void drawCenteredText(String text, GuiGraphics graphics, int x, int y, boolean dropShadow) {
+        FormattedCharSequence formattedcharsequence = Component.literal(text).getVisualOrderText();
+        graphics.drawString(Minecraft.getInstance().font, formattedcharsequence, x - Minecraft.getInstance().font.width(formattedcharsequence) / 2, y, 1315860, dropShadow);
+    }
+
+    public static void drawCenteredText(String text, GuiGraphics graphics, int x, int y, int color, boolean dropShadow) {
+        FormattedCharSequence formattedcharsequence = Component.literal(text).getVisualOrderText();
+        graphics.drawString(Minecraft.getInstance().font, formattedcharsequence, x - Minecraft.getInstance().font.width(formattedcharsequence) / 2, y, color, dropShadow);
+    }
+
     public static void drawCenteredText(MutableComponent text, GuiGraphics graphics, int x, int y) {
         graphics.drawCenteredString(Minecraft.getInstance().font, text, x, y, 1315860);
     }
 
     public static void drawCenteredText(MutableComponent text, GuiGraphics graphics, int x, int y, int color) {
         graphics.drawCenteredString(Minecraft.getInstance().font, text, x, y, color);
+    }
+
+    public static void drawCenteredText(MutableComponent text, GuiGraphics graphics, int x, int y, boolean dropShadow) {
+        FormattedCharSequence formattedcharsequence = text.getVisualOrderText();
+        graphics.drawString(Minecraft.getInstance().font, formattedcharsequence, x - Minecraft.getInstance().font.width(formattedcharsequence) / 2, y, 1315860, dropShadow);
     }
 
     public static void drawCenteredText(MutableComponent text, GuiGraphics graphics, int x, int y, int color, boolean dropShadow) {

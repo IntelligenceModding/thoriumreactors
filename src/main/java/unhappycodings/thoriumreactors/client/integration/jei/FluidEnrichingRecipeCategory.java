@@ -54,8 +54,8 @@ public class FluidEnrichingRecipeCategory implements IRecipeCategory<FluidEnrich
         tankScaleL.draw(graphics, getGuiLeft() + 1, getGuiTop() + 25);
         tankScaleR.draw(graphics, getGuiLeft() + 83, getGuiTop() + 2);
 
-        ScreenUtil.drawCenteredText("Fluid Enriching", graphics, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", graphics, getBackground().getWidth() / 2, 65);
+        ScreenUtil.drawCenteredText("Fluid Enriching", graphics, getBackground().getWidth() / 2, 6, false);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", graphics, getBackground().getWidth() / 2, 65, false);
     }
 
     public int getGuiTop() {

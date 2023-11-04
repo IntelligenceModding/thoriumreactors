@@ -51,8 +51,8 @@ public class CentrifugingRecipeCategory implements IRecipeCategory<CentrifugingR
         tankScale.draw(guiGraphics, getGuiLeft() + 1, getGuiTop() + 1);
         tankScale.draw(guiGraphics, getGuiLeft() + 83, getGuiTop() + 2);
 
-        ScreenUtil.drawCenteredText("Centrifuging", guiGraphics, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 71);
+        ScreenUtil.drawCenteredText("Centrifuging", guiGraphics, getBackground().getWidth() / 2, 6, false);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 71, false);
     }
 
     public int getGuiTop() {

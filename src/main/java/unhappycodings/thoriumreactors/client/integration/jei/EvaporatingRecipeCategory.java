@@ -51,8 +51,8 @@ public class EvaporatingRecipeCategory implements IRecipeCategory<EvaporatingRec
         progress.draw(graphics, getGuiLeft() + 35, getGuiTop() + 13);
         tankGroin1.draw(graphics, getGuiLeft() + 1, getGuiTop() + 2);
 
-        ScreenUtil.drawCenteredText("Evaporating", graphics, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", graphics, getBackground().getWidth() / 2, 80);
+        ScreenUtil.drawCenteredText("Evaporating", graphics, getBackground().getWidth() / 2, 6, false);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", graphics, getBackground().getWidth() / 2, 80, false);
     }
 
     public int getGuiTop() {

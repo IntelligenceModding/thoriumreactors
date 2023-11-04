@@ -45,7 +45,7 @@
   "block.thoriumreactors.electromagnetic_coil_description": "Needed in a turbine for energy production.",
   "block.thoriumreactors.enriched_uranium_hexafluorite_block": "Enriched Uranium Hexafluorite",
   "block.thoriumreactors.factory_block": "Factory Block",
-  "block.thoriumreactors.fluid_centrifuge_block": "Fluid Centrifuge",1
+  "block.thoriumreactors.fluid_centrifuge_block": "Fluid Centrifuge",
   "block.thoriumreactors.fluid_centrifuge_block_description": "The Fluid Centrifuge is mainly used to modify fluids by atomic separation at fast rotation. Mainy used to enrich UF6 (Hexafluorite)!",
   "block.thoriumreactors.fluid_enricher_block": "Fluid Enricher",
   "block.thoriumreactors.fluid_enricher_block_description": "The Fluid Enricher mixes substances into fluids. Mainly used for Molten Salt regeneration!",

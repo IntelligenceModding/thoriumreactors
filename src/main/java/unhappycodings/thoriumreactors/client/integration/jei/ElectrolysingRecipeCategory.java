@@ -57,8 +57,8 @@ public class ElectrolysingRecipeCategory implements IRecipeCategory<Electrolysin
         tankScaleL.draw(guiGraphics, getGuiLeft() + 1, getGuiTop() + 2);
         tankScaleR.draw(guiGraphics, getGuiLeft() + 83, getGuiTop() + 24);
 
-        ScreenUtil.drawCenteredText("Electrolytic Separation", guiGraphics, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 71);
+        ScreenUtil.drawCenteredText("Electrolytic Separation", guiGraphics, getBackground().getWidth() / 2, 6, false);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s", guiGraphics, getBackground().getWidth() / 2, 71, false);
     }
 
     public int getGuiTop() {

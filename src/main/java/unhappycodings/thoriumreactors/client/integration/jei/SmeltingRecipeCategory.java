@@ -60,8 +60,8 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SaltSmeltingRecip
             this.heating = helper.createAnimatedDrawable(helper.createDrawable(TEXTURE_ONE, 240, 231, 16, 16), 80, IDrawableAnimated.StartDirection.BOTTOM, false);
         }
         heating.draw(graphics, getGuiLeft() + 23, getGuiTop() + 26);
-        ScreenUtil.drawCenteredText("Salt Melting", graphics, getBackground().getWidth() / 2, 6);
-        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", graphics, getBackground().getWidth() / 2, getGuiTop() + 60);
+        ScreenUtil.drawCenteredText("Salt Melting", graphics, getBackground().getWidth() / 2, 6, false);
+        ScreenUtil.drawCenteredText(recipe.getTicks() / 20 + "s ", graphics, getBackground().getWidth() / 2, getGuiTop() + 60, false);
     }
 
     public int getGuiTop() {
