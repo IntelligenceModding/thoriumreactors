@@ -213,7 +213,7 @@ public class BlastedIronChestBlockEntity extends ChestBlockEntity {
     }
 
     @Override
-    public boolean canOpen(Player pPlayer) {
+    public boolean canOpen(@NotNull Player pPlayer) {
         return true;
     }
 
@@ -222,13 +222,15 @@ public class BlastedIronChestBlockEntity extends ChestBlockEntity {
         items.clear();
     }
 
+    @NotNull
     @Override
     protected net.minecraftforge.items.IItemHandler createUnSidedHandler() {
         return new net.minecraftforge.items.wrapper.InvWrapper(this);
     }
 
+    @NotNull
     @Override
-    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> cap, @org.jetbrains.annotations.Nullable net.minecraft.core.Direction side) {
+    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> cap, @org.jetbrains.annotations.Nullable net.minecraft.core.Direction side) {
         if (!this.remove && cap == net.minecraftforge.common.capabilities.ForgeCapabilities.ITEM_HANDLER)
             return itemHandler.cast();
         return super.getCapability(cap, side);

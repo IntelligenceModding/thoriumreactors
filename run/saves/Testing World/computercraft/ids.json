@@ -1,6 +1,6 @@
 {
   "peripheral.test": 0,
-  "computer": 5,
-  "peripheral.computer": 6,
-  "peripheral.thorium_reactor": 2
+  "computer": 8,
+  "peripheral.computer": 11,
+  "peripheral.thorium_reactor": 3
 }

@@ -3,7 +3,7 @@
   "cookingtime": 200,
   "experience": 0.7,
   "ingredient": {
-    "item": "thoriumreactors:manganese_ore"
+    "item": "thoriumreactors:deepslate_manganese_ore"
   },
   "result": "thoriumreactors:manganese_ingot"
 }

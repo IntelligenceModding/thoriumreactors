@@ -13,7 +13,9 @@ import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.util.LuaUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CCReactorPeripheral implements IPeripheral {
     private final List<IComputerAccess> connectedComputers = new ArrayList<>();
@@ -200,10 +202,32 @@ public class CCReactorPeripheral implements IPeripheral {
     }
 
     @LuaFunction(mainThread = true)
+    public final Object getFuelRodStatusMap() {
+        ReactorControllerBlockEntity entity = getReactorController();
+        if (entity == null) return new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>(81);
+        for (int i = 0; i < 81; i++) {
+            map.put(i + 1, (int) entity.getFuelRodStatus((byte) i));
+        }
+        return map;
+    }
+
+    @LuaFunction(mainThread = true)
     public final float getDepletedFuelRodStatus(int index) {
         ReactorControllerBlockEntity entity = getReactorController();
         if (entity == null || index < 0 || index > 80) return -1;
         return entity.getDepletedFuelRodStatus((byte) index);
+    }
+
+    @LuaFunction(mainThread = true)
+    public final Object getDepletedFuelRodStatusMap() {
+        ReactorControllerBlockEntity entity = getReactorController();
+        if (entity == null) return new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>(81);
+        for (int i = 0; i < 81; i++) {
+            map.put(i + 1, (int) entity.getDepletedFuelRodStatus((byte) i));
+        }
+        return map;
     }
 
     @LuaFunction(mainThread = true)
@@ -214,10 +238,32 @@ public class CCReactorPeripheral implements IPeripheral {
     }
 
     @LuaFunction(mainThread = true)
+    public final Object getCurrentControlRodStatusMap() {
+        ReactorControllerBlockEntity entity = getReactorController();
+        if (entity == null) return new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>(64);
+        for (int i = 0; i < 64; i++) {
+            map.put(i + 1, entity.getControlRodStatus((byte) i));
+        }
+        return map;
+    }
+
+    @LuaFunction(mainThread = true)
     public final float getTargetControlRodStatus(int index) {
         ReactorControllerBlockEntity entity = getReactorController();
         if (entity == null || index < 0 || index > 63) return -1;
         return entity.getTargetControlRodStatus((byte) index);
+    }
+
+    @LuaFunction(mainThread = true)
+    public final Object getTargetControlRodStatusMap() {
+        ReactorControllerBlockEntity entity = getReactorController();
+        if (entity == null) return new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>(64);
+        for (int i = 0; i < 64; i++) {
+            map.put(i + 1, (int) entity.getTargetControlRodStatus((byte) i));
+        }
+        return map;
     }
 
     @LuaFunction(mainThread = true)

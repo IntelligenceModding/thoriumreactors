@@ -55,7 +55,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
             for (Direction value : Direction.values()) {
                 level.getBlockEntity(iProbeHitData.getPos()).getCapability(ForgeCapabilities.FLUID_HANDLER, value).ifPresent(storage -> {
                     boolean isCreative = storage.getFluidInTank(0).getAmount() == Integer.MAX_VALUE;
-                    iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(storage.getFluidInTank(1).getDisplayName().copy().append(Component.literal(": "))).tankSimple(storage.getTankCapacity(1), storage.getFluidInTank(1), iProbeInfo.defaultProgressStyle().numberFormat(isCreative ? NumberFormat.NONE : NumberFormat.FULL).suffix(Component.literal(isCreative ? "Infinite " : "mb " + FormattingUtil.formatPercentNum(storage.getFluidInTank(1).getAmount(), storage.getTankCapacity(1), false))).borderColor(Color.rgb(65, 65, 65, 255)).backgroundColor(Color.rgb(0, 0, 0, 0)));
+                    iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(storage.getFluidInTank(1).getDisplayName().copy().append(Component.literal(": "))).tankSimple(storage.getTankCapacity(1), storage.getFluidInTank(1), iProbeInfo.defaultProgressStyle().numberFormat(isCreative ? NumberFormat.NONE : NumberFormat.FULL).suffix(Component.literal(isCreative ? "Infinite " : "mB " + FormattingUtil.formatPercentNum(storage.getFluidInTank(1).getAmount(), storage.getTankCapacity(1), false))).borderColor(Color.rgb(65, 65, 65, 255)).backgroundColor(Color.rgb(0, 0, 0, 0)));
 
                 });
                 return;
@@ -118,7 +118,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
 
             for (Direction value : Direction.values()) {
                 level.getBlockEntity(iProbeHitData.getPos()).getCapability(ForgeCapabilities.FLUID_HANDLER, value).ifPresent(storage -> {
-                    iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(storage.getFluidInTank(1).getDisplayName().copy().append(Component.literal(": "))).tankSimple(storage.getTankCapacity(1), storage.getFluidInTank(1), iProbeInfo.defaultProgressStyle().suffix(Component.literal("mb " + FormattingUtil.formatPercentNum(storage.getFluidInTank(1).getAmount(), storage.getTankCapacity(1), false))).borderColor(Color.rgb(65, 65, 65, 255)).backgroundColor(Color.rgb(0, 0, 0, 0)));
+                    iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(storage.getFluidInTank(1).getDisplayName().copy().append(Component.literal(": "))).tankSimple(storage.getTankCapacity(1), storage.getFluidInTank(1), iProbeInfo.defaultProgressStyle().suffix(Component.literal("mB " + FormattingUtil.formatPercentNum(storage.getFluidInTank(1).getAmount(), storage.getTankCapacity(1), false))).borderColor(Color.rgb(65, 65, 65, 255)).backgroundColor(Color.rgb(0, 0, 0, 0)));
                 });
             }
 
@@ -148,7 +148,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
     }
 
     private void valveTankRender(IProbeInfo iProbeInfo, FluidStack fluidIn, int fluidCapacityIn, int fluidAmountIn) {
-        iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(fluidIn.getDisplayName().copy().append(Component.literal(": "))).tankSimple(fluidCapacityIn, fluidIn, iProbeInfo.defaultProgressStyle().suffix(Component.literal("mb " + FormattingUtil.formatPercentNum(fluidAmountIn, fluidCapacityIn, false))).borderColor(Color.rgb(65, 65, 65, 255)).backgroundColor(Color.rgb(0, 0, 0, 0)));
+        iProbeInfo.horizontal(iProbeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).mcText(fluidIn.getDisplayName().copy().append(Component.literal(": "))).tankSimple(fluidCapacityIn, fluidIn, iProbeInfo.defaultProgressStyle().suffix(Component.literal("mB " + FormattingUtil.formatPercentNum(fluidAmountIn, fluidCapacityIn, false))).borderColor(Color.rgb(65, 65, 65, 255)).backgroundColor(Color.rgb(0, 0, 0, 0)));
     }
 
 }

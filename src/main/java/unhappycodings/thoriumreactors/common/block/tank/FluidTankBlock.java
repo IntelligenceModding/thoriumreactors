@@ -50,6 +50,7 @@ import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEnti
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.util.KeyBindingUtil;
 import unhappycodings.thoriumreactors.common.util.LootUtil;
 
 import java.util.Collections;
@@ -72,9 +73,9 @@ public class FluidTankBlock extends BaseEntityBlock {
     public InteractionResult use(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         FluidTankBlockEntity entity = (FluidTankBlockEntity) pLevel.getBlockEntity(pPos);
         if (pHand == InteractionHand.OFF_HAND) return InteractionResult.FAIL;
+        ItemStack playerHandStack = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
 
-        if (!pPlayer.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
-            ItemStack playerHandStack = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+        if (!pPlayer.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() && playerHandStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()) {
             playerHandStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(storage -> {
                 if (!storage.getFluidInTank(0).isEmpty()) {
                     FluidStack playerFluidStack = storage.getFluidInTank(0);
@@ -187,13 +188,13 @@ public class FluidTankBlock extends BaseEntityBlock {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.not_placed")).withStyle(FormattingUtil.hex(0xCE1F0A)));
             return;
         }
-        if (ModKeyBindings.SHOW_DETAILS.isDown()) {
+        if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DETAILS)) {
             if (!tag.getCompound("Fluid").isEmpty()) {
                 FluidStack fluidIn = FluidStack.loadFluidStackFromNBT(tag.getCompound("Fluid"));
-                pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.capacity")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.literal(getTankCapacity(pStack) + "").withStyle(ChatFormatting.GRAY)).append(Component.literal(" mb").withStyle(FormattingUtil.hex(0x3BA3D3))));
-                pTooltip.add(fluidIn.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x0ACECE)) : Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(fluidIn.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x0ACECE))));
+                pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.capacity")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.literal(getTankCapacity(pStack) + "").withStyle(ChatFormatting.GRAY)).append(Component.literal(" mB").withStyle(FormattingUtil.hex(0x3BA3D3))));
+                pTooltip.add(fluidIn.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x0ACECE)) : Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(fluidIn.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mB").withStyle(FormattingUtil.hex(0x0ACECE))));
             }
-        } else if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
+        } else if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DESCRIPTION)) {
             pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
         } else {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));

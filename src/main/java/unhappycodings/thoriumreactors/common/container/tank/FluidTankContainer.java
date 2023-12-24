@@ -20,8 +20,8 @@ public class FluidTankContainer extends BaseContainer {
         layoutPlayerInventorySlots(8, 116);
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-                addSlot(new SlotItemHandler(handler, 0, 12, 45));
-                addSlot(new SlotItemHandler(handler, 1, 38, 45));
+                addSlot(new SlotItemHandler(handler, 0, 84, 80));
+                addSlot(new SlotItemHandler(handler, 1, 131, 80));
             });
         }
     }

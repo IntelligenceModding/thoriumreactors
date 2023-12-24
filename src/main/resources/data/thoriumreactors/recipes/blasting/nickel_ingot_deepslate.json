@@ -1,0 +1,19 @@
+{
+  "type": "thoriumreactors:blasting",
+  "ticks": 200,
+  "temperature": 850,
+  "input": {
+    "slot-0": {
+      "item": "thoriumreactors:deepslate_nickel_ore"
+    }
+  },
+  "output": {
+    "slot-0": {
+      "item": "thoriumreactors:nickel_ingot"
+    },
+    "slot-1": {
+      "item": "thoriumreactors:cobalt_nugget"
+    },
+    "chance": 30
+  }
+}
