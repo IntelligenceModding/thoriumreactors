@@ -16,10 +16,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -33,6 +33,7 @@ import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.util.KeyBindingUtil;
 import unhappycodings.thoriumreactors.common.util.LootUtil;
 
 import java.util.Collections;
@@ -82,12 +83,12 @@ public class ThoriumCraftingTableBlock extends BaseEntityBlock {
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         CompoundTag tag = pStack.getOrCreateTag().getCompound("BlockEntityTag");
-        if (ModKeyBindings.SHOW_DETAILS.isDown()) {
+        if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DETAILS)) {
             ListTag listtag = tag.getList("Items", 10);
             if (!listtag.isEmpty()) {
                 pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.contains_items")).withStyle(ChatFormatting.GRAY));
             }
-        } else if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
+        } else if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DESCRIPTION)) {
             pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
         } else {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));

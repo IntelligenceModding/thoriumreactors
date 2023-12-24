@@ -2,6 +2,7 @@ package unhappycodings.thoriumreactors.common.blockentity.tank;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
@@ -10,11 +11,15 @@ import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -22,7 +27,10 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
@@ -32,11 +40,13 @@ import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientFlui
 
 import java.util.List;
 
-public class FluidTankBlockEntity extends BlockEntity implements MenuProvider {
+public class FluidTankBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, MenuProvider {
     public int capacity = 0;
     private final boolean isCreative;
     private LazyOptional<FluidTank> lazyFluidInHandler = LazyOptional.empty();
+    private final LazyOptional<? extends IItemHandler>[] itemHandler = SidedInvWrapper.create(this, Direction.values());
     private final ModFluidTank FLUID_TANK_IN;
+    public NonNullList<ItemStack> items;
 
     public FluidTankBlockEntity(BlockPos pPos, BlockState pBlockState, int capacity, BlockEntityType<FluidTankBlockEntity> type) {
         super(type, pPos, pBlockState);
@@ -44,6 +54,7 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider {
         this.capacity = capacity;
         if (this.isCreative) this.capacity = Integer.MAX_VALUE;
         FLUID_TANK_IN = new ModFluidTank(capacity, true, true, 0, FluidStack.EMPTY);
+        items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
     }
 
     public void tick() {
@@ -52,6 +63,23 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider {
             FLUID_TANK_IN.setFluid(new FluidStack(isAir ? FluidStack.EMPTY : FLUID_TANK_IN.getFluid(), Integer.MAX_VALUE));
         }
         updateRenderData();
+
+        if (level.getGameTime() % 10 == 0 && getItem(0).is(Items.BUCKET) && getItem(1).isEmpty() && getFluidAmountIn() > 0) {
+            ItemStack stack = getItem(0).copy();
+            if (!stack.is(Items.BUCKET)) return;
+
+            stack.setCount(1);
+            stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(storage -> {
+                int amount = storage.fill(getFluidIn().copy(), IFluidHandler.FluidAction.SIMULATE);
+                if (amount > 0) {
+                    getItem(0).shrink(1);
+                    setItem(1, getFluidIn().getFluid().getBucket().getDefaultInstance());
+                    if (!this.isCreative) {
+                        getFluidIn().shrink(amount);
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -65,6 +93,9 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider {
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
             return lazyFluidInHandler.cast();
+        }
+        if (cap == ForgeCapabilities.ITEM_HANDLER && !isRemoved() && side != null) {
+            return itemHandler[0].cast();
         }
         return super.getCapability(cap, side);
     }
@@ -85,10 +116,12 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public void saveAdditional(@NotNull CompoundTag nbt) {
         nbt.put("Fluid", FLUID_TANK_IN.writeToNBT(new CompoundTag()));
+        ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
     @Override
     public void load(@NotNull CompoundTag nbt) {
+        ContainerHelper.loadAllItems(nbt, this.items);
         FLUID_TANK_IN.readFromNBT(nbt.getCompound("Fluid"));
     }
 
@@ -148,15 +181,81 @@ public class FluidTankBlockEntity extends BlockEntity implements MenuProvider {
         return 2;
     }
 
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack itemStack : items) {
+            if (itemStack.isEmpty()) return true;
+        }
+        return false;
+    }
+
     @NotNull
     @Override
-    public Component getDisplayName() {
+    public ItemStack getItem(int index) {
+        if (index < 0 || index >= items.size()) {
+            return ItemStack.EMPTY;
+        }
+        return items.get(index);
+    }
+
+    @NotNull
+    @Override
+    public ItemStack removeItem(int index, int count) {
+        return ContainerHelper.removeItem(items, index, count);
+    }
+
+    @NotNull
+    @Override
+    public ItemStack removeItemNoUpdate(int index) {
+        return ContainerHelper.takeItem(items, index);
+    }
+
+    @Override
+    public void setItem(int index, @NotNull ItemStack stack) {
+        items.set(index, stack);
+        if (stack.getCount() > getMaxStackSize()) {
+            stack.setCount(getMaxStackSize());
+        }
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        if (this.level.getBlockEntity(this.worldPosition) != this) {
+            return false;
+        } else {
+            return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);
+        }
+    }
+
+    @Override
+    public void clearContent() {
+        items.clear();
+    }
+
+    @Override
+    public int @NotNull [] getSlotsForFace(@NotNull Direction pSide) {
+        return new int[]{0, 1};
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int index, @NotNull ItemStack stack, @Nullable Direction direction) {
+        return index == 0;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int index, @NotNull ItemStack stack, @NotNull Direction direction) {
+        return index == 1;
+    }
+
+    @NotNull
+    @Override
+    protected Component getDefaultName() {
         return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
     }
 
-    @Nullable
+    @NotNull
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pPlayerInventory, @NotNull Player pPlayer) {
-        return new FluidTankContainer(pContainerId, pPlayerInventory, getBlockPos(), getLevel(), getContainerSize());
+    protected AbstractContainerMenu createMenu(int i, @NotNull Inventory inventory) {
+        return new FluidTankContainer(i, inventory, getBlockPos(), getLevel(), getContainerSize());
     }
 }

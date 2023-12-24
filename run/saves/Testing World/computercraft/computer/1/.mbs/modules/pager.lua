@@ -5,24 +5,24 @@ return {
 
   settings = {
     {
-      name = "mbs.pager.enabled",
+      name = "mBs.pager.enabled",
       description = "Whether the alternative pager is enabled.",
       default = true,
       type = "boolean",
     },
     {
-      name = "mbs.pager.mode",
+      name = "mBs.pager.mode",
       description = "The mode for the alternative pager.",
       default = "default",
     },
   },
 
-  enabled = function() return settings.get("mbs.pager.enabled") end,
+  enabled = function() return settings.get("mBs.pager.enabled") end,
 
   setup = function(path)
     local native_pprint, native_ptabulate = textutils.pagedPrint, textutils.pagedTabulate
     textutils.pagedPrint = function(text, free_lines)
-      local mode = settings.get("mbs.pager.mode")
+      local mode = settings.get("mBs.pager.mode")
       if mode == "none" then
         return io.write(text .. "\n")
       else
@@ -31,7 +31,7 @@ return {
     end
 
     textutils.pagedTabulate = function(...)
-      local mode = settings.get("mbs.pager.mode")
+      local mode = settings.get("mBs.pager.mode")
       if mode == "none" then
         return textutils.tabulate(...)
       else

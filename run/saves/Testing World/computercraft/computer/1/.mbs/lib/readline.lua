@@ -57,8 +57,8 @@ function read(opts)
   local tDown = {}
   local nMod = 0
   local replace_char = opts.replace_char and opts.replace_char:sub(1, 1)
-  local complete_fg = opts.complete_fg or colour_table[settings.get("mbs.readline.complete_fg")] or -1
-  local complete_bg = opts.complete_bg or colour_table[settings.get("mbs.readline.complete_bg")] or -1
+  local complete_fg = opts.complete_fg or colour_table[settings.get("mBs.readline.complete_fg")] or -1
+  local complete_bg = opts.complete_bg or colour_table[settings.get("mBs.readline.complete_bg")] or -1
 
   local tCompletions
   local nCompletion

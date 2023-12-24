@@ -51,8 +51,8 @@ public class FluidTankScreen extends BaseScreen<FluidTankContainer> {
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.fluid_tank.name")).withStyle(ScreenUtil::notoSans), graphics, 10, 2, 11184810);
         ScreenUtil.drawRightboundText(Component.literal(Minecraft.getInstance().player.getScoreboardName()).withStyle(ScreenUtil::notoSans), graphics, 242, 2, 11184810);
 
-        MutableComponent amount = entity.getFluidAmountIn() == Integer.MAX_VALUE ? Component.literal(" ").append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite"))) : Component.literal(" " + entity.getFluidAmountIn() + "mb");
-        MutableComponent capacity = entity.getFluidCapacityIn() == Integer.MAX_VALUE ? Component.literal(" ").append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite"))) : Component.literal(" " + entity.getFluidCapacityIn() + "mb");
+        MutableComponent amount = entity.getFluidAmountIn() == Integer.MAX_VALUE ? Component.literal(" ").append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite"))) : Component.literal(" " + entity.getFluidAmountIn() + "mB");
+        MutableComponent capacity = entity.getFluidCapacityIn() == Integer.MAX_VALUE ? Component.literal(" ").append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.infinite"))) : Component.literal(" " + entity.getFluidCapacityIn() + "mB");
         pPoseStack.popPose();
 
         int textLenght = Minecraft.getInstance().font.width(entity.getFluidIn().getFluid().getFluidType().getDescription().getString());
@@ -70,7 +70,7 @@ public class FluidTankScreen extends BaseScreen<FluidTankContainer> {
         pPoseStack.popPose();
 
         if (ScreenUtil.mouseInArea(getGuiLeft() + 16, getGuiTop() + 21, getGuiLeft() + 49, getGuiTop() + 97, pMouseX, pMouseY))
-            appendHoverText(graphics, pMouseX, pMouseY, new Component[]{entity.getFluidAmountIn() > 0 ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.fluid")).append(" ").append(entity.getFluidIn().getFluid().getFluidType().getDescription().getString()) : Component.empty(), Component.literal(entity.getFluidAmountIn() + " mb / " + entity.getFluidCapacityIn() + " mb"), Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true))});
+            appendHoverText(graphics, pMouseX, pMouseY, new Component[]{entity.getFluidAmountIn() > 0 ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.fluid")).append(" ").append(entity.getFluidIn().getFluid().getFluidType().getDescription().getString()) : Component.empty(), Component.literal(entity.getFluidAmountIn() + " mB / " + entity.getFluidCapacityIn() + " mB"), Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true))});
 
     }
 

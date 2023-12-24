@@ -17,7 +17,6 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineBladeModel;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineRotorModel;

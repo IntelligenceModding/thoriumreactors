@@ -19,38 +19,38 @@ return {
   -- When updating the defaults, one should also update bin/shell.lua
   settings = {
     {
-      name = "mbs.shell.enabled",
+      name = "mBs.shell.enabled",
       description = "Whether the extended shell is enabled.",
       default = true,
       type = "boolean",
     },
     {
-      name = "mbs.shell.history_file",
+      name = "mBs.shell.history_file",
       description = "The file to save history to. Set to false to disable.",
       default = ".shell_history",
       type = "string",
     },
     {
-      name = "mbs.shell.history_max",
+      name = "mBs.shell.history_max",
       description = "The maximum size of the history file",
       default = 1e4,
       type = "number",
     },
     {
-      name = "mbs.shell.scroll_max",
+      name = "mBs.shell.scroll_max",
       description = "The maximum size of the scrollback",
       default = 1e3,
       type = "number",
     },
     {
-      name = "mbs.shell.traceback",
+      name = "mBs.shell.traceback",
       description = "Show an error traceback when a program errors",
       default = true,
       type = "boolean",
     },
   },
 
-  enabled = function() return settings.get("mbs.shell.enabled") end,
+  enabled = function() return settings.get("mBs.shell.enabled") end,
 
   setup = function(path)
     lib_load(path, "scroll_window")
@@ -72,7 +72,7 @@ return {
       end 
 
       local ok, err
-      if settings.get("mbs.shell.traceback") then
+      if settings.get("mBs.shell.traceback") then
         local arg = table.pack(...)
         ok, err = stack_trace.xpcall_with(function() return func(table.unpack(arg, 1, arg.n)) end)
       else

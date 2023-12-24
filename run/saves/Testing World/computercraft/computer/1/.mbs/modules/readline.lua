@@ -18,24 +18,24 @@ return {
 
   settings = {
     {
-      name = "mbs.readline.enabled",
+      name = "mBs.readline.enabled",
       description = "Whether the readline module is enabled.",
       default = true,
       type = "boolean",
     },
     {
-      name = "mbs.readline.complete_bg",
+      name = "mBs.readline.complete_bg",
       description = "The background colour for completions.",
       default = "none",
     },
     {
-      name = "mbs.readline.complete_fg",
+      name = "mBs.readline.complete_fg",
       description = "The foreground colour for completions.",
       default = "grey",
     },
   },
 
-  enabled = function() return settings.get("mbs.readline.enabled") end,
+  enabled = function() return settings.get("mBs.readline.enabled") end,
 
   setup = function(path)
     lib_load(path, "readline")

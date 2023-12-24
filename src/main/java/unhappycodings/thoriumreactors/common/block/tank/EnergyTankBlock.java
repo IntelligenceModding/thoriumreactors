@@ -9,21 +9,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,6 +26,7 @@ import unhappycodings.thoriumreactors.common.blockentity.tank.EnergyTankBlockEnt
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.util.KeyBindingUtil;
 import unhappycodings.thoriumreactors.common.util.LootUtil;
 
 import java.util.Collections;
@@ -60,12 +56,12 @@ public class EnergyTankBlock extends BaseEntityBlock {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.not_placed")).withStyle(FormattingUtil.hex(0xCE1F0A)));
             return;
         }
-        if (ModKeyBindings.SHOW_DETAILS.isDown()) {
+        if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DETAILS)) {
             int energy = tag.getInt("Energy");
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.energy")).withStyle(FormattingUtil.hex(0x3FD023)).append(Component.literal(FormattingUtil.formatEnergy(energy)).withStyle(ChatFormatting.GRAY)));
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.capacity")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.literal(FormattingUtil.formatEnergy(getCapacityForType(pStack))).withStyle(ChatFormatting.GRAY)));
 
-        } else if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
+        } else if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DESCRIPTION)) {
             pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
         } else {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));

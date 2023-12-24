@@ -116,29 +116,33 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.REACTOR_GRAPHITE_MODERATOR.get().getDescriptionId() + "_description", "Rahmenelement für den Thoriumreaktor. Wird zum Bau eines Reaktors verwendet!");
 
         add(ModBlocks.THERMAL_CONDUCTOR.get(), "Thermischer Leitblock");
+        add(ModBlocks.THERMAL_CONDUCTOR.get().getDescriptionId() + "_description", "Rahmenelement für Wärmetauscher. Wird für die Wärmeübertragung verwendet!");
         add(ModBlocks.THERMAL_CONTROLLER.get(), "Thermischer Steuerblock");
+        add(ModBlocks.THERMAL_CONTROLLER.get().getDescriptionId() + "_description", "Rahmenelement für Wärmetauscher. Wird für die Wärmeübertragung verwendet!");
         add(ModBlocks.THERMAL_VALVE.get(), "Thermisches Ventil");
+        add(ModBlocks.THERMAL_VALVE.get().getDescriptionId() + "_description", "Rahmenelement für Wärmetauscher. Wird für die Flüssigkeitsein- und ausgabe verwendet!");
         add(ModBlocks.THERMAL_HEAT_SINK.get(), "Thermischer Kühlkörper");
+        add(ModBlocks.THERMAL_HEAT_SINK.get().getDescriptionId() + "_description", "Rahmenelement für Wärmetauscher. Wird für die Wärmeübertragung zur Luft verwendet!");
 
-        add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), "Turbinen-Steuerblock");
+        add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), "Turbinen Steuerblock");
         add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get().getDescriptionId() + "_description", "Steuerungsblock der Turbine. Wird zum Bau einer Turbine verwendet!");
-        add(ModBlocks.TURBINE_CASING.get(), "Turbinen-Gehäuse");
+        add(ModBlocks.TURBINE_CASING.get(), "Turbinen Gehäuse");
         add(ModBlocks.TURBINE_CASING.get().getDescriptionId() + "_description", "Rahmenblock für die Turbine. Wird zum Bau einer Turbine verwendet!");
-        add(ModBlocks.TURBINE_GLASS.get(), "Turbinen-Glas");
+        add(ModBlocks.TURBINE_GLASS.get(), "Turbinen Glas");
         add(ModBlocks.TURBINE_GLASS.get().getDescriptionId() + "_description", "Rahmenblock für die Turbine. Wird zum Bau einer Turbine verwendet!");
-        add(ModBlocks.TURBINE_VALVE.get(), "Turbinen-Ventil");
+        add(ModBlocks.TURBINE_VALVE.get(), "Turbinen Ventil");
         add(ModBlocks.TURBINE_VALVE.get().getDescriptionId() + "_description", "Erforderlich, um erzeugten Dampf in die Turbine einzuführen.");
-        add(ModBlocks.TURBINE_VENT.get(), "Turbinen-Entlüftung");
+        add(ModBlocks.TURBINE_VENT.get(), "Turbinen Entlüftung");
         add(ModBlocks.TURBINE_VENT.get().getDescriptionId() + "_description", "Lässt überschüssiges Wasser und Dampf aus der Turbine entweichen. Für die ordnungsgemäße Funktion erforderlich!");
-        add(ModBlocks.TURBINE_ROTOR.get(), "Turbinen-Rotor");
+        add(ModBlocks.TURBINE_ROTOR.get(), "Turbinen Rotor");
         add(ModBlocks.TURBINE_ROTOR.get().getDescriptionId() + "_description", "Erforderlich in einer Turbine zur Energieerzeugung.");
-        add(ModBlocks.TURBINE_ROTATION_MOUNT.get(), "Turbinen-Rotorhalterung");
+        add(ModBlocks.TURBINE_ROTATION_MOUNT.get(), "Turbinen Rotorhalterung");
         add(ModBlocks.TURBINE_ROTATION_MOUNT.get().getDescriptionId() + "_description", "Unverzichtbar für die Montage des Turbinenrotors. Andernfalls kann die Turbine katastrophal versagen.");
-        add(ModBlocks.TURBINE_POWER_PORT.get(), "Turbinen-Stromanschluss");
+        add(ModBlocks.TURBINE_POWER_PORT.get(), "Turbinen Stromanschluss");
         add(ModBlocks.TURBINE_POWER_PORT.get().getDescriptionId() + "_description", "Gibt erzeugte Energie aus. Wird zum Bau einer Turbine verwendet!");
         add(ModBlocks.ELECTROMAGNETIC_COIL.get(), "Elektromagnetische Spule");
         add(ModBlocks.ELECTROMAGNETIC_COIL.get().getDescriptionId() + "_description", "Erforderlich in einer Turbine zur Energieerzeugung.");
-        add(ModItems.TURBINE_BLADE.get(), "Turbinen-Rotorblatt");
+        add(ModItems.TURBINE_BLADE.get(), "Turbinen Rotorblatt");
         add(ModItems.TURBINE_BLADE.get().getDescriptionId() + "_description", "Erforderlich in einer Turbine zur Energieerzeugung.");
 
         add(ModItems.GRAPHITE_TUBE.get(), "Graphitrohr");

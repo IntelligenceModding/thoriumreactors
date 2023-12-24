@@ -1,6 +1,5 @@
 package unhappycodings.thoriumreactors.common.container.base.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

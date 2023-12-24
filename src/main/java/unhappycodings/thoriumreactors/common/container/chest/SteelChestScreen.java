@@ -1,7 +1,6 @@
 package unhappycodings.thoriumreactors.common.container.chest;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.GameNarrator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;

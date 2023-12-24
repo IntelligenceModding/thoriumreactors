@@ -1,6 +1,6 @@
 local history = {}
 do
-  local history_file = settings.get("mbs.shell.history_file", ".shell_history")
+  local history_file = settings.get("mBs.shell.history_file", ".shell_history")
   if history_file and fs.exists(history_file) then
     local handle = fs.open(history_file, "r")
     if handle then
@@ -9,11 +9,11 @@ do
     end
   end
 
-  local max = tonumber(settings.get("mbs.shell.history_max", 1e4)) or 1e4
+  local max = tonumber(settings.get("mBs.shell.history_max", 1e4)) or 1e4
   if #history > max then
     while #history > max do table.remove(history, 1) end
 
-    local history_file = settings.get("mbs.shell.history_file", ".shell_history")
+    local history_file = settings.get("mBs.shell.history_file", ".shell_history")
     if history_file then
       local handle = fs.open(history_file, "w")
       if handle then
@@ -167,7 +167,7 @@ local worker = coroutine.create(function()
 
   -- The main interaction loop
   while running do
-    local scrollback = tonumber(settings.get("mbs.shell.scroll_max", 1e3))
+    local scrollback = tonumber(settings.get("mBs.shell.scroll_max", 1e3))
     if scrollback then redirect.setMaxScrollback(scrollback) end
 
     show_prompt()
@@ -186,7 +186,7 @@ local worker = coroutine.create(function()
       history[#history + 1] = line
 
       -- Write history file
-      local history_file = settings.get("mbs.shell.history_file", ".shell_history")
+      local history_file = settings.get("mBs.shell.history_file", ".shell_history")
       if history_file then
         local handle = fs.open(history_file, "a")
         handle.writeLine(line)

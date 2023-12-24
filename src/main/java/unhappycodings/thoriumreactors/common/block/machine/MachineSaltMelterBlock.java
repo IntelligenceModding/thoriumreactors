@@ -17,10 +17,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,7 +26,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -42,6 +38,7 @@ import unhappycodings.thoriumreactors.common.blockentity.machine.MachineSaltMelt
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.util.KeyBindingUtil;
 import unhappycodings.thoriumreactors.common.util.LootUtil;
 import unhappycodings.thoriumreactors.common.util.ParticleUtil;
 
@@ -108,24 +105,24 @@ public class MachineSaltMelterBlock extends BaseEntityBlock {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.not_placed")).withStyle(FormattingUtil.hex(0xCE1F0A)));
             return;
         }
-        if (ModKeyBindings.SHOW_DETAILS.isDown()) {
+        if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DETAILS)) {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.energy_buffer")).withStyle(FormattingUtil.hex(0x3FD023)).append(Component.literal(FormattingUtil.formatEnergy(Integer.parseInt(String.valueOf(tag.get("Energy"))))).withStyle(ChatFormatting.GRAY)));
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.recipe_status")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.translatable(FormattingUtil.getTranslatable("machines.salt_melter.name")).append(" " +  FormattingUtil.formatPercentNum(tag.getInt("RecipeTime"), tag.getInt("MaxRecipeTime"))).withStyle(ChatFormatting.GRAY)));
 
             if (!tag.getCompound("FluidIn").isEmpty()) {
                 FluidStack fluidIn = FluidStack.loadFluidStackFromNBT(tag.getCompound("FluidIn"));
-                pTooltip.add(fluidIn.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x0ACECE)) : Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(fluidIn.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x0ACECE))));
+                pTooltip.add(fluidIn.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x0ACECE)) : Component.literal(fluidIn.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(fluidIn.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mB").withStyle(FormattingUtil.hex(0x0ACECE))));
             }
             if (!tag.getCompound("FluidOut").isEmpty()) {
                 FluidStack fluidOut = FluidStack.loadFluidStackFromNBT(tag.getCompound("FluidOut"));
-                pTooltip.add(fluidOut.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x80ebff)) : Component.literal(fluidOut.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x80ebff)).append(Component.literal(fluidOut.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mb").withStyle(FormattingUtil.hex(0x80ebff))));
+                pTooltip.add(fluidOut.isEmpty() ? Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.empty")).withStyle(FormattingUtil.hex(0x80ebff)) : Component.literal(fluidOut.getFluid().getFluidType().getDescription().getString() + ": ").withStyle(FormattingUtil.hex(0x80ebff)).append(Component.literal(fluidOut.getAmount() + " ").withStyle(ChatFormatting.GRAY)).append(Component.literal("mB").withStyle(FormattingUtil.hex(0x80ebff))));
             }
 
             ListTag listtag = tag.getList("Items", 10);
             if (!listtag.isEmpty()) {
                 pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.contains_items")).withStyle(ChatFormatting.GRAY));
             }
-        } else if (ModKeyBindings.SHOW_DESCRIPTION.isDown()) {
+        } else if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DESCRIPTION)) {
             pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
         } else {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));

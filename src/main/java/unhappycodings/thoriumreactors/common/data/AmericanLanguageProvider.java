@@ -1,7 +1,6 @@
 package unhappycodings.thoriumreactors.common.data;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
@@ -117,9 +116,13 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.REACTOR_GRAPHITE_MODERATOR.get().getDescriptionId() + "_description", "Framing block for Thorium Reactor. Used to build a reactor!");
 
         add(ModBlocks.THERMAL_CONDUCTOR.get(), "Thermal Conductor");
+        add(ModBlocks.THERMAL_CONDUCTOR.get().getDescriptionId() + "_description", "Framing block for Heat Exchanger. Used to transform heat!");
         add(ModBlocks.THERMAL_CONTROLLER.get(), "Thermal Controller");
+        add(ModBlocks.THERMAL_CONTROLLER.get().getDescriptionId() + "_description", "Framing block for Heat Exchanger. Used to transform heat!");
         add(ModBlocks.THERMAL_VALVE.get(), "Thermal Valve");
+        add(ModBlocks.THERMAL_VALVE.get().getDescriptionId() + "_description", "Framing block for Heat Exchanger. Needed for fluid input and output");
         add(ModBlocks.THERMAL_HEAT_SINK.get(), "Thermal Sink");
+        add(ModBlocks.THERMAL_HEAT_SINK.get().getDescriptionId() + "_description", "Framing block for Heat Exchanger. Needed to transfer heat to air.");
 
         add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), "Turbine Controller");
         add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get().getDescriptionId() + "_description", "Controlling block of turbine. Used to build a turbine!");

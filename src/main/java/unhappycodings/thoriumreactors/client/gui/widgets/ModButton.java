@@ -1,6 +1,5 @@
 package unhappycodings.thoriumreactors.client.gui.widgets;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -11,10 +10,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.gui.GuiUtil;
 import unhappycodings.thoriumreactors.client.gui.widgets.base.BaseWidget;
-import unhappycodings.thoriumreactors.common.container.base.screen.BaseScreen;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerScreen;
 
-import java.util.Collections;
 import java.util.function.Supplier;
 
 public class ModButton extends BaseWidget {

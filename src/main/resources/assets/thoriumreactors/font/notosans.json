@@ -1,35 +1,16 @@
 {
   "providers": [
     {
-      "type": "space",
-      "advances": {
-        " ": 3,
-        "\u200c": 0,
-        "\u3000": 8
-      }
+      "type": "reference",
+      "id": "thoriumreactors:include/space"
     },
     {
-      "type": "bitmap",
-      "file": "thoriumreactors:font/notosans.png",
-      "ascent": 7,
-      "chars": [
-        "ÀÁÂÈÊËÍÓÔÕÚßãõğİ",
-        "ıŒœŞşŴŵžȇ\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
-        " !\"#$%\u0026\u0027()*+,-./",
-        "0123456789:;\u003c\u003d\u003e?",
-        "@ABCDEFGHIJKLMNO",
-        "PQRSTUVWXYZ[\\]^_",
-        "`abcdefghijklmno",
-        "pqrstuvwxyz{|}~\u0000",
-        "ÇüéâäàåçêëèïîìÄÅ",
-        "ÉæÆôöòûùÿÖÜø£Ø×ƒ",
-        "áíóúñÑªº¿®¬½¼¡«»",
-        "░▒▓│┤╡╢╖╕╣║╗╝╜╛┐",
-        "└┴┬├─┼╞╟╚╔╩╦╠═╬╧",
-        "╨╤╥╙╘╒╓╫╪┘┌█▄▌▐▀",
-        "αβΓπΣσμτΦΘΩδ∞∅∈∩",
-        "≡±≥≤⌠⌡÷≈°∙·√ⁿ²■\u0000"
-      ]
+      "type": "reference",
+      "id": "thoriumreactors:include/default"
+    },
+    {
+      "type": "reference",
+      "id": "thoriumreactors:include/unifont"
     }
   ]
 }

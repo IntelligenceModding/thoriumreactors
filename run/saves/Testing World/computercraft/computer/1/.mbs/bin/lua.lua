@@ -261,7 +261,7 @@ end
 
 local function pretty(t, n)
   local width, height = term.getSize()
-  local fit_height = settings.get("mbs.lua.pretty_height", true)
+  local fit_height = settings.get("mBs.lua.pretty_height", true)
   if type(fit_height) == "number" then height = fit_height
   elseif fit_height == false then height = 1 / 0 end
   return pretty_impl(t, {}, width, height - 2, "", n)
@@ -298,7 +298,7 @@ local function process_auto_run_file(folderPath, file)
   end
 
   local ok, result
-  if settings.get("mbs.lua.traceback", true) then
+  if settings.get("mBs.lua.traceback", true) then
     ok, result = stack_trace.xpcall_with(func)
   else
     ok, result = pcall(func)
@@ -333,7 +333,7 @@ if not settings or settings.get("lua.autocomplete") then
   end
 end
 
-local history_file = settings.get("mbs.lua.history_file", ".lua_history")
+local history_file = settings.get("mBs.lua.history_file", ".lua_history")
 if history_file and fs.exists(history_file) then
   local handle = fs.open(history_file, "r")
   if handle then
@@ -397,7 +397,7 @@ while running do
   term.setTextColour(text_colour)
 
   local line
-  if readline and readline.read and settings.get("mbs.lua.highlight") then
+  if readline and readline.read and settings.get("mBs.lua.highlight") then
     line = readline.read {
       history = history,
       complete = autocomplete,
@@ -414,11 +414,11 @@ while running do
       history[#history + 1] = line
 
       -- Remove extra items from history
-      local max = tonumber(settings.get("mbs.lua.history_max", 1e4)) or 1e4
+      local max = tonumber(settings.get("mBs.lua.history_max", 1e4)) or 1e4
       while #history > max do table.remove(history, 1) end
 
       -- Write history file
-      local history_file = settings.get("mbs.lua.history_file", ".lua_history")
+      local history_file = settings.get("mBs.lua.history_file", ".lua_history")
       if history_file then
         local handle = fs.open(history_file, "w")
         if handle then
@@ -439,7 +439,7 @@ while running do
     end
 
     if func then
-      if settings.get("mbs.lua.traceback", true) then
+      if settings.get("mBs.lua.traceback", true) then
         handle(force_print, stack_trace.xpcall_with(func))
       else
         handle(force_print, pcall(func))
