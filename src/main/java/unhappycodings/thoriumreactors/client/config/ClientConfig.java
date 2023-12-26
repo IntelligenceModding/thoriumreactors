@@ -22,8 +22,8 @@ public class ClientConfig {
 
     private static void init(ForgeConfigSpec.Builder clientBuilder) {
         clientBuilder.push("Reactor Control Screen");
-        showLeftReactorScreenArea = clientBuilder.comment("Should the left area of the reactor control screen be rendered.").define("showLeftReactorScreenArea", false);
-        showRightReactorScreenArea = clientBuilder.comment("Should the right area of the reactor control screen be rendered.").define("showRightReactorScreenArea", false);
+        showLeftReactorScreenArea = clientBuilder.comment("Render left area of the reactor control screen").define("showLeftReactorScreenArea", true);
+        showRightReactorScreenArea = clientBuilder.comment("Render right area of the reactor control screen").define("showRightReactorScreenArea", true);
         clientBuilder.pop();
     }
 
