@@ -3,6 +3,7 @@ package unhappycodings.thoriumreactors.common.registration;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.WaterSourceBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.SteelChestBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.chest.ThoriumChestBlockEntity;
@@ -69,6 +70,8 @@ public final class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<ThoriumChestBlockEntity>> THORIUM_CHEST_BLOCK = Registration.BLOCK_ENTITIES.register("thorium_chest_block", () -> BlockEntityType.Builder.of(ThoriumChestBlockEntity::new, ModBlocks.THORIUM_CHEST_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<SteelChestBlockEntity>> STEEL_CHEST_BLOCK = Registration.BLOCK_ENTITIES.register("steel_chest_block", () -> BlockEntityType.Builder.of(SteelChestBlockEntity::new, ModBlocks.STEEL_CHEST_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<BlastedIronChestBlockEntity>> BLASTED_IRON_CHEST_BLOCK = Registration.BLOCK_ENTITIES.register("blasted_iron_chest_block", () -> BlockEntityType.Builder.of(BlastedIronChestBlockEntity::new, ModBlocks.BLASTED_IRON_CHEST_BLOCK.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<WaterSourceBlockEntity>> WATER_SOURCE_BLOCK = Registration.BLOCK_ENTITIES.register("water_source_block", () -> BlockEntityType.Builder.of(WaterSourceBlockEntity::new, ModBlocks.WATER_SOURCE_BLOCK.get()).build(null));
 
     public static void register() {
     }

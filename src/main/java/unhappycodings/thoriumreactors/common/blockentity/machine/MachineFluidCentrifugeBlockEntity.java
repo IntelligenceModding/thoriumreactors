@@ -41,7 +41,7 @@ import java.util.List;
 
 public class MachineFluidCentrifugeBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
     public static final int MAX_POWER = 100000;
-    public static final int MAX_TRANSFER = MAX_POWER / 100;
+    public static final int MAX_TRANSFER = MAX_POWER / 2;
     public static final int MAX_FLUID_IN = 10000;
     public static final int MAX_FLUID_OUT = 10000;
     public static final int MAX_FLUID_TRANSFER = 100;
@@ -322,6 +322,7 @@ public class MachineFluidCentrifugeBlockEntity extends MachineContainerBlockEnti
         ENERGY_STORAGE.setEnergy(energy);
     }
 
+    @Override
     public int getCapacity() {
         return ENERGY_STORAGE.getMaxEnergyStored();
     }

@@ -49,7 +49,7 @@ public class BlastedIronChestBlockEntity extends ChestBlockEntity {
                 BlastedIronChestBlockEntity.this.signalOpenCount(pLevel, pPos, pState, pCount, pOpenCount);
                 openers = pOpenCount;
 
-                chestLidController.shouldBeOpen(openers > 0);
+                triggerEvent(1, counter.getOpenerCount());
             }
 
             @Override
@@ -69,20 +69,16 @@ public class BlastedIronChestBlockEntity extends ChestBlockEntity {
         chestLidController.tickLid();
     }
 
+    public void tick() {
+        lidAnimateTick();
+    }
+
     @Override
     public void setChanged() {
         super.setChanged();
 
         if (!this.getLevel().isClientSide && this.getLevel() != null && this.getLevel() instanceof ServerLevel w)
             w.getChunkSource().blockChanged(getBlockPos());
-    }
-
-    public int getCounter() {
-        return counter.getOpenerCount();
-    }
-
-    public void setCounter(int count) {
-        this.openers = count;
     }
 
     @Override
@@ -110,7 +106,6 @@ public class BlastedIronChestBlockEntity extends ChestBlockEntity {
             return super.triggerEvent(pId, pType);
         }
     }
-
 
     @NotNull
     @Override
@@ -169,22 +164,8 @@ public class BlastedIronChestBlockEntity extends ChestBlockEntity {
         }
     }
 
-    @NotNull
-    @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag nbt = new CompoundTag();
-        nbt.putInt("Openers", getCounter());
-        return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(final CompoundTag tag) {
-        setCounter(tag.getInt("Openers"));
-    }
-
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt) {
-        nbt.putInt("Openers", getCounter());
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -192,7 +173,6 @@ public class BlastedIronChestBlockEntity extends ChestBlockEntity {
     public void load(@NotNull CompoundTag nbt) {
         this.items.clear();
         ContainerHelper.loadAllItems(nbt, this.items);
-        setCounter(nbt.getInt("Openers"));
     }
 
     @NotNull

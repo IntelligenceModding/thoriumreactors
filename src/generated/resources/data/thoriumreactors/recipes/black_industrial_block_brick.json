@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:black_industrial_block"
+    }
+  },
+  "pattern": [
+    "AAA",
+    " A ",
+    "AAA"
+  ],
+  "result": {
+    "count": 7,
+    "item": "thoriumreactors:black_industrial_block_brick"
+  },
+  "show_notification": true
+}

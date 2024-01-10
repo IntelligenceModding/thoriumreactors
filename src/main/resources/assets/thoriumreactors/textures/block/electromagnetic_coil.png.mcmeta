@@ -1,17 +1,6 @@
 {
-  "ctm": {
-    "ctm_version": 1,
-    "type": "CTM",
-    "layer": "SOLID",
-    "textures": [
-      "thoriumreactors:block/electromagnetic_coil-ctm"
-    ],
-    "extra": {
-      "connect_to": [
-        {
-          "block": "thoriumreactors:electromagnetic_coil"
-        }
-      ]
-    }
+  "fusion": {
+    "type": "connecting",
+    "layout": "simple"
   }
 }

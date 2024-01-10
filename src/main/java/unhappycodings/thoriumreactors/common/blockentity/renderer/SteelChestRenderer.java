@@ -36,8 +36,6 @@ public class SteelChestRenderer<T extends BlockEntity & LidBlockEntity> implemen
     private final ModelPart lock;
 
     public SteelChestRenderer(BlockEntityRendererProvider.Context pContext) {
-        Calendar calendar = Calendar.getInstance();
-
         ModelPart modelpart = pContext.bakeLayer(ModelLayers.CHEST);
         this.bottom = modelpart.getChild("bottom");
         this.lid = modelpart.getChild("lid");

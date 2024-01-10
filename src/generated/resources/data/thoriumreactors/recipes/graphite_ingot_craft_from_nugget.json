@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    },
+    {
+      "item": "thoriumreactors:graphite_nugget"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:graphite_ingot"
+  }
+}

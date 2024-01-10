@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "thoriumreactors:block/frameless_black_industrial_block_floor"
+  }
+}

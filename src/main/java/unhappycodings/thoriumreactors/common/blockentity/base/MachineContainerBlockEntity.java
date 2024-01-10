@@ -71,6 +71,10 @@ public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
         return 0;
     }
 
+    public int getCapacity() {
+        return 0;
+    }
+
     public int getFluidAmountNeeded() {
         return 0;
     }

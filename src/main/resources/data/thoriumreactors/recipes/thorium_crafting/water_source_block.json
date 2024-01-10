@@ -1,0 +1,36 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:tank_module"
+    },
+    "B": {
+      "item": "thoriumreactors:manganese_nugget"
+    },
+    "C": {
+      "item": "thoriumreactors:cobalt_nugget"
+    },
+    "D": {
+      "item": "thoriumreactors:niob_nugget"
+    },
+    "E": {
+      "item": "thoriumreactors:molybdenum_nugget"
+    },
+    "F": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    " FFF ",
+    "FBGCF",
+    "FGAGF",
+    "FDGEF",
+    " FFF "
+  ],
+  "result": {
+    "item": "thoriumreactors:water_source_block"
+  }
+}

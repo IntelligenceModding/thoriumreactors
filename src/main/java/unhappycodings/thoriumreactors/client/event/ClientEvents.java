@@ -3,19 +3,20 @@ package unhappycodings.thoriumreactors.client.event;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ContainerScreenEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.client.renderer.EnergyTankBlockEntityRenderer;
-import unhappycodings.thoriumreactors.client.renderer.FluidTankBlockEntityRenderer;
-import unhappycodings.thoriumreactors.client.renderer.ReactorControllerBlockEntityRenderer;
-import unhappycodings.thoriumreactors.client.renderer.TurbineControllerBlockEntityRenderer;
+import unhappycodings.thoriumreactors.client.renderer.*;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineBladeModel;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineRotorModel;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.BlastedIronChestRenderer;
@@ -31,6 +32,8 @@ import unhappycodings.thoriumreactors.common.container.reactor.ReactorController
 import unhappycodings.thoriumreactors.common.container.tank.FluidTankScreen;
 import unhappycodings.thoriumreactors.common.registration.*;
 
+import javax.swing.event.MenuEvent;
+
 @Mod.EventBusSubscriber(modid = ThoriumReactors.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientEvents {
 
@@ -42,6 +45,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void onModelAdditionalRegister(ModelEvent.RegisterAdditional event) {
+        event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/water_source_block"));
         event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank"));
         event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/energy_tank"));
     }
@@ -68,6 +72,7 @@ public class ClientEvents {
 
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.REACTOR_GLASS.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.TURBINE_GLASS.get(), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.WATER_SOURCE_BLOCK.get(), RenderType.cutout());
 
         ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MOLTEN_SALT.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MOLTEN_SALT.get(), RenderType.translucent());
@@ -101,6 +106,7 @@ public class ClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.CREATIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TURBINE_CONTROLLER.get(), TurbineControllerBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.WATER_SOURCE_BLOCK.get(), WaterSourceBlockEntityRenderer::new);
     }
 
     @SubscribeEvent

@@ -124,6 +124,8 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.THERMAL_HEAT_SINK.get(), "Thermal Sink");
         add(ModBlocks.THERMAL_HEAT_SINK.get().getDescriptionId() + "_description", "Framing block for Heat Exchanger. Needed to transfer heat to air.");
 
+        add(ModBlocks.WATER_SOURCE_BLOCK.get(), "Water Source");
+
         add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), "Turbine Controller");
         add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get().getDescriptionId() + "_description", "Controlling block of turbine. Used to build a turbine!");
         add(ModBlocks.TURBINE_CASING.get(), "Turbine Casing");
@@ -344,6 +346,8 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("items.text.thermal_saved_to_configurator", "Thermal saved to configurator");
         addGuiText("items.text.thermal_saved_to_reactor", "Thermal saved to reactor.");
 
+        add("config.jade.plugin_thoriumreactors.machines", "Machines");
+
         add(ModBlocks.MACHINE_CASING.get(), "Machine Casing");
 
         add(ModBlocks.FACTORY_BLOCK.get(), "Factory Block");
@@ -358,6 +362,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), "Industrial Block Brick");
         add(ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(), "Industrial Block Smooth");
         add(ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), "Industrial Block Floor");
+        add(ModBlocks.FRAMELESS_INDUSTRAL_BLOCK_FLOOR.get(), "Frameless Industrial Block Floor");
 
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), "Black Industrial Block");
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), "Black Industrial Block Big Tile");
@@ -365,6 +370,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), "Black Industrial Block Brick");
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(), "Black Industrial Block Smooth");
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), "Black Industrial Block Floor");
+        add(ModBlocks.FRAMELESS_BLACK_INDUSTRAL_BLOCK_FLOOR.get(), "Frameless Black Industrial Block Floor");
 
         add(ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), "White Industrial Block");
         add(ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), "White Industrial Block Big Tile");

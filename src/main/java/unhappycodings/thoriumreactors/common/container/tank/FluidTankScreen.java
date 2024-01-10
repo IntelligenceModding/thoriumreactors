@@ -66,7 +66,7 @@ public class FluidTankScreen extends BaseScreen<FluidTankContainer> {
         pPoseStack.scale(0.8f, 0.8f, 0.8f);
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.amount")).withStyle(FormattingUtil.hex(0x0ACECE)).append(amount.withStyle(ChatFormatting.GRAY)).withStyle(ScreenUtil::notoSans), graphics, 90, 46);
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.capacity")).withStyle(FormattingUtil.hex(0xC6CC3E)).append(capacity.withStyle(ChatFormatting.GRAY)).withStyle(ScreenUtil::notoSans), graphics, 90, 56);
-        ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.fillage")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true)).withStyle(ChatFormatting.GRAY)).withStyle(ScreenUtil::notoSans), graphics, 90, 66);
+        ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("machines.text.fillage")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(" " + FormattingUtil.formatPercentNum(entity.getFluidAmountIn(), entity.getFluidCapacityIn(), true)).withStyle(ChatFormatting.GRAY)).withStyle(ScreenUtil::notoSans), graphics, 90, 66);
         pPoseStack.popPose();
 
         if (ScreenUtil.mouseInArea(getGuiLeft() + 16, getGuiTop() + 21, getGuiLeft() + 49, getGuiTop() + 97, pMouseX, pMouseY))

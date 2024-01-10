@@ -39,7 +39,7 @@ import java.util.List;
 
 public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, IEnergyCapable {
     public static final int MAX_POWER = 25000;
-    public static final int MAX_TRANSFER = MAX_POWER / 100;
+    public static final int MAX_TRANSFER = MAX_POWER / 2;
     public static final int NEEDED_ENERGY = 189;
     private final LazyOptional<? extends IItemHandler>[] itemHandler = SidedInvWrapper.create(this, Direction.values());
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
@@ -300,6 +300,7 @@ public class MachineBlastFurnaceBlockEntity extends MachineContainerBlockEntity 
         ENERGY_STORAGE.setEnergy(energy);
     }
 
+    @Override
     public int getCapacity() {
         return ENERGY_STORAGE.getMaxEnergyStored();
     }

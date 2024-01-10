@@ -31,6 +31,7 @@ import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
 import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
 import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
@@ -235,7 +236,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
 
         if (getReactorCurrentTemperature() > 100 && getReactorState() == ReactorStateEnum.RUNNING) {
             int modifier = (int) Math.floor(getReactorCurrentTemperature() / 50f);
-            int amount = getFluidSpaceOut() > modifier ? (getFluidAmountIn() >= modifier ? modifier : getFluidAmountIn()) : (getFluidSpaceOut() >= modifier ? modifier : getFluidSpaceOut());
+            int amount = (int) (getFluidSpaceOut() > modifier ? (getFluidAmountIn() >= modifier ? modifier : getFluidAmountIn()) * CommonConfig.reactorSaltGenerationModifier.get() : (getFluidSpaceOut() >= modifier ? modifier : getFluidSpaceOut()) * CommonConfig.reactorSaltGenerationModifier.get());
 
             if (FLUID_TANK_OUT.getFluid().isEmpty()) {
                 FLUID_TANK_OUT.setFluid(new FluidStack(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get(), amount));
@@ -247,7 +248,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         }
 
         // Unfuel reactor by 1 enriched and output one depleted uranium every 12 runtime hours
-        if (false && getReactorRunningSince() % (12 * 60 * 60 * 20) == 0) {
+        if (getReactorRunningSince() % (12 * 60 * 60 * 20) == 0) {
             int runs = 0;
             for (int i = 0; i < 810; i++) {
                 int randomNumber = new Random().nextInt(81);

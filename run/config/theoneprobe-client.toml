@@ -70,7 +70,7 @@ boxThickness = 0
 #Range: 0 ~ 20
 boxOffset = 0
 #If true show liquid information when the probe hits liquid first
-showLiquids = false
+showLiquids = true
 #Toggle default probe visibility (client can override)
 isVisible = true
 #If true then the probe hotkey must be held down to show the tooltip

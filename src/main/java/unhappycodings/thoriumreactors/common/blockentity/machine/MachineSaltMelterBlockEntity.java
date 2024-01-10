@@ -47,7 +47,7 @@ import java.util.List;
 
 public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
     public static final int MAX_POWER = 100000;
-    public static final int MAX_TRANSFER = MAX_POWER / 100;
+    public static final int MAX_TRANSFER = MAX_POWER / 2;
     public static final int MAX_FLUID_OUT = 10000;
     public static final int MAX_FLUID_TRANSFER = 100;
     public static final int NEEDED_ENERGY = 233;
@@ -335,6 +335,7 @@ public class MachineSaltMelterBlockEntity extends MachineContainerBlockEntity im
         ENERGY_STORAGE.setEnergy(energy);
     }
 
+    @Override
     public int getCapacity() {
         return ENERGY_STORAGE.getMaxEnergyStored();
     }

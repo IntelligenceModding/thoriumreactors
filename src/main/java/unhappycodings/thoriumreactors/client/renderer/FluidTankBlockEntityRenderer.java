@@ -16,14 +16,12 @@ import unhappycodings.thoriumreactors.client.util.RenderUtil;
 import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
 
 public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<FluidTankBlockEntity> {
-    private static FluidTankBlockEntity entity;
 
     public FluidTankBlockEntityRenderer(BlockEntityRendererProvider.Context ignored) {
     }
 
     @Override
     public void render(@NotNull FluidTankBlockEntity entity, float pPartialTick, @NotNull PoseStack stack, @NotNull MultiBufferSource buffer, int pPackedLight, int pPackedOverlay) {
-        this.entity = entity;
         VertexConsumer boxVertexConsumer = buffer.getBuffer(RenderType.entityTranslucent(TextureAtlas.LOCATION_BLOCKS));
         if (entity.getFluidAmountIn() > 0) {
             float height = ((float) entity.getFluidAmountIn() / (float) entity.getFluidCapacityIn()) * 0.94f;

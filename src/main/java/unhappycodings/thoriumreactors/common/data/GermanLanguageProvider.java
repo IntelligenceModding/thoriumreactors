@@ -124,6 +124,8 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.THERMAL_HEAT_SINK.get(), "Thermischer Kühlkörper");
         add(ModBlocks.THERMAL_HEAT_SINK.get().getDescriptionId() + "_description", "Rahmenelement für Wärmetauscher. Wird für die Wärmeübertragung zur Luft verwendet!");
 
+        add(ModBlocks.WATER_SOURCE_BLOCK.get(), "Wasserquelle");
+
         add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), "Turbinen Steuerblock");
         add(ModBlocks.TURBINE_CONTROLLER_BLOCK.get().getDescriptionId() + "_description", "Steuerungsblock der Turbine. Wird zum Bau einer Turbine verwendet!");
         add(ModBlocks.TURBINE_CASING.get(), "Turbinen Gehäuse");
@@ -343,6 +345,8 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("items.text.thermal_saved_to_configurator", "Wärmetauscher im Konfigurator gespeichert");
         addGuiText("items.text.thermal_saved_to_reactor", "Wärmetauscher im Reaktor gespeichert");
 
+        add("config.jade.plugin_thoriumreactors.machines", "Maschinen");
+
         add(ModBlocks.MACHINE_CASING.get(), "Maschinengehäuse");
 
         add(ModBlocks.FACTORY_BLOCK.get(), "Fabrikblock");
@@ -357,6 +361,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), "Industrieblock Ziegel");
         add(ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(), "Industrieblock Glatt");
         add(ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), "Industrieblock Boden");
+        add(ModBlocks.FRAMELESS_INDUSTRAL_BLOCK_FLOOR.get(), "Rahmenloser Industrieblock Boden");
 
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), "Schwarzer Industrieblock");
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), "Großer Schwarzer Industrieblock");
@@ -364,6 +369,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), "Schwarzer Industrieblock Ziegel");
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(), "Schwarzer Industrieblock Glatt");
         add(ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), "Schwarzer Industrieblock Boden");
+        add(ModBlocks.FRAMELESS_BLACK_INDUSTRAL_BLOCK_FLOOR.get(), "Rahmenloser Industrieblock Boden");
 
         add(ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), "Weißer Industrieblock");
         add(ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), "Großer Weißer Industrieblock");

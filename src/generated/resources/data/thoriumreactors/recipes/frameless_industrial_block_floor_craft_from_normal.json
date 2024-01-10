@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "thoriumreactors:industrial_block_floor"
+    }
+  ],
+  "result": {
+    "item": "thoriumreactors:frameless_industrial_block_floor"
+  }
+}

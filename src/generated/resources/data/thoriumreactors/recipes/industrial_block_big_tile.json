@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:industrial_block"
+    }
+  },
+  "pattern": [
+    "A A",
+    "AAA",
+    "A A"
+  ],
+  "result": {
+    "count": 7,
+    "item": "thoriumreactors:industrial_block_big_tile"
+  },
+  "show_notification": true
+}

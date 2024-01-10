@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
+import unhappycodings.thoriumreactors.common.block.WaterSourceBlock;
 import unhappycodings.thoriumreactors.common.block.building.GrateFloorBlock;
 import unhappycodings.thoriumreactors.common.block.chest.BlastedIronChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
@@ -23,6 +24,7 @@ import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.block.turbine.*;
 import unhappycodings.thoriumreactors.common.item.EnergyTankBlockItem;
 import unhappycodings.thoriumreactors.common.item.FluidTankBlockItem;
+import unhappycodings.thoriumreactors.common.item.WaterSourceBlockItem;
 
 import java.util.function.Supplier;
 
@@ -53,6 +55,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> INDUSTRAL_BLOCK_BRICK = register("industrial_block_brick", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
     public static final RegistryObject<Block> INDUSTRAL_BLOCK_SMOOTH = register("industrial_block_smooth", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
     public static final RegistryObject<Block> INDUSTRAL_BLOCK_FLOOR = register("industrial_block_floor", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
+    public static final RegistryObject<Block> FRAMELESS_INDUSTRAL_BLOCK_FLOOR = register("frameless_industrial_block_floor", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
 
     public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK = register("black_industrial_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
     public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_BIG_TILE = register("black_industrial_block_big_tile", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
@@ -60,6 +63,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_BRICK = register("black_industrial_block_brick", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
     public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_SMOOTH = register("black_industrial_block_smooth", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
     public static final RegistryObject<Block> BLACK_INDUSTRAL_BLOCK_FLOOR = register("black_industrial_block_floor", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
+    public static final RegistryObject<Block> FRAMELESS_BLACK_INDUSTRAL_BLOCK_FLOOR = register("frameless_black_industrial_block_floor", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
 
     public static final RegistryObject<Block> WHITE_INDUSTRAL_BLOCK = register("white_industrial_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
     public static final RegistryObject<Block> WHITE_INDUSTRAL_BLOCK_BIG_TILE = register("white_industrial_block_big_tile", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
@@ -176,6 +180,9 @@ public class ModBlocks {
     public static final RegistryObject<LiquidBlock> URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.copy(Blocks.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> ENRICHED_URANIUM_HEXAFLUORITE_BLOCK = Registration.BLOCKS.register("enriched_uranium_hexafluorite_block", () -> new LiquidBlock(ModFluids.SOURCE_ENRICHED_URANIUM_HEXAFLUORITE, BlockBehaviour.Properties.copy(Blocks.WATER).noCollission().strength(100.0F)));
     public static final RegistryObject<LiquidBlock> STEAM_BLOCK = Registration.BLOCKS.register("steam_block", () -> new LiquidBlock(ModFluids.SOURCE_STEAM, BlockBehaviour.Properties.copy(Blocks.WATER).noCollission().strength(100.0F)));
+
+    // Water Source Block
+    public static final RegistryObject<WaterSourceBlock> WATER_SOURCE_BLOCK = register("water_source_block", WaterSourceBlock::new, () -> new WaterSourceBlockItem(ModBlocks.WATER_SOURCE_BLOCK));
 
     private ModBlocks() {
         throw new IllegalStateException("ModBlocks class");

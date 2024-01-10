@@ -1,6 +1,6 @@
 {
   "general": {
-    "hintOverlayToggle": true,
+    "hintOverlayToggle": false,
     "hintNarratorToggle": true,
     "previewOverlay": true,
     "displayTooltip": true,
@@ -12,7 +12,7 @@
     "hideFromTabList": true,
     "enableTextToSpeech": false,
     "ttsMode": "PRESS",
-    "fluidMode": "ANY",
+    "fluidMode": "NONE",
     "reachDistance": 0.0,
     "debug": false,
     "itemModNameTooltip": true,
@@ -29,7 +29,7 @@
     "overlaySquare": false,
     "flipMainHand": false,
     "autoScaleThreshold": 0.4,
-    "alpha": 0.7,
+    "alpha": 0.55,
     "iconMode": "TOP",
     "animation": true,
     "disappearingDelay": 0.0

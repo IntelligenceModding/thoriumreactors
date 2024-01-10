@@ -127,28 +127,6 @@ public class FluidTankBlock extends BaseEntityBlock {
         return LootUtil.getLoot(level.getBlockEntity(pos), this);
     }
 
-    /*@Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        super.fillItemCategory(tab, items);
-        if (tab == CreativeModeTab.TAB_SEARCH && this.asItem().getDefaultInstance().is(ModBlocks.CREATIVE_FLUID_TANK.get().asItem())) {
-            int index = items.size();
-
-            for (Fluid fluid : getKnownFluids()) {
-                if (fluid instanceof ForgeFlowingFluid.Source || fluid instanceof LavaFluid.Source || fluid instanceof WaterFluid.Source) {
-                    ItemStack blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
-
-                    FluidStack stack = new FluidStack(fluid, Integer.MAX_VALUE);
-                    blockStack.getOrCreateTag().put("BlockEntityTag", writeToNBT(stack));
-
-                    if (!items.contains(blockStack)) {
-                        items.add(index, blockStack);
-                        index++;
-                    }
-                }
-            }
-        }
-    }*/
-
     public CompoundTag writeToNBT(FluidStack fluidStack) {
         CompoundTag dataTag = new CompoundTag();
         CompoundTag fluidTag = new CompoundTag();
@@ -157,11 +135,6 @@ public class FluidTankBlock extends BaseEntityBlock {
 
         fluidTag.put("Fluid", dataTag);
         return fluidTag;
-    }
-
-    @NotNull
-    protected Iterable<Fluid> getKnownFluids() {
-        return ForgeRegistries.FLUIDS.getEntries().stream().map(Map.Entry::getValue)::iterator;
     }
 
     @Override

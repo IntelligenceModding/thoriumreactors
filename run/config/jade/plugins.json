@@ -61,6 +61,9 @@
     "energy": true,
     "tooltip_renderer": true
   },
+  "thoriumreactors": {
+    "machines": true
+  },
   "jade": {
     "coordinates.rel": false,
     "distance": false,

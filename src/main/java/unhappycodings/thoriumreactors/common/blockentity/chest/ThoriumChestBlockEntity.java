@@ -16,6 +16,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +50,7 @@ public class ThoriumChestBlockEntity extends ChestBlockEntity {
                 ThoriumChestBlockEntity.this.signalOpenCount(pLevel, pPos, pState, pCount, pOpenCount);
                 openers = pOpenCount;
 
-                chestLidController.shouldBeOpen(openers > 0);
+                triggerEvent(1, counter.getOpenerCount());
             }
 
             @Override
@@ -69,20 +70,16 @@ public class ThoriumChestBlockEntity extends ChestBlockEntity {
         chestLidController.tickLid();
     }
 
+    public void tick() {
+        lidAnimateTick();
+    }
+
     @Override
     public void setChanged() {
         super.setChanged();
 
         if (!this.getLevel().isClientSide && this.getLevel() != null && this.getLevel() instanceof ServerLevel w)
             w.getChunkSource().blockChanged(getBlockPos());
-    }
-
-    public int getCounter() {
-        return counter.getOpenerCount();
-    }
-
-    public void setCounter(int count) {
-        this.openers = count;
     }
 
     @Override
@@ -168,22 +165,8 @@ public class ThoriumChestBlockEntity extends ChestBlockEntity {
         }
     }
 
-    @NotNull
-    @Override
-    public CompoundTag getUpdateTag() {
-        CompoundTag nbt = new CompoundTag();
-        nbt.putInt("Openers", getCounter());
-        return nbt;
-    }
-
-    @Override
-    public void handleUpdateTag(final CompoundTag tag) {
-        setCounter(tag.getInt("Openers"));
-    }
-
     @Override
     protected void saveAdditional(@NotNull CompoundTag nbt) {
-        nbt.putInt("Openers", getCounter());
         ContainerHelper.saveAllItems(nbt, this.items, true);
     }
 
@@ -191,7 +174,6 @@ public class ThoriumChestBlockEntity extends ChestBlockEntity {
     public void load(@NotNull CompoundTag nbt) {
         this.items.clear();
         ContainerHelper.loadAllItems(nbt, this.items);
-        setCounter(nbt.getInt("Openers"));
     }
 
     @NotNull
@@ -219,6 +201,19 @@ public class ThoriumChestBlockEntity extends ChestBlockEntity {
     @Override
     public void clearContent() {
         items.clear();
+    }
+
+    @Override
+    public void recheckOpen() {
+        if (!this.remove) {
+            this.counter.recheckOpeners(this.getLevel(), this.getBlockPos(), this.getBlockState());
+        }
+    }
+
+    @Override
+    protected void signalOpenCount(Level pLevel, BlockPos pPos, BlockState pState, int pEventId, int pEventParam) {
+        Block block = pState.getBlock();
+        pLevel.blockEvent(pPos, block, 1, pEventParam);
     }
 
     @Override

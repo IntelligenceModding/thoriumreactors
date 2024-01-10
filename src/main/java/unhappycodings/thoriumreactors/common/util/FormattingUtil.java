@@ -42,8 +42,8 @@ public class FormattingUtil {
 
     public static String formatNum(float num) {
         DecimalFormat formatter = new DecimalFormat("0.00");
-        if (num >= 1000000000) return formatter.format(num / 1000).replaceAll(",", ".") + " GFE";
-        if (num >= 1000000) return formatter.format(num / 1000).replaceAll(",", ".") + " MFE";
+        if (num >= 1000000000) return formatter.format(num / 1000000000).replaceAll(",", ".") + " GFE";
+        if (num >= 1000000) return formatter.format(num / 1000000).replaceAll(",", ".") + " MFE";
         if (num >= 1000) return formatter.format(num / 1000).replaceAll(",", ".") + " kFE";
         return (int) num + " FE";
     }

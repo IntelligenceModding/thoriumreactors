@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-29T01:04:03.5838056	Block Tags
+// 1.20.1	2024-01-09T19:10:54.9073846	Block Tags
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/aluminium.json
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/aluminum.json
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/bauxite.json
@@ -27,5 +27,5 @@ c9a7123c7eea0a22f4e24220854ee77ed22e4fe4 data/forge/tags/blocks/storage_blocks/p
 db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/blocks/storage_blocks/titanic_iron.json
 db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/blocks/storage_blocks/titanium.json
 b224eb8423908182c0097920c8b62c5c36f692cf data/forge/tags/blocks/storage_blocks/uranium.json
-b2020ebb480f03490e5c5ccc50bfd26a39a3e6f1 data/minecraft/tags/blocks/mineable/pickaxe.json
-b2020ebb480f03490e5c5ccc50bfd26a39a3e6f1 data/minecraft/tags/blocks/needs_iron_tool.json
+2bdc5cebf1cf7a6f4b804751ea135c8a4f0a7a34 data/minecraft/tags/blocks/mineable/pickaxe.json
+2bdc5cebf1cf7a6f4b804751ea135c8a4f0a7a34 data/minecraft/tags/blocks/needs_stone_tool.json
