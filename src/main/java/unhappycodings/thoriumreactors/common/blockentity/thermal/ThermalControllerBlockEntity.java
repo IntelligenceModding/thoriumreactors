@@ -50,7 +50,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
             for (BlockPos pos : valvePos) {
                 if (!(level.getBlockEntity(pos) instanceof ThermalValveBlockEntity entity)) return;
                 if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveTypeEnum.HEATING_FLUID_INPUT) {
-                    entity.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storage -> {
+                    entity.getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(pos).getValue(ThermalValveBlock.FACING)).ifPresent(storage -> {
                         FluidStack fluidExternal = storage.getFluidInTank(0);
                         int amount = fluidExternal.getAmount();
                         if (fluidExternal.getFluid().isSame(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get()) && amount > 0) {
@@ -66,7 +66,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
                 }
 
                 if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveTypeEnum.HEATING_FLUID_OUTPUT) {
-                    entity.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storage -> {
+                    entity.getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(pos).getValue(ThermalValveBlock.FACING)).ifPresent(storage -> {
                         int amount = Math.min(getFluidAmountIn(), 10);
                         if (getFluidIn().getFluid().isSame(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get()) && amount > 0) {
                             int fillable = storage.fill(new FluidStack(ModFluids.SOURCE_DEPLETED_MOLTEN_SALT.get(), amount), IFluidHandler.FluidAction.SIMULATE);
@@ -80,7 +80,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
                 }
 
                 if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveTypeEnum.COOLANT_INPUT && conversions >= 10) {
-                    entity.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storageInput -> {
+                    entity.getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(pos).getValue(ThermalValveBlock.FACING)).ifPresent(storageInput -> {
                         FluidStack coolantIn = storageInput.getFluidInTank(0);
                         int amount = Math.min(coolantIn.getAmount(), 5);
                         if (amount > 0 && coolantIn.getFluid().isSame(Fluids.WATER)) {
@@ -88,7 +88,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
                                 if (!level.getBlockState(blockPos).is(ModBlocks.THERMAL_VALVE.get())) return;
                                 if (level.getBlockState(blockPos).getValue(ThermalValveBlock.TYPE) == ThermalValveTypeEnum.COOLANT_OUTPUT) {
                                     ThermalValveBlockEntity valveBlock = (ThermalValveBlockEntity) level.getBlockEntity(blockPos);
-                                    valveBlock.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(storageOutput -> {
+                                    valveBlock.getCapability(ForgeCapabilities.FLUID_HANDLER, valveBlock.getBlockState().getValue(ThermalValveBlock.FACING)).ifPresent(storageOutput -> {
                                         FluidStack coolantOut = storageOutput.getFluidInTank(0);
                                         if (coolantOut.getAmount() + amount * 1300 <= storageOutput.getTankCapacity(0)) {
                                             coolantIn.shrink(amount);

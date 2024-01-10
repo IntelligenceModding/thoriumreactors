@@ -98,6 +98,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_BRICK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_brick"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_smooth"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_FLOOR.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_floor"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.FRAMELESS_INDUSTRAL_BLOCK_FLOOR.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/frameless_industrial_block_floor"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_big_tile"));
@@ -105,6 +106,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_brick"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_smooth"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_floor"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.FRAMELESS_BLACK_INDUSTRAL_BLOCK_FLOOR.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/frameless_black_industrial_block_floor"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.WHITE_INDUSTRAL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/white_industrial_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/white_industrial_block_big_tile"));
@@ -128,6 +130,8 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.GENERIC_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.PROGRESSIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.CREATIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
+
+        withExistingParent(ItemUtil.getRegString(ModBlocks.WATER_SOURCE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.THORIUM_CRAFTING_TABLE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table"));
 

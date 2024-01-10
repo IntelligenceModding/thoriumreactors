@@ -56,6 +56,9 @@
     "energy": true,
     "tooltip_renderer": true
   },
+  "thoriumreactors": {
+    "machines": true
+  },
   "pipez": {
     "pipe": true
   },

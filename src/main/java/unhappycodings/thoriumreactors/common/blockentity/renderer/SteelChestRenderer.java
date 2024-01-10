@@ -4,6 +4,7 @@ package unhappycodings.thoriumreactors.common.blockentity.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
+import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -36,8 +37,6 @@ public class SteelChestRenderer<T extends BlockEntity & LidBlockEntity> implemen
     private final ModelPart lock;
 
     public SteelChestRenderer(BlockEntityRendererProvider.Context pContext) {
-        Calendar calendar = Calendar.getInstance();
-
         ModelPart modelpart = pContext.bakeLayer(ModelLayers.CHEST);
         this.bottom = modelpart.getChild("bottom");
         this.lid = modelpart.getChild("lid");

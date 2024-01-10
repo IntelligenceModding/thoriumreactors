@@ -48,7 +48,7 @@ import java.util.List;
 
 public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, IEnergyCapable {
     public static final int MAX_POWER = 25000;
-    public static final int MAX_TRANSFER = MAX_POWER / 100;
+    public static final int MAX_TRANSFER = MAX_POWER / 2;
     public static final int MAX_FLUID_IN = 6000;
     public static final int MAX_FLUID_OUT = 3000;
     public static final int MAX_FLUID_TRANSFER = 100;
@@ -372,6 +372,7 @@ public class MachineElectrolyticSaltSeparatorBlockEntity extends MachineContaine
         ENERGY_STORAGE.setEnergy(energy);
     }
 
+    @Override
     public int getCapacity() {
         return ENERGY_STORAGE.getMaxEnergyStored();
     }

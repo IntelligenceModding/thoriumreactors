@@ -12,9 +12,9 @@ import unhappycodings.thoriumreactors.common.util.CraftingUtil;
 
 import java.util.function.Predicate;
 
-public class InputSlot extends BaseSlot {
+public class CraftingInputSlot extends BaseSlot {
 
-    public InputSlot(BlockEntity entity, ThoriumCraftingTableContainer container, IItemHandler itemHandler, Inventory inventory, int index, int xPosition, int yPosition, Predicate<ItemStack> canPlace) {
+    public CraftingInputSlot(BlockEntity entity, ThoriumCraftingTableContainer container, IItemHandler itemHandler, Inventory inventory, int index, int xPosition, int yPosition, Predicate<ItemStack> canPlace) {
         super(entity, container, itemHandler, inventory, index, xPosition, yPosition, canPlace);
     }
 

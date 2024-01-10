@@ -304,11 +304,11 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             blit(matrixStack, xPos + 515, yPos + 149, 166, !entity.getTurbinePos().isEmpty() ? incrementerFlow.isMouseOver(curMouseX, curMouseY) ? (mouseOverIncrementFlow ? 449 + 19 : 449 + 38) : 449 : 900, 58, 19, 1024, 1024); // right incrementer speed bottom
 
             // state buttons right
-            if (entity.getReactorState() != ReactorStateEnum.STARTING)
+            if (entity.getReactorState() == ReactorStateEnum.STARTING)
                 blit(matrixStack, xPos + 514, yPos + 261, 83, mouseOverStart ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
-            if (entity.getReactorState() != ReactorStateEnum.RUNNING)
+            if (entity.getReactorState() == ReactorStateEnum.RUNNING)
                 blit(matrixStack, xPos + 514, yPos + 289, 0, mouseOverRunning ? 512 : 491, 83, 21, 1024, 1024); // left right bottom
-            if (entity.getReactorState() != ReactorStateEnum.STOP)
+            if (entity.getReactorState() == ReactorStateEnum.STOP)
                 blit(matrixStack, xPos + 514, yPos + 316, 0, mouseOverStop ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
 
             // scram button
@@ -317,11 +317,18 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             // turbine buttons
             TurbineControllerBlockEntity targetEntity = !entity.getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) : null;
             if (targetEntity != null) {
-                blit(matrixStack, xPos + 590, yPos + 86, 82, (!coilEngageButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (targetEntity.isCoilsEngaged() ? 44 : 0), 52, 22, 1024, 1024);
-                blit(matrixStack, xPos + 655, yPos + 86, 30, (!coilDisengageButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (!targetEntity.isCoilsEngaged() ? 44 : 0), 52, 22, 1024, 1024);
+                if (targetEntity.isCoilsEngaged())
+                    blit(matrixStack, xPos + 590, yPos + 86, 82, (!coilEngageButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (targetEntity.isCoilsEngaged() ? 0 : 44), 52, 22, 1024, 1024);
 
-                blit(matrixStack, xPos + 590, yPos + 127, 82, (!activateButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (targetEntity.isActivated() ? 44 : 0), 52, 22, 1024, 1024);
-                blit(matrixStack, xPos + 655, yPos + 127, 30, (!deactivateButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (!targetEntity.isActivated() ? 44 : 0), 52, 22, 1024, 1024);
+                if (!targetEntity.isCoilsEngaged())
+                    blit(matrixStack, xPos + 655, yPos + 86, 30, (!coilDisengageButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (!targetEntity.isCoilsEngaged() ? 0 : 44), 52, 22, 1024, 1024);
+
+                if (targetEntity.isActivated())
+                    blit(matrixStack, xPos + 590, yPos + 127, 82, (!activateButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (targetEntity.isActivated() ? 0 : 44), 52, 22, 1024, 1024);
+
+                if (!targetEntity.isActivated())
+                    blit(matrixStack, xPos + 655, yPos + 127, 30, (!deactivateButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (!targetEntity.isActivated() ? 0 : 44), 52, 22, 1024, 1024);
+
 
             }
             blit(matrixStack, xPos + 548, yPos + 22, 961, selectedTurbine != 0 ? (!turbineLeft.isMouseOver(curMouseX, curMouseY) ? 360 : 377) : 394, 17, 17, 1024, 1024); // left
@@ -632,10 +639,10 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.coil_engage")).withStyle(ScreenUtil::notoSans), pPoseStack, 410, 10, 16711422);
         ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.activated")).withStyle(ScreenUtil::notoSans), pPoseStack, 410, 39, 16711422);
 
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.on")).withStyle(ScreenUtil::notoSans), pPoseStack, 387, 25, targetEntity != null ? targetEntity.isCoilsEngaged() ? 2039583 : 43275 : 2039583);
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.off")).withStyle(ScreenUtil::notoSans), pPoseStack, 434, 25, targetEntity != null ? !targetEntity.isCoilsEngaged() ? 2039583 : 12459309 : 2039583);
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.on")).withStyle(ScreenUtil::notoSans), pPoseStack, 387, 54, targetEntity != null ? targetEntity.isActivated() ? 2039583 : 43275 : 2039583);
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.off")).withStyle(ScreenUtil::notoSans), pPoseStack, 434, 54, targetEntity != null ? !targetEntity.isActivated() ? 2039583 : 12459309 : 2039583);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.on")).withStyle(ScreenUtil::notoSans), pPoseStack, 387, 25, targetEntity != null ? !targetEntity.isCoilsEngaged() ? 19459 : 43275 : 2039583);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.off")).withStyle(ScreenUtil::notoSans), pPoseStack, 434, 25, targetEntity != null ? targetEntity.isCoilsEngaged() ? 4983826 : 12459309 : 2039583);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.on")).withStyle(ScreenUtil::notoSans), pPoseStack, 387, 54, targetEntity != null ? !targetEntity.isActivated() ? 19459 : 43275 : 2039583);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.off")).withStyle(ScreenUtil::notoSans), pPoseStack, 434, 54, targetEntity != null ? targetEntity.isActivated() ? 4983826 : 12459309 : 2039583);
 
         if (targetEntity != null) {
             ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.producing")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(targetEntity != null ? (targetEntity.isCoilsEngaged() ? FormattingUtil.formatEnergy(targetEntity.getTurbineGeneration()) : "0.0 FE") + "/t" : "0.0 FE/t").withStyle(ChatFormatting.GRAY)).withStyle(ScreenUtil::notoSans), pPoseStack, 320, 88, targetEntity != null ? !targetEntity.isActivated() ? 2039583 : 12459309 : 2039583);
@@ -646,9 +653,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.use_configurator_to_link")).withStyle(ChatFormatting.GRAY).withStyle(ScreenUtil::notoSans), pPoseStack, 385, 102);
         }
 
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.start")).withStyle(ScreenUtil::notoSans), pPoseStack, 345, 149, entity.getReactorState() == ReactorStateEnum.STARTING ? 2039583 : 43275);
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.run")).withStyle(ScreenUtil::notoSans), pPoseStack, 345, 169, entity.getReactorState() == ReactorStateEnum.RUNNING ? 2039583 : 11566128);
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.stop")).withStyle(ScreenUtil::notoSans), pPoseStack, 345, 188, entity.getReactorState() == ReactorStateEnum.STOP ? 2039583 : 12459309);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.start")).withStyle(ScreenUtil::notoSans), pPoseStack, 345, 149, entity.getReactorState() != ReactorStateEnum.STARTING ? 19459 : 43275);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.run")).withStyle(ScreenUtil::notoSans), pPoseStack, 345, 169, entity.getReactorState() != ReactorStateEnum.RUNNING ? 4994325 : 11566128);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.stop")).withStyle(ScreenUtil::notoSans), pPoseStack, 345, 188, entity.getReactorState() != ReactorStateEnum.STOP ? 4983826 : 12459309);
 
         ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.insert_rods")).withStyle(ScreenUtil::notoSans), pPoseStack, 424, 150, 16711422);
         ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.into_core")).withStyle(ScreenUtil::notoSans), pPoseStack, 424, 159, 16711422);

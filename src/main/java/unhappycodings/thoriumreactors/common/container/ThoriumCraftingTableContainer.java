@@ -8,8 +8,8 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.ThoriumCraftingTableBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
-import unhappycodings.thoriumreactors.common.container.base.slot.InputSlot;
-import unhappycodings.thoriumreactors.common.container.base.slot.OutputSlot;
+import unhappycodings.thoriumreactors.common.container.base.slot.CraftingInputSlot;
+import unhappycodings.thoriumreactors.common.container.base.slot.CraftingOutputSlot;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class ThoriumCraftingTableContainer extends BaseContainer {
@@ -24,11 +24,11 @@ public class ThoriumCraftingTableContainer extends BaseContainer {
                 byte index = 0;
                 for (byte column : columnNumbers) {
                     for (byte row : rowNumbers) {
-                        addSlot(new InputSlot(tileEntity, this, handler, inventory, index, row, column, (stack) -> true)); //Output
+                        addSlot(new CraftingInputSlot(tileEntity, this, handler, inventory, index, row, column, (stack) -> true)); //Output
                         index++;
                     }
                 }
-                addSlot(new OutputSlot(tileEntity, this, handler, inventory, index, 143, 56)); //Output
+                addSlot(new CraftingOutputSlot(tileEntity, this, handler, inventory, index, 143, 56)); //Output
             });
         }
     }

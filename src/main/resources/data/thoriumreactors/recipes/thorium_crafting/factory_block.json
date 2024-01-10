@@ -19,6 +19,7 @@
     "     "
   ],
   "result": {
-    "item": "thoriumreactors:factory_block"
+    "item": "thoriumreactors:factory_block",
+    "count": 16
   }
 }

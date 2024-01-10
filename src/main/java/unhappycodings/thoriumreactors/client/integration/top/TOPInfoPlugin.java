@@ -15,6 +15,7 @@ import net.minecraftforge.fluids.FluidStack;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
+import unhappycodings.thoriumreactors.common.blockentity.WaterSourceBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
@@ -51,7 +52,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
     @Override
     public void addProbeInfo(ProbeMode probeMode, IProbeInfo iProbeInfo, Player player, Level level, BlockState blockState, IProbeHitData iProbeHitData) {
         if (!player.isShiftKeyDown() || probeMode != ProbeMode.EXTENDED) return;
-        if (level.getBlockEntity(iProbeHitData.getPos()) instanceof FluidTankBlockEntity) {
+        if (level.getBlockEntity(iProbeHitData.getPos()) instanceof FluidTankBlockEntity || level.getBlockEntity(iProbeHitData.getPos()) instanceof WaterSourceBlockEntity) {
             for (Direction value : Direction.values()) {
                 level.getBlockEntity(iProbeHitData.getPos()).getCapability(ForgeCapabilities.FLUID_HANDLER, value).ifPresent(storage -> {
                     boolean isCreative = storage.getFluidInTank(0).getAmount() == Integer.MAX_VALUE;

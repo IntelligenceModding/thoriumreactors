@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_black_industrial_block_floor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "thoriumreactors:black_industrial_block_floor"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "thoriumreactors:frameless_black_industrial_block_floor_craft_from_normal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_black_industrial_block_floor",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "thoriumreactors:frameless_black_industrial_block_floor_craft_from_normal"
+    ]
+  }
+}

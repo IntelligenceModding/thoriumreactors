@@ -57,6 +57,9 @@ minecraft {
             workingDirectory project.file('run')
             arg "-mixin.config=thoriumreactors.mixins.json"
 
+            args "--username", "UnhappyWithoutU"
+            args "--uuid", "407db9d7-7c5f-4fd4-82b2-a800bdff0b39"
+
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'thoriumreactors'

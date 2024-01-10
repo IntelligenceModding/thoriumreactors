@@ -47,6 +47,13 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.thoriumreactors]]
+modId = "jade"
+mandatory = false
+versionRange = "[8.8.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.thoriumreactors]]
 modId = "jei"
 mandatory = false
 versionRange = "[11.4.0.288,)"

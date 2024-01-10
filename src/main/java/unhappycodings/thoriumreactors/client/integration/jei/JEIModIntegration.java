@@ -128,12 +128,24 @@ public class JEIModIntegration implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
-        registration.registerSubtypeInterpreter(ModBlocks.CREATIVE_FLUID_TANK.get().asItem(), (stack, uidContext) -> {
-            CompoundTag data = stack.getOrCreateTag().getCompound("BlockEntityTag");
-            FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(data.getCompound("Fluid"));
+        if (ClientConfig.showCreativeFluidTanksInJEI.get()) {
+            registration.registerSubtypeInterpreter(ModBlocks.CREATIVE_FLUID_TANK.get().asItem(), (stack, uidContext) -> {
+                CompoundTag data = stack.getOrCreateTag().getCompound("BlockEntityTag");
+                FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(data.getCompound("Fluid"));
 
-            return addInterpretation("fluid", fluidStack.getFluid().toString());
-        });
+                return addInterpretation("fluid", fluidStack.getFluid().toString());
+            });
+        }
+
+        if (ClientConfig.showCreativeEnergyTanksInJEI.get()) {
+            registration.registerSubtypeInterpreter(ModBlocks.CREATIVE_ENERGY_TANK.get().asItem(), (stack, uidContext) -> {
+                CompoundTag data = stack.getOrCreateTag().getCompound("BlockEntityTag");
+                int energy = data.getInt("Energy");
+
+                return addInterpretation("energy", energy + "");
+            });
+        }
+
     }
 
     private static String addInterpretation(String nbtRepresentation, String component) {
@@ -156,17 +168,40 @@ public class JEIModIntegration implements IModPlugin {
         registration.addRecipes(EVAPORATING_RECIPE_TYPE, rm.getAllRecipesFor(ModRecipes.EVAPORATING_RECIPE_TYPE.get()));
 
         List<ItemStack> blockList = new ArrayList<>();
-        for (Fluid fluid : getKnownFluids()) {
-            if (fluid instanceof ForgeFlowingFluid.Source || fluid instanceof LavaFluid.Source || fluid instanceof WaterFluid.Source) {
-                ItemStack blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
-                FluidStack stack = new FluidStack(fluid, Integer.MAX_VALUE);
-                blockStack.getOrCreateTag().put("BlockEntityTag", writeToNBT(stack));
+        if (ClientConfig.showCreativeFluidTanksInJEI.get()) {
+            for (Fluid fluid : getKnownFluids()) {
+                if (fluid instanceof ForgeFlowingFluid.Source || fluid instanceof LavaFluid.Source || fluid instanceof WaterFluid.Source) {
+                    ItemStack blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
+                    FluidStack stack = new FluidStack(fluid, Integer.MAX_VALUE);
+                    blockStack.getOrCreateTag().put("BlockEntityTag", writeToNBT(stack));
 
-                blockList.add(blockStack);
+                    blockList.add(blockStack);
+                }
             }
+            registration.getIngredientManager().addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, blockList);
+        } else {
+            blockList.add(new ItemStack(ModBlocks.CREATIVE_FLUID_TANK.get()));
+            registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, blockList);
         }
 
-        registration.getIngredientManager().addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, blockList);
+        blockList = new ArrayList<>();
+        if (ClientConfig.showCreativeEnergyTanksInJEI.get()) {
+            ItemStack blockStack = ModBlocks.CREATIVE_ENERGY_TANK.get().asItem().getDefaultInstance();
+            blockStack.getOrCreateTag().put("BlockEntityTag", writeInt(Integer.MAX_VALUE));
+
+            blockList.add(blockStack);
+            registration.getIngredientManager().addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, blockList);
+        } else {
+            blockList.add(new ItemStack(ModBlocks.CREATIVE_ENERGY_TANK.get()));
+            registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, blockList);
+        }
+
+    }
+
+    public CompoundTag writeInt(int amount) {
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("Energy", amount);
+        return tag;
     }
 
     public CompoundTag writeToNBT(FluidStack fluidStack) {

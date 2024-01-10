@@ -1,11 +1,13 @@
 package unhappycodings.thoriumreactors.common.block.chest;
 
+import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,11 +19,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -34,6 +33,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.client.config.ClientConfig;
+import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestBlockEntity;
+import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
@@ -42,6 +44,7 @@ import unhappycodings.thoriumreactors.common.util.LootUtil;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class BlastedIronChestBlock extends BaseEntityBlock {
     protected static final VoxelShape AABB = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
@@ -50,6 +53,27 @@ public class BlastedIronChestBlock extends BaseEntityBlock {
     public BlastedIronChestBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    public static DoubleBlockCombiner.Combiner<BlastedIronChestBlockEntity, Float2FloatFunction> opennessCombiner(final LidBlockEntity pLid) {
+        return new DoubleBlockCombiner.Combiner<BlastedIronChestBlockEntity, Float2FloatFunction>() {
+            public Float2FloatFunction acceptDouble(BlastedIronChestBlockEntity p_51633_, BlastedIronChestBlockEntity p_51634_) {
+                return (p_51638_) -> {
+                    return Math.max(p_51633_.getOpenNess(p_51638_), p_51634_.getOpenNess(p_51638_));
+                };
+            }
+
+            public Float2FloatFunction acceptSingle(BlastedIronChestBlockEntity p_51631_) {
+                Objects.requireNonNull(p_51631_);
+                return p_51631_::getOpenNess;
+            }
+
+            public Float2FloatFunction acceptNone() {
+                LidBlockEntity var10000 = pLid;
+                Objects.requireNonNull(var10000);
+                return var10000::getOpenNess;
+            }
+        };
     }
 
     @SuppressWarnings("deprecation")
@@ -67,16 +91,18 @@ public class BlastedIronChestBlock extends BaseEntityBlock {
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable BlockGetter pLevel, @NotNull List<Component> pTooltip, @NotNull TooltipFlag pFlag) {
         CompoundTag tag = pStack.getOrCreateTag().getCompound("BlockEntityTag");
-        if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DETAILS)) {
+        if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DETAILS) && ClientConfig.showBlockDetails.get()) {
             ListTag listtag = tag.getList("Items", 10);
             if (!listtag.isEmpty()) {
                 pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.contains_items")).withStyle(ChatFormatting.GRAY));
             }
-        } else if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DESCRIPTION)) {
+        } else if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DESCRIPTION) && ClientConfig.showBlockDescription.get()) {
             pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
         } else {
-            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));
-            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_description")).withStyle(ChatFormatting.GRAY)));
+            if (ClientConfig.showBlockDetails.get())
+                pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));
+            if (ClientConfig.showBlockDescription.get())
+                pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_description")).withStyle(ChatFormatting.GRAY)));
         }
     }
 
@@ -123,5 +149,11 @@ public class BlastedIronChestBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return ModBlockEntities.BLASTED_IRON_CHEST_BLOCK.get().create(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return pLevel instanceof ServerLevel ? null : (a, b, c, blockEntity) -> ((BlastedIronChestBlockEntity) blockEntity).tick();
     }
 }

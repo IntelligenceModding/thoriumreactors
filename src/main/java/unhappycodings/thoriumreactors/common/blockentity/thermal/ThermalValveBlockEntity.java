@@ -46,14 +46,6 @@ public class ThermalValveBlockEntity extends ThermalFrameBlockEntity {
         return super.getCapability(cap, side);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if (cap == ForgeCapabilities.FLUID_HANDLER) {
-            return lazyFluidInHandler.cast();
-        }
-        return super.getCapability(cap);
-    }
-
     @NotNull
     @Override
     public CompoundTag getUpdateTag() {

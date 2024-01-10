@@ -19,7 +19,7 @@ import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
 public class TurbinePowerPortBlockEntity extends TurbineFrameBlockEntity implements IEnergyCapable {
     public static final int MAX_POWER = 124102300;
-    public static final int MAX_TRANSFER = MAX_POWER / 100;
+    public static final int MAX_TRANSFER = MAX_POWER / 2;
     private LazyOptional<ModEnergyStorage> lazyEnergyHandler = LazyOptional.empty();
 
     private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(MAX_POWER, MAX_TRANSFER) {
@@ -55,13 +55,6 @@ public class TurbinePowerPortBlockEntity extends TurbineFrameBlockEntity impleme
         if (cap == ForgeCapabilities.ENERGY && side != null && facing == side)
             return lazyEnergyHandler.cast();
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-        if (cap == ForgeCapabilities.ENERGY)
-            return lazyEnergyHandler.cast();
-        return super.getCapability(cap);
     }
 
     @NotNull

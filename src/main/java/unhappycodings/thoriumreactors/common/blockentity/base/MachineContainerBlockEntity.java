@@ -36,6 +36,10 @@ public class MachineContainerBlockEntity extends BaseContainerBlockEntity {
     public void setFluidIn(FluidStack stack) {
     }
 
+    public int getCapacity() {
+        return 0;
+    }
+
     public int getFluidCapacityIn() {
         return 0;
     }

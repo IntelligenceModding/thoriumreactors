@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:stone"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    " C ",
+    "BAB",
+    " C "
+  ],
+  "result": {
+    "count": 16,
+    "item": "thoriumreactors:factory_block"
+  }
+}

@@ -13,7 +13,7 @@
     "debug": false,
     "itemModNameTooltip": true,
     "bossBarOverlapMode": "PUSH_DOWN",
-    "hintOverlayToggle": true
+    "hintOverlayToggle": false
   },
   "overlay": {
     "overlayPosX": 0.5,

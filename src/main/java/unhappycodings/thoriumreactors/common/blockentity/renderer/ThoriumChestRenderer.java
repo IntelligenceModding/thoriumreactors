@@ -36,8 +36,6 @@ public class ThoriumChestRenderer<T extends BlockEntity & LidBlockEntity> implem
     private final ModelPart lock;
 
     public ThoriumChestRenderer(BlockEntityRendererProvider.Context pContext) {
-        Calendar calendar = Calendar.getInstance();
-
         ModelPart modelpart = pContext.bakeLayer(ModelLayers.CHEST);
         this.bottom = modelpart.getChild("bottom");
         this.lid = modelpart.getChild("lid");

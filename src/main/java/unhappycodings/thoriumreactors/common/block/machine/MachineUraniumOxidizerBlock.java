@@ -38,6 +38,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineUraniumOxidizerBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModKeyBindings;
@@ -109,7 +110,7 @@ public class MachineUraniumOxidizerBlock extends BaseEntityBlock {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.not_placed")).withStyle(FormattingUtil.hex(0xCE1F0A)));
             return;
         }
-        if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DETAILS)) {
+        if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DETAILS) && ClientConfig.showBlockDetails.get()) {
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.energy_buffer")).withStyle(FormattingUtil.hex(0x3FD023)).append(Component.literal(FormattingUtil.formatEnergy(Integer.parseInt(String.valueOf(tag.get("Energy"))))).withStyle(ChatFormatting.GRAY)));
             pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.recipe_status")).withStyle(FormattingUtil.hex(0x3BA3D3)).append(Component.translatable(FormattingUtil.getTranslatable("machines.oxidizer.name")).append(" " +  FormattingUtil.formatPercentNum(tag.getInt("RecipeTime"), tag.getInt("MaxRecipeTime"))).withStyle(ChatFormatting.GRAY)));
 
@@ -126,11 +127,13 @@ public class MachineUraniumOxidizerBlock extends BaseEntityBlock {
             if (!listtag.isEmpty()) {
                 pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.contains_items")).withStyle(ChatFormatting.GRAY));
             }
-        } else if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DESCRIPTION)) {
+        } else if (KeyBindingUtil.isKeyPressed(ModKeyBindings.SHOW_DESCRIPTION) && ClientConfig.showBlockDescription.get()) {
             pTooltip.add(Component.translatable(asBlock().getDescriptionId() + "_description").withStyle(ChatFormatting.GRAY));
         } else {
-            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));
-            pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_description")).withStyle(ChatFormatting.GRAY)));
+            if (ClientConfig.showBlockDetails.get())
+                pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DETAILS.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x7ED355))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_details")).withStyle(ChatFormatting.GRAY)));
+            if (ClientConfig.showBlockDescription.get())
+                pTooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.hold")).withStyle(ChatFormatting.GRAY).append(Component.literal(ModKeyBindings.SHOW_DESCRIPTION.getKey().getDisplayName().getString()).withStyle(FormattingUtil.hex(0x55D38A))).append(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.for_description")).withStyle(ChatFormatting.GRAY)));
         }
     }
 

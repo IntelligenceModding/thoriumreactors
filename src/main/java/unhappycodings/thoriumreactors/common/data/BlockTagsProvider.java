@@ -29,7 +29,7 @@ public class BlockTagsProvider extends net.minecraft.data.tags.TagsProvider<Bloc
         // Interate through all Blocks and add them the "Mineable with Pickaxe" tag
         for (RegistryObject<Block> block : Registration.BLOCKS.getEntries()) {
             tag(BlockTags.MINEABLE_WITH_PICKAXE).add(block.get());
-            tag(BlockTags.NEEDS_IRON_TOOL).add(block.get());
+            tag(BlockTags.NEEDS_STONE_TOOL).add(block.get());
         }
 
         tag(create(new ResourceLocation("forge", "ores/manganese"))).add(ModBlocks.MANGANESE_ORE.get(), ModBlocks.DEEPSLATE_MANGANESE_ORE.get());

@@ -40,7 +40,7 @@ import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 
 public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity implements WorldlyContainer, MenuProvider, IEnergyCapable {
     public static final int MAX_POWER = 75000;
-    public static final int MAX_TRANSFER = MAX_POWER / 100;
+    public static final int MAX_TRANSFER = MAX_POWER / 2;
     public static final int GENERATION = 144;
 
     private final LazyOptional<EnergyHandler>[] lazyEnergyHandler = EnergyHandler.createEnergyHandlers(this, Direction.values());
@@ -195,6 +195,7 @@ public class MachineGeneratorBlockEntity extends MachineContainerBlockEntity imp
         ENERGY_STORAGE.setEnergy(energy);
     }
 
+    @Override
     public int getCapacity() {
         return ENERGY_STORAGE.getMaxEnergyStored();
     }

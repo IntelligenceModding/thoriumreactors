@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 
@@ -38,7 +39,7 @@ public class CompleteItemCreativeTab extends CreativeModeTab {
 
         // Machines
         ArrayList<Block> machines = new ArrayList<>();
-        Collections.addAll(machines, ModBlocks.GENERATOR_BLOCK.get(), ModBlocks.FLUID_EVAPORATION_BLOCK.get(), ModBlocks.ELECTROLYTIC_SALT_SEPARATOR_BLOCK.get(), ModBlocks.SALT_MELTER_BLOCK.get(), ModBlocks.CONCENTRATOR_BLOCK.get(), ModBlocks.DECOMPOSER_BLOCK.get(), ModBlocks.URANIUM_OXIDIZER_BLOCK.get(), ModBlocks.FLUID_CENTRIFUGE_BLOCK.get(), ModBlocks.CRYSTALLIZER_BLOCK.get(), ModBlocks.BLAST_FURNACE_BLOCK.get(), ModBlocks.FLUID_ENRICHER_BLOCK.get());
+        Collections.addAll(machines, ModBlocks.MACHINE_CASING.get(), ModBlocks.GENERATOR_BLOCK.get(), ModBlocks.FLUID_EVAPORATION_BLOCK.get(), ModBlocks.ELECTROLYTIC_SALT_SEPARATOR_BLOCK.get(), ModBlocks.SALT_MELTER_BLOCK.get(), ModBlocks.CONCENTRATOR_BLOCK.get(), ModBlocks.DECOMPOSER_BLOCK.get(), ModBlocks.URANIUM_OXIDIZER_BLOCK.get(), ModBlocks.FLUID_CENTRIFUGE_BLOCK.get(), ModBlocks.CRYSTALLIZER_BLOCK.get(), ModBlocks.BLAST_FURNACE_BLOCK.get(), ModBlocks.FLUID_ENRICHER_BLOCK.get());
         for (Block i : machines) {
             items.add(index, new ItemStack(i));
             index++;
@@ -46,30 +47,43 @@ public class CompleteItemCreativeTab extends CreativeModeTab {
 
         // Fluid Tanks
         ArrayList<Block> tanksOne = new ArrayList<>();
-        Collections.addAll(tanksOne, ModBlocks.SIMPLE_ENERGY_TANK.get(), ModBlocks.GENERIC_ENERGY_TANK.get(), ModBlocks.PROGRESSIVE_ENERGY_TANK.get(), ModBlocks.CREATIVE_ENERGY_TANK.get());
+        Collections.addAll(tanksOne, ModBlocks.SIMPLE_ENERGY_TANK.get(), ModBlocks.GENERIC_ENERGY_TANK.get(), ModBlocks.PROGRESSIVE_ENERGY_TANK.get());
         for (Block i : tanksOne) {
             items.add(index, new ItemStack(i));
             index++;
         }
+
         ItemStack blockStack = ModBlocks.CREATIVE_ENERGY_TANK.get().asItem().getDefaultInstance();
-        blockStack.getOrCreateTag().put("BlockEntityTag", writeEnergyToNbt(Integer.MAX_VALUE));
-        items.add(index, blockStack);
-        index++;
+        if (ClientConfig.showCreativeFluidTanksInCreativeTAB.get()) {
+            items.add(index, ModBlocks.CREATIVE_ENERGY_TANK.get().asItem().getDefaultInstance());
+            index++;
+
+            blockStack.getOrCreateTag().put("BlockEntityTag", writeEnergyToNbt(Integer.MAX_VALUE));
+            items.add(index, blockStack);
+            index++;
+        }
+
         ArrayList<Block> tanksTwo = new ArrayList<>();
         Collections.addAll(tanksTwo, ModBlocks.SIMPLE_FLUID_TANK.get(), ModBlocks.GENERIC_FLUID_TANK.get(), ModBlocks.PROGRESSIVE_FLUID_TANK.get());
         for (Block i : tanksTwo) {
             items.add(index, new ItemStack(i));
             index++;
         }
-        for (Fluid fluid : getKnownFluids()) {
-            if (fluid instanceof ForgeFlowingFluid.Source || fluid instanceof LavaFluid.Source || fluid instanceof WaterFluid.Source) {
-                blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
-                FluidStack stack = new FluidStack(fluid, Integer.MAX_VALUE);
 
-                blockStack.getOrCreateTag().put("BlockEntityTag", writeFluidToNbt(stack));
-                if (!items.contains(blockStack)) {
-                    items.add(index, blockStack);
-                    index++;
+        if (ClientConfig.showCreativeFluidTanksInCreativeTAB.get()) {
+            items.add(index, new ItemStack(ModBlocks.CREATIVE_FLUID_TANK.get()));
+            index++;
+
+            for (Fluid fluid : getKnownFluids()) {
+                if (fluid instanceof ForgeFlowingFluid.Source || fluid instanceof LavaFluid.Source || fluid instanceof WaterFluid.Source) {
+                    blockStack = ModBlocks.CREATIVE_FLUID_TANK.get().asItem().getDefaultInstance();
+                    FluidStack stack = new FluidStack(fluid, Integer.MAX_VALUE);
+
+                    blockStack.getOrCreateTag().put("BlockEntityTag", writeFluidToNbt(stack));
+                    if (!items.contains(blockStack)) {
+                        items.add(index, blockStack);
+                        index++;
+                    }
                 }
             }
         }
@@ -84,7 +98,7 @@ public class CompleteItemCreativeTab extends CreativeModeTab {
 
         // Blocks
         ArrayList<Block> multistuctureBlocks = new ArrayList<>();
-        Collections.addAll(multistuctureBlocks, ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CONTROLLER_BLOCK.get(), ModBlocks.REACTOR_VALVE.get(), ModBlocks.REACTOR_ROD_CONTROLLER.get(), ModBlocks.REACTOR_CORE.get(), ModBlocks.TURBINE_CASING.get(), ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), ModBlocks.TURBINE_POWER_PORT.get(), ModBlocks.TURBINE_VALVE.get(), ModBlocks.TURBINE_ROTATION_MOUNT.get(), ModBlocks.TURBINE_VENT.get(), ModBlocks.ELECTROMAGNETIC_COIL.get(), ModBlocks.THERMAL_CONDUCTOR.get(), ModBlocks.THERMAL_CONTROLLER.get(), ModBlocks.THERMAL_VALVE.get(), ModBlocks.THERMAL_HEAT_SINK.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.TURBINE_GLASS.get(), ModBlocks.REACTOR_GRAPHITE_MODERATOR.get(), ModBlocks.TURBINE_ROTOR.get(), ModBlocks.THORIUM_CRAFTING_TABLE.get(), ModBlocks.BLASTED_IRON_CHEST_BLOCK.get(), ModBlocks.STEEL_CHEST_BLOCK.get(), ModBlocks.THORIUM_CHEST_BLOCK.get());
+        Collections.addAll(multistuctureBlocks, ModBlocks.WATER_SOURCE_BLOCK.get(), ModBlocks.REACTOR_CASING.get(), ModBlocks.REACTOR_CONTROLLER_BLOCK.get(), ModBlocks.REACTOR_VALVE.get(), ModBlocks.REACTOR_ROD_CONTROLLER.get(), ModBlocks.REACTOR_CORE.get(), ModBlocks.TURBINE_CASING.get(), ModBlocks.TURBINE_CONTROLLER_BLOCK.get(), ModBlocks.TURBINE_POWER_PORT.get(), ModBlocks.TURBINE_VALVE.get(), ModBlocks.TURBINE_ROTATION_MOUNT.get(), ModBlocks.TURBINE_VENT.get(), ModBlocks.ELECTROMAGNETIC_COIL.get(), ModBlocks.THERMAL_CONDUCTOR.get(), ModBlocks.THERMAL_CONTROLLER.get(), ModBlocks.THERMAL_VALVE.get(), ModBlocks.THERMAL_HEAT_SINK.get(), ModBlocks.REACTOR_GLASS.get(), ModBlocks.TURBINE_GLASS.get(), ModBlocks.REACTOR_GRAPHITE_MODERATOR.get(), ModBlocks.TURBINE_ROTOR.get(), ModBlocks.THORIUM_CRAFTING_TABLE.get(), ModBlocks.BLASTED_IRON_CHEST_BLOCK.get(), ModBlocks.STEEL_CHEST_BLOCK.get(), ModBlocks.THORIUM_CHEST_BLOCK.get());
         for (Block i : multistuctureBlocks) {
             items.add(index, new ItemStack(i));
             index++;
@@ -116,7 +130,7 @@ public class CompleteItemCreativeTab extends CreativeModeTab {
 
         // Building Blocks
         ArrayList<Block> buildingBlocks = new ArrayList<>();
-        Collections.addAll(buildingBlocks, ModBlocks.INDUSTRAL_BLOCK.get(), ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.FACTORY_BLOCK.get(), ModBlocks.INVERTED_FACTORY_BLOCK.get(), ModBlocks.BLACK_FACTORY_BLOCK.get(), ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get(), ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.GRATE_FLOOR_BLOCK.get());
+        Collections.addAll(buildingBlocks, ModBlocks.INDUSTRAL_BLOCK.get(), ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.FACTORY_BLOCK.get(), ModBlocks.INVERTED_FACTORY_BLOCK.get(), ModBlocks.BLACK_FACTORY_BLOCK.get(), ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get(), ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.FRAMELESS_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.FRAMELESS_BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.GRATE_FLOOR_BLOCK.get());
         for (Block i : buildingBlocks) {
             items.add(index, new ItemStack(i));
             index++;

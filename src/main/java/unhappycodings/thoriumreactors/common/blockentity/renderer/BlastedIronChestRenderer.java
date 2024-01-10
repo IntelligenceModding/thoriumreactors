@@ -25,6 +25,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
+import unhappycodings.thoriumreactors.common.block.chest.BlastedIronChestBlock;
+import unhappycodings.thoriumreactors.common.blockentity.chest.BlastedIronChestBlockEntity;
 
 import java.util.Calendar;
 
@@ -35,8 +38,6 @@ public class BlastedIronChestRenderer<T extends BlockEntity & LidBlockEntity> im
     private final ModelPart lock;
 
     public BlastedIronChestRenderer(BlockEntityRendererProvider.Context pContext) {
-        Calendar calendar = Calendar.getInstance();
-
         ModelPart modelpart = pContext.bakeLayer(ModelLayers.CHEST);
         this.bottom = modelpart.getChild("bottom");
         this.lid = modelpart.getChild("lid");
@@ -54,9 +55,9 @@ public class BlastedIronChestRenderer<T extends BlockEntity & LidBlockEntity> im
         pPoseStack.translate(0.5D, 0.5D, 0.5D);
         pPoseStack.mulPose(Vector3f.YP.rotationDegrees(-f));
         pPoseStack.translate(-0.5D, -0.5D, -0.5D);
-        DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> neighborcombineresult = DoubleBlockCombiner.Combiner::acceptNone;
+        DoubleBlockCombiner.NeighborCombineResult<? extends BlastedIronChestBlockEntity> neighborcombineresult = new DoubleBlockCombiner.NeighborCombineResult.Single<>((BlastedIronChestBlockEntity) pBlockEntity);
 
-        float f1 = neighborcombineresult.apply(ChestBlock.opennessCombiner(pBlockEntity)).get(pPartialTick);
+        float f1 = neighborcombineresult.apply(BlastedIronChestBlock.opennessCombiner(pBlockEntity)).get(pPartialTick);
         f1 = 1.0F - f1;
         f1 = 1.0F - f1 * f1 * f1;
         int i = neighborcombineresult.apply(new BrightnessCombiner<>()).applyAsInt(pPackedLight);
@@ -69,7 +70,7 @@ public class BlastedIronChestRenderer<T extends BlockEntity & LidBlockEntity> im
     }
 
     private void render(PoseStack pPoseStack, VertexConsumer pConsumer, ModelPart pLidPart, ModelPart pLockPart, ModelPart pBottomPart, float pLidAngle, int pPackedLight, int pPackedOverlay) {
-        pLidPart.xRot = -(pLidAngle * ((float) Math.PI / 2F));
+        pLidPart.xRot = -(pLidAngle * 1.5707964F);
         pLockPart.xRot = pLidPart.xRot;
         pLidPart.render(pPoseStack, pConsumer, pPackedLight, pPackedOverlay);
         pLockPart.render(pPoseStack, pConsumer, pPackedLight, pPackedOverlay);

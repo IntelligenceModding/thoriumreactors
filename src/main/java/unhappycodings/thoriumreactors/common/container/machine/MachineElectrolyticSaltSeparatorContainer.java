@@ -10,6 +10,7 @@ import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineElectrolyticSaltSeparatorBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
+import unhappycodings.thoriumreactors.common.container.base.slot.OutputSlot;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.machine.ClientElectrolyticSaltSeparatorDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
@@ -24,7 +25,7 @@ public class MachineElectrolyticSaltSeparatorContainer extends BaseContainer {
         if (tileEntity != null) {
             tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
                 addSlot(new SlotItemHandler(handler, 0, 38, 70));
-                addSlot(new SlotItemHandler(handler, 1, 120, 20));
+                addSlot(new OutputSlot(handler, 1, 120, 20));
                 addSlot(new SlotItemHandler(handler, 2, 120, 70));
                 addSlot(new SlotItemHandler(handler, 3, 150, 70));
             });

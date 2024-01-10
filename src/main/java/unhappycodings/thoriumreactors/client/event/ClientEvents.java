@@ -13,10 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.client.renderer.EnergyTankBlockEntityRenderer;
-import unhappycodings.thoriumreactors.client.renderer.FluidTankBlockEntityRenderer;
-import unhappycodings.thoriumreactors.client.renderer.ReactorControllerBlockEntityRenderer;
-import unhappycodings.thoriumreactors.client.renderer.TurbineControllerBlockEntityRenderer;
+import unhappycodings.thoriumreactors.client.renderer.*;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineBladeModel;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineRotorModel;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.BlastedIronChestRenderer;
@@ -46,6 +43,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void onModelAdditionalRegister(ModelEvent.RegisterAdditional event) {
+        event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/water_source_block"));
         event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank"));
         event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/energy_tank"));
     }
@@ -102,6 +100,7 @@ public class ClientEvents {
         event.registerBlockEntityRenderer(ModBlockEntities.PROGRESSIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.CREATIVE_FLUID_TANK.get(), FluidTankBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.TURBINE_CONTROLLER.get(), TurbineControllerBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.WATER_SOURCE_BLOCK.get(), WaterSourceBlockEntityRenderer::new);
     }
 
     @SubscribeEvent

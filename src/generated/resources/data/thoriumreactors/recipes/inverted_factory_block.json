@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:factory_block"
+    },
+    "B": {
+      "item": "minecraft:gray_dye"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "result": {
+    "count": 8,
+    "item": "thoriumreactors:inverted_factory_block"
+  }
+}
