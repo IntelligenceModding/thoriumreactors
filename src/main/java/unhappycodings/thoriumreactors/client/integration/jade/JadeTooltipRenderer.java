@@ -50,22 +50,23 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
 
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
-        if (accessor.getBlockEntity() != null && accessor.getBlockState().getBlock().getDescriptionId().contains(ThoriumReactors.MOD_ID)) {
+        BlockEntity blockEntity = accessor.getBlockEntity();
+        if (blockEntity != null && accessor.getBlockState().getBlock().getDescriptionId().contains(ThoriumReactors.MOD_ID)) {
             CompoundTag serverData = accessor.getServerData();
             IElementHelper elements = tooltip.getElementHelper();
 
             if (serverData.contains("Energy"))
                 tooltip.add(energyBar(elements, serverData.getLong("Energy"), serverData.getLong("EnergyCapacity"), Component.translatable(FormattingUtil.getTranslatable("machines.top_info.energy")).withStyle(ChatFormatting.WHITE)));
 
-            for (Direction value : Direction.values()) {
-                accessor.getBlockEntity().getCapability(ForgeCapabilities.FLUID_HANDLER, value).ifPresent(storage -> {
-                    tooltip.add(fluidBar(elements, storage.getFluidInTank(0), storage.getFluidInTank(0).getAmount(), storage.getTankCapacity(0)));
-                });
-                if ((accessor.getBlockEntity() instanceof FluidTankBlockEntity || accessor.getBlockEntity() instanceof WaterSourceBlockEntity) && accessor.getBlockEntity().getCapability(ForgeCapabilities.FLUID_HANDLER, value).isPresent())
-                    break;
+            String[] fluids = {"FluidIn", "FluidOut"};
+            for (String fluidName : fluids) {
+                if (serverData.contains(fluidName)) {
+                    FluidStack fluid = FluidStack.loadFluidStackFromNBT(serverData.getCompound(fluidName));
+                    tooltip.add(fluidBar(elements, fluid, fluid.getAmount(), serverData.getInt(fluidName + "Capacity")));
+                }
             }
 
-            if (accessor.getBlockEntity() instanceof TurbineControllerBlockEntity entity) {
+            if (blockEntity instanceof TurbineControllerBlockEntity entity) {
                 if (!serverData.getBoolean("TurbineActivated")) {
                     tooltip.add(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.turbine")).append(" ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.top_info.inactive"))).withStyle(FormattingUtil.hex(0x9F0006)));
                     return;
@@ -84,7 +85,7 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
                 tooltip.add(Component.translatable(FormattingUtil.getTranslatable("turbine.top_info.best_performing_at")).withStyle(FormattingUtil.hex(0x55D38A)));
             }
 
-            if (accessor.getBlockEntity() instanceof ReactorControllerBlockEntity entity) {
+            if (blockEntity instanceof ReactorControllerBlockEntity entity) {
                 if (!serverData.getBoolean("ReactorActivated")) {
                     tooltip.add(Component.translatable(FormattingUtil.getTranslatable("reactor.top_info.reactor")).append(" ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.top_info.inactive"))).withStyle(FormattingUtil.hex(0x9F0006)));
                     return;
@@ -110,16 +111,16 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
                 tooltip.add(Component.translatable(FormattingUtil.getTranslatable("reactor.top_info.status")).withStyle(FormattingUtil.hex(0x0ACECE)).append(Component.literal(Math.floor(entity.getReactorStatus() * 10) / 10 + "%").withStyle(ChatFormatting.WHITE)));
             }
 
-            if (accessor.getBlockEntity() instanceof ReactorValveBlockEntity entity)
+            if (blockEntity instanceof ReactorValveBlockEntity entity)
                 tooltip.add(Component.translatable(FormattingUtil.getTranslatable("reactor.top_info.type")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.translatable(entity.getBlockState().getValue(ReactorValveBlock.TYPE).getSerializedName()).withStyle(ChatFormatting.WHITE)));
-            if (accessor.getBlockEntity() instanceof ThermalValveBlockEntity entity)
+            if (blockEntity instanceof ThermalValveBlockEntity entity)
                 tooltip.add(Component.translatable(FormattingUtil.getTranslatable("reactor.top_info.type")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.translatable(entity.getBlockState().getValue(ThermalValveBlock.TYPE).getSerializedName()).withStyle(ChatFormatting.WHITE)));
 
             if (serverData.contains("Production")) {
                 tooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.top_info.producing")).withStyle(FormattingUtil.hex(0x7ED355)).append(Component.literal(FormattingUtil.formatEnergy(serverData.getInt("Production")) + "/t").withStyle(ChatFormatting.WHITE)));
             }
 
-            if (serverData.contains("Fuel") && accessor.getBlockEntity() instanceof MachineBlastFurnaceBlockEntity) {
+            if (serverData.contains("Fuel") && blockEntity instanceof MachineBlastFurnaceBlockEntity) {
                 SimpleDateFormat format = new SimpleDateFormat("mm'm' ss's'");
                 float fuel = serverData.getInt("Fuel") / 20f * 1000 + (serverData.getInt("Fuel") > 0 ? 1000 : 0);
                 tooltip.add(Component.translatable(FormattingUtil.getTranslatable("machines.top_info.fuel")).withStyle(FormattingUtil.hex(0x55D38A)).append(Component.literal(format.format(fuel)).withStyle(ChatFormatting.WHITE)));
@@ -148,28 +149,40 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
     @Override
     public void appendServerData(CompoundTag data, BlockAccessor accessor) {
         BlockEntity blockEntity = accessor.getBlockEntity();
-        if (accessor.getBlockEntity() instanceof MachineContainerBlockEntity entity) {
+        if (blockEntity instanceof MachineContainerBlockEntity entity) {
             if (entity.getUpdateTag().contains("Energy")) {
                 data.putLong("Energy", entity.getEnergy());
                 data.putLong("EnergyCapacity", entity.getCapacity());
             }
         }
 
-        if (accessor.getBlockEntity() instanceof TurbinePowerPortBlockEntity entity) {
+        if (blockEntity instanceof TurbinePowerPortBlockEntity entity) {
             if (entity.getUpdateTag().contains("Energy")) {
                 data.putLong("Energy", entity.getEnergy());
                 data.putLong("EnergyCapacity", entity.getCapacity());
             }
         }
 
-        if (accessor.getBlockEntity() instanceof EnergyTankBlockEntity entity) {
+        if (blockEntity instanceof EnergyTankBlockEntity entity) {
             if (entity.getUpdateTag().contains("Energy")) {
                 data.putLong("Energy", entity.getEnergy());
                 data.putLong("EnergyCapacity", entity.getCapacity());
             }
         }
 
-        if (accessor.getBlockEntity() instanceof ReactorControllerBlockEntity entity) {
+        for (Direction value : Direction.values()) {
+            blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, value).ifPresent(storage -> {
+                String[] fluids = {"FluidIn", "FluidOut"};
+                for (String fluid : fluids) {
+                    if (blockEntity.getUpdateTag().contains(fluid)) {
+                        data.put(fluid, blockEntity.getUpdateTag().get(fluid));
+                        data.putInt(fluid + "Capacity", storage.getTankCapacity(0));
+                    }
+                }
+            });
+        }
+
+        if (blockEntity instanceof ReactorControllerBlockEntity entity) {
             data.putBoolean("ReactorActivated", entity.isReactorActive());
             for (int i = 0; i < entity.valvePos.size(); i++)
                 if (accessor.getLevel().getBlockEntity(entity.valvePos.get(i)) instanceof ReactorValveBlockEntity valveBlockEntity) {
@@ -180,7 +193,7 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
                 }
         }
 
-        if (accessor.getBlockEntity() instanceof TurbineControllerBlockEntity entity) {
+        if (blockEntity instanceof TurbineControllerBlockEntity entity) {
             data.putBoolean("TurbineActivated", entity.isActivated());
             if (entity.getLevel().getBlockEntity(entity.getValvePos()) instanceof TurbineValveBlockEntity valveBlockEntity) {
                 data.put("TurbineFluid", valveBlockEntity.getUpdateTag().get("FluidIn"));
