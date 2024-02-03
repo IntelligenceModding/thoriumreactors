@@ -27,8 +27,8 @@ public class DataProvider {
         generator.addProvider(true, new BlockTagsProvider(generator.getPackOutput(), Registration.BLOCKS.getRegistryKey(), completablefuture, existingFileHelper));
         generator.addProvider(true, new ItemTagsProvider(generator.getPackOutput(), Registration.ITEMS.getRegistryKey(), completablefuture, existingFileHelper));
         generator.addProvider(true, new RecipeProvider(generator.getPackOutput()));
-        generator.addProvider(true, new AmericanLanguageProvider(generator, "en_US"));
-        generator.addProvider(true, new GermanLanguageProvider(generator, "de_DE"));
+        generator.addProvider(true, new AmericanLanguageProvider(generator, "en_us"));
+        generator.addProvider(true, new GermanLanguageProvider(generator, "de_de"));
         generator.addProvider(true, new SoundProvider(generator, ThoriumReactors.MOD_ID, existingFileHelper));
         generator.addProvider(true, new LootTableProvider(generator.getPackOutput()));
     }
