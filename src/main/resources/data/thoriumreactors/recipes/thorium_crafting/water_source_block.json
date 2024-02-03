@@ -2,7 +2,7 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:tank_module"
+      "item": "thoriumreactors:module_tank"
     },
     "B": {
       "item": "thoriumreactors:manganese_nugget"
