@@ -106,5 +106,9 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
         ShapelessRecipeBuilder.shapeless(ModBlocks.COBALT_BLOCK.get()).requires(ModItems.COBALT_INGOT.get(), 9).unlockedBy("has_cobalt_ingot", has(ModItems.COBALT_INGOT.get())).save(consumer, ItemUtil.getRegString(ModBlocks.COBALT_BLOCK.get()) + "_craft_from_ingot");
         ShapelessRecipeBuilder.shapeless(ModBlocks.GRAPHITE_BLOCK.get()).requires(ModItems.GRAPHITE_INGOT.get(), 9).unlockedBy("has_graphite_ingot", has(ModItems.GRAPHITE_INGOT.get())).save(consumer, ItemUtil.getRegString(ModBlocks.GRAPHITE_BLOCK.get()) + "_craft_from_ingot");
 
+        // Other
+        ShapelessRecipeBuilder.shapeless(ModBlocks.THORIUM_BLOCK.get()).requires(ModItems.THORIUM.get(), 9).unlockedBy("has_thorium", has(ModItems.THORIUM.get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(ModItems.THORIUM.get(), 9).requires(ModBlocks.THORIUM_BLOCK.get()).unlockedBy("has_thorium_block", has(ModBlocks.THORIUM_BLOCK.get())).save(consumer);
+
     }
 }
