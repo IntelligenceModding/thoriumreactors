@@ -1,6 +1,6 @@
 {
   "block.thoriumreactors.aluminum_block": "Aluminum Block",
-  "block.thoriumreactors.bauxite_ore": "Bauxite",
+  "block.thoriumreactors.bauxite_ore": "Bauxite Ore",
   "block.thoriumreactors.black_factory_block": "Black Factory Block",
   "block.thoriumreactors.black_industrial_block": "Black Industrial Block",
   "block.thoriumreactors.black_industrial_block_big_tile": "Black Industrial Block Big Tile",
@@ -28,7 +28,7 @@
   "block.thoriumreactors.crystallizer_block_description": "The Crystallizer transforms fluids into their solid variant. Mainly UF6 (Enriched Uranium Hexafluorite)!",
   "block.thoriumreactors.decomposer_block": "Decomposer",
   "block.thoriumreactors.decomposer_block_description": "The Decomposer mixes fluor with fluids into others. Mainly used for Hydrofluorite production!",
-  "block.thoriumreactors.deepslate_bauxite_ore": "Deepslate Bauxite",
+  "block.thoriumreactors.deepslate_bauxite_ore": "Deepslate Bauxite Ore",
   "block.thoriumreactors.deepslate_chromite_ore": "Deepslate Chromite Ore",
   "block.thoriumreactors.deepslate_fluorite_ore": "Deepslate Fluorite Ore",
   "block.thoriumreactors.deepslate_graphite_ore": "Deepslate Graphite Ore",

@@ -32,8 +32,8 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.DEEPSLATE_NICKEL_ORE.get(), "Deepslate Nickel Ore");
         add(ModBlocks.TITANIC_IRON_ORE.get(), "Titanic Iron Ore");
         add(ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get(), "Deepslate Titanic Iron Ore");
-        add(ModBlocks.BAUXITE_ORE.get(), "Bauxite");
-        add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), "Deepslate Bauxite");
+        add(ModBlocks.BAUXITE_ORE.get(), "Bauxite Ore");
+        add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), "Deepslate Bauxite Ore");
         add(ModBlocks.PYROCHLOR_ORE.get(), "Pyrochlore Ore");
         add(ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get(), "Deepslate Pyrochlore Ore");
         add(ModBlocks.URANIUM_ORE.get(), "Uranium Ore");

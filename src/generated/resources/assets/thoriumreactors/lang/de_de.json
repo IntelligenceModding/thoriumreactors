@@ -1,6 +1,6 @@
 {
   "block.thoriumreactors.aluminum_block": "Aluminiumblock",
-  "block.thoriumreactors.bauxite_ore": "Bauxit",
+  "block.thoriumreactors.bauxite_ore": "Bauxiterz",
   "block.thoriumreactors.black_factory_block": "Schwarzer Fabrikblock",
   "block.thoriumreactors.black_industrial_block": "Schwarzer Industrieblock",
   "block.thoriumreactors.black_industrial_block_big_tile": "Großer Schwarzer Industrieblock",
@@ -28,7 +28,7 @@
   "block.thoriumreactors.crystallizer_block_description": "Der Kristallisator verwandelt Flüssigkeiten in ihre feste Form. Hauptsächlich UF6 (Angereichertes Uran-Hexafluorit)!",
   "block.thoriumreactors.decomposer_block": "Zersetzer",
   "block.thoriumreactors.decomposer_block_description": "Der Zersetzer mischt Fluor mit Flüssigkeiten. Hauptsächlich für die Hydrofluorit-Produktion!",
-  "block.thoriumreactors.deepslate_bauxite_ore": "Tiefenschiefer-Bauxit",
+  "block.thoriumreactors.deepslate_bauxite_ore": "Tiefenschiefer-Bauxiterz",
   "block.thoriumreactors.deepslate_chromite_ore": "Tiefenschiefer-Chromerz",
   "block.thoriumreactors.deepslate_fluorite_ore": "Tiefenschiefer-Fluoriterz",
   "block.thoriumreactors.deepslate_graphite_ore": "Tiefenschiefer-Graphiterz",
