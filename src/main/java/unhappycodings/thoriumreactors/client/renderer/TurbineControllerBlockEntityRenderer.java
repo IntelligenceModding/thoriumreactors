@@ -68,12 +68,13 @@ public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> impleme
                     showVenting(entity);
                 }
 
-                if (entity.getLastRpm() < entity.getRpm()) {
+            } else if (level.getGameTime() % 7 == 0) {
+                if (level.getGameTime() % 14 == 0 && entity.getLastRpm() < entity.getRpm()) {
                     for (int i = 0; i < 3; i++) {
                         showFloorParticles(entity);
                     }
                 }
-            } else if (level.getGameTime() % 10 == 0) {
+
                 if (entity.getLastRpm() < entity.getRpm() && entity.getRpm() > 10) {
                     showSteamParticles(entity);
                 }
