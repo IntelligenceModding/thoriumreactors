@@ -10,13 +10,13 @@
   },
   "pattern": [
     "     ",
-    " BBB ",
-    " AAA ",
-    " BBB ",
+    " BAB ",
+    " BAB ",
+    " BAB ",
     "     "
   ],
   "result": {
-    "item": "thoriumreactors:grate_floor_block",
+    "item": "thoriumreactors:grate_wall_block",
     "count": 8
   }
 }

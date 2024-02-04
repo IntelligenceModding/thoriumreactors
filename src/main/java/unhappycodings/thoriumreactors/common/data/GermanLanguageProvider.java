@@ -355,6 +355,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), "Umgekehrter Schwarzer Fabrikblock");
 
         add(ModBlocks.GRATE_FLOOR_BLOCK.get(), "Gitterboden Block");
+        add(ModBlocks.GRATE_WALL_BLOCK.get(), "Gitterwand Block");
         add(ModBlocks.INDUSTRAL_BLOCK.get(), "Industrieblock");
         add(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), "Großer Industrieblock");
         add(ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), "Industrieblock Pflaster");

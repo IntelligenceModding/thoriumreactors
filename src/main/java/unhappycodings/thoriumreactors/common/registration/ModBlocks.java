@@ -10,6 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 import unhappycodings.thoriumreactors.common.block.ThoriumCraftingTableBlock;
 import unhappycodings.thoriumreactors.common.block.WaterSourceBlock;
 import unhappycodings.thoriumreactors.common.block.building.GrateFloorBlock;
+import unhappycodings.thoriumreactors.common.block.building.GrateWallBlock;
 import unhappycodings.thoriumreactors.common.block.chest.BlastedIronChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.SteelChestBlock;
 import unhappycodings.thoriumreactors.common.block.chest.ThoriumChestBlock;
@@ -79,6 +80,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT = register("warning_block_lined_white_black_right", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
 
     public static final RegistryObject<Block> GRATE_FLOOR_BLOCK = register("grate_floor_block", () -> new GrateFloorBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
+    public static final RegistryObject<Block> GRATE_WALL_BLOCK = register("grate_wall_block", () -> new GrateWallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));
 
     // Ores
     public static final RegistryObject<Block> MANGANESE_ORE = register("manganese_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));

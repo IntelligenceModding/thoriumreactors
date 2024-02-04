@@ -356,6 +356,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), "Inverted Black Factory Block");
 
         add(ModBlocks.GRATE_FLOOR_BLOCK.get(), "Floor Grate Block");
+        add(ModBlocks.GRATE_WALL_BLOCK.get(), "Wall Grate Block");
         add(ModBlocks.INDUSTRAL_BLOCK.get(), "Industrial Block");
         add(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), "Industrial Block Big Tile");
         add(ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), "Industrial Block Paving");

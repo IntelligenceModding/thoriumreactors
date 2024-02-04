@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
+import unhappycodings.thoriumreactors.common.registration.Registration;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,7 +50,7 @@ public class CompleteItemCreativeTabs {
             index++;
         }
 
-        // Fluid Tanks
+        // Energy Tanks
         ArrayList<Block> tanksOne = new ArrayList<>();
         Collections.addAll(tanksOne, ModBlocks.SIMPLE_ENERGY_TANK.get(), ModBlocks.GENERIC_ENERGY_TANK.get(), ModBlocks.PROGRESSIVE_ENERGY_TANK.get());
         for (Block i : tanksOne) {
@@ -127,7 +128,7 @@ public class CompleteItemCreativeTabs {
 
         // Resource Blocks
         ArrayList<Block> resourceBlocks = new ArrayList<>();
-        Collections.addAll(resourceBlocks, ModBlocks.CHROMIUM_BLOCK.get(), ModBlocks.GRAPHITE_BLOCK.get(), ModBlocks.STEEL_BLOCK.get(), ModBlocks.BLASTED_IRON_BLOCK.get(), ModBlocks.TITANIUM_BLOCK.get(), ModBlocks.MOLYBDENUM_BLOCK.get(), ModBlocks.COBALT_BLOCK.get(), ModBlocks.FLUORITE_BLOCK.get(), ModBlocks.NICKEL_BLOCK.get(), ModBlocks.URANIUM_BLOCK.get(), ModBlocks.ALUMINUM_BLOCK.get(), ModBlocks.MANGANESE_BLOCK.get(), ModBlocks.NIOB_BLOCK.get(), ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get(), ModBlocks.TITANIC_IRON_ORE.get(), ModBlocks.DEEPSLATE_CHROMITE_ORE.get(), ModBlocks.CHROMITE_ORE.get(), ModBlocks.DEEPSLATE_GRAPHITE_ORE.get(), ModBlocks.GRAPHITE_ORE.get(), ModBlocks.DEEPSLATE_MOLYBDENUM_ORE.get(), ModBlocks.MOLYBDENUM_ORE.get(), ModBlocks.DEEPSLATE_FLUORITE_ORE.get(), ModBlocks.FLUORITE_ORE.get(), ModBlocks.DEEPSLATE_NICKEL_ORE.get(), ModBlocks.NICKEL_ORE.get(), ModBlocks.DEEPSLATE_URANIUM_ORE.get(), ModBlocks.URANIUM_ORE.get(), ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get(), ModBlocks.PYROCHLOR_ORE.get(), ModBlocks.DEEPSLATE_MANGANESE_ORE.get(), ModBlocks.MANGANESE_ORE.get(), ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), ModBlocks.BAUXITE_ORE.get(), ModBlocks.BLASTED_STONE.get());
+        Collections.addAll(resourceBlocks, ModBlocks.THORIUM_BLOCK.get(), ModBlocks.CHROMIUM_BLOCK.get(), ModBlocks.GRAPHITE_BLOCK.get(), ModBlocks.STEEL_BLOCK.get(), ModBlocks.BLASTED_IRON_BLOCK.get(), ModBlocks.TITANIUM_BLOCK.get(), ModBlocks.MOLYBDENUM_BLOCK.get(), ModBlocks.COBALT_BLOCK.get(), ModBlocks.FLUORITE_BLOCK.get(), ModBlocks.NICKEL_BLOCK.get(), ModBlocks.URANIUM_BLOCK.get(), ModBlocks.ALUMINUM_BLOCK.get(), ModBlocks.MANGANESE_BLOCK.get(), ModBlocks.NIOB_BLOCK.get(), ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get(), ModBlocks.TITANIC_IRON_ORE.get(), ModBlocks.DEEPSLATE_CHROMITE_ORE.get(), ModBlocks.CHROMITE_ORE.get(), ModBlocks.DEEPSLATE_GRAPHITE_ORE.get(), ModBlocks.GRAPHITE_ORE.get(), ModBlocks.DEEPSLATE_MOLYBDENUM_ORE.get(), ModBlocks.MOLYBDENUM_ORE.get(), ModBlocks.DEEPSLATE_FLUORITE_ORE.get(), ModBlocks.FLUORITE_ORE.get(), ModBlocks.DEEPSLATE_NICKEL_ORE.get(), ModBlocks.NICKEL_ORE.get(), ModBlocks.DEEPSLATE_URANIUM_ORE.get(), ModBlocks.URANIUM_ORE.get(), ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get(), ModBlocks.PYROCHLOR_ORE.get(), ModBlocks.DEEPSLATE_MANGANESE_ORE.get(), ModBlocks.MANGANESE_ORE.get(), ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), ModBlocks.BAUXITE_ORE.get(), ModBlocks.BLASTED_STONE.get());
         for (Block i : resourceBlocks) {
             items.add(index, new ItemStack(i));
             index++;
@@ -135,11 +136,12 @@ public class CompleteItemCreativeTabs {
 
         // Building Blocks
         ArrayList<Block> buildingBlocks = new ArrayList<>();
-        Collections.addAll(buildingBlocks, ModBlocks.INDUSTRAL_BLOCK.get(), ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.FACTORY_BLOCK.get(), ModBlocks.INVERTED_FACTORY_BLOCK.get(), ModBlocks.BLACK_FACTORY_BLOCK.get(), ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get(), ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.FRAMELESS_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.FRAMELESS_BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.GRATE_FLOOR_BLOCK.get());
+        Collections.addAll(buildingBlocks, ModBlocks.INDUSTRAL_BLOCK.get(), ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BIG_TILE.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_BRICK.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_PAVING.get(), ModBlocks.WHITE_INDUSTRAL_BLOCK_SMOOTH.get(), ModBlocks.FACTORY_BLOCK.get(), ModBlocks.INVERTED_FACTORY_BLOCK.get(), ModBlocks.BLACK_FACTORY_BLOCK.get(), ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_BLACK_YELLOW_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_ORANGE_RIGHT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_LEFT.get(), ModBlocks.WARNING_BLOCK_LINED_WHITE_BLACK_RIGHT.get(), ModBlocks.INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.FRAMELESS_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.FRAMELESS_BLACK_INDUSTRAL_BLOCK_FLOOR.get(), ModBlocks.GRATE_FLOOR_BLOCK.get(), ModBlocks.GRATE_WALL_BLOCK.get());
         for (Block i : buildingBlocks) {
             items.add(index, new ItemStack(i));
             index++;
         }
+
         return items;
     }
 

@@ -91,7 +91,8 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.INVERTED_FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/inverted_factory_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_factory_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLACK_INVERTED_FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_inverted_factory_block"));
-        withExistingParent(ItemUtil.getRegString(ModBlocks.GRATE_FLOOR_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.GRATE_FLOOR_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_block_top"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.GRATE_WALL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_wall_block_north"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_BIG_TILE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_big_tile"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INDUSTRAL_BLOCK_PAVING.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/industrial_block_paving"));

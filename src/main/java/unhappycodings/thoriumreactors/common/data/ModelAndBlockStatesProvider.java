@@ -4,11 +4,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.common.block.building.GrateFloorBlock;
+import unhappycodings.thoriumreactors.common.block.building.GrateWallBlock;
 import unhappycodings.thoriumreactors.common.block.machine.MachineElectrolyticSaltSeparatorBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorControllerBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorCoreBlock;
@@ -39,7 +42,8 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.INDUSTRAL_BLOCK_BRICK.get());
         simpleBlock(ModBlocks.INDUSTRAL_BLOCK_SMOOTH.get());
 
-        simpleBlock(ModBlocks.GRATE_FLOOR_BLOCK.get(), models().withExistingParent(ItemUtil.getRegString(ModBlocks.GRATE_FLOOR_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor")).texture("0", new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_smooth")).texture("particle", new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_smooth")));
+        grateBlock(ModBlocks.GRATE_FLOOR_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_smooth"));
+        grateWallBlock(ModBlocks.GRATE_WALL_BLOCK.get(), new ResourceLocation(ThoriumReactors.MOD_ID, "block/black_industrial_block_smooth"));
 
         simpleBlock(ModBlocks.BLACK_INDUSTRAL_BLOCK_BIG_TILE.get());
         simpleBlock(ModBlocks.BLACK_INDUSTRAL_BLOCK_PAVING.get());
@@ -164,6 +168,27 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
                 return ConfiguredModel.builder().modelFile(model).rotationY(rot).build();
             });
         }
+    }
+
+    public void grateBlock(Block block, ResourceLocation texture) {
+        ModelFile top = models().withExistingParent(ItemUtil.getRegString(block) + "_top", new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_top")).texture("0", texture).texture("particle", texture);
+        ModelFile bottom = models().withExistingParent(ItemUtil.getRegString(block) + "_bottom", new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_bottom")).texture("0", texture).texture("particle", texture);
+
+        getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder().modelFile(state.getValue(GrateFloorBlock.TYPE) == SlabType.BOTTOM ? bottom : top).build());
+    }
+
+    public void grateWallBlock(Block block, ResourceLocation texture) {
+        ModelFile north = models().withExistingParent(ItemUtil.getRegString(block) + "_north", new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_north")).texture("0", texture).texture("particle", texture);
+        ModelFile east = models().withExistingParent(ItemUtil.getRegString(block) + "_east", new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_east")).texture("0", texture).texture("particle", texture);
+        ModelFile south = models().withExistingParent(ItemUtil.getRegString(block) + "_south", new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_south")).texture("0", texture).texture("particle", texture);
+        ModelFile west = models().withExistingParent(ItemUtil.getRegString(block) + "_west", new ResourceLocation(ThoriumReactors.MOD_ID, "block/grate_floor_west")).texture("0", texture).texture("particle", texture);
+
+        getVariantBuilder(block).forAllStates(state -> switch (state.getValue(GrateWallBlock.FACING)) {
+            case SOUTH -> ConfiguredModel.builder().modelFile(south).build();
+            case WEST -> ConfiguredModel.builder().modelFile(west).build();
+            case EAST -> ConfiguredModel.builder().modelFile(east).build();
+            default -> ConfiguredModel.builder().modelFile(north).build();
+        });
     }
 
     public void coreBlock(Block block, ResourceLocation texture, ResourceLocation down) {

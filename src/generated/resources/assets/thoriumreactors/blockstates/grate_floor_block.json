@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
-      "model": "thoriumreactors:block/grate_floor_block"
+    "type=bottom": {
+      "model": "thoriumreactors:block/grate_floor_block_bottom"
+    },
+    "type=double": {
+      "model": "thoriumreactors:block/grate_floor_block_top"
+    },
+    "type=top": {
+      "model": "thoriumreactors:block/grate_floor_block_top"
     }
   }
 }
