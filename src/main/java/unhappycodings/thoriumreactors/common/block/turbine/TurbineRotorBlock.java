@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -23,6 +25,8 @@ import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.turbine.base.TurbineFrameBlock;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineRotorBlockEntity;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
+
+import java.util.List;
 
 public class TurbineRotorBlock extends TurbineFrameBlock {
     public VoxelShape SHAPE = Block.box(6, 0, 6, 10, 16, 10);
@@ -86,6 +90,16 @@ public class TurbineRotorBlock extends TurbineFrameBlock {
             }
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState pState, LootParams.Builder pParams) {
+        List<ItemStack> drops = super.getDrops(pState, pParams);
+        int bladesCount = pState.getValue(BLADES);
+        for (int i = 0; i < bladesCount; i++) {
+            drops.add(ModItems.TURBINE_BLADE.get().getDefaultInstance());
+        }
+        return drops;
     }
 
     @Nullable
