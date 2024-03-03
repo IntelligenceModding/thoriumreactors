@@ -32,8 +32,8 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModBlocks.DEEPSLATE_NICKEL_ORE.get(), "Tiefenschiefer-Nickelerz");
         add(ModBlocks.TITANIC_IRON_ORE.get(), "Titaneisenerz");
         add(ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get(), "Tiefenschiefer-Titaneisenerz");
-        add(ModBlocks.BAUXITE_ORE.get(), "Bauxit");
-        add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), "Tiefenschiefer-Bauxit");
+        add(ModBlocks.BAUXITE_ORE.get(), "Bauxiterz");
+        add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), "Tiefenschiefer-Bauxiterz");
         add(ModBlocks.PYROCHLOR_ORE.get(), "Pyrochlorerz");
         add(ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get(), "Tiefenschiefer-Pyrochlorerz");
         add(ModBlocks.URANIUM_ORE.get(), "Uranerz");
