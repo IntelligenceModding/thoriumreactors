@@ -2,10 +2,10 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_nugget"
+      "tag": "forge:nuggets/blasted_iron"
     },
     "B": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "tag": "forge:ingots/blasted_iron"
     }
   },
   "pattern": [
@@ -17,6 +17,6 @@
   ],
   "result": {
     "item": "thoriumreactors:grate_floor_block",
-    "count": 2
+    "count": 8
   }
 }

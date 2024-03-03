@@ -1,0 +1,22 @@
+{
+  "type": "thoriumreactors:thorium_crafting",
+  "key": {
+    "A": {
+      "item": "thoriumreactors:blasted_iron_nugget"
+    },
+    "B": {
+      "item": "thoriumreactors:blasted_iron_ingot"
+    }
+  },
+  "pattern": [
+    "     ",
+    " BAB ",
+    " BAB ",
+    " BAB ",
+    "     "
+  ],
+  "result": {
+    "item": "thoriumreactors:grate_wall_block",
+    "count": 8
+  }
+}
