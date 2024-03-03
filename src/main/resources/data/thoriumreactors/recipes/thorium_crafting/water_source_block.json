@@ -5,19 +5,19 @@
       "item": "thoriumreactors:module_tank"
     },
     "B": {
-      "item": "thoriumreactors:manganese_nugget"
+      "tag": "forge:nuggets/manganese"
     },
     "C": {
-      "item": "thoriumreactors:cobalt_nugget"
+      "tag": "forge:nuggets/cobalt"
     },
     "D": {
-      "item": "thoriumreactors:niob_nugget"
+      "tag": "forge:nuggets/niob"
     },
     "E": {
-      "item": "thoriumreactors:molybdenum_nugget"
+      "tag": "forge:nuggets/molybdenum"
     },
     "F": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "G": {
       "item": "minecraft:water_bucket"

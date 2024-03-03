@@ -3,16 +3,16 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "tag": "forge:ingots/blasted_iron"
     },
     "B": {
-      "item": "thoriumreactors:blasted_iron_nugget"
+      "tag": "forge:nuggets/blasted_iron"
     },
     "C": {
-      "item": "thoriumreactors:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "D": {
-      "item": "thoriumreactors:steel_nugget"
+      "tag": "forge:nuggets/steel"
     },
     "E": {
       "item": "minecraft:water_bucket"
@@ -21,7 +21,7 @@
       "item": "thoriumreactors:machine_casing"
     },
     "G": {
-      "item": "thoriumreactors:manganese_nugget"
+      "tag": "forge:nuggets/manganese"
     },
     "H": {
       "item": "thoriumreactors:module_tank"

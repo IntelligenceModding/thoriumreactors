@@ -2,7 +2,7 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "minecraft:black_dye"
+      "tag": "forge:dyes/black"
     },
     "B": {
       "item": "thoriumreactors:industrial_block_floor"

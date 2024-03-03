@@ -3,7 +3,7 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:nickel_nugget"
+      "tag": "forge:nuggets/nickel"
     },
     "B": {
       "item": "thoriumreactors:redstone_processor"
@@ -12,10 +12,10 @@
       "item": "minecraft:redstone"
     },
     "D": {
-      "item": "minecraft:gold_ingot"
+      "tag": "forge:ingots/gold"
     },
     "E": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     }
   },
   "pattern": [

@@ -3,22 +3,22 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:nickel_nugget"
+      "tag": "forge:nuggets/nickel"
     },
     "B": {
-      "item": "minecraft:barrel"
+      "tag": "forge:barrels"
     },
     "C": {
       "item": "minecraft:redstone"
     },
     "D": {
-      "item": "minecraft:gold_ingot"
+      "tag": "forge:ingots/gold"
     },
     "E": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "F": {
-      "item": "thoriumreactors:aluminum_ingot"
+      "tag": "forge:ingots/aluminum"
     },
     "G": {
       "item": "thoriumreactors:module_empty"

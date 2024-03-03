@@ -5,7 +5,7 @@
       "item": "thoriumreactors:industrial_block_smooth"
     },
     "B": {
-      "item": "minecraft:white_dye"
+      "tag": "forge:dyes/white"
     }
   },
   "pattern": [

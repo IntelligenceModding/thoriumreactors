@@ -4,7 +4,7 @@
   "operationAfterTicks": 1,
   "input": {
     "slot-0": {
-      "item": "thoriumreactors:fluorite"
+      "tag": "forge:gems/fluorite"
     },
     "tank-0": {
       "FluidName": "minecraft:water",

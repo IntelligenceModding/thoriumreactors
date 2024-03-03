@@ -3,13 +3,13 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:titanium_nugget"
+      "tag": "forge:nuggets/titanium"
     },
     "B": {
-      "item": "thoriumreactors:titanium_ingot"
+      "tag": "forge:ingots/titanium"
     },
     "C": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "tag": "forge:ingots/blasted_iron"
     },
     "D": {
       "item": "thoriumreactors:turbine_casing"
@@ -18,7 +18,7 @@
       "item": "thoriumreactors:turbine_rotor"
     },
     "F": {
-      "item": "thoriumreactors:steel_nugget"
+      "tag": "forge:nuggets/steel"
     }
   },
   "pattern": [

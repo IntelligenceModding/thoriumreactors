@@ -2,7 +2,7 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_nugget"
+      "tag": "forge:nuggets/blasted_iron"
     },
     "B": {
       "item": "minecraft:obsidian"

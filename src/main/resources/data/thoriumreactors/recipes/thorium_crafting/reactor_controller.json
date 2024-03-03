@@ -5,16 +5,16 @@
       "item": "thoriumreactors:redstone_processor"
     },
     "B": {
-      "item": "thoriumreactors:aluminum_ingot"
+      "tag": "forge:ingots/aluminum"
     },
     "C": {
-      "item": "thoriumreactors:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "D": {
-      "item": "thoriumreactors:graphite_ingot"
+      "tag": "forge:ingots/graphite"
     },
     "E": {
-      "item": "thoriumreactors:nickel_nugget"
+      "tag": "forge:nuggets/nickel"
     },
     "F": {
       "item": "minecraft:redstone"

@@ -8,10 +8,10 @@
       "item": "thoriumreactors:reactor_casing"
     },
     "C": {
-      "item": "thoriumreactors:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "D": {
-      "item": "thoriumreactors:graphite_ingot"
+      "tag": "forge:ingots/graphite"
     }
   },
   "pattern": [

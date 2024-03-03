@@ -3,19 +3,19 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_nugget"
+      "tag": "forge:nuggets/blasted_iron"
     },
     "B": {
-      "item": "thoriumreactors:titanium_ingot"
+      "tag": "forge:ingots/titanium"
     },
     "C": {
-      "item": "thoriumreactors:titanium_nugget"
+      "tag": "forge:nuggets/titanium"
     },
     "D": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "E": {
-      "item": "thoriumreactors:aluminum_ingot"
+      "tag": "forge:ingots/aluminum"
     },
     "F": {
       "item": "thoriumreactors:blasted_stone"

@@ -2,7 +2,7 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "B": {
-      "item": "minecraft:gold_ingot"
+      "tag": "forge:ingots/gold"
     },
     "C": {
       "item": "minecraft:redstone"
@@ -20,7 +20,7 @@
       "item": "minecraft:observer"
     },
     "H": {
-      "item": "minecraft:copper_ingot"
+      "tag": "forge:ingots/copper"
     }
   },
   "pattern": [

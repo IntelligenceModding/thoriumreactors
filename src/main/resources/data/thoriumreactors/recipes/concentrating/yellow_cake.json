@@ -3,7 +3,7 @@
   "ticks": 500,
   "input": {
     "slot-0": {
-      "item": "thoriumreactors:raw_uranium"
+      "tag": "forge:raw_materials/uranium"
     }
   },
   "output": {

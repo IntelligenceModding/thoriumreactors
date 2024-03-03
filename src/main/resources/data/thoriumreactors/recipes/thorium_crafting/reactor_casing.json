@@ -2,25 +2,25 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "minecraft:gold_ingot"
+      "tag": "forge:ingots/gold"
     },
     "B": {
-      "item": "minecraft:gold_nugget"
+      "tag": "forge:nuggets/gold"
     },
     "C": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "D": {
-      "item": "minecraft:iron_nugget"
+      "tag": "forge:nuggets/iron"
     },
     "E": {
       "item": "thoriumreactors:blasted_stone"
     },
     "F": {
-      "item": "thoriumreactors:graphite_ingot"
+      "tag": "forge:ingots/graphite"
     },
     "G": {
-      "item": "thoriumreactors:steel_ingot"
+      "tag": "forge:ingots/steel"
     }
   },
   "pattern": [
