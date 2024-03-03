@@ -102,9 +102,9 @@ public class ElectrolysingRecipeCategory implements IRecipeCategory<Electrolysin
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ElectrolysingRecipe recipe, @NotNull IFocusGroup focusGroup) {
-        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).setFluidRenderer(6000, true, 18, 66)
+        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).setFluidRenderer(recipe.getFluidIngredient().getAmount(), true, 18, 66)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 83, getGuiTop() + 23).setFluidRenderer(3000, true, 18, 44)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 83, getGuiTop() + 23).setFluidRenderer(recipe.getResultFluid().getAmount(), true, 18, 44)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getResultFluid(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getResultFluid().getAmount()))));
         builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 84, getGuiTop() + 1).addItemStack(recipe.getResultItem(null));
     }

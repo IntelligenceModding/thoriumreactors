@@ -96,7 +96,7 @@ public class EvaporatingRecipeCategory implements IRecipeCategory<EvaporatingRec
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, EvaporatingRecipe recipe, @NotNull IFocusGroup focusGroup) {
-        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).setFluidRenderer(3000, true, 18, 66)
+        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).setFluidRenderer(recipe.getFluidIngredient().getAmount(), true, 18, 66)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));
         builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 83, getGuiTop() + 22).addItemStack(recipe.getResultItem(null));
     }

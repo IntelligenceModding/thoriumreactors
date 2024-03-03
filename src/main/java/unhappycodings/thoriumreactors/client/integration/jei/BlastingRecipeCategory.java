@@ -14,6 +14,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.recipe.BlastingRecipe;
@@ -91,8 +92,8 @@ public class BlastingRecipeCategory implements IRecipeCategory<BlastingRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BlastingRecipe recipe, @NotNull IFocusGroup focusGroup) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 10 + 1, 20 + 18).addItemStack(recipe.getIngredients().get(0).getItems()[0]);
-        builder.addSlot(RecipeIngredientRole.INPUT, 10 + 22, 20 + 18).addItemStack(recipe.getIngredients().get(1).getItems().length > 0 ? recipe.getIngredients().get(1).getItems()[0] : ItemStack.EMPTY);
+        builder.addSlot(RecipeIngredientRole.INPUT, 10 + 1, 20 + 18).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 10 + 22, 20 + 18).addIngredients(recipe.getIngredients().get(1).getItems().length > 0 ? recipe.getIngredients().get(1) : Ingredient.EMPTY);
         builder.addSlot(RecipeIngredientRole.OUTPUT, 10 + 81, 20 + 18).addItemStack(recipe.getResultItem(null));
         builder.addSlot(RecipeIngredientRole.OUTPUT, 10 + 81 + 18, 20 + 18).addItemStack(recipe.getSecondaryResultItem());
     }
