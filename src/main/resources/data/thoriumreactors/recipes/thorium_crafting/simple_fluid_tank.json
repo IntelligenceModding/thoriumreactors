@@ -2,16 +2,16 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:cobalt_nugget"
+      "tag": "forge:nuggets/cobalt"
     },
     "B": {
-      "item": "thoriumreactors:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "C": {
       "item": "minecraft:redstone"
     },
     "D": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "E": {
       "item": "minecraft:bucket"

@@ -3,28 +3,28 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "tag": "forge:ingots/blasted_iron"
     },
     "B": {
-      "item": "thoriumreactors:blasted_iron_nugget"
+      "tag": "forge:nuggets/blasted_iron"
     },
     "C": {
       "item": "thoriumreactors:blasted_iron_chest_block"
     },
     "D": {
-      "item": "thoriumreactors:steel_nugget"
+      "tag": "forge:nuggets/steel"
     },
     "E": {
-      "item": "thoriumreactors:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "F": {
-      "item": "thoriumreactors:steel_block"
+      "tag": "forge:storage_blocks/steel"
     },
     "G": {
-      "item": "thoriumreactors:molybdenum_nugget"
+      "tag": "forge:nuggets/molybdenum"
     },
     "H": {
-      "item": "thoriumreactors:cobalt_nugget"
+      "tag": "forge:nuggets/cobalt"
     }
   },
   "pattern": [

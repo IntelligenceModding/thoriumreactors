@@ -2,10 +2,10 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:graphite_nugget"
+      "tag": "forge:nuggets/graphite"
     },
     "B": {
-      "item": "thoriumreactors:graphite_ingot"
+      "tag": "forge:ingots/graphite"
     }
   },
   "pattern": [

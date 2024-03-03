@@ -3,16 +3,16 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "minecraft:gold_ingot"
+      "tag": "forge:ingots/gold"
     },
     "B": {
-      "item": "minecraft:gold_nugget"
+      "tag": "forge:nuggets/gold"
     },
     "C": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "D": {
-      "item": "minecraft:iron_nugget"
+      "tag": "forge:nuggets/iron"
     },
     "E": {
       "item": "minecraft:redstone"
@@ -24,16 +24,16 @@
       "item": "thoriumreactors:module_sensor"
     },
     "H": {
-      "item": "thoriumreactors:aluminum_nugget"
+      "tag": "forge:nuggets/aluminium"
     },
     "I": {
-      "item": "thoriumreactors:molybdenum_nugget"
+      "tag": "forge:nuggets/molybdenum"
     },
     "J": {
-      "item": "thoriumreactors:fluorite_nugget"
+      "tag": "forge:nuggets/fluorite"
     },
     "K": {
-      "item": "thoriumreactors:nickel_nugget"
+      "tag": "forge:nuggets/nickel"
     }
   },
   "pattern": [

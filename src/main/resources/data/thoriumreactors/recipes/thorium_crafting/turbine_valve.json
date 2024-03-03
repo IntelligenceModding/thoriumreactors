@@ -3,13 +3,13 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "minecraft:gold_nugget"
+      "tag": "forge:nuggets/gold"
     },
     "B": {
-      "item": "thoriumreactors:titanium_ingot"
+      "tag": "forge:ingots/titanium"
     },
     "C": {
-      "item": "thoriumreactors:aluminum_ingot"
+      "tag": "forge:ingots/aluminum"
     },
     "D": {
       "item": "minecraft:redstone"
@@ -21,7 +21,7 @@
       "item": "minecraft:bucket"
     },
     "G": {
-      "item": "thoriumreactors:titanium_nugget"
+      "tag": "forge:nuggets/titanium"
     }
   },
   "pattern": [

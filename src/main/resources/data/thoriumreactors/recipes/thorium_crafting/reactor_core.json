@@ -2,25 +2,25 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:steel_nugget"
+      "tag": "forge:nuggets/steel"
     },
     "B": {
-      "item": "thoriumreactors:graphite_ingot"
+      "tag": "forge:ingots/graphite"
     },
     "C": {
       "item": "thoriumreactors:reactor_casing"
     },
     "D": {
-      "item": "thoriumreactors:niob_ingot"
+      "tag": "forge:ingots/niob"
     },
     "E": {
-      "item": "thoriumreactors:manganese_ingot"
+      "tag": "forge:ingots/manganese"
     },
     "F": {
-      "item": "thoriumreactors:nickel_ingot"
+      "tag": "forge:ingots/nickel"
     },
     "G": {
-      "item": "thoriumreactors:graphite_nugget"
+      "tag": "forge:nuggets/graphite"
     }
   },
   "pattern": [

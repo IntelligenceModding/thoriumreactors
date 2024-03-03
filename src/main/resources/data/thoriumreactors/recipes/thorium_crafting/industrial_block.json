@@ -5,7 +5,7 @@
       "item": "minecraft:smooth_stone"
     },
     "B": {
-      "item": "thoriumreactors:blasted_iron_nugget"
+      "tag": "forge:nuggets/blasted_iron"
     }
   },
   "pattern": [

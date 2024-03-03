@@ -2,13 +2,13 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:blasted_iron_ingot"
+      "tag": "forge:ingots/blasted_iron"
     },
     "B": {
-      "item": "thoriumreactors:titanium_ingot"
+      "tag": "forge:ingots/titanium"
     },
     "C": {
-      "item": "thoriumreactors:aluminum_ingot"
+      "tag": "forge:ingots/aluminum"
     },
     "D": {
       "item": "thoriumreactors:thermal_conductor"
@@ -17,7 +17,7 @@
       "item": "thoriumreactors:redstone_processor"
     },
     "F": {
-      "item": "thoriumreactors:nickel_nugget"
+      "tag": "forge:nuggets/nickel"
     },
     "G": {
       "item": "minecraft:redstone"

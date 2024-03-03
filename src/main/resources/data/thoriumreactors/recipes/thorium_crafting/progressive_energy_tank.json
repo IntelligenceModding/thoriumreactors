@@ -2,22 +2,22 @@
   "type": "thoriumreactors:thorium_crafting",
   "key": {
     "A": {
-      "item": "thoriumreactors:niob_nugget"
+      "tag": "forge:nuggets/niob"
     },
     "B": {
-      "item": "thoriumreactors:steel_ingot"
+      "tag": "forge:ingots/steel"
     },
     "C": {
       "item": "minecraft:redstone"
     },
     "D": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "E": {
       "item": "thoriumreactors:generic_energy_tank"
     },
     "F": {
-      "item": "thoriumreactors:fluorite_nugget"
+      "tag": "forge:nuggets/fluorite"
     }
   },
   "pattern": [

@@ -5,10 +5,10 @@
       "item": "minecraft:stone"
     },
     "C": {
-      "item": "minecraft:white_dye"
+      "tag": "forge:dyes/white"
     },
     "D": {
-      "item": "minecraft:black_dye"
+      "tag": "forge:dyes/black"
     }
   },
   "pattern": [
