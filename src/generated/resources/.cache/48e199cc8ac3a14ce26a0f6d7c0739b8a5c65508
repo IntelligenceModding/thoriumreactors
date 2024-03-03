@@ -1,6 +1,11 @@
-// 1.20.1	2024-01-06T23:25:47.0563187	Item Tags
+// 1.20.1	2024-03-03T15:44:22.8332115	Item Tags
+79465571b0f1a0d11b885acfe229b73a494730f5 data/forge/tags/items/gems.json
+79465571b0f1a0d11b885acfe229b73a494730f5 data/forge/tags/items/gems/fluorite.json
+3d3387440d5d895a5e0a0f234a766380e9ed7b89 data/forge/tags/items/ingots.json
+abefcf5ec7164626622d4d1b67393816faa6d612 data/forge/tags/items/ingots/aluminium.json
 abefcf5ec7164626622d4d1b67393816faa6d612 data/forge/tags/items/ingots/aluminum.json
 12cc0c2ecd5ba92f82fe2a480ee6d7b02bb0d978 data/forge/tags/items/ingots/blasted_iron.json
+c82355c6d60b83060e60544726ab385a3c640a9f data/forge/tags/items/ingots/chrome.json
 c82355c6d60b83060e60544726ab385a3c640a9f data/forge/tags/items/ingots/chromium.json
 b9021220b79d8e07634e9b1f49e559774ed0aaf3 data/forge/tags/items/ingots/cobalt.json
 2c353b2b8e7fbae6c2aaa7bc11e76126dae2beb1 data/forge/tags/items/ingots/fluorite.json
@@ -12,8 +17,11 @@ b81d17402dfe69bc3be11e0f41bf1c794ce0c19d data/forge/tags/items/ingots/niob.json
 81e8df255b263890cd56e0341f07bfdf6506e2cd data/forge/tags/items/ingots/steel.json
 4e9311aedcc7fd31559f4a01df0fa08cba17dda3 data/forge/tags/items/ingots/titanium.json
 19516434d82d121ed69f350af8fd9bcf48148531 data/forge/tags/items/ingots/uranium.json
+dfebd1743ebc0c08cbd3acce4bd41f4f105834a6 data/forge/tags/items/nuggets.json
+27852ea07ee75638e17c3f8e3e2b9f6ee666f5ad data/forge/tags/items/nuggets/aluminium.json
 27852ea07ee75638e17c3f8e3e2b9f6ee666f5ad data/forge/tags/items/nuggets/aluminum.json
 a1b5647b7eceb281ec156544544cd6b9e9c3b880 data/forge/tags/items/nuggets/blasted_iron.json
+a9505526c6da09862642bb07995a89a9dcb4fcab data/forge/tags/items/nuggets/chrome.json
 a9505526c6da09862642bb07995a89a9dcb4fcab data/forge/tags/items/nuggets/chromium.json
 77305f0d0ba4a1dfad6f3f616b9ba317bf3187b0 data/forge/tags/items/nuggets/cobalt.json
 c0c885a890a06644e215369a2a5a39d04263eee8 data/forge/tags/items/nuggets/fluorite.json
@@ -25,6 +33,28 @@ f6afcfca0d1ffea4de2242a54eb4bed39f8a754a data/forge/tags/items/nuggets/nickel.js
 e5d13ee25949d3977f9e928742d236a1a91a4dbc data/forge/tags/items/nuggets/steel.json
 22e21daf0cf01118b1eae7674930a70c1ed280be data/forge/tags/items/nuggets/titanium.json
 eb6d9681e75bca3890e401756acce3b8789a4af1 data/forge/tags/items/nuggets/uranium.json
+1238ac56ed627b6f19619b9b60f9461e4700fd91 data/forge/tags/items/raw_materials/graphite.json
+7ab51763b1b590b6038189e13bd2bf028ef2c624 data/forge/tags/items/raw_materials/potassium.json
+8ebbb37fd328e53a4a44d37f80ddd915a6e2e544 data/forge/tags/items/raw_materials/sodium.json
+8976c68da6cad1ba63cc7539de48b827a46193df data/forge/tags/items/raw_materials/thorium.json
+4a12a0797c7a27ea3aa081c4cdfee9b273ed7aaa data/forge/tags/items/raw_materials/uranium.json
+eae1c0baf6d6a711c4e6880a0d6f00c2b54c8361 data/forge/tags/items/storage_blocks/aluminium.json
+eae1c0baf6d6a711c4e6880a0d6f00c2b54c8361 data/forge/tags/items/storage_blocks/aluminum.json
+20c48b02ed93ffdabc66e677dd56bd29c307f1f1 data/forge/tags/items/storage_blocks/blasted_iron.json
+8587c23bde93c254f6b97bfdf05bc3c6e19c7635 data/forge/tags/items/storage_blocks/chromium.json
+d1e4b3aa35a94123a05cbefaa0148f240b8314f0 data/forge/tags/items/storage_blocks/cobalt.json
+1a9f42eee657a1cc1a3a78f2d9752dddef9ac4cf data/forge/tags/items/storage_blocks/fluorite.json
+93e4c3e3b9f11dfdbdfd68a5d00cdc3e5bbb4a82 data/forge/tags/items/storage_blocks/graphite.json
+8a878959d71bdfcfc4c4e6e45f5bccf9252ebf21 data/forge/tags/items/storage_blocks/manganese.json
+34cebf4ddca6ba2894be3a714121990b4c03eea6 data/forge/tags/items/storage_blocks/molybdenum.json
+66c07ab3bef1844b7585bdf03c7cdcf1c79b0a3e data/forge/tags/items/storage_blocks/nickel.json
+c9a7123c7eea0a22f4e24220854ee77ed22e4fe4 data/forge/tags/items/storage_blocks/pyrochlore.json
+0a3d2bbc0c19897e35fa438a5f31442298e101df data/forge/tags/items/storage_blocks/steel.json
+4a8511798dba79e63694515365576e874d651044 data/forge/tags/items/storage_blocks/thorium.json
+db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/items/storage_blocks/titanic_iron.json
+db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/items/storage_blocks/titanium.json
+b224eb8423908182c0097920c8b62c5c36f692cf data/forge/tags/items/storage_blocks/uranium.json
 c871880f248de72ef872d04a986e82fff00d9997 data/forge/tags/items/tools.json
 c871880f248de72ef872d04a986e82fff00d9997 data/forge/tags/items/tools/wrench.json
 c871880f248de72ef872d04a986e82fff00d9997 data/forge/tags/items/wrenches.json
+a4503b3b24070b74c2481618eef6bc20d7c94bd9 data/forge/tags/items/yellow_cake_uranium.json

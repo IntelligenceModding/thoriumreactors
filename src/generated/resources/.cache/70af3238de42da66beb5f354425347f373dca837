@@ -1,4 +1,9 @@
-// 1.20.1	2024-01-09T19:10:54.9073846	Block Tags
+// 1.20.1	2024-03-03T16:00:01.243173	Block Tags
+483497d1b81511f489431233395233781dec6199 data/forge/tags/blocks/chests.json
+6556de364554ad25e5afce87eebb9e7a675a9c28 data/forge/tags/blocks/chests/blasted_iron.json
+4ab18cc4eef20123e8edb493dd6590209c40ac8e data/forge/tags/blocks/chests/steel.json
+6ff376a3892a843ee24d146090ac678a41af0c0f data/forge/tags/blocks/chests/thorium.json
+0b47e0addd4f185ad86d6cf1eb1edd53e282f5f5 data/forge/tags/blocks/ores.json
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/aluminium.json
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/aluminum.json
 a1a88a9b6f39130c32d27b49fe564159fd7c2385 data/forge/tags/blocks/ores/bauxite.json
@@ -12,6 +17,10 @@ d4c5187d1723fafeaffc660088684b3ed2711dce data/forge/tags/blocks/ores/pyrochlore.
 a6f590a8c5c0ebbbe6b9db80fa8bfbc0b465538a data/forge/tags/blocks/ores/titanic_iron.json
 a6f590a8c5c0ebbbe6b9db80fa8bfbc0b465538a data/forge/tags/blocks/ores/titanium.json
 fec741e7577746eebc6326e72fe6eddfe49f3734 data/forge/tags/blocks/ores/uranium.json
+6dbde7f1f2f22ee5623f4716d188ece14dc327bc data/forge/tags/blocks/ores_in_ground/deepslate.json
+c024a6ccad57c71e3015553e550c1b7d85ce1c09 data/forge/tags/blocks/ores_in_ground/stone.json
+75418964d759f59b34d6801a95985b4af8bdf477 data/forge/tags/blocks/ore_rates/dense.json
+fec741e7577746eebc6326e72fe6eddfe49f3734 data/forge/tags/blocks/ore_rates/singular.json
 eae1c0baf6d6a711c4e6880a0d6f00c2b54c8361 data/forge/tags/blocks/storage_blocks/aluminium.json
 eae1c0baf6d6a711c4e6880a0d6f00c2b54c8361 data/forge/tags/blocks/storage_blocks/aluminum.json
 20c48b02ed93ffdabc66e677dd56bd29c307f1f1 data/forge/tags/blocks/storage_blocks/blasted_iron.json
@@ -24,8 +33,9 @@ d1e4b3aa35a94123a05cbefaa0148f240b8314f0 data/forge/tags/blocks/storage_blocks/c
 66c07ab3bef1844b7585bdf03c7cdcf1c79b0a3e data/forge/tags/blocks/storage_blocks/nickel.json
 c9a7123c7eea0a22f4e24220854ee77ed22e4fe4 data/forge/tags/blocks/storage_blocks/pyrochlore.json
 0a3d2bbc0c19897e35fa438a5f31442298e101df data/forge/tags/blocks/storage_blocks/steel.json
+4a8511798dba79e63694515365576e874d651044 data/forge/tags/blocks/storage_blocks/thorium.json
 db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/blocks/storage_blocks/titanic_iron.json
 db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/blocks/storage_blocks/titanium.json
 b224eb8423908182c0097920c8b62c5c36f692cf data/forge/tags/blocks/storage_blocks/uranium.json
-2bdc5cebf1cf7a6f4b804751ea135c8a4f0a7a34 data/minecraft/tags/blocks/mineable/pickaxe.json
-2bdc5cebf1cf7a6f4b804751ea135c8a4f0a7a34 data/minecraft/tags/blocks/needs_stone_tool.json
+3970c7583bd6a035da6942c2a393b7527a04961b data/minecraft/tags/blocks/mineable/pickaxe.json
+3970c7583bd6a035da6942c2a393b7527a04961b data/minecraft/tags/blocks/needs_stone_tool.json

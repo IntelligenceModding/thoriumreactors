@@ -1,4 +1,4 @@
-// 1.20.1	2024-01-09T21:38:31.8733677	Item Models: thoriumreactors
+// 1.20.1	2024-02-04T14:58:41.4394618	Item Models: thoriumreactors
 04a4c724152af60d219cfae9ca203d2861e972dd assets/thoriumreactors/models/item/aluminum_block.json
 297e1af5609489ae4af515cc8364f140c050db9e assets/thoriumreactors/models/item/aluminum_ingot.json
 992b62b637873048447a8bebaef602f01828282e assets/thoriumreactors/models/item/aluminum_nugget.json
@@ -65,7 +65,8 @@ b0347c44f268ca6137613e2cf4a218f591496890 assets/thoriumreactors/models/item/grap
 d033e4f38f075019be757fea45a42e514df53445 assets/thoriumreactors/models/item/graphite_nugget.json
 9edd974a8b5027a731975352f772b9c42af37cda assets/thoriumreactors/models/item/graphite_ore.json
 7aed0d89e77244ce087b2fef878eef07d4f12842 assets/thoriumreactors/models/item/graphite_tube.json
-5f3b3d6df5f099f912aa4ad338fb7eb5a7872296 assets/thoriumreactors/models/item/grate_floor_block.json
+3b5845e21188ce2d3e633311f2b736520ec6d6bc assets/thoriumreactors/models/item/grate_floor_block.json
+2247e765f7b77097111af3b42e53ef2f31eb2b8c assets/thoriumreactors/models/item/grate_wall_block.json
 26d14da97e36572c05c957b1382358f642cd363d assets/thoriumreactors/models/item/heated_molten_salt_bucket.json
 31b68a8b487f1192d4d44243a90b262a9081dc98 assets/thoriumreactors/models/item/hydrofluorite_bucket.json
 b881f8d823104cbca2b6475ad20e818aefd6464d assets/thoriumreactors/models/item/industrial_block.json

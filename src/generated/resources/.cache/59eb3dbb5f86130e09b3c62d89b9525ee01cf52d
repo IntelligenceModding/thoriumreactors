@@ -1,4 +1,4 @@
-// 1.20.1	2024-01-09T19:10:54.9093835	Loot Tables
+// 1.20.1	2024-02-04T14:58:41.4364622	Loot Tables
 4f1f899f445dd296cb064b292cce4b2b88b6cde4 data/thoriumreactors/loot_tables/blocks/aluminum_block.json
 66fb6ea44bf722f3d0639d1f1af349ec45aea02d data/thoriumreactors/loot_tables/blocks/bauxite_ore.json
 532f85979ecdb76c7a468365d19d3d03227a473e data/thoriumreactors/loot_tables/blocks/black_factory_block.json
@@ -49,6 +49,7 @@ a1eb2fb010972c2fd4003a9eb4787b262a2c281b data/thoriumreactors/loot_tables/blocks
 264eb5f7ecde2717d9e73bb31c2cde85a8d45806 data/thoriumreactors/loot_tables/blocks/graphite_block.json
 0742c00b7021f1bd779955adcfbcc74a877f2a55 data/thoriumreactors/loot_tables/blocks/graphite_ore.json
 030d8f3a4a914016459b3c8938abe2643b1dabf3 data/thoriumreactors/loot_tables/blocks/grate_floor_block.json
+9159dea96ebd1cabd73ec85fbb7195c1cb52a087 data/thoriumreactors/loot_tables/blocks/grate_wall_block.json
 c306f8b91a8315c8a7a68bcab95b72c22f66c92c data/thoriumreactors/loot_tables/blocks/heated_molten_salt_block.json
 d0f5ccaaadebd5e6e6cf94e6999403d4bdf4a575 data/thoriumreactors/loot_tables/blocks/hydrofluorite_block.json
 9f0fe6d6043b3667629d47f0a25290d7911989a6 data/thoriumreactors/loot_tables/blocks/industrial_block.json
