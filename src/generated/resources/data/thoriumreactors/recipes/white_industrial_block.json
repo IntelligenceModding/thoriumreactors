@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
-      "item": "thoriumreactors:industrial_block_smooth"
+      "item": "thoriumreactors:industrial_block"
     },
     "B": {
-      "item": "minecraft:black_dye"
+      "item": "minecraft:white_dye"
     }
   },
   "pattern": [
@@ -15,6 +15,6 @@
   ],
   "result": {
     "count": 8,
-    "item": "thoriumreactors:black_industrial_block_smooth"
+    "item": "thoriumreactors:white_industrial_block"
   }
 }
