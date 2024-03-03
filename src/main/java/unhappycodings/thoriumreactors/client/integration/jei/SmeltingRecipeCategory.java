@@ -110,7 +110,7 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SaltSmeltingRecip
         builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 26).addIngredients(recipe.getIngredients().get(1));
         builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 23, getGuiTop() + 1).addIngredients(recipe.getIngredients().get(2));
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 103, getGuiTop() + 1).setFluidRenderer(3000, true, 18, 66)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 103, getGuiTop() + 1).setFluidRenderer(recipe.getResultFluid().getAmount(), true, 18, 66)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getResultFluid(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getResultFluid().getAmount()))));
     }
 }

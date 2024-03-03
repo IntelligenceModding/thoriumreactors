@@ -99,10 +99,10 @@ public class DecomposingRecipeCategory implements IRecipeCategory<DecomposingRec
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, DecomposingRecipe recipe, @NotNull IFocusGroup focusGroup) {
-        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).addItemStack(recipe.getIngredients().get(0).getItems()[0]);
-        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 23).setFluidRenderer(3000, true, 17, 44)
+        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 1).addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, getGuiLeft() + 1, getGuiTop() + 23).setFluidRenderer(recipe.getFluidIngredient().getAmount(), true, 17, 44)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getFluidIngredient(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getFluidIngredient().getAmount()))));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 82, getGuiTop() + 1).setFluidRenderer(3000, true, 18, 66)
+        builder.addSlot(RecipeIngredientRole.OUTPUT, getGuiLeft() + 82, getGuiTop() + 1).setFluidRenderer(recipe.getResultFluid().getAmount(), true, 18, 66)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(new FluidStack(recipe.getResultFluid(), (int) (Math.floor((float) recipe.getTicks() / recipe.getOperationAfterTicks()) * recipe.getResultFluid().getAmount()))));
     }
 }
