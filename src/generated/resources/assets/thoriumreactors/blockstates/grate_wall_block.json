@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "thoriumreactors:block/grate_wall_block_east"
+    },
+    "facing=north": {
+      "model": "thoriumreactors:block/grate_wall_block_north"
+    },
+    "facing=south": {
+      "model": "thoriumreactors:block/grate_wall_block_south"
+    },
+    "facing=west": {
+      "model": "thoriumreactors:block/grate_wall_block_west"
+    }
+  }
+}

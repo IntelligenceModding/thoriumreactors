@@ -1,0 +1,7 @@
+{
+  "parent": "thoriumreactors:block/grate_floor_north",
+  "textures": {
+    "0": "thoriumreactors:block/black_industrial_block_smooth",
+    "particle": "thoriumreactors:block/black_industrial_block_smooth"
+  }
+}
