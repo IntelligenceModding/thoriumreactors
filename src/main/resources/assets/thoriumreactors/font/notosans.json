@@ -2,7 +2,7 @@
   "providers": [
     {
       "type": "reference",
-      "id": "thoriumreactors:include/space"
+      "id": "minecraft:include/space"
     },
     {
       "type": "reference",
@@ -10,7 +10,7 @@
     },
     {
       "type": "reference",
-      "id": "thoriumreactors:include/unifont"
+      "id": "minecraft:include/unifont"
     }
   ]
 }
