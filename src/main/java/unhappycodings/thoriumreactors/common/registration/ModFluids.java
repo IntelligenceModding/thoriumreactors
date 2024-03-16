@@ -51,7 +51,7 @@ public class ModFluids {
             .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.MOLTEN_SALT_BLOCK).bucket(ModItems.MOLTEN_SALT_BUCKET);
     public static final ForgeFlowingFluid.Properties DEPLETED_MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.DEPLETED_MOLTEN_SALT, SOURCE_DEPLETED_MOLTEN_SALT, FLOWING_DEPLETED_MOLTEN_SALT)
-            .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.MOLTEN_SALT_BLOCK).bucket(ModItems.MOLTEN_SALT_BUCKET);
+            .slopeFindDistance(1).levelDecreasePerBlock(2).block(ModBlocks.DEPLETED_MOLTEN_SALT_BLOCK).bucket(ModItems.DEPLETED_MOLTEN_SALT_BUCKET);
     public static final ForgeFlowingFluid.Properties HEATED_MOLTEN_SALT_PROPERTIES = new ForgeFlowingFluid.Properties(
             ModFluidTypes.HEATED_MOLTEN_SALT, SOURCE_HEATED_MOLTEN_SALT, FLOWING_HEATED_MOLTEN_SALT)
             .slopeFindDistance(2).levelDecreasePerBlock(3).block(ModBlocks.HEATED_MOLTEN_SALT_BLOCK).bucket(ModItems.HEATED_MOLTEN_SALT_BUCKET);
