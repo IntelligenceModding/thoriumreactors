@@ -1,6 +1,5 @@
 package unhappycodings.thoriumreactors.client.integration.jade;
 
-import mcjty.theoneprobe.api.Color;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +16,7 @@ import snownee.jade.api.fluid.JadeFluidObject;
 import snownee.jade.api.ui.BoxStyle;
 import snownee.jade.api.ui.IElement;
 import snownee.jade.api.ui.IElementHelper;
+import snownee.jade.util.Color;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.block.machine.MachineGeneratorBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
@@ -45,8 +45,8 @@ import java.util.List;
 
 public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
     INSTANCE;
-    public static final int COLOR_A = Color.rgb(66, 150, 0, 255);
-    public static final int COLOR_B = Color.rgb(67, 204, 0, 255);
+    public static final int COLOR_A = Color.rgb(66, 150, 0, 255).toInt();
+    public static final int COLOR_B = Color.rgb(67, 204, 0, 255).toInt();
 
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
@@ -134,14 +134,14 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
 
     private IElement energyBar(IElementHelper helper, long min, long max, Component prefix) {
         BoxStyle style = new BoxStyle();
-        style.borderColor = Color.rgb(65, 65, 65, 255);
+        style.borderColor = Color.rgb(65, 65, 65, 255).toInt();
         style.borderWidth = 0.75f;
         return helper.progress((float) min / (float) max, prefix.copy().append(Component.literal(min == Integer.MAX_VALUE ? "Infinite" : FormattingUtil.formatNum(min))), helper.progressStyle().color(COLOR_A, COLOR_B).textColor(0xFFFFFF), style, true);
     }
 
     private IElement fluidBar(IElementHelper helper, FluidStack fluid, int amount, int capacity) {
         BoxStyle style = new BoxStyle();
-        style.borderColor = Color.rgb(65, 65, 65, 255);
+        style.borderColor = Color.rgb(65, 65, 65, 255).toInt();
         style.borderWidth = 0.75f;
         return helper.progress((float) amount / (float) capacity, fluid.getDisplayName().copy().append(Component.literal(": " + (amount == Integer.MAX_VALUE ? "Infinite" : (amount + " mB")))), helper.progressStyle().overlay(helper.fluid(JadeFluidObject.of(fluid.getFluid()))), style, true);
     }
@@ -184,6 +184,7 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
 
         if (blockEntity instanceof ReactorControllerBlockEntity entity) {
             data.putBoolean("ReactorActivated", entity.isReactorActive());
+            if (entity.valvePos == null) return;
             for (int i = 0; i < entity.valvePos.size(); i++)
                 if (accessor.getLevel().getBlockEntity(entity.valvePos.get(i)) instanceof ReactorValveBlockEntity valveBlockEntity) {
                     if (valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_INPUT || valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_OUTPUT) {
