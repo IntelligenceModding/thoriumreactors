@@ -21,6 +21,7 @@ import unhappycodings.thoriumreactors.common.network.toserver.MachineRedstoneMod
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     public static final ResourceLocation REDSTONE_IGNORED = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/redstone_ignored.png");
     public static final ResourceLocation INFORMATION = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/information.png");
     public static final ResourceLocation WARNING = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/warning.png");
+    public static final ResourceLocation UPGRADE = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/slot/upgrade.png");
 
     boolean lastPowerable;
     int lastRedstoneMode;
@@ -54,20 +56,28 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     protected void addButtons() {
         MachineContainerBlockEntity tile = (MachineContainerBlockEntity) getTile();
         // Information
-        addRenderableOnly(new ModButton(-18, 6, 16, 16, INFORMATION, null, null, tile, this, 16, 32, false));
+        addRenderableOnly(new ModButton(-20, 6, 16, 16, INFORMATION, null, null, tile, this, 16, 32, false));
 
         // Power Button
         lastPowerable = tile.isPowerable();
-        addRenderableWidget(new ModButton(-18, 24, 16, 16, lastPowerable ? POWER_ON : POWER_OFF, () -> changePowerable(!tile.isPowerable()), null, tile, this, 16, 32, true));
+        addRenderableWidget(new ModButton(-20, 24, 16, 16, lastPowerable ? POWER_ON : POWER_OFF, () -> changePowerable(!tile.isPowerable()), null, tile, this, 16, 32, true));
 
         // Redstone Button
         lastRedstoneMode = tile.getRedstoneMode();
-        addRenderableWidget(new ModButton(-18, 42, 16, 16, lastRedstoneMode == 0 ? REDSTONE_IGNORED : lastRedstoneMode == 1 ? REDSTONE_NORMAL : REDSTONE_INVERTED, this::changeRedstoneMode, null, tile, this, 16, 32, true));
+        addRenderableWidget(new ModButton(-20, 42, 16, 16, lastRedstoneMode == 0 ? REDSTONE_IGNORED : lastRedstoneMode == 1 ? REDSTONE_NORMAL : REDSTONE_INVERTED, this::changeRedstoneMode, null, tile, this, 16, 32, true));
 
         // Warning
         if (!isSpaceAbove())
             addRenderableWidget(new ModButton(getSizeX() + 2, 6, 16, 16, WARNING, null, null, tile, this, 16, 32, false));
 
+    }
+
+    @Override
+    public void renderBackground(@NotNull GuiGraphics pGuiGraphics) {
+        super.renderBackground(pGuiGraphics);
+
+        pGuiGraphics.blit(UPGRADE, getGuiLeft() - 22, getGuiTop() + 60, 0, 0, 20, 20, 20, 20);
+        pGuiGraphics.blit(UPGRADE, getGuiLeft() - 22, getGuiTop() + 82, 0, 0, 20, 20, 20, 20);
     }
 
     @Override
@@ -98,6 +108,7 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.make_space")));
             graphics.renderComponentTooltip(Minecraft.getInstance().font, list, pMouseX - leftPos, pMouseY - topPos);
         }
+
     }
 
     public boolean isSpaceAbove() {

@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.block.turbine;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -10,11 +11,13 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -30,12 +33,15 @@ import java.util.List;
 
 public class TurbineRotorBlock extends TurbineFrameBlock {
     public VoxelShape SHAPE = Block.box(6, 0, 6, 10, 16, 10);
+    public VoxelShape SHAPE_EW = Block.box(0, 6, 6, 16, 10, 10);
+    public VoxelShape SHAPE_NS = Block.box(6, 6, 0, 10, 10, 16);
     public static final IntegerProperty BLADES = IntegerProperty.create("blades", 0, 8);
     public static final BooleanProperty RENDERING = BooleanProperty.create("rendering");
+    public static final DirectionProperty FACING = DirectionalBlock.FACING;
 
     public TurbineRotorBlock() {
         super(Properties.copy(Blocks.IRON_BLOCK).strength(5f));
-        this.registerDefaultState(this.stateDefinition.any().setValue(BLADES, 0).setValue(RENDERING, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BLADES, 0).setValue(RENDERING, false).setValue(FACING, Direction.DOWN));
     }
 
     @Override
@@ -45,16 +51,15 @@ public class TurbineRotorBlock extends TurbineFrameBlock {
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(BLADES, 0).setValue(RENDERING, false);
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext pContext) {
+        return this.defaultBlockState().setValue(BLADES, 0).setValue(RENDERING, false).setValue(FACING, pContext.getClickedFace());
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(BLADES, RENDERING);
+        pBuilder.add(BLADES, RENDERING, FACING);
     }
 
-    @SuppressWarnings("deprecation")
     @NotNull
     @Override
     public RenderShape getRenderShape(@NotNull BlockState state) {
@@ -65,7 +70,11 @@ public class TurbineRotorBlock extends TurbineFrameBlock {
     @NotNull
     @Override
     public VoxelShape getShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
-        return SHAPE;
+        return switch (pState.getValue(FACING)) {
+            case NORTH, SOUTH -> SHAPE_NS;
+            case WEST, EAST -> SHAPE_EW;
+            default -> SHAPE;
+        };
     }
 
     @SuppressWarnings("deprecation")
@@ -92,8 +101,10 @@ public class TurbineRotorBlock extends TurbineFrameBlock {
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
+    @SuppressWarnings("deprecation")
+    @NotNull
     @Override
-    public List<ItemStack> getDrops(BlockState pState, LootParams.Builder pParams) {
+    public List<ItemStack> getDrops(@NotNull BlockState pState, LootParams.@NotNull Builder pParams) {
         List<ItemStack> drops = super.getDrops(pState, pParams);
         int bladesCount = pState.getValue(BLADES);
         for (int i = 0; i < bladesCount; i++) {

@@ -2,7 +2,8 @@
   "variants": {
     "facing=down": {
       "model": "thoriumreactors:block/turbine_vent",
-      "y": 90
+      "x": 90,
+      "y": 180
     },
     "facing=east": {
       "model": "thoriumreactors:block/turbine_vent",
@@ -17,7 +18,8 @@
     },
     "facing=up": {
       "model": "thoriumreactors:block/turbine_vent",
-      "y": 270
+      "x": 270,
+      "y": 180
     },
     "facing=west": {
       "model": "thoriumreactors:block/turbine_vent",

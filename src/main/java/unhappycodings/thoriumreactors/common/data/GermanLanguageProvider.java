@@ -3,6 +3,7 @@ package unhappycodings.thoriumreactors.common.data;
 import net.minecraft.data.DataGenerator;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
+import unhappycodings.thoriumreactors.common.registration.ModEffects;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 
 public class GermanLanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
@@ -203,6 +204,13 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         add(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET.get(), "Eimer mit angereichertem Uranhexafluorit");
         add(ModItems.STEAM_BUCKET.get(), "Eimer mit Dampf");
 
+        add(ModItems.HAZMAT_SUIT_HELMET.get(), "Gas und Gefahrengutschutzmaske ");
+        add(ModItems.HAZMAT_SUIT_CHESTPLATE.get(), "Gefahrengutschutzweste");
+        add(ModItems.HAZMAT_SUIT_LEGGINGS.get(), "Gefahrengutschutzhose");
+        add(ModItems.HAZMAT_SUIT_BOOTS.get(), "Gefahrengutschutzstiefel");
+
+        add(ModEffects.RADIATION.get(), "Strahlenbelastung");
+
         addGuiText("machines.state.idle", "Inaktiv");
         addGuiText("machines.state.running", "Aktiv");
 
@@ -233,7 +241,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("machines.tooltip.make_space", "Schaffe Platz über ihr!");
         addGuiText("machines.tooltip.hold", "Halte ");
         addGuiText("machines.tooltip.for_details", " für weitere Details.");
-        addGuiText("machines.tooltip.for_description", " für eine Blockbeschreibung.");
+        addGuiText("machines.tooltip.for_description", " für eine Beschreibung.");
         addGuiText("machines.tooltip.capacity", "Kapazität: ");
 
         addGuiText("machines.concentrator.name", "Konzentration");
@@ -303,7 +311,7 @@ public class GermanLanguageProvider extends net.minecraftforge.common.data.Langu
         addGuiText("reactor.text.main_power", "HAUPTSTROM");
         addGuiText("reactor.text.reactor_status", "REAKTORSTATUS");
         addGuiText("reactor.text.reactor_load", "REAKTORLAST");
-        addGuiText("reactor.text.containment", "EINDÄMMUNG");
+        addGuiText("reactor.text.contamination", "KONTAMINATION");
         addGuiText("reactor.text.radiation", "STRAHLUNG");
         addGuiText("reactor.text.temp", "TEMP");
         addGuiText("reactor.text.flow", "FLUSSR.");

@@ -1,6 +1,7 @@
 package unhappycodings.thoriumreactors.common.container.machine;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -9,15 +10,19 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
+import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineConcentratorBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
 import unhappycodings.thoriumreactors.common.container.base.slot.CraftingOutputSlot;
 import unhappycodings.thoriumreactors.common.container.base.slot.OutputSlot;
+import unhappycodings.thoriumreactors.common.container.base.slot.UpgradeSlot;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.machine.ClientConcentratorDataPacket;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
 
 public class MachineConcentratorContainer extends BaseContainer {
+    public static final ResourceLocation GHOST_OVERLAY = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/slot/ghost_overlay.png");
+    public static final ResourceLocation GHOST_OVERLAY_DARK = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/slot/ghost_overlay_dark.png");
     public final Inventory inventory;
 
     public MachineConcentratorContainer(int id, Inventory inventory, BlockPos pos, Level level, int containerSize) {
@@ -29,6 +34,8 @@ public class MachineConcentratorContainer extends BaseContainer {
                 addSlot(new SlotItemHandler(handler, 0, 38, 39));
                 addSlot(new OutputSlot(handler, 1, 120, 39));
                 addSlot(new SlotItemHandler(handler, 2, 150, 70));
+                addSlot(new UpgradeSlot(handler, 3, -20, 62));
+                addSlot(new UpgradeSlot(handler, 4, -20, 84));
             });
         }
     }

@@ -11,7 +11,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-import unhappycodings.thoriumreactors.client.renderer.FluidTankItemStackRenderer;
+import unhappycodings.thoriumreactors.client.renderer.item.FluidTankItemStackRenderer;
 import unhappycodings.thoriumreactors.common.block.tank.FluidTankBlock;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 

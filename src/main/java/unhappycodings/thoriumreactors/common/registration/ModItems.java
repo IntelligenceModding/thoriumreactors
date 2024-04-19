@@ -1,10 +1,11 @@
 package unhappycodings.thoriumreactors.common.registration;
 
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraftforge.registries.RegistryObject;
+import unhappycodings.thoriumreactors.common.enums.UpgradeItemType;
 import unhappycodings.thoriumreactors.common.item.ConfiguratorItem;
+import unhappycodings.thoriumreactors.common.item.HazmatSuitArmorItem;
+import unhappycodings.thoriumreactors.common.item.UpgradeItem;
 
 public class ModItems {
 
@@ -78,6 +79,14 @@ public class ModItems {
     public static final RegistryObject<Item> MODULE_TANK = Registration.ITEMS.register("module_tank", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MODULE_SENSOR = Registration.ITEMS.register("module_sensor", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MODULE_PROCESSING = Registration.ITEMS.register("module_processing", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<HazmatSuitArmorItem> HAZMAT_SUIT_HELMET = Registration.ITEMS.register("hazmat_suit_helmet", () -> new HazmatSuitArmorItem(ModArmorMaterials.HAZMAT, ArmorItem.Type.HELMET, new Item.Properties().stacksTo(1).durability(-1).fireResistant()));
+    public static final RegistryObject<HazmatSuitArmorItem> HAZMAT_SUIT_CHESTPLATE= Registration.ITEMS.register("hazmat_suit_chestplate", () -> new HazmatSuitArmorItem(ModArmorMaterials.HAZMAT, ArmorItem.Type.CHESTPLATE, new Item.Properties().stacksTo(1).durability(-1).fireResistant()));
+    public static final RegistryObject<HazmatSuitArmorItem> HAZMAT_SUIT_LEGGINGS = Registration.ITEMS.register("hazmat_suit_leggings", () -> new HazmatSuitArmorItem(ModArmorMaterials.HAZMAT, ArmorItem.Type.LEGGINGS, new Item.Properties().stacksTo(1).durability(-1).fireResistant()));
+    public static final RegistryObject<HazmatSuitArmorItem> HAZMAT_SUIT_BOOTS = Registration.ITEMS.register("hazmat_suit_boots", () -> new HazmatSuitArmorItem(ModArmorMaterials.HAZMAT, ArmorItem.Type.BOOTS, new Item.Properties().stacksTo(1).durability(-1).fireResistant()));
+
+    public static final RegistryObject<UpgradeItem> ACCELERATION_UPGRADE = Registration.ITEMS.register("acceleration_upgrade", () -> new UpgradeItem(new Item.Properties(), UpgradeItemType.ACCELERATION));
+    public static final RegistryObject<UpgradeItem> FABRICATION_UPGRADE = Registration.ITEMS.register("fabrication_upgrade", () -> new UpgradeItem(new Item.Properties(), UpgradeItemType.FABRICATION));
 
     public static void register() {
     }

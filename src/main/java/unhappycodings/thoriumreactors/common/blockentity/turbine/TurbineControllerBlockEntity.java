@@ -22,10 +22,7 @@ import unhappycodings.thoriumreactors.common.block.turbine.TurbineControllerBloc
 import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.turbine.ClientTurbineControllerDataPacket;
-import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
-import unhappycodings.thoriumreactors.common.registration.ModDamageSources;
-import unhappycodings.thoriumreactors.common.registration.ModFluids;
-import unhappycodings.thoriumreactors.common.registration.ModSounds;
+import unhappycodings.thoriumreactors.common.registration.*;
 import unhappycodings.thoriumreactors.common.util.EnergyUtil;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
@@ -89,7 +86,8 @@ public class TurbineControllerBlockEntity extends BlockEntity {
 
         if (turbinetime == 3 && getRpm() > 50 && level.getGameTime() % 20 == 0) {
             float random = new Random().nextFloat();
-            getLevel().playSound(null, getBlockPos().relative(getBlockState().getValue(TurbineControllerBlock.FACING).getOpposite(), 2).relative(Direction.UP, 1),
+            boolean horizontal = level.getBlockState(getBlockPos().relative(Direction.UP, 1)).is(ModBlocks.TURBINE_ROTATION_MOUNT.get());
+            getLevel().playSound(null, getBlockPos().relative(getBlockState().getValue(TurbineControllerBlock.FACING).getOpposite(), horizontal ? getTurbineHeight() - 1 : 2).relative(Direction.UP, 1),
                     random < 0.2f ? ModSounds.TURBINE_HISS_1.get() : random < 0.8f ? ModSounds.TURBINE_HISS_2.get() : ModSounds.TURBINE_HISS_3.get(), SoundSource.BLOCKS, 1f, 1f);
             turbinetime++;
         } else if (turbinetime >= 4) {
@@ -106,11 +104,18 @@ public class TurbineControllerBlockEntity extends BlockEntity {
     }
 
     public void turbinePlayerCheck() {
-        BlockPos p = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
-        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -2, p.getY() -1, p.getZ() -2, p.getX() + 3, p.getY() + getTurbineHeight(), p.getZ() + 3));
+        boolean horizontal = level.getBlockState(getBlockPos().relative(Direction.UP, 1)).is(ModBlocks.TURBINE_ROTATION_MOUNT.get());
+        Direction facing = getBlockState().getValue(ReactorControllerBlock.FACING);
+        BlockPos p = getBlockPos().relative(facing.getOpposite(), 2);
+        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -1, p.getY() -1, p.getZ() -1, p.getX() + 2, p.getY() + getTurbineHeight(), p.getZ() + 2));
+
+        if (horizontal) {
+            players.clear();
+            players = level.getEntitiesOfClass(ServerPlayer.class, new AABB(p.getX() -1, p.getY() -1, p.getZ() -1, p.getX() + (facing == Direction.EAST ? -getTurbineHeight() - 2 : facing == Direction.WEST ? getTurbineHeight() - 2 : 2), p.getY() + 3, p.getZ() + (facing == Direction.SOUTH ? -getTurbineHeight() - 2 : facing == Direction.NORTH ? getTurbineHeight() - 2 : 2)));
+        }
 
         for (ServerPlayer player : players) {
-            player.hurt(level.damageSources().source(ModDamageSources.GRIND), Float.MAX_VALUE);
+            player.hurt(level.damageSources().source(ModDamageSources.GRIND), 1f);
         }
     }
 

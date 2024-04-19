@@ -140,15 +140,9 @@ public class CCReactorPeripheral implements IPeripheral {
     }
 
     @LuaFunction(mainThread = true)
-    public final Float getReactorContainmentPercent() {
+    public final Float getReactorContamination() {
         ReactorControllerBlockEntity entity = getReactorController();
-        return entity == null ? -1 : entity.getReactorContainment();
-    }
-
-    @LuaFunction(mainThread = true)
-    public final Float getReactorRadiation() {
-        ReactorControllerBlockEntity entity = getReactorController();
-        return entity == null ? -1 : entity.getReactorRadiation();
+        return entity == null ? -1 : entity.getReactorContamination();
     }
 
     @LuaFunction(mainThread = true)

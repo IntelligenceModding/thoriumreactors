@@ -1,4 +1,5 @@
-// 1.20.1	2024-02-04T14:58:41.4394618	Item Models: thoriumreactors
+// 1.20.1	2024-04-04T03:38:33.9181171	Item Models: thoriumreactors
+b1286ac077444b84df64c341549683bbce557fb8 assets/thoriumreactors/models/item/acceleration_upgrade.json
 04a4c724152af60d219cfae9ca203d2861e972dd assets/thoriumreactors/models/item/aluminum_block.json
 297e1af5609489ae4af515cc8364f140c050db9e assets/thoriumreactors/models/item/aluminum_ingot.json
 992b62b637873048447a8bebaef602f01828282e assets/thoriumreactors/models/item/aluminum_nugget.json
@@ -45,6 +46,7 @@ b07f9296428715840ecfc66bd613bb0c7e1ccc45 assets/thoriumreactors/models/item/depl
 ab1c0829fe09a289bf65bb0e514c0a75edc9c8b8 assets/thoriumreactors/models/item/electromagnetic_coil.json
 cb55f61327b4fd6ba275f556b0768ff3aaee2d3a assets/thoriumreactors/models/item/enriched_uranium.json
 4f51a3bc2aa3b131490bf90f52811c80c19bcee4 assets/thoriumreactors/models/item/enriched_uranium_hexafluorite_bucket.json
+303eb9ac61306beb0a8d3f020eebd0aecdf356c6 assets/thoriumreactors/models/item/fabrication_upgrade.json
 b9d46118c6a35b651d37f9c2dd4dd1e1a2905c10 assets/thoriumreactors/models/item/factory_block.json
 c823d3255e8a8cafc5f438765357618d2641d243 assets/thoriumreactors/models/item/fluid_centrifuge_block.json
 3a59d8de405b3ed33988babf49da4f531bfa166e assets/thoriumreactors/models/item/fluid_enricher_block.json
@@ -67,6 +69,10 @@ d033e4f38f075019be757fea45a42e514df53445 assets/thoriumreactors/models/item/grap
 7aed0d89e77244ce087b2fef878eef07d4f12842 assets/thoriumreactors/models/item/graphite_tube.json
 3b5845e21188ce2d3e633311f2b736520ec6d6bc assets/thoriumreactors/models/item/grate_floor_block.json
 2247e765f7b77097111af3b42e53ef2f31eb2b8c assets/thoriumreactors/models/item/grate_wall_block.json
+703f7b2b35a8926753764793cd5df54c24e02bbd assets/thoriumreactors/models/item/hazmat_suit_boots.json
+68b904dabf6cbfc3f008795af092138d24bcc897 assets/thoriumreactors/models/item/hazmat_suit_chestplate.json
+d09f2b12cad54ba9ce879edf73d2eec167a114b3 assets/thoriumreactors/models/item/hazmat_suit_helmet.json
+66a891f54ed4bc2f36d4bc3f13f9b4ce641e8272 assets/thoriumreactors/models/item/hazmat_suit_leggings.json
 26d14da97e36572c05c957b1382358f642cd363d assets/thoriumreactors/models/item/heated_molten_salt_bucket.json
 31b68a8b487f1192d4d44243a90b262a9081dc98 assets/thoriumreactors/models/item/hydrofluorite_bucket.json
 b881f8d823104cbca2b6475ad20e818aefd6464d assets/thoriumreactors/models/item/industrial_block.json

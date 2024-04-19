@@ -10,12 +10,8 @@ import net.minecraft.world.item.Rarity;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-import unhappycodings.thoriumreactors.client.renderer.FluidTankItemStackRenderer;
-import unhappycodings.thoriumreactors.client.renderer.WaterSourceItemStackRenderer;
+import unhappycodings.thoriumreactors.client.renderer.item.WaterSourceItemStackRenderer;
 import unhappycodings.thoriumreactors.common.block.WaterSourceBlock;
-import unhappycodings.thoriumreactors.common.block.tank.FluidTankBlock;
-import unhappycodings.thoriumreactors.common.blockentity.WaterSourceBlockEntity;
-import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 
 import java.util.function.Consumer;
 

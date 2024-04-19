@@ -32,6 +32,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> TURBINE_HISS_2 = registerSoundEvent("turbine.hiss.2");
     public static final RegistryObject<SoundEvent> TURBINE_HISS_3 = registerSoundEvent("turbine.hiss.3");
     public static final RegistryObject<SoundEvent> TURBINE_RUN = registerSoundEvent("turbine.run");
+    public static final RegistryObject<SoundEvent> GEIGER_SINGLE = registerSoundEvent("geiger.single");
+    public static final RegistryObject<SoundEvent> GEIGER_DOUBLE = registerSoundEvent("geiger.double");
+    public static final RegistryObject<SoundEvent> GEIGER_TRIPLE = registerSoundEvent("geiger.triple");
+    public static final RegistryObject<SoundEvent> GEIGER_QUADRUPLE = registerSoundEvent("geiger.quadruple");
 
     public static void register() {
     }

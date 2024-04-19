@@ -26,7 +26,7 @@ public class TurbineVentBlock extends TurbineFrameBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
     }
 
     @Override

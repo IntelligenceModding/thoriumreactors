@@ -42,10 +42,22 @@ public class FormattingUtil {
 
     public static String formatNum(float num) {
         DecimalFormat formatter = new DecimalFormat("0.00");
+        if (num >= 1000000000000000L) return formatter.format(num / 1000000000000000L).replaceAll(",", ".") + " PFE";
+        if (num >= 1000000000000L) return formatter.format(num / 1000000000000L).replaceAll(",", ".") + " TFE";
         if (num >= 1000000000) return formatter.format(num / 1000000000).replaceAll(",", ".") + " GFE";
         if (num >= 1000000) return formatter.format(num / 1000000).replaceAll(",", ".") + " MFE";
         if (num >= 1000) return formatter.format(num / 1000).replaceAll(",", ".") + " kFE";
         return (int) num + " FE";
+    }
+
+    public static String formatNum(float num, String suffix) {
+        DecimalFormat formatter = new DecimalFormat("0.00");
+        if (num >= 1000000000000000L) return formatter.format(num / 1000000000000000L).replaceAll(",", ".") + " P" + suffix;
+        if (num >= 1000000000000L) return formatter.format(num / 1000000000000L).replaceAll(",", ".") + " T" + suffix;
+        if (num >= 1000000000) return formatter.format(num / 1000000000).replaceAll(",", ".") + " G" + suffix;
+        if (num >= 1000000) return formatter.format(num / 1000000).replaceAll(",", ".") + " M" + suffix;
+        if (num >= 1000) return formatter.format(num / 1000).replaceAll(",", ".") + " k" + suffix;
+        return (int) num + " ";
     }
 
     public static String formatPercentNum(float num, float max) {

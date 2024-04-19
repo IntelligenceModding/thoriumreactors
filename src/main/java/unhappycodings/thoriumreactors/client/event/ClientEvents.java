@@ -3,20 +3,22 @@ package unhappycodings.thoriumreactors.client.event;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ContainerScreenEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.event.entity.player.PlayerContainerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.client.overlay.RadiationHudOverlay;
 import unhappycodings.thoriumreactors.client.renderer.*;
+import unhappycodings.thoriumreactors.client.renderer.blockentity.EnergyTankBlockEntityRenderer;
+import unhappycodings.thoriumreactors.client.renderer.blockentity.FluidTankBlockEntityRenderer;
+import unhappycodings.thoriumreactors.client.renderer.blockentity.ReactorControllerBlockEntityRenderer;
+import unhappycodings.thoriumreactors.client.renderer.blockentity.WaterSourceBlockEntityRenderer;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineBladeModel;
 import unhappycodings.thoriumreactors.client.renderer.model.TurbineRotorModel;
 import unhappycodings.thoriumreactors.common.blockentity.renderer.BlastedIronChestRenderer;
@@ -32,8 +34,6 @@ import unhappycodings.thoriumreactors.common.container.reactor.ReactorController
 import unhappycodings.thoriumreactors.common.container.tank.FluidTankScreen;
 import unhappycodings.thoriumreactors.common.registration.*;
 
-import javax.swing.event.MenuEvent;
-
 @Mod.EventBusSubscriber(modid = ThoriumReactors.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientEvents {
 
@@ -48,6 +48,11 @@ public class ClientEvents {
         event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/water_source_block"));
         event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/fluid_tank"));
         event.register(new ResourceLocation(ThoriumReactors.MOD_ID, "block/energy_tank"));
+    }
+
+    @SubscribeEvent
+    public static void onOverlayRegister(RegisterGuiOverlaysEvent event) {
+        event.registerAboveAll("radiation", RadiationHudOverlay.HUD_OVERLAY);
     }
 
     @SubscribeEvent

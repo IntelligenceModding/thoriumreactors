@@ -14,7 +14,7 @@ import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 import unhappycodings.thoriumreactors.common.util.ScreenUtil;
 
 public class MachineConcentratorScreen extends MachineScreen<MachineConcentratorContainer> {
-    private MachineConcentratorContainer container;
+    private final MachineConcentratorContainer container;
 
     public MachineConcentratorScreen(MachineConcentratorContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn);

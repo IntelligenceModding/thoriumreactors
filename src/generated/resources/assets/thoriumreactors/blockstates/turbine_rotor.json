@@ -1,58 +1,328 @@
 {
   "variants": {
-    "blades=0,rendering=false": {
+    "blades=0,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_0"
     },
-    "blades=0,rendering=true": {
+    "blades=0,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_0"
     },
-    "blades=1,rendering=false": {
+    "blades=0,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_0"
+    },
+    "blades=0,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_0"
+    },
+    "blades=0,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_0"
+    },
+    "blades=0,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_0"
+    },
+    "blades=0,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_0"
+    },
+    "blades=0,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_0"
+    },
+    "blades=0,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_0"
+    },
+    "blades=0,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_0"
+    },
+    "blades=0,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_0"
+    },
+    "blades=0,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_0"
+    },
+    "blades=1,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_1"
     },
-    "blades=1,rendering=true": {
+    "blades=1,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_1"
     },
-    "blades=2,rendering=false": {
+    "blades=1,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_1"
+    },
+    "blades=1,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_1"
+    },
+    "blades=1,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_1"
+    },
+    "blades=1,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_1"
+    },
+    "blades=1,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_1"
+    },
+    "blades=1,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_1"
+    },
+    "blades=1,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_1"
+    },
+    "blades=1,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_1"
+    },
+    "blades=1,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_1"
+    },
+    "blades=1,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_1"
+    },
+    "blades=2,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_2"
     },
-    "blades=2,rendering=true": {
+    "blades=2,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_2"
     },
-    "blades=3,rendering=false": {
+    "blades=2,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_2"
+    },
+    "blades=2,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_2"
+    },
+    "blades=2,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_2"
+    },
+    "blades=2,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_2"
+    },
+    "blades=2,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_2"
+    },
+    "blades=2,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_2"
+    },
+    "blades=2,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_2"
+    },
+    "blades=2,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_2"
+    },
+    "blades=2,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_2"
+    },
+    "blades=2,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_2"
+    },
+    "blades=3,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_3"
     },
-    "blades=3,rendering=true": {
+    "blades=3,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_3"
     },
-    "blades=4,rendering=false": {
+    "blades=3,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_3"
+    },
+    "blades=3,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_3"
+    },
+    "blades=3,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_3"
+    },
+    "blades=3,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_3"
+    },
+    "blades=3,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_3"
+    },
+    "blades=3,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_3"
+    },
+    "blades=3,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_3"
+    },
+    "blades=3,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_3"
+    },
+    "blades=3,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_3"
+    },
+    "blades=3,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_3"
+    },
+    "blades=4,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_4"
     },
-    "blades=4,rendering=true": {
+    "blades=4,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_4"
     },
-    "blades=5,rendering=false": {
+    "blades=4,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_4"
+    },
+    "blades=4,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_4"
+    },
+    "blades=4,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_4"
+    },
+    "blades=4,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_4"
+    },
+    "blades=4,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_4"
+    },
+    "blades=4,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_4"
+    },
+    "blades=4,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_4"
+    },
+    "blades=4,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_4"
+    },
+    "blades=4,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_4"
+    },
+    "blades=4,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_4"
+    },
+    "blades=5,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_5"
     },
-    "blades=5,rendering=true": {
+    "blades=5,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_5"
     },
-    "blades=6,rendering=false": {
+    "blades=5,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_5"
+    },
+    "blades=5,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_5"
+    },
+    "blades=5,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_5"
+    },
+    "blades=5,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_5"
+    },
+    "blades=5,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_5"
+    },
+    "blades=5,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_5"
+    },
+    "blades=5,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_5"
+    },
+    "blades=5,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_5"
+    },
+    "blades=5,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_5"
+    },
+    "blades=5,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_5"
+    },
+    "blades=6,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_6"
     },
-    "blades=6,rendering=true": {
+    "blades=6,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_6"
     },
-    "blades=7,rendering=false": {
+    "blades=6,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_6"
+    },
+    "blades=6,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_6"
+    },
+    "blades=6,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_6"
+    },
+    "blades=6,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_6"
+    },
+    "blades=6,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_6"
+    },
+    "blades=6,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_6"
+    },
+    "blades=6,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_6"
+    },
+    "blades=6,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_6"
+    },
+    "blades=6,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_6"
+    },
+    "blades=6,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_6"
+    },
+    "blades=7,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_7"
     },
-    "blades=7,rendering=true": {
+    "blades=7,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_7"
     },
-    "blades=8,rendering=false": {
+    "blades=7,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_7"
+    },
+    "blades=7,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_7"
+    },
+    "blades=7,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_7"
+    },
+    "blades=7,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_7"
+    },
+    "blades=7,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_7"
+    },
+    "blades=7,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_7"
+    },
+    "blades=7,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_7"
+    },
+    "blades=7,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_7"
+    },
+    "blades=7,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_7"
+    },
+    "blades=7,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_7"
+    },
+    "blades=8,facing=down,rendering=false": {
       "model": "thoriumreactors:block/turbine_rotor_8"
     },
-    "blades=8,rendering=true": {
+    "blades=8,facing=down,rendering=true": {
       "model": "thoriumreactors:block/turbine_rotor_8"
+    },
+    "blades=8,facing=east,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_8"
+    },
+    "blades=8,facing=east,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_8"
+    },
+    "blades=8,facing=north,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_8"
+    },
+    "blades=8,facing=north,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_8"
+    },
+    "blades=8,facing=south,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_8"
+    },
+    "blades=8,facing=south,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ns_8"
+    },
+    "blades=8,facing=up,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_8"
+    },
+    "blades=8,facing=up,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_8"
+    },
+    "blades=8,facing=west,rendering=false": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_8"
+    },
+    "blades=8,facing=west,rendering=true": {
+      "model": "thoriumreactors:block/turbine_rotor_ew_8"
     }
   }
 }

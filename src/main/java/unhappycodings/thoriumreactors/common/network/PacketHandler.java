@@ -14,10 +14,7 @@ import unhappycodings.thoriumreactors.common.network.toclient.machine.*;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
 import unhappycodings.thoriumreactors.common.network.toclient.thermal.ClientThermalConversionsPacket;
 import unhappycodings.thoriumreactors.common.network.toclient.turbine.ClientTurbineControllerDataPacket;
-import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
-import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
-import unhappycodings.thoriumreactors.common.network.toserver.MachinePowerablePacket;
-import unhappycodings.thoriumreactors.common.network.toserver.MachineRedstoneModePacket;
+import unhappycodings.thoriumreactors.common.network.toserver.*;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerCopyTurbinePacket;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerRemoveTurbinePacket;
@@ -71,6 +68,7 @@ public class PacketHandler {
         registerClientToServer(MachinePowerablePacket.class, MachinePowerablePacket::decode);
         registerClientToServer(MachineDumpModePacket.class, MachineDumpModePacket::decode);
         registerClientToServer(MachineChangedPacket.class, MachineChangedPacket::decode);
+        registerClientToServer(RadiationCheckPacket.class, RadiationCheckPacket::decode);
     }
 
     public static <MSG extends IPacket> void registerServerToClient(Class<MSG> packet, Function<FriendlyByteBuf, MSG> decode) {

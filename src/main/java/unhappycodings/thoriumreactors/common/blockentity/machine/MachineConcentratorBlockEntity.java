@@ -303,7 +303,7 @@ public class MachineConcentratorBlockEntity extends MachineContainerBlockEntity 
 
     @Override
     public int getContainerSize() {
-        return 3;
+        return 5;
     }
 
     @Override

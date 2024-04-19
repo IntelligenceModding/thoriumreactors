@@ -128,5 +128,25 @@
     "sounds": [
       "thoriumreactors:turbine_run"
     ]
+  },
+  "geiger.single": {
+    "sounds": [
+      "thoriumreactors:geiger_single"
+    ]
+  },
+  "geiger.double": {
+    "sounds": [
+      "thoriumreactors:geiger_double"
+    ]
+  },
+  "geiger.triple": {
+    "sounds": [
+      "thoriumreactors:geiger_triple"
+    ]
+  },
+  "geiger.quadruple": {
+    "sounds": [
+      "thoriumreactors:geiger_quadruple"
+    ]
   }
 }

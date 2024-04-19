@@ -17,6 +17,7 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
         super(screenContainer, inv, titleIn);
         imageWidth = getSizeX();
         imageHeight = getSizeY();
+        this.slotColor = 0x80565656;
     }
 
     @Override

@@ -2,12 +2,14 @@ package unhappycodings.thoriumreactors.common.blockentity.reactor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -31,6 +34,7 @@ import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControllerBlockEntity;
+import unhappycodings.thoriumreactors.common.capability.RadiationSavedData;
 import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
 import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
@@ -39,9 +43,11 @@ import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorRenderDataPacket;
 import unhappycodings.thoriumreactors.common.registration.*;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
+import unhappycodings.thoriumreactors.common.util.RadiationUtil;
 import unhappycodings.thoriumreactors.common.util.SoundUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -65,8 +71,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     private byte reactorCurrentLoadSet; // 0-100%
     private long reactorRunningSince; // timestamp
     private float reactorStatus = 100; // 0-100%
-    private float reactorContainment = 100; // 0-100%
-    private float reactorRadiation; // uSv per hour
+    private float reactorContamination = 0; // uSv per hour
     private float reactorPressure = 29.98f; // in PSI
     private int reactorHeight = 0;
     private int fuelAdditions = 0;
@@ -157,6 +162,47 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
                 }
                 setReactorStatus((getReactorStatus() - ((reactorLoad - 105f) / 100f)));
             }
+        }
+
+        /*
+
+            250 mSievert im Main Chunk pro 1% damage
+            3-8 Chunks radius je nach fuel fülle
+            -> Dabei chunkentfernungsbasiert abfallend
+
+            Den Spieler dabei entsprechend die radiation/h pro stunde (bzw hier pro minute) aufrechnen.
+
+            1,3 mSv pro stunde abfall in der welt
+
+            Spieler tot ab 1 Sievert
+
+            1 Röntgen entspricht 114,0251 Sievert
+            1 Sievert entspricht 0,0088 Röntgen
+
+        */
+
+        if (getReactorStatus() < 100) {
+            setReactorContamination((100f - getReactorStatus()) * 477f);
+            ServerLevel level = getLevel().getServer().overworld();
+            RadiationUtil.setChunkData(getBlockPos(), level, 12, getReactorContamination());
+        }
+
+        if (level.getGameTime() % 200 == 0) {
+            RadiationSavedData cache = RadiationSavedData.get((ServerLevel) level);
+            CompoundTag tag = cache.save(new CompoundTag());
+
+            ChunkPos pos = level.getChunk(getBlockPos()).getPos();
+            tag.getList("chunks", Tag.TAG_COMPOUND).stream().map(CompoundTag.class::cast).filter(compoundTag -> compoundTag.toString().contains("\"" + pos.x + "#" + pos.z + "\"")).forEach(compoundTag -> {
+                CompoundTag data = compoundTag.getCompound(pos.x + "#" + pos.z);
+
+                long currentTimestamp = new Date().getTime();
+                long timestamp = data.getLong("timestamp");
+
+                cache.addBlockToCache(pos, currentTimestamp, data.getFloat("strength") - ((currentTimestamp - timestamp) / 1000f * 0.0764f));
+                setReactorContamination(data.getFloat("strength"));
+            });
+
+
         }
 
         BlockPos corePos = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
@@ -550,8 +596,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         nbt.putByte("ReactorCurrentLoadSet", getReactorCurrentLoadSet());
         nbt.putLong("ReactorRunningSince", getReactorRunningSince());
         nbt.putFloat("ReactorStatus", getReactorStatus());
-        nbt.putFloat("ReactorContainment", getReactorContainment());
-        nbt.putFloat("ReactorRadiation", getReactorRadiation());
+        nbt.putFloat("ReactorContamination", getReactorContamination());
         nbt.putFloat("ReactorPressure", getReactorPressure());
         nbt.putInt("FuelAdditions", getFuelAdditions());
         nbt.putBoolean("Scrammed", isScrammed());
@@ -569,7 +614,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         nbt.put("ThermalPos", parsePosToTag(thermalPos));
         for (int i = 0; i < 4; i++)
             if (valvePos != null && valvePos.size() - 1 >= i) nbt.put("ValvePos-" + i, parsePosToTag(valvePos.get(i)));
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 16; i++)
             if (turbinePos != null && turbinePos.size() - 1 >= i)
                 nbt.put("TurbinePos-" + i, parsePosToTag(turbinePos.get(i)));
 
@@ -586,8 +631,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setReactorCurrentLoadSet(tag.getByte("ReactorCurrentLoadSet"));
         setReactorRunningSince(tag.getLong("ReactorRunningSince"));
         setReactorStatus(tag.getFloat("ReactorStatus"));
-        setReactorContainment(tag.getFloat("ReactorContainment"));
-        setReactorRadiation(tag.getFloat("ReactorRadiation"));
+        setReactorContamination(tag.getFloat("ReactorContamination"));
         setReactorPressure(tag.getFloat("ReactorPressure"));
         setFuelAdditions(tag.getInt("FuelAdditions"));
         setScrammed(tag.getBoolean("Scrammed"));
@@ -603,12 +647,12 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setControlRodStatus(tag.getByteArray("ControlRodStatus"));
         setTargetControlRodStatus(tag.getByteArray("TargetControlRodStatus"));
         valvePos = new ArrayList<>(4);
-        turbinePos = new ArrayList<>(9);
+        turbinePos = new ArrayList<>(16);
         thermalPos = BlockEntity.getPosFromTag(tag.getCompound("ThermalPos"));
         for (int i = 0; i < 4; i++)
             if (tag.contains("ValvePos-" + i))
                 valvePos.add(BlockEntity.getPosFromTag(tag.getCompound("ValvePos-" + i)));
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 16; i++)
             if (tag.contains("TurbinePos-" + i))
                 turbinePos.add(BlockEntity.getPosFromTag(tag.getCompound("TurbinePos-" + i)));
     }
@@ -623,8 +667,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         nbt.putByte("ReactorCurrentLoadSet", getReactorCurrentLoadSet());
         nbt.putLong("ReactorRunningSince", getReactorRunningSince());
         nbt.putFloat("ReactorStatus", getReactorStatus());
-        nbt.putFloat("ReactorContainment", getReactorContainment());
-        nbt.putFloat("ReactorRadiation", getReactorRadiation());
+        nbt.putFloat("ReactorContamination", getReactorContamination());
         nbt.putFloat("ReactorPressure", getReactorPressure());
         nbt.putInt("FuelAdditions", getFuelAdditions());
         nbt.putBoolean("Scrammed", isScrammed());
@@ -642,7 +685,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         nbt.put("ThermalPos", parsePosToTag(thermalPos));
         for (int i = 0; i < 4; i++)
             if (valvePos != null && valvePos.size() - 1 >= i) nbt.put("ValvePos-" + i, parsePosToTag(valvePos.get(i)));
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 16; i++)
             if (turbinePos != null && turbinePos.size() - 1 >= i)
                 nbt.put("TurbinePos-" + i, parsePosToTag(turbinePos.get(i)));
 
@@ -658,8 +701,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setReactorCurrentLoadSet(nbt.getByte("ReactorCurrentLoadSet"));
         setReactorRunningSince(nbt.getLong("ReactorRunningSince"));
         setReactorStatus(nbt.getFloat("ReactorStatus"));
-        setReactorContainment(nbt.getFloat("ReactorContainment"));
-        setReactorRadiation(nbt.getFloat("ReactorRadiation"));
+        setReactorContamination(nbt.getFloat("ReactorContamination"));
         setReactorPressure(nbt.getFloat("ReactorPressure"));
         setFuelAdditions(nbt.getInt("FuelAdditions"));
         setScrammed(nbt.getBoolean("Scrammed"));
@@ -675,12 +717,12 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setControlRodStatus(nbt.getByteArray("ControlRodStatus"));
         setTargetControlRodStatus(nbt.getByteArray("TargetControlRodStatus"));
         valvePos = new ArrayList<>(4);
-        turbinePos = new ArrayList<>(9);
+        turbinePos = new ArrayList<>(16);
         thermalPos = BlockEntity.getPosFromTag(nbt.getCompound("ThermalPos"));
         for (int i = 0; i < 4; i++)
             if (nbt.contains("ValvePos-" + i))
                 valvePos.add(BlockEntity.getPosFromTag(nbt.getCompound("ValvePos-" + i)));
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 16; i++)
             if (nbt.contains("TurbinePos-" + i))
                 turbinePos.add(BlockEntity.getPosFromTag(nbt.getCompound("TurbinePos-" + i)));
     }
@@ -702,8 +744,8 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     }
 
     public void addTurbinePos(BlockPos pos) {
-        if (turbinePos == null) turbinePos = new ArrayList<>(9);
-        if (turbinePos.size() < 9) turbinePos.add(pos);
+        if (turbinePos == null) turbinePos = new ArrayList<>(16);
+        if (turbinePos.size() < 16) turbinePos.add(pos);
     }
 
     @Override
@@ -883,20 +925,12 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         this.reactorStatus = reactorStatus;
     }
 
-    public float getReactorContainment() {
-        return reactorContainment;
+    public float getReactorContamination() {
+        return reactorContamination;
     }
 
-    public void setReactorContainment(float reactorContainment) {
-        this.reactorContainment = reactorContainment;
-    }
-
-    public float getReactorRadiation() {
-        return reactorRadiation;
-    }
-
-    public void setReactorRadiation(float reactorRadiation) {
-        this.reactorRadiation = reactorRadiation;
+    public void setReactorContamination(float reactorContamination) {
+        this.reactorContamination = reactorContamination;
     }
 
     public float getReactorPressure() {

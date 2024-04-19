@@ -235,27 +235,15 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
 
     public void rotorBlock(Block block, ResourceLocation texture, boolean simple) {
         ModelFile modelDefault = models().withExistingParent(ItemUtil.getRegString(block) + "_0", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor")).texture("0", texture).texture("particle", texture);
-        ModelFile model1 = models().withExistingParent(ItemUtil.getRegString(block) + "_1", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_1")).texture("0", texture).texture("particle", texture);
-        ModelFile model2 = models().withExistingParent(ItemUtil.getRegString(block) + "_2", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_2")).texture("0", texture).texture("particle", texture);
-        ModelFile model3 = models().withExistingParent(ItemUtil.getRegString(block) + "_3", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_3")).texture("0", texture).texture("particle", texture);
-        ModelFile model4 = models().withExistingParent(ItemUtil.getRegString(block) + "_4", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_4")).texture("0", texture).texture("particle", texture);
-        ModelFile model5 = models().withExistingParent(ItemUtil.getRegString(block) + "_5", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_5")).texture("0", texture).texture("particle", texture);
-        ModelFile model6 = models().withExistingParent(ItemUtil.getRegString(block) + "_6", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_6")).texture("0", texture).texture("particle", texture);
-        ModelFile model7 = models().withExistingParent(ItemUtil.getRegString(block) + "_7", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_7")).texture("0", texture).texture("particle", texture);
-        ModelFile model8 = models().withExistingParent(ItemUtil.getRegString(block) + "_8", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor_8")).texture("0", texture).texture("particle", texture);
         if (simple) return;
         ConfiguredModel.builder().modelFile(modelDefault).build();
         getVariantBuilder(block).forAllStates(state -> {
-            ModelFile finalModel = switch (state.getValue(TurbineRotorBlock.BLADES)) {
-                case 0 -> modelDefault;
-                case 1 -> model1;
-                case 2 -> model2;
-                case 3 -> model3;
-                case 4 -> model4;
-                case 5 -> model5;
-                case 6 -> model6;
-                case 7 -> model7;
-                default -> model8;
+            int count = state.getValue(TurbineRotorBlock.BLADES);
+            Direction direction = state.getValue(TurbineRotorBlock.FACING);
+            String addition = (direction == Direction.NORTH || direction == Direction.SOUTH) ? "_ns" : ((direction == Direction.EAST || direction == Direction.WEST) ? "_ew" : "");
+            ModelFile finalModel = switch (count) {
+                case 0,1,2,3,4,5,6,7,8 -> models().withExistingParent(ItemUtil.getRegString(block) + addition + "_" + count, new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor" + addition + (count != 0 ? "_" + count : ""))).texture("0", texture).texture("particle", texture);
+                default -> models().withExistingParent(ItemUtil.getRegString(block) + addition + "_0", new ResourceLocation(ThoriumReactors.MOD_ID, "generation/turbine_rotor" + addition)).texture("0", texture).texture("particle", texture);
             };
             return ConfiguredModel.builder().modelFile(finalModel).build();
         });

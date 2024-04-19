@@ -83,9 +83,14 @@ public class TurbineControllerBlock extends BaseEntityBlock {
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         BlockPos rotorPos = pos.relative(state.getValue(TurbineControllerBlock.FACING).getOpposite(), 2);
+        boolean horizontal = false;
+        if (level.getBlockState(pos.relative(Direction.UP, 1)).is(ModBlocks.TURBINE_ROTATION_MOUNT.get())) {
+            rotorPos = pos;
+            horizontal = true;
+        }
 
         for (int i = 0; i < 9; i++) {
-            BlockPos loopPos = rotorPos.relative(Direction.UP, i);
+            BlockPos loopPos = rotorPos.relative(horizontal ? state.getValue(TurbineControllerBlock.FACING) : Direction.UP, i);
             BlockState loopState = level.getBlockState(loopPos);
             if (loopState.is(ModBlocks.TURBINE_ROTOR.get())) {
                 level.setBlockAndUpdate(loopPos, loopState.setValue(TurbineRotorBlock.RENDERING, false));
@@ -106,6 +111,7 @@ public class TurbineControllerBlock extends BaseEntityBlock {
 
             int turbineSize = 0;
             boolean canBeAssembled = false;
+            boolean horizontal = false;
             for (int i = 8; i >= 5; i--) {
                 List<Block> turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, i), levelIn);
 
@@ -116,14 +122,36 @@ public class TurbineControllerBlock extends BaseEntityBlock {
                 }
             }
 
+            if (!canBeAssembled) {
+                for (int i = 8; i >= 5; i--) {
+                    List<Block> turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), i + 1).relative(Direction.UP, 3), levelIn);
+
+                    if (TurbineMultiblocks.isTurbine(TurbineMultiblocks.getHorizontalTurbineFromSize(i, facing), turbineBlocks)) {
+                        canBeAssembled = true;
+                        turbineSize = i;
+                        horizontal = true;
+                        break;
+                    }
+                }
+            }
+
             if (entity.isAssembled() != canBeAssembled) {
-                List<BlockPos> turbinePositions = CalculationUtil.getBlockPositions(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, turbineSize), levelIn);
+                List<BlockPos> turbinePositions;
+                List<Block> turbineBlocks;
+
+                if (!horizontal) {
+                    turbinePositions = CalculationUtil.getBlockPositions(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, turbineSize), levelIn);
+                    turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, turbineSize), levelIn);
+                } else {
+                    turbinePositions = CalculationUtil.getBlockPositions(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), turbineSize + 1).relative(Direction.UP, 3), levelIn);
+                    turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), turbineSize + 1).relative(Direction.UP, 3), levelIn);
+                }
 
                 int turbineCount = 0;
                 for (BlockPos turbinePosition : turbinePositions) {
                     BlockState blockState = levelIn.getBlockState(turbinePosition);
                     if (blockState.is(ModBlocks.TURBINE_ROTOR.get())) {
-                        if (blockState.getValue(TurbineRotorBlock.BLADES) == 8 || turbineCount < 2) {
+                        if (blockState.getValue(TurbineRotorBlock.BLADES) == 8 || (!horizontal || (facing == Direction.WEST || facing == Direction.NORTH ? turbineCount >= turbineSize - 2 : turbineCount < 2))) {
                             levelIn.setBlockAndUpdate(turbinePosition, blockState.setValue(TurbineRotorBlock.RENDERING, true));
                         } else {
                             return InteractionResult.FAIL;
@@ -140,12 +168,14 @@ public class TurbineControllerBlock extends BaseEntityBlock {
 
                 entity.setAssembled(canBeAssembled);
                 levelIn.setBlockAndUpdate(pos, state.setValue(POWERED, canBeAssembled));
+
+                if (facing == Direction.SOUTH)
+                    pos = pos.relative(facing.getOpposite(), turbineSize - 3);
                 for (Player curPlayer : levelIn.players())
-                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING)), ParticleTypeEnum.TURBINE, 5, 9, 5), (ServerPlayer) curPlayer);
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING), horizontal, turbineSize), ParticleTypeEnum.TURBINE, facing == Direction.EAST ||facing == Direction.WEST ? (horizontal ? turbineCount + 2 : 5) : 5, 5, facing == Direction.NORTH ||facing == Direction.SOUTH ? (horizontal ? turbineCount + 2 : 5) : 5), (ServerPlayer) curPlayer);
                 entity.setTurbineHeight(turbineSize + 1);
 
-                List<Block> turbineBlocks = CalculationUtil.getBlocks(pos.relative(facing.getClockWise(), 2).relative(Direction.DOWN, 1), pos.relative(facing.getCounterClockWise(), 2).relative(facing.getOpposite(), 4).relative(Direction.UP, turbineSize), levelIn);
-                List<Block> moderatorBlocks = TurbineMultiblocks.getTurbineModeratorBLocks(TurbineMultiblocks.getTurbineFromSize(turbineSize), turbineBlocks);
+                List<Block> moderatorBlocks = TurbineMultiblocks.getTurbineModeratorBLocks(TurbineMultiblocks.getHorizontalTurbineFromSize(turbineSize, facing), turbineBlocks);
 
                 float moderatorModifier = 0f;
                 for (Block moderatorBlock : moderatorBlocks) {
@@ -174,10 +204,10 @@ public class TurbineControllerBlock extends BaseEntityBlock {
         return InteractionResult.CONSUME;
     }
 
-    public BlockPos addParticleOffset(BlockPos pos, Direction direction) {
+    public BlockPos addParticleOffset(BlockPos pos, Direction direction, boolean horizontal, int turbineSize) {
         return switch (direction) {
             case WEST -> pos.offset(0, -1, -2);
-            case EAST -> pos.offset(-4, -1, -2);
+            case EAST -> horizontal ? pos.offset(-turbineSize - 1, -1, -2) : pos.offset(-4, -1, -2);
             case SOUTH -> pos.offset(-2, -1, -4);
             default -> pos.offset(-2, -1, 0);
         };

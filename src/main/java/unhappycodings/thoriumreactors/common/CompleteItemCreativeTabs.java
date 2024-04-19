@@ -118,6 +118,14 @@ public class CompleteItemCreativeTabs {
             index++;
         }
 
+        // Tools And Armor Items
+        ArrayList<Item> toolsAndArmorItems = new ArrayList<>();
+        Collections.addAll(toolsAndArmorItems, ModItems.HAZMAT_SUIT_HELMET.get(), ModItems.HAZMAT_SUIT_CHESTPLATE.get(), ModItems.HAZMAT_SUIT_LEGGINGS.get(), ModItems.HAZMAT_SUIT_BOOTS.get());
+        for (Item i : toolsAndArmorItems) {
+            items.add(index, new ItemStack(i));
+            index++;
+        }
+
         // Resource Items
         ArrayList<Item> resourceItems = new ArrayList<>();
         Collections.addAll(resourceItems, ModItems.SODIUM.get(), ModItems.POTASSIUM.get(), ModItems.URAN_THREE_CHLORIDE.get(), ModItems.YELLOW_CAKE.get(), ModItems.THORIUM.get(), ModItems.RAW_URANIUM.get(), ModItems.ENRICHED_URANIUM.get(), ModItems.DEPLETED_URANIUM.get(), ModItems.FLUORITE.get(), ModItems.GRAPHITE_CRYSTAL.get(), ModItems.CHROMIUM_NUGGET.get(), ModItems.GRAPHITE_NUGGET.get(), ModItems.STEEL_NUGGET.get(), ModItems.BLASTED_IRON_NUGGET.get(), ModItems.TITANIUM_NUGGET.get(), ModItems.MOLYBDENUM_NUGGET.get(), ModItems.COBALT_NUGGET.get(), ModItems.FLUORITE_NUGGET.get(), ModItems.NICKEL_NUGGET.get(), ModItems.URANIUM_NUGGET.get(), ModItems.ALUMINUM_NUGGET.get(), ModItems.MANGANESE_NUGGET.get(), ModItems.NIOB_NUGGET.get(), ModItems.CHROMIUM_INGOT.get(), ModItems.GRAPHITE_INGOT.get(), ModItems.STEEL_INGOT.get(), ModItems.BLASTED_IRON_INGOT.get(), ModItems.TITANIUM_INGOT.get(), ModItems.MOLYBDENUM_INGOT.get(), ModItems.COBALT_INGOT.get(), ModItems.FLUORITE_INGOT.get(), ModItems.NICKEL_INGOT.get(), ModItems.URANIUM_INGOT.get(), ModItems.ALUMINUM_INGOT.get(), ModItems.MANGANESE_INGOT.get(), ModItems.NIOB_INGOT.get());

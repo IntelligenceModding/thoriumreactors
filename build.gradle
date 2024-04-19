@@ -1,5 +1,11 @@
 import java.util.function.Consumer
 
+buildscript {
+    repositories {
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+    }
+}
+
 plugins {
     id "java"
     id "maven-publish"
@@ -115,6 +121,14 @@ repositories { RepositoryHandler handler ->
             includeModule("org.squiddev", "Cobalt")
         }
     }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex("software\\.bernie.*")
+            includeGroup("com.eliotlash.mclib")
+        }
+    }
     exclusiveRepo(handler, 'https://jitpack.io', 'com.github.llamalad7.mixinextras')
     exclusiveRepo(handler, 'https://www.cursemaven.com', 'curse.maven')
     exclusiveRepo(handler, 'https://maven.parchmentmc.org/', 'org.parchmentmc.data')
@@ -136,6 +150,7 @@ dependencies {
     implementation fg.deobf("curse.maven:fusion-${fusion_version}")
     implementation fg.deobf("curse.maven:jade-${jade_version}")
     implementation fg.deobf("cc.tweaked:cc-tweaked-1.20.1-forge:${cc_version}")
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.20.1:4.4.2')
 
     // Runtime only
     runtimeOnly fg.deobf("curse.maven:mek-${mek_version}")

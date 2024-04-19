@@ -23,8 +23,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
     private final byte reactorCurrentLoadSet; // 0-100%
     private final long reactorRunningSince; // timestamp
     private final float reactorStatus; // 0-100%
-    private final float reactorContainment; // 0-100%
-    private final float reactorRadiation; // uSv per hour
+    private final float reactorContamination; // uSv per hour
     private final float reactorPressure; // in PSI
     private final int reactorHeight; // in PSI
     private final ReactorStateEnum reactorState; // STARTING - RUNNING - STOP
@@ -49,7 +48,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
     private final long turbinePowerGeneration; // FE per tick
 
     public ClientReactorControllerDataPacket(BlockPos pos, float reactorTargetTemperature, float reactorCurrentTemperature, byte reactorTargetLoadSet, byte reactorCurrentLoadSet,
-                                             long reactorRunningSince, float reactorStatus, float reactorContainment, float reactorRadiation,
+                                             long reactorRunningSince, float reactorStatus, float reactorContamination,
                                              float reactorPressure, int reactorHeight, ReactorStateEnum reactorState, boolean turbineActivated, boolean turbineCoilsEngaged,
                                              byte turbineTargetFlow, byte turbineCurrentFlow, long turbinePowerGeneration, byte turbineSpeed, byte[] depletedfuelRodStatus, byte[] fuelRodStatus, byte[] controlRodStatus,
                                              FluidStack fluidIn, FluidStack fluidOut, String notification, boolean isReactorActive, boolean isTurbineActive, boolean isExchangerActive, int reactorCapacity, List<BlockPos> turbinePositions) {
@@ -60,8 +59,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
         this.reactorCurrentLoadSet = reactorCurrentLoadSet;
         this.reactorRunningSince = reactorRunningSince;
         this.reactorStatus = reactorStatus;
-        this.reactorContainment = reactorContainment;
-        this.reactorRadiation = reactorRadiation;
+        this.reactorContamination = reactorContamination;
         this.reactorPressure = reactorPressure;
         this.reactorHeight = reactorHeight;
         this.reactorState = reactorState;
@@ -87,7 +85,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
 
     public static ClientReactorControllerDataPacket decode(FriendlyByteBuf buffer) {
         return new ClientReactorControllerDataPacket(buffer.readBlockPos(), buffer.readFloat(), buffer.readFloat(), buffer.readByte(), buffer.readByte(), buffer.readLong(),
-                buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt(), buffer.readEnum(ReactorStateEnum.class),
+                buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt(), buffer.readEnum(ReactorStateEnum.class),
                 buffer.readBoolean(), buffer.readBoolean(), buffer.readByte(), buffer.readByte(), buffer.readLong(), buffer.readByte(), buffer.readByteArray(), buffer.readByteArray(),
                 buffer.readByteArray(), buffer.readFluidStack(), buffer.readFluidStack(), buffer.readUtf(),
                 buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean(), buffer.readInt(), buffer.readList(FriendlyByteBuf::readBlockPos));
@@ -104,8 +102,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
         blockEntity.setReactorCurrentLoadSet(reactorCurrentLoadSet);
         blockEntity.setReactorRunningSince(reactorRunningSince);
         blockEntity.setReactorStatus(reactorStatus);
-        blockEntity.setReactorContainment(reactorContainment);
-        blockEntity.setReactorRadiation(reactorRadiation);
+        blockEntity.setReactorContamination(reactorContamination);
         blockEntity.setReactorPressure(reactorPressure);
         blockEntity.setReactorHeight(reactorHeight);
         blockEntity.setReactorState(reactorState);
@@ -140,8 +137,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
         buffer.writeByte(reactorCurrentLoadSet);
         buffer.writeLong(reactorRunningSince);
         buffer.writeFloat(reactorStatus);
-        buffer.writeFloat(reactorContainment);
-        buffer.writeFloat(reactorRadiation);
+        buffer.writeFloat(reactorContamination);
         buffer.writeFloat(reactorPressure);
         buffer.writeInt(reactorHeight);
         buffer.writeEnum(reactorState);

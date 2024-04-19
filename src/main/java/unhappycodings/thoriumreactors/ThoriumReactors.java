@@ -33,6 +33,7 @@ public class ThoriumReactors {
         ModContainerTypes.register();
         ModRecipes.register();
         ModCreativeTabs.register();
+        ModEffects.register();
 
         bus.addListener(TOPIntegrations::sendIMCs);
 

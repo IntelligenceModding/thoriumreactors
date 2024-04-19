@@ -21,6 +21,10 @@ public class TurbineBladeModel<T extends Entity> extends EntityModel<T> {
         this.bb_main = root.getChild("bb_main");
     }
 
+    public void setRotation(float x, float y, float z) {
+        this.bb_main.setRotation(x, y, z);
+    }
+
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();

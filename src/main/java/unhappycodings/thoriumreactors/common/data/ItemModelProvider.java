@@ -17,6 +17,11 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
     @Override
     protected void registerModels() {
+        simpleItem(ModItems.HAZMAT_SUIT_HELMET.get());
+        simpleItem(ModItems.HAZMAT_SUIT_CHESTPLATE.get());
+        simpleItem(ModItems.HAZMAT_SUIT_LEGGINGS.get());
+        simpleItem(ModItems.HAZMAT_SUIT_BOOTS.get());
+
         simpleItem(ModItems.GRAPHITE_CRYSTAL.get());
         simpleItem(ModItems.GRAPHITE_INGOT.get());
         simpleItem(ModItems.GRAPHITE_TUBE.get());
@@ -86,6 +91,9 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.MODULE_TANK.get());
         simpleItem(ModItems.MODULE_SENSOR.get());
         simpleItem(ModItems.MODULE_PROCESSING.get());
+
+        simpleItem(ModItems.ACCELERATION_UPGRADE.get());
+        simpleItem(ModItems.FABRICATION_UPGRADE.get());
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/factory_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INVERTED_FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/inverted_factory_block"));

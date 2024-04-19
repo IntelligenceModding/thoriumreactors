@@ -28,7 +28,7 @@ public class ReactorControllerContainer extends BaseContainer {
         ReactorControllerBlockEntity entity = (ReactorControllerBlockEntity) this.tileEntity;
 
         PacketHandler.sendToClient(new ClientReactorControllerDataPacket(entity.getBlockPos(), entity.getReactorTargetTemperature(), entity.getReactorCurrentTemperature(), entity.getReactorTargetLoadSet(), entity.getReactorCurrentLoadSet(),
-                entity.getReactorRunningSince(), entity.getReactorStatus(), entity.getReactorContainment(), entity.getReactorRadiation(),
+                entity.getReactorRunningSince(), entity.getReactorStatus(), entity.getReactorContamination(),
                 entity.getReactorPressure(), entity.getReactorHeight(), entity.getReactorState(), entity.isTurbineActivated(), entity.isTurbineCoilsEngaged(), entity.getTurbineTargetFlow(),
                 entity.getTurbineCurrentFlow(), entity.getTurbinePowerGeneration(), entity.getTurbineSpeed(), entity.getDepletedFuelRodStatus() ,entity.getFuelRodStatus(), entity.getControlRodStatus(),
                 entity.getFluidIn(), entity.getFluidOut(), entity.getNotification(), entity.isReactorActive(), entity.isTurbineActive(), entity.isExchangerActive(), entity.getReactorCapacity(), entity.getTurbinePos()), (ServerPlayer) inventory.player);

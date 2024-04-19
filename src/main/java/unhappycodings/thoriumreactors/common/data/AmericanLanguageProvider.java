@@ -3,6 +3,7 @@ package unhappycodings.thoriumreactors.common.data;
 import net.minecraft.data.DataGenerator;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
+import unhappycodings.thoriumreactors.common.registration.ModEffects;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 
 public class AmericanLanguageProvider extends net.minecraftforge.common.data.LanguageProvider {
@@ -147,6 +148,11 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModItems.TURBINE_BLADE.get(), "Turbine Blade");
         add(ModItems.TURBINE_BLADE.get().getDescriptionId() + "_description", "Needed in a turbine for energy production.");
 
+        add(ModItems.ACCELERATION_UPGRADE.get(), "Acceleration Upgrade");
+        add(ModItems.ACCELERATION_UPGRADE.get().getDescriptionId() + "_description", "Increases the machine speed! Can be stacked.");
+        add(ModItems.FABRICATION_UPGRADE.get(), "Fabrication Upgrade");
+        add(ModItems.FABRICATION_UPGRADE.get().getDescriptionId() + "_description", "Improves the machine fabrication, results in higher production! Can be stacked.");
+
         add(ModItems.GRAPHITE_TUBE.get(), "Graphite Tube");
         add(ModItems.GRAPHITE_CRYSTAL.get(), "Graphite");
 
@@ -204,6 +210,13 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModItems.ENRICHED_URANIUM_HEXAFLUORITE_BUCKET.get(), "Enriched Uranium Hexafluorite Bucket");
         add(ModItems.STEAM_BUCKET.get(), "Steam Bucket");
 
+        add(ModItems.HAZMAT_SUIT_HELMET.get(), "Hazmat Gas Mask");
+        add(ModItems.HAZMAT_SUIT_CHESTPLATE.get(), "Hazmat Vest");
+        add(ModItems.HAZMAT_SUIT_LEGGINGS.get(), "Hazmat Pants");
+        add(ModItems.HAZMAT_SUIT_BOOTS.get(), "Hazmat Boots");
+
+        add(ModEffects.RADIATION.get(), "Radiation Exposure");
+
         addGuiText("machines.state.idle", "Idle");
         addGuiText("machines.state.running", "Running");
 
@@ -234,7 +247,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("machines.tooltip.make_space", "Make space above it!");
         addGuiText("machines.tooltip.hold", "Hold ");
         addGuiText("machines.tooltip.for_details", " for further details.");
-        addGuiText("machines.tooltip.for_description", " for a block description.");
+        addGuiText("machines.tooltip.for_description", " for a description.");
         addGuiText("machines.tooltip.capacity", "Capacity: ");
 
         addGuiText("machines.concentrator.name", "Concentrating");
@@ -304,7 +317,7 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         addGuiText("reactor.text.main_power", "MAIN POWER");
         addGuiText("reactor.text.reactor_status", "REACTOR STATUS");
         addGuiText("reactor.text.reactor_load", "REACTOR LOAD");
-        addGuiText("reactor.text.containment", "CONTAINMENT");
+        addGuiText("reactor.text.contamination", "CONTAMINATION");
         addGuiText("reactor.text.radiation", "RADIATION");
         addGuiText("reactor.text.temp", "TEMP");
         addGuiText("reactor.text.flow", "FLOW");
