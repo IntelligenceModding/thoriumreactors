@@ -18,8 +18,8 @@ import unhappycodings.thoriumreactors.client.gui.widgets.ModButton;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.editbox.ModEditBox;
-import unhappycodings.thoriumreactors.common.enums.ReactorButtonTypeEnum;
-import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
+import unhappycodings.thoriumreactors.common.enums.ReactorButtonType;
+import unhappycodings.thoriumreactors.common.enums.ReactorState;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.*;
 import unhappycodings.thoriumreactors.common.network.toserver.reactor.ReactorControllerChangedPacket;
@@ -112,14 +112,14 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     }
 
-    public void trySetValue(ReactorButtonTypeEnum typeEnum) {
+    public void trySetValue(ReactorButtonType typeEnum) {
         ReactorControllerBlockEntity entity = container.getTile();
         try {
-            if (typeEnum == ReactorButtonTypeEnum.TEMP && Integer.parseInt(inputBox1.getValue()) <= ReactorControllerBlockEntity.MAX_HEAT && Integer.parseInt(inputBox1.getValue()) >= 0)
+            if (typeEnum == ReactorButtonType.TEMP && Integer.parseInt(inputBox1.getValue()) <= ReactorControllerBlockEntity.MAX_HEAT && Integer.parseInt(inputBox1.getValue()) >= 0)
                 PacketHandler.sendToServer(new ReactorControllerTemperaturePacket(entity.getBlockPos(), Short.parseShort(inputBox1.getValue())));
-            if (typeEnum == ReactorButtonTypeEnum.LOAD && Integer.parseInt(inputBox2.getValue()) <= 100 && Integer.parseInt(inputBox2.getValue()) >= 0)
+            if (typeEnum == ReactorButtonType.LOAD && Integer.parseInt(inputBox2.getValue()) <= 100 && Integer.parseInt(inputBox2.getValue()) >= 0)
                 PacketHandler.sendToServer(new ReactorControllerLoadPacket(entity.getBlockPos(), Byte.parseByte(inputBox2.getValue())));
-            if (typeEnum == ReactorButtonTypeEnum.RODS && Integer.parseInt(inputBox3.getValue()) <= 100 && Integer.parseInt(inputBox3.getValue()) >= 0)
+            if (typeEnum == ReactorButtonType.RODS && Integer.parseInt(inputBox3.getValue()) <= 100 && Integer.parseInt(inputBox3.getValue()) >= 0)
                 PacketHandler.sendToServer(new ReactorControllerRodInsertPacket(entity.getBlockPos(), Byte.parseByte(inputBox3.getValue()), (byte) selectedRod, hasShiftDown()));
         } catch (NumberFormatException ignored) {
         }
@@ -127,19 +127,19 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     public void setTurbineCoils(boolean value) {
         ReactorControllerBlockEntity entity = container.getTile();
-        if (entity.getTurbinePos().size() <= 0) return;
+        if (entity.getTurbinePos().isEmpty()) return;
         PacketHandler.sendToServer(new TurbineCoilsPacket(entity.getTurbinePos().get(selectedTurbine), value));
     }
 
     public void setTurbineActive(boolean value) {
         ReactorControllerBlockEntity entity = container.getTile();
-        if (entity.getTurbinePos().size() <= 0) return;
+        if (entity.getTurbinePos().isEmpty()) return;
         PacketHandler.sendToServer(new TurbineActivePacket(entity.getTurbinePos().get(selectedTurbine), value));
     }
 
     public void setTurbineFlow(boolean reverse) {
         ReactorControllerBlockEntity entity = container.getTile();
-        if (entity.getTurbinePos().size() <= 0) return;
+        if (entity.getTurbinePos().isEmpty()) return;
         int xPos = width - (getMainSizeX() / 2);
         int yPos = height - (getMainSizeY() / 2);
         boolean mouseOver = ScreenUtil.mouseInArea((xPos + 514) / 2, (yPos + 149) / 2, (xPos + 514 + 28) / 2, (yPos + 149 + 19) / 2, curMouseX, curMouseY);
@@ -296,7 +296,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             // blinking indicators
             String status = entity.isScrammed() ? "scram" : ((entity.getReactorCurrentTemperature() / 971) * 100) > 104 ? ((entity.getReactorCurrentTemperature() / 971) * 100) > 114 ? "critical" : "overload" : "normal";
             graphics.blit(getBackgroundTexture(), xPos - 205, yPos + 342, (ticks % 20 < 10 ? 991 : 1003) + (entity.isScrammed() ? -24 : 0), 154, 12, 12, 1024, 1024); // left right bottom
-            graphics.blit(getBackgroundTexture(), xPos + (450 - Minecraft.getInstance().font.width(Component.translatable("text.thoriumreactors.inventory.reactor.text." + status).getString()) * 2 - 13), yPos + 183, (ticks % 20 < 10 ? 991 : 1003) - (entity.isScrammed() ? 24 : 0) - (((entity.getReactorCurrentTemperature() / 971) * 100) > 104 && !entity.isScrammed() ? 24 : 0), 154 + (entity.isScrammed() ? 0 : 12), 12, 12, 1024, 1024); // left right bottom
+            graphics.blit(getBackgroundTexture(), xPos + (450 - Minecraft.getInstance().font.width(Component.translatable("text.thoriumreactors.inventory.reactor.text." + status).getString()) * 2 - 13), yPos + 182, (ticks % 20 < 10 ? 991 : 1003) - (entity.isScrammed() ? 24 : 0) - (((entity.getReactorCurrentTemperature() / 971) * 100) > 104 && !entity.isScrammed() ? 24 : 0), 154 + (entity.isScrammed() || status.equals("critical") ? 0 : 12), 12, 12, 1024, 1024); // left right bottom
         }
 
         if (rightSideButtonsAdded) {
@@ -306,18 +306,18 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             graphics.blit(getBackgroundTexture(), xPos + 515, yPos + 149, 166, !entity.getTurbinePos().isEmpty() ? incrementerFlow.isMouseOver(curMouseX, curMouseY) ? (mouseOverIncrementFlow ? 449 + 19 : 449 + 38) : 449 : 900, 58, 19, 1024, 1024); // right incrementer speed bottom
 
             // state buttons right
-            if (entity.getReactorState() == ReactorStateEnum.STARTING)
+            if (entity.getReactorState() == ReactorState.STARTING)
                 graphics.blit(getBackgroundTexture(), xPos + 514, yPos + 261, 83, mouseOverStart ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
-            if (entity.getReactorState() == ReactorStateEnum.RUNNING)
+            if (entity.getReactorState() == ReactorState.RUNNING)
                 graphics.blit(getBackgroundTexture(), xPos + 514, yPos + 289, 0, mouseOverRunning ? 512 : 491, 83, 21, 1024, 1024); // left right bottom
-            if (entity.getReactorState() == ReactorStateEnum.STOP)
+            if (entity.getReactorState() == ReactorState.STOP)
                 graphics.blit(getBackgroundTexture(), xPos + 514, yPos + 316, 0, mouseOverStop ? 470 : 449, 83, 21, 1024, 1024); // left right bottom
 
             // scram button
             graphics.blit(getBackgroundTexture(), xPos + 627, yPos + 301, 166, scramButton.isMouseOver(curMouseX, curMouseY) ? 540 : 506, 80, 34, 1024, 1024);
 
             // turbine buttons
-            if (container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
+            if (!entity.getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
                 if (targetEntity.isCoilsEngaged())
                     graphics.blit(getBackgroundTexture(), xPos + 590, yPos + 86, 82, (!coilEngageButton.isMouseOver(curMouseX, curMouseY) ? 533 : 555) + (targetEntity.isCoilsEngaged() ? 0 : 44), 52, 22, 1024, 1024);
 
@@ -367,7 +367,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         PacketHandler.sendToServer(new ReactorControllerChangedPacket(this.getMenu().getTile().getBlockPos()));
     }
 
-    private void changeReactorState(ReactorStateEnum state) {
+    private void changeReactorState(ReactorState state) {
         PacketHandler.sendToServer(new ReactorControllerStatePacket(this.getMenu().getTile().getBlockPos(), state));
         sendChangedPacket();
     }
@@ -412,9 +412,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             addWidget(deactivateButton);
 
             // State buttons
-            addWidget(new ModButton(220, 101, 41, 11, null, () -> changeReactorState(ReactorStateEnum.STARTING), null, entity, this, 0, 0, true));
-            addWidget(new ModButton(220, 115, 41, 11, null, () -> changeReactorState(ReactorStateEnum.RUNNING), null, entity, this, 0, 0, true));
-            addWidget(new ModButton(220, 128, 41, 11, null, () -> changeReactorState(ReactorStateEnum.STOP), null, entity, this, 0, 0, true));
+            addWidget(new ModButton(220, 101, 41, 11, null, () -> changeReactorState(ReactorState.STARTING), null, entity, this, 0, 0, true));
+            addWidget(new ModButton(220, 115, 41, 11, null, () -> changeReactorState(ReactorState.RUNNING), null, entity, this, 0, 0, true));
+            addWidget(new ModButton(220, 128, 41, 11, null, () -> changeReactorState(ReactorState.STOP), null, entity, this, 0, 0, true));
 
             // Scram button
             scramButton = new ModButton(276, 120, 41, 19, null, this::scram, null, entity, this, 0, 0, true);
@@ -428,9 +428,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         // LEFT SIDE
         if (ClientConfig.showLeftReactorScreenArea.get() && !leftSideButtonsAdded) {
             // Set buttons
-            rodSetButton = new ModButton(-142, +44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.RODS), null, entity, this, 0, 0, true); // Left
-            loadSetButton = new ModButton(-108, +44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.LOAD), null, entity, this, 0, 0, true); // Middle
-            tempSetButton = new ModButton(-72, +44, 25, 12, null, () -> trySetValue(ReactorButtonTypeEnum.TEMP), null, entity, this, 0, 0, true); // Right
+            rodSetButton = new ModButton(-142, +44, 25, 12, null, () -> trySetValue(ReactorButtonType.RODS), null, entity, this, 0, 0, true); // Left
+            loadSetButton = new ModButton(-108, +44, 25, 12, null, () -> trySetValue(ReactorButtonType.LOAD), null, entity, this, 0, 0, true); // Middle
+            tempSetButton = new ModButton(-72, +44, 25, 12, null, () -> trySetValue(ReactorButtonType.TEMP), null, entity, this, 0, 0, true); // Right
             addWidget(rodSetButton);
             addWidget(loadSetButton);
             addWidget(tempSetButton);
@@ -547,7 +547,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         PoseStack pPoseStack = graphics.pose();
         pPoseStack.pushPose();
         pPoseStack.scale(0.14f, 0.14f, 0.14f);
-        if (container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity)
+        if (container.getTile().getTurbinePos().isEmpty())
+            renderRadialProgress(graphics, 1550, 14, 0, ""); // Middle
+        else if (container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity)
             renderRadialProgress(graphics, 1550, 14, (int) Math.floor(targetEntity.getTargetFlowrate() / 2500 * 100), ""); // Middle
         pPoseStack.popPose();
     }
@@ -618,7 +620,7 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
                 fuelValue += container.getTile().getFuelRodStatus()[i];
         }
         TurbineControllerBlockEntity targetEntity = null;
-        if (container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity turbineEntity)
+        if (!container.getTile().getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity turbineEntity)
             targetEntity = turbineEntity;
 
         // very, very small text
@@ -657,9 +659,9 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
             ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.use_configurator_to_link")).withStyle(ChatFormatting.GRAY).withStyle(ScreenUtil::notoSans), graphics, 385, 102);
         }
 
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.start")).withStyle(ScreenUtil::notoSans), graphics, 345, 149, entity.getReactorState() != ReactorStateEnum.STARTING ? 19459 : 43275, false);
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.run")).withStyle(ScreenUtil::notoSans), graphics, 345, 169, entity.getReactorState() != ReactorStateEnum.RUNNING ? 4994325 : 11566128, false);
-        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.stop")).withStyle(ScreenUtil::notoSans), graphics, 345, 188, entity.getReactorState() != ReactorStateEnum.STOP ? 4983826 : 12459309, false);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.start")).withStyle(ScreenUtil::notoSans), graphics, 345, 149, entity.getReactorState() != ReactorState.STARTING ? 19459 : 43275, false);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.run")).withStyle(ScreenUtil::notoSans), graphics, 345, 169, entity.getReactorState() != ReactorState.RUNNING ? 4994325 : 11566128, false);
+        ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.stop")).withStyle(ScreenUtil::notoSans), graphics, 345, 188, entity.getReactorState() != ReactorState.STOP ? 4983826 : 12459309, false);
 
         ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.insert_rods")).withStyle(ScreenUtil::notoSans), graphics, 424, 150, 16711422);
         ScreenUtil.drawCenteredText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.into_core")).withStyle(ScreenUtil::notoSans), graphics, 424, 159, 16711422);
@@ -715,10 +717,14 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.speed_cap")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.rpm")))).withStyle(ScreenUtil::notoSans), graphics, 117, 189, 11184810);
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.generation")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.fet")))).withStyle(ScreenUtil::notoSans), graphics, 185, 189, 11184810);
         ScreenUtil.drawCenteredText(Component.literal(String.valueOf(Math.round(entity.getReactorCurrentTemperature() * 10f) / 10f)).withStyle(ScreenUtil::notoSans), graphics, 7, 202, 16711422);
-        if (container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
+        if (!entity.getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
             ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity.getCurrentFlowrate())).withStyle(ScreenUtil::notoSans), graphics, 76, 202, 16711422);
             ScreenUtil.drawCenteredText(Component.literal(String.valueOf(Math.floor(targetEntity.getRpm() * 100f) / 100f)).withStyle(ScreenUtil::notoSans), graphics, 145, 202, 16711422);
             ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity.getTurbineGeneration())).withStyle(ScreenUtil::notoSans), graphics, 215, 202, 16711422);
+        } else {
+            ScreenUtil.drawCenteredText(Component.literal("0.0").withStyle(ScreenUtil::notoSans), graphics, 76, 202, 16711422);
+            ScreenUtil.drawCenteredText(Component.literal("0.0").withStyle(ScreenUtil::notoSans), graphics, 145, 202, 16711422);
+            ScreenUtil.drawCenteredText(Component.literal("0.0").withStyle(ScreenUtil::notoSans), graphics, 215, 202, 16711422);
         }
         pPoseStack.popPose();
 
@@ -768,7 +774,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     public void updateFlowGraphData() {
         float value = 0;
-        if (container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
+
+        if (!this.container.getTile().getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
             value = targetEntity.getCurrentFlowrate();
         }
         if (flowIntegers < flowGraphValues.length) {
@@ -783,7 +790,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     public void updateSpeedGraphData() {
         float value = 0;
-        if (container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
+
+        if (!this.container.getTile().getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
             value = (float) (Math.floor(targetEntity.getRpm() * 100) / 100);
         }
         if (speedIntegers < speedGraphValues.length) {
@@ -798,7 +806,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
 
     public void updateGenerationGraphData() {
         float value = 0;
-        if (container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
+
+        if (!this.container.getTile().getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
             value = targetEntity.getTurbineGeneration();
         }
         if (generationIntegers < generationGraphValues.length) {
