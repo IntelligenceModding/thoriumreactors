@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.base.TurbineFrameBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ParticleType;
 import unhappycodings.thoriumreactors.common.multiblock.TurbineMultiblocks;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
@@ -172,7 +172,7 @@ public class TurbineControllerBlock extends BaseEntityBlock {
                 if (facing == Direction.SOUTH)
                     pos = pos.relative(facing.getOpposite(), turbineSize - 3);
                 for (Player curPlayer : levelIn.players())
-                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING), horizontal, turbineSize), ParticleTypeEnum.TURBINE, facing == Direction.EAST ||facing == Direction.WEST ? (horizontal ? turbineCount + 2 : 5) : 5, 5, facing == Direction.NORTH ||facing == Direction.SOUTH ? (horizontal ? turbineCount + 2 : 5) : 5), (ServerPlayer) curPlayer);
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(TurbineControllerBlock.FACING), horizontal, turbineSize), ParticleType.TURBINE, facing == Direction.EAST ||facing == Direction.WEST ? (horizontal ? turbineCount + 2 : 5) : 5, 5, facing == Direction.NORTH ||facing == Direction.SOUTH ? (horizontal ? turbineCount + 2 : 5) : 5), (ServerPlayer) curPlayer);
                 entity.setTurbineHeight(turbineSize + 1);
 
                 List<Block> moderatorBlocks = TurbineMultiblocks.getTurbineModeratorBLocks(TurbineMultiblocks.getHorizontalTurbineFromSize(turbineSize, facing), turbineBlocks);

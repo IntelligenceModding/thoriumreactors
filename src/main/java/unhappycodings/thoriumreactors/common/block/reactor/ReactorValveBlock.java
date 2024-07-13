@@ -23,18 +23,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.reactor.base.ReactorFrameBlock;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ValveType;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
 public class ReactorValveBlock extends ReactorFrameBlock {
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
-    public static final EnumProperty<ValveTypeEnum> TYPE = EnumProperty.create("type", ValveTypeEnum.class);
+    public static final EnumProperty<ValveType> TYPE = EnumProperty.create("type", ValveType.class);
 
     public ReactorValveBlock() {
         super(Properties.copy(Blocks.IRON_BLOCK).strength(5f));
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ValveTypeEnum.ITEM_INPUT));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ValveType.ITEM_INPUT));
     }
 
     @SuppressWarnings("deprecation")
@@ -56,7 +56,7 @@ public class ReactorValveBlock extends ReactorFrameBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(TYPE, ValveTypeEnum.ITEM_INPUT);
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(TYPE, ValveType.ITEM_INPUT);
     }
 
     @Override

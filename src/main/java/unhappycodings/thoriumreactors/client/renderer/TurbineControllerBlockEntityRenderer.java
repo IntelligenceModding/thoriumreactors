@@ -289,7 +289,7 @@ public class TurbineControllerBlockEntityRenderer<T extends BlockEntity> impleme
 
         for (float i = 0; i < 3; i += 0.5f) {
             for (float e = 0; e < 3; e += 0.5f) {
-                level.addParticle(ParticleTypes.CLOUD, true, pos.getX() + 0.2f + (horizontal ? isRotated ? -e : 0 : xOffset + i - 1), pos.getY() + (horizontal ? 0 + i : 0.2), pos.getZ() + 0.2f + (horizontal ? isRotated ? 0 : e : yOffset + e - 1), 0, 0, 0);
+                level.addParticle(ParticleTypes.CLOUD, true, pos.getX() + (horizontal ? isRotated ? -e + 0.5 : 0 : xOffset + i - 1) + (direction == Direction.EAST ? 0.8f : 0.2f), pos.getY() + (horizontal ? 0 + i : 0.2), pos.getZ() + (horizontal ? isRotated ? 0 : e : yOffset + e - 1) + (direction == Direction.SOUTH ? 0.8f : 0.2f), 0, 0, 0);
             }
         }
 

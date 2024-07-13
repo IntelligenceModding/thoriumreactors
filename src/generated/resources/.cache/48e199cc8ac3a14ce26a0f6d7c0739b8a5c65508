@@ -1,4 +1,4 @@
-// 1.20.1	2024-03-03T15:44:22.8332115	Item Tags
+// 1.20.1	2024-07-06T22:46:20.1080226	Item Tags
 79465571b0f1a0d11b885acfe229b73a494730f5 data/forge/tags/items/gems.json
 79465571b0f1a0d11b885acfe229b73a494730f5 data/forge/tags/items/gems/fluorite.json
 3d3387440d5d895a5e0a0f234a766380e9ed7b89 data/forge/tags/items/ingots.json
@@ -33,10 +33,21 @@ f6afcfca0d1ffea4de2242a54eb4bed39f8a754a data/forge/tags/items/nuggets/nickel.js
 e5d13ee25949d3977f9e928742d236a1a91a4dbc data/forge/tags/items/nuggets/steel.json
 22e21daf0cf01118b1eae7674930a70c1ed280be data/forge/tags/items/nuggets/titanium.json
 eb6d9681e75bca3890e401756acce3b8789a4af1 data/forge/tags/items/nuggets/uranium.json
+da3ccae24434d6e2be09ed0fca7751d500415baa data/forge/tags/items/raw_materials/aluminium.json
+da3ccae24434d6e2be09ed0fca7751d500415baa data/forge/tags/items/raw_materials/aluminum.json
+da3ccae24434d6e2be09ed0fca7751d500415baa data/forge/tags/items/raw_materials/bauxite.json
+25a40b1619f2b593f21d1a17558fa262fb335855 data/forge/tags/items/raw_materials/chrome.json
+25a40b1619f2b593f21d1a17558fa262fb335855 data/forge/tags/items/raw_materials/chromite.json
 1238ac56ed627b6f19619b9b60f9461e4700fd91 data/forge/tags/items/raw_materials/graphite.json
+4e066b02b2adfd0023b801c71a06c2225f14689f data/forge/tags/items/raw_materials/manganese.json
+e143bedd6351eebd75f28867c84a59c5af5de254 data/forge/tags/items/raw_materials/molybdenum.json
+6bd6298cc8dc72be16f1e434a65b67c4cda71cbf data/forge/tags/items/raw_materials/nickel.json
 7ab51763b1b590b6038189e13bd2bf028ef2c624 data/forge/tags/items/raw_materials/potassium.json
+b24b58ab70531a5b4425b7a48fe1125940a3420b data/forge/tags/items/raw_materials/pyrochlore.json
 8ebbb37fd328e53a4a44d37f80ddd915a6e2e544 data/forge/tags/items/raw_materials/sodium.json
 8976c68da6cad1ba63cc7539de48b827a46193df data/forge/tags/items/raw_materials/thorium.json
+b4c84263df975534e59fd513191007568828d99c data/forge/tags/items/raw_materials/titanic_iron.json
+b4c84263df975534e59fd513191007568828d99c data/forge/tags/items/raw_materials/titanium.json
 4a12a0797c7a27ea3aa081c4cdfee9b273ed7aaa data/forge/tags/items/raw_materials/uranium.json
 eae1c0baf6d6a711c4e6880a0d6f00c2b54c8361 data/forge/tags/items/storage_blocks/aluminium.json
 eae1c0baf6d6a711c4e6880a0d6f00c2b54c8361 data/forge/tags/items/storage_blocks/aluminum.json

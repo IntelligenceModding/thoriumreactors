@@ -1,8 +1,13 @@
 package unhappycodings.thoriumreactors.common.event;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,7 +26,10 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.NoteBlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.forgespi.language.IModInfo;
+import net.minecraftforge.forgespi.locating.IModFile;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.common.capability.RadiationSavedData;
@@ -35,6 +43,7 @@ import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.util.RadiationUtil;
 
 import java.util.Date;
+import java.util.List;
 
 @Mod.EventBusSubscriber(modid = ThoriumReactors.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvents {
@@ -45,7 +54,18 @@ public class ModEvents {
             if (event.getEntity().getUUID().equals("a2bb5fa4-cb70-4234-83c1-5302d7043c5f") && event.getResult() != Event.Result.DENY) {
                 ServerLifecycleHooks.getCurrentServer().getPlayerList().broadcastSystemMessage(Component.literal("Oh, look! " + event.getEntity().getName().getString() + ", the designer of ThoriumReactors joined!"), false);
             }
+
+            if (ModList.get().isLoaded("fusion")) {
+                List<IModInfo> mods = ModList.get().getMods();
+
+                if (!mods.stream().filter((iModInfo -> iModInfo.getModId().equals("fusion"))).findFirst().get().getConfig().getConfigElement("authors").get().toString().equals("SuperMartjn642")) {
+                    event.getEntity().sendSystemMessage(Component.literal("Warning!").withStyle(Style.EMPTY.withColor(ChatFormatting.DARK_RED)));
+                    event.getEntity().sendSystemMessage(Component.literal("You do not have the right Fusion (Connected Textures) Mod installed! This will break the mods appearance and functionality!").withStyle(Style.EMPTY.withColor(ChatFormatting.RED)));
+                    event.getEntity().sendSystemMessage(Component.literal("Click here to download and make sure to delete other mods with the same ModID! (As the fusion alloy mod by skrallexy)").withStyle(Style.EMPTY.withColor(ChatFormatting.RED).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.curseforge.com/minecraft/mc-mods/fusion-connected-textures"))));
+                }
+            }
         }
+
     }
 
     private static boolean hasPlayedBefore(Player player) {

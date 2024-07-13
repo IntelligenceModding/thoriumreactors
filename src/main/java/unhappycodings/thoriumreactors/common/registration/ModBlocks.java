@@ -114,8 +114,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> DEEPSLATE_FLUORITE_ORE = register("deepslate_fluorite_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4.5F, 3.0F)));
 
     // Blocks
-    public static final RegistryObject<Block> BLASTED_STONE = register("blasted_stone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
     public static final RegistryObject<Block> THORIUM_BLOCK = register("thorium_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+    public static final RegistryObject<Block> RAW_URANIUM_BLOCK = register("raw_uranium_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+    public static final RegistryObject<Block> RAW_TITANIC_IRON_BLOCK = register("raw_titanic_iron_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+    public static final RegistryObject<Block> RAW_PYROCHLORE_BLOCK = register("raw_pyrochlore_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+    public static final RegistryObject<Block> RAW_MOLYBDENUM_BLOCK = register("raw_molybdenum_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+    public static final RegistryObject<Block> RAW_BAUXITE_BLOCK = register("raw_bauxite_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+    public static final RegistryObject<Block> RAW_NICKEL_BLOCK = register("raw_nickel_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+    public static final RegistryObject<Block> RAW_MANGANESE_BLOCK = register("raw_manganese_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+    public static final RegistryObject<Block> RAW_CHROMITE_BLOCK = register("raw_chromite_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
+
+    public static final RegistryObject<Block> BLASTED_STONE = register("blasted_stone", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(5f)));
     public static final RegistryObject<Block> BLASTED_IRON_BLOCK = register("blasted_iron_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(6f)));
     public static final RegistryObject<Block> STEEL_BLOCK = register("steel_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.GOLD_BLOCK).strength(6f)));
     public static final RegistryObject<Block> MANGANESE_BLOCK = register("manganese_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(4f)));

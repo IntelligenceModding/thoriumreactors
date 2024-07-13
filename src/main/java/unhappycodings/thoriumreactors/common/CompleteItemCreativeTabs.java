@@ -14,6 +14,7 @@ import net.minecraft.world.level.material.WaterFluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
@@ -120,7 +121,7 @@ public class CompleteItemCreativeTabs {
 
         // Tools And Armor Items
         ArrayList<Item> toolsAndArmorItems = new ArrayList<>();
-        Collections.addAll(toolsAndArmorItems, ModItems.HAZMAT_SUIT_HELMET.get(), ModItems.HAZMAT_SUIT_CHESTPLATE.get(), ModItems.HAZMAT_SUIT_LEGGINGS.get(), ModItems.HAZMAT_SUIT_BOOTS.get());
+        Collections.addAll(toolsAndArmorItems, ModItems.HAZMAT_SUIT_HELMET.get(), ModItems.HAZMAT_SUIT_CHESTPLATE.get(), ModItems.HAZMAT_SUIT_LEGGINGS.get(), ModItems.HAZMAT_SUIT_BOOTS.get(), ModItems.GAS_MASK.get(), ModItems.THORIUM_SWORD.get(), ModItems.THORIUM_SHOVEL.get(), ModItems.THORIUM_PICKAXE.get(), ModItems.THORIUM_AXE.get(), ModItems.THORIUM_HOE.get(), ModItems.MULTITOOL.get(), ModItems.GEIGER_COUNTER.get(), ModItems.DOSI_METER.get());
         for (Item i : toolsAndArmorItems) {
             items.add(index, new ItemStack(i));
             index++;
@@ -128,7 +129,9 @@ public class CompleteItemCreativeTabs {
 
         // Resource Items
         ArrayList<Item> resourceItems = new ArrayList<>();
-        Collections.addAll(resourceItems, ModItems.SODIUM.get(), ModItems.POTASSIUM.get(), ModItems.URAN_THREE_CHLORIDE.get(), ModItems.YELLOW_CAKE.get(), ModItems.THORIUM.get(), ModItems.RAW_URANIUM.get(), ModItems.ENRICHED_URANIUM.get(), ModItems.DEPLETED_URANIUM.get(), ModItems.FLUORITE.get(), ModItems.GRAPHITE_CRYSTAL.get(), ModItems.CHROMIUM_NUGGET.get(), ModItems.GRAPHITE_NUGGET.get(), ModItems.STEEL_NUGGET.get(), ModItems.BLASTED_IRON_NUGGET.get(), ModItems.TITANIUM_NUGGET.get(), ModItems.MOLYBDENUM_NUGGET.get(), ModItems.COBALT_NUGGET.get(), ModItems.FLUORITE_NUGGET.get(), ModItems.NICKEL_NUGGET.get(), ModItems.URANIUM_NUGGET.get(), ModItems.ALUMINUM_NUGGET.get(), ModItems.MANGANESE_NUGGET.get(), ModItems.NIOB_NUGGET.get(), ModItems.CHROMIUM_INGOT.get(), ModItems.GRAPHITE_INGOT.get(), ModItems.STEEL_INGOT.get(), ModItems.BLASTED_IRON_INGOT.get(), ModItems.TITANIUM_INGOT.get(), ModItems.MOLYBDENUM_INGOT.get(), ModItems.COBALT_INGOT.get(), ModItems.FLUORITE_INGOT.get(), ModItems.NICKEL_INGOT.get(), ModItems.URANIUM_INGOT.get(), ModItems.ALUMINUM_INGOT.get(), ModItems.MANGANESE_INGOT.get(), ModItems.NIOB_INGOT.get());
+
+        Collections.addAll(resourceItems, ModItems.SODIUM.get(), ModItems.POTASSIUM.get(), ModItems.URAN_THREE_CHLORIDE.get(), ModItems.YELLOW_CAKE.get(), ModItems.THORIUM.get(),
+                ModItems.RAW_URANIUM.get(), ModItems.RAW_TITANIC_IRON.get(), ModItems.RAW_PYROCHLORE.get(), ModItems.RAW_MOLYBDENUM.get(), ModItems.RAW_BAUXITE.get(), ModItems.RAW_NICKEL.get(), ModItems.RAW_MANGANESE.get(), ModItems.RAW_CHROMITE.get(), ModItems.ENRICHED_URANIUM.get(), ModItems.DEPLETED_URANIUM.get(), ModItems.FLUORITE.get(), ModItems.GRAPHITE_CRYSTAL.get(), ModItems.CHROMIUM_NUGGET.get(), ModItems.GRAPHITE_NUGGET.get(), ModItems.STEEL_NUGGET.get(), ModItems.BLASTED_IRON_NUGGET.get(), ModItems.TITANIUM_NUGGET.get(), ModItems.MOLYBDENUM_NUGGET.get(), ModItems.COBALT_NUGGET.get(), ModItems.FLUORITE_NUGGET.get(), ModItems.NICKEL_NUGGET.get(), ModItems.URANIUM_NUGGET.get(), ModItems.ALUMINUM_NUGGET.get(), ModItems.MANGANESE_NUGGET.get(), ModItems.NIOB_NUGGET.get(), ModItems.CHROMIUM_INGOT.get(), ModItems.GRAPHITE_INGOT.get(), ModItems.STEEL_INGOT.get(), ModItems.BLASTED_IRON_INGOT.get(), ModItems.TITANIUM_INGOT.get(), ModItems.MOLYBDENUM_INGOT.get(), ModItems.COBALT_INGOT.get(), ModItems.FLUORITE_INGOT.get(), ModItems.NICKEL_INGOT.get(), ModItems.URANIUM_INGOT.get(), ModItems.ALUMINUM_INGOT.get(), ModItems.MANGANESE_INGOT.get(), ModItems.NIOB_INGOT.get());
         for (Item i : resourceItems) {
             items.add(index, new ItemStack(i));
             index++;
@@ -136,7 +139,7 @@ public class CompleteItemCreativeTabs {
 
         // Resource Blocks
         ArrayList<Block> resourceBlocks = new ArrayList<>();
-        Collections.addAll(resourceBlocks, ModBlocks.THORIUM_BLOCK.get(), ModBlocks.CHROMIUM_BLOCK.get(), ModBlocks.GRAPHITE_BLOCK.get(), ModBlocks.STEEL_BLOCK.get(), ModBlocks.BLASTED_IRON_BLOCK.get(), ModBlocks.TITANIUM_BLOCK.get(), ModBlocks.MOLYBDENUM_BLOCK.get(), ModBlocks.COBALT_BLOCK.get(), ModBlocks.FLUORITE_BLOCK.get(), ModBlocks.NICKEL_BLOCK.get(), ModBlocks.URANIUM_BLOCK.get(), ModBlocks.ALUMINUM_BLOCK.get(), ModBlocks.MANGANESE_BLOCK.get(), ModBlocks.NIOB_BLOCK.get(), ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get(), ModBlocks.TITANIC_IRON_ORE.get(), ModBlocks.DEEPSLATE_CHROMITE_ORE.get(), ModBlocks.CHROMITE_ORE.get(), ModBlocks.DEEPSLATE_GRAPHITE_ORE.get(), ModBlocks.GRAPHITE_ORE.get(), ModBlocks.DEEPSLATE_MOLYBDENUM_ORE.get(), ModBlocks.MOLYBDENUM_ORE.get(), ModBlocks.DEEPSLATE_FLUORITE_ORE.get(), ModBlocks.FLUORITE_ORE.get(), ModBlocks.DEEPSLATE_NICKEL_ORE.get(), ModBlocks.NICKEL_ORE.get(), ModBlocks.DEEPSLATE_URANIUM_ORE.get(), ModBlocks.URANIUM_ORE.get(), ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get(), ModBlocks.PYROCHLOR_ORE.get(), ModBlocks.DEEPSLATE_MANGANESE_ORE.get(), ModBlocks.MANGANESE_ORE.get(), ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), ModBlocks.BAUXITE_ORE.get(), ModBlocks.BLASTED_STONE.get());
+        Collections.addAll(resourceBlocks, ModBlocks.THORIUM_BLOCK.get(), ModBlocks.RAW_URANIUM_BLOCK.get(), ModBlocks.RAW_TITANIC_IRON_BLOCK.get(), ModBlocks.RAW_PYROCHLORE_BLOCK.get(), ModBlocks.RAW_MOLYBDENUM_BLOCK.get(), ModBlocks.RAW_BAUXITE_BLOCK.get(), ModBlocks.RAW_NICKEL_BLOCK.get(), ModBlocks.RAW_MANGANESE_BLOCK.get(), ModBlocks.RAW_CHROMITE_BLOCK.get(), ModBlocks.CHROMIUM_BLOCK.get(), ModBlocks.GRAPHITE_BLOCK.get(), ModBlocks.STEEL_BLOCK.get(), ModBlocks.BLASTED_IRON_BLOCK.get(), ModBlocks.TITANIUM_BLOCK.get(), ModBlocks.MOLYBDENUM_BLOCK.get(), ModBlocks.COBALT_BLOCK.get(), ModBlocks.FLUORITE_BLOCK.get(), ModBlocks.NICKEL_BLOCK.get(), ModBlocks.URANIUM_BLOCK.get(), ModBlocks.ALUMINUM_BLOCK.get(), ModBlocks.MANGANESE_BLOCK.get(), ModBlocks.NIOB_BLOCK.get(), ModBlocks.DEEPSLATE_TITANIC_IRON_ORE.get(), ModBlocks.TITANIC_IRON_ORE.get(), ModBlocks.DEEPSLATE_CHROMITE_ORE.get(), ModBlocks.CHROMITE_ORE.get(), ModBlocks.DEEPSLATE_GRAPHITE_ORE.get(), ModBlocks.GRAPHITE_ORE.get(), ModBlocks.DEEPSLATE_MOLYBDENUM_ORE.get(), ModBlocks.MOLYBDENUM_ORE.get(), ModBlocks.DEEPSLATE_FLUORITE_ORE.get(), ModBlocks.FLUORITE_ORE.get(), ModBlocks.DEEPSLATE_NICKEL_ORE.get(), ModBlocks.NICKEL_ORE.get(), ModBlocks.DEEPSLATE_URANIUM_ORE.get(), ModBlocks.URANIUM_ORE.get(), ModBlocks.DEEPSLATE_PYROCHLOR_ORE.get(), ModBlocks.PYROCHLOR_ORE.get(), ModBlocks.DEEPSLATE_MANGANESE_ORE.get(), ModBlocks.MANGANESE_ORE.get(), ModBlocks.DEEPSLATE_BAUXITE_ORE.get(), ModBlocks.BAUXITE_ORE.get(), ModBlocks.BLASTED_STONE.get());
         for (Block i : resourceBlocks) {
             items.add(index, new ItemStack(i));
             index++;

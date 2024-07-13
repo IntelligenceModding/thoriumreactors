@@ -67,14 +67,38 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.POTASSIUM.get());
         simpleItem(ModItems.URAN_THREE_CHLORIDE.get());
         simpleItem(ModItems.STEEL_INGOT.get());
-        simpleItem(ModItems.RAW_URANIUM.get());
         simpleItem(ModItems.ENRICHED_URANIUM.get());
         simpleItem(ModItems.DEPLETED_URANIUM.get());
         simpleItem(ModItems.REDSTONE_PROCESSOR.get());
         simpleItem(ModItems.THORIUM.get());
         simpleItem(ModItems.YELLOW_CAKE.get());
-        simpleItem(ModItems.FLUORITE.get());
         simpleItem(ModItems.CONFIGURATOR.get());
+        simpleItem(ModItems.COPY_CARD.get());
+        simpleItem(ModItems.WIRELESS_REACTOR_INTERFACE.get());
+
+        simpleItem(ModItems.ACCELERATION_UPGRADE.get());
+        simpleItem(ModItems.PROCESSING_UPGRADE.get());
+        simpleItem(ModItems.ENERGY_UPGRADE.get());
+
+        simpleItem(ModItems.FLUORITE.get());
+        simpleItem(ModItems.RAW_URANIUM.get());
+        simpleItem(ModItems.RAW_TITANIC_IRON.get());
+        simpleItem(ModItems.RAW_PYROCHLORE.get());
+        simpleItem(ModItems.RAW_MOLYBDENUM.get());
+        simpleItem(ModItems.RAW_BAUXITE.get());
+        simpleItem(ModItems.RAW_NICKEL.get());
+        simpleItem(ModItems.RAW_MANGANESE.get());
+        simpleItem(ModItems.RAW_CHROMITE.get());
+
+        simpleItem(ModItems.GAS_MASK.get());
+        simpleItem(ModItems.DOSI_METER.get());
+        simpleItem(ModItems.GEIGER_COUNTER.get());
+        simpleItem(ModItems.THORIUM_SWORD.get());
+        simpleItem(ModItems.THORIUM_SHOVEL.get());
+        simpleItem(ModItems.THORIUM_PICKAXE.get());
+        simpleItem(ModItems.THORIUM_AXE.get());
+        simpleItem(ModItems.THORIUM_HOE.get());
+        simpleItem(ModItems.MULTITOOL.get());
 
         simpleItem(ModItems.MOLTEN_SALT_BUCKET.get());
         simpleItem(ModItems.DEPLETED_MOLTEN_SALT_BUCKET.get(), ModItems.MOLTEN_SALT_BUCKET.get());
@@ -91,9 +115,6 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         simpleItem(ModItems.MODULE_TANK.get());
         simpleItem(ModItems.MODULE_SENSOR.get());
         simpleItem(ModItems.MODULE_PROCESSING.get());
-
-        simpleItem(ModItems.ACCELERATION_UPGRADE.get());
-        simpleItem(ModItems.FABRICATION_UPGRADE.get());
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/factory_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.INVERTED_FACTORY_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/inverted_factory_block"));
@@ -141,11 +162,18 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         withExistingParent(ItemUtil.getRegString(ModBlocks.CREATIVE_FLUID_TANK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.WATER_SOURCE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/builtinentitymodel"));
-
         withExistingParent(ItemUtil.getRegString(ModBlocks.THORIUM_CRAFTING_TABLE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_crafting_table"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLASTED_STONE.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/blasted_stone"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.THORIUM_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/thorium_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.RAW_URANIUM_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/raw_uranium_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.RAW_TITANIC_IRON_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/raw_titanic_iron_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.RAW_PYROCHLORE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/raw_pyrochlore_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.RAW_MOLYBDENUM_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/raw_molybdenum_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.RAW_BAUXITE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/raw_bauxite_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.RAW_NICKEL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/raw_nickel_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.RAW_MANGANESE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/raw_manganese_block"));
+        withExistingParent(ItemUtil.getRegString(ModBlocks.RAW_CHROMITE_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/raw_chromite_block"));
 
         withExistingParent(ItemUtil.getRegString(ModBlocks.BLASTED_IRON_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/blasted_iron_block"));
         withExistingParent(ItemUtil.getRegString(ModBlocks.STEEL_BLOCK.get()), new ResourceLocation(ThoriumReactors.MOD_ID, "block/steel_block"));

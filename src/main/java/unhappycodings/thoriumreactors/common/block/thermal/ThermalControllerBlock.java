@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.thermal.base.ThermalFrameBlock;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.base.ThermalFrameBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ParticleType;
 import unhappycodings.thoriumreactors.common.multiblock.ThermalMultiblocks;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
@@ -88,7 +88,7 @@ public class ThermalControllerBlock extends ThermalFrameBlock {
                 long x = facing == Direction.WEST || facing == Direction.EAST ? 3 : 5, y = 3;
                 if (x == 3) y = 5;
                 for (Player loopPlayer : levelIn.players()) {
-                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos.relative(Direction.DOWN, 1), state.getValue(ThermalControllerBlock.FACING)), ParticleTypeEnum.REACTOR, x, 3, y), (ServerPlayer) loopPlayer);
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos.relative(Direction.DOWN, 1), state.getValue(ThermalControllerBlock.FACING)), ParticleType.REACTOR, x, 3, y), (ServerPlayer) loopPlayer);
                 }
             }
         }

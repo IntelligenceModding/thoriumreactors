@@ -21,3 +21,8 @@
 	#Show by hotkey activated description hover text
 	showBlockDescription = true
 
+[Machines]
+	#Specifies which settings window to render
+	#Allowed Values: NONE, UPGRADES, SIDES
+	machineSettingsWindow = "NONE"
+

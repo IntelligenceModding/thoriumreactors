@@ -29,7 +29,7 @@ import unhappycodings.thoriumreactors.common.block.reactor.base.ReactorFrameBloc
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.base.ReactorFrameBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ParticleTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ParticleType;
 import unhappycodings.thoriumreactors.common.multiblock.ReactorMultiblocks;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorParticleDataPacket;
@@ -102,7 +102,7 @@ public class ReactorControllerBlock extends ReactorFrameBlock {
                 long x = facing == Direction.WEST || facing == Direction.EAST ? 3 : 5, y = 3;
                 if (x == 3) y = 5;
                 for (Player loopPlayer : levelIn.players()) {
-                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(ReactorControllerBlock.FACING)), ParticleTypeEnum.REACTOR, x, height, y), (ServerPlayer) loopPlayer);
+                    PacketHandler.sendToClient(new ClientReactorParticleDataPacket(addParticleOffset(pos, state.getValue(ReactorControllerBlock.FACING)), ParticleType.REACTOR, x, height, y), (ServerPlayer) loopPlayer);
                 }
 
                 if (!levelIn.isClientSide)

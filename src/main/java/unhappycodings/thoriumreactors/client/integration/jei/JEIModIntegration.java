@@ -23,8 +23,10 @@ import unhappycodings.thoriumreactors.ThoriumReactors;
 import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableContainer;
 import unhappycodings.thoriumreactors.common.container.ThoriumCraftingTableScreen;
+import unhappycodings.thoriumreactors.common.container.base.screen.MachineScreen;
 import unhappycodings.thoriumreactors.common.container.machine.*;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerScreen;
+import unhappycodings.thoriumreactors.common.enums.MachineSettingsWindow;
 import unhappycodings.thoriumreactors.common.recipe.*;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModContainerTypes;
@@ -103,11 +105,12 @@ public class JEIModIntegration implements IModPlugin {
         registration.addRecipeClickArea(MachineSaltMelterScreen.class, 74, 31, 24, 35, SMELTING_RECIPE_TYPE);
         registration.addRecipeClickArea(MachineFluidEvaporatorScreen.class, 71, 32, 32, 22, EVAPORATING_RECIPE_TYPE);
 
-        registration.addGenericGuiContainerHandler(ReactorControllerScreen.class, new Handler<>());
+        registration.addGenericGuiContainerHandler(ReactorControllerScreen.class, new ReactorHandler<>());
+        registration.addGenericGuiContainerHandler(MachineScreen.class, new MachineHandler<>());
 
     }
 
-    static class Handler<T extends ReactorControllerScreen> implements IGuiContainerHandler<T> {
+    static class ReactorHandler<T extends ReactorControllerScreen> implements IGuiContainerHandler<T> {
 
         @NotNull
         @Override
@@ -126,8 +129,21 @@ public class JEIModIntegration implements IModPlugin {
         }
     }
 
+    static class MachineHandler<T extends MachineScreen<?>> implements IGuiContainerHandler<T> {
+
+        @NotNull
+        @Override
+        public List<Rect2i> getGuiExtraAreas(@NotNull T screen) {
+            List<Rect2i> collection = new ArrayList<>();
+            if (ClientConfig.machineSettingsWindow.get() != MachineSettingsWindow.NONE)
+                collection.add(new Rect2i(screen.getGuiLeft() + screen.getSizeX(), screen.getGuiTop(), 80, 60)); //left
+
+            return collection;
+        }
+    }
+
     @Override
-    public void registerItemSubtypes(ISubtypeRegistration registration) {
+    public void registerItemSubtypes(@NotNull ISubtypeRegistration registration) {
         if (ClientConfig.showCreativeFluidTanksInJEI.get()) {
             registration.registerSubtypeInterpreter(ModBlocks.CREATIVE_FLUID_TANK.get().asItem(), (stack, uidContext) -> {
                 CompoundTag data = stack.getOrCreateTag().getCompound("BlockEntityTag");

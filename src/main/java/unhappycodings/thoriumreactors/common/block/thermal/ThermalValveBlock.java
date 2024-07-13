@@ -24,18 +24,18 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.block.thermal.base.ThermalFrameBlock;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalValveBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ThermalValveTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ThermalValveType;
 import unhappycodings.thoriumreactors.common.registration.ModItems;
 import unhappycodings.thoriumreactors.common.registration.ModSounds;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
 public class ThermalValveBlock extends ThermalFrameBlock {
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
-    public static final EnumProperty<ThermalValveTypeEnum> TYPE = EnumProperty.create("type", ThermalValveTypeEnum.class);
+    public static final EnumProperty<ThermalValveType> TYPE = EnumProperty.create("type", ThermalValveType.class);
 
     public ThermalValveBlock() {
         super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(5f));
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ThermalValveTypeEnum.COOLANT_INPUT));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ThermalValveType.COOLANT_INPUT));
     }
 
     @SuppressWarnings("deprecation")
@@ -62,7 +62,7 @@ public class ThermalValveBlock extends ThermalFrameBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(TYPE, ThermalValveTypeEnum.COOLANT_INPUT);
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite()).setValue(TYPE, ThermalValveType.COOLANT_INPUT);
     }
 
     @Nullable

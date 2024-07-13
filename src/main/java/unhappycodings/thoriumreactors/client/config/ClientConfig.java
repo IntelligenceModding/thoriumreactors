@@ -3,6 +3,7 @@ package unhappycodings.thoriumreactors.client.config;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraftforge.common.ForgeConfigSpec;
+import unhappycodings.thoriumreactors.common.enums.MachineSettingsWindow;
 
 import java.io.File;
 
@@ -12,6 +13,7 @@ public class ClientConfig {
     //region General
     public static ForgeConfigSpec.ConfigValue<Boolean> showBlockDetails;
     public static ForgeConfigSpec.ConfigValue<Boolean> showBlockDescription;
+    public static ForgeConfigSpec.ConfigValue<MachineSettingsWindow> machineSettingsWindow;
     public static ForgeConfigSpec.ConfigValue<Boolean> showLeftReactorScreenArea;
     public static ForgeConfigSpec.ConfigValue<Boolean> showRightReactorScreenArea;
     public static ForgeConfigSpec.ConfigValue<Boolean> showCreativeEnergyTanksInJEI;
@@ -30,6 +32,10 @@ public class ClientConfig {
         clientBuilder.push("General");
         showBlockDetails = clientBuilder.comment("Show by hotkey activated details hover text").define("showBlockDetails", true);
         showBlockDescription = clientBuilder.comment("Show by hotkey activated description hover text").define("showBlockDescription", true);
+        clientBuilder.pop();
+
+        clientBuilder.push("Machines");
+        machineSettingsWindow = clientBuilder.comment("Specifies which settings window to render").defineEnum("machineSettingsWindow", MachineSettingsWindow.NONE);
         clientBuilder.pop();
 
         clientBuilder.push("Reactor Control Screen");

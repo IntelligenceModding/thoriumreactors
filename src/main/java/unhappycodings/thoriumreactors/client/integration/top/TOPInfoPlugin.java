@@ -28,7 +28,7 @@ import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControll
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbinePowerPortBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineValveBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.base.TurbineFrameBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ValveType;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
 import java.text.SimpleDateFormat;
@@ -91,7 +91,7 @@ public class TOPInfoPlugin implements IProbeInfoProvider, Function<ITheOneProbe,
 
             for (int i = 0; i < entity.valvePos.size(); i++) {
                 if (level.getBlockEntity(entity.valvePos.get(i)) instanceof ReactorValveBlockEntity valveBlockEntity) {
-                    if (valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_INPUT || valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_OUTPUT) {
+                    if (valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveType.FLUID_INPUT || valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveType.FLUID_OUTPUT) {
                         valveTankRender(iProbeInfo, valveBlockEntity.getFluidIn(), valveBlockEntity.getFluidCapacityIn(), valveBlockEntity.getFluidAmountIn());
                     }
                 }

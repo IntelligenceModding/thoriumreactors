@@ -3,12 +3,14 @@ package unhappycodings.thoriumreactors.common.util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.TickEvent;
 import unhappycodings.thoriumreactors.common.capability.RadiationSavedData;
 import unhappycodings.thoriumreactors.common.registration.ModEffects;
 
@@ -28,6 +30,43 @@ public class RadiationUtil {
         player.removeEffect(ModEffects.RADIATION.get());
 
         source.sendSuccess(() -> Component.literal("Cleared radiation contamination of " + player.getDisplayName().getString() + "!"), true);
+        return 1;
+    }
+
+    public static int addPlayer(CommandSourceStack source, @Nullable Player argumentPlayer, float strenght) {
+        Player player = argumentPlayer == null ? source.getPlayer() : argumentPlayer;
+
+        CompoundTag playerData = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
+        final float radiation = (playerData.contains(RadiationUtil.RADIATION_DATA_NAME) ? playerData.getFloat(RadiationUtil.RADIATION_DATA_NAME) + strenght : 0);
+
+        playerData.putFloat(RadiationUtil.RADIATION_DATA_NAME, radiation);
+        player.getPersistentData().put(Player.PERSISTED_NBT_TAG, playerData);
+
+        source.sendSuccess(() -> Component.literal("Added radiation contamination of " + strenght + "mSv to " + player.getDisplayName().getString() + "! Total: " + radiation + "mSv!"), true);
+        return 1;
+    }
+
+    public static int setPlayer(CommandSourceStack source, @Nullable Player argumentPlayer, float strenght) {
+        Player player = argumentPlayer == null ? source.getPlayer() : argumentPlayer;
+
+        CompoundTag playerData = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
+        playerData.putFloat(RadiationUtil.RADIATION_DATA_NAME, strenght);
+        player.getPersistentData().put(Player.PERSISTED_NBT_TAG, playerData);
+
+        source.sendSuccess(() -> Component.literal("Set radiation contamination of " + player.getDisplayName().getString() + " to " + strenght + "mSv!"), true);
+        return 1;
+    }
+
+    public static int removePlayer(CommandSourceStack source, @Nullable Player argumentPlayer, float strenght) {
+        Player player = argumentPlayer == null ? source.getPlayer() : argumentPlayer;
+
+        CompoundTag playerData = player.getPersistentData().getCompound(Player.PERSISTED_NBT_TAG);
+        final float radiation = (playerData.contains(RadiationUtil.RADIATION_DATA_NAME) ? playerData.getFloat(RadiationUtil.RADIATION_DATA_NAME) - strenght : 0);
+
+        playerData.putFloat(RadiationUtil.RADIATION_DATA_NAME, radiation);
+        player.getPersistentData().put(Player.PERSISTED_NBT_TAG, playerData);
+
+        source.sendSuccess(() -> Component.literal("Removed radiation contamination of " + strenght + "mSv from " + player.getDisplayName().getString() + "! Total: " + (radiation) + "mSv!"), true);
         return 1;
     }
 

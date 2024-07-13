@@ -148,11 +148,6 @@ public class AmericanLanguageProvider extends net.minecraftforge.common.data.Lan
         add(ModItems.TURBINE_BLADE.get(), "Turbine Blade");
         add(ModItems.TURBINE_BLADE.get().getDescriptionId() + "_description", "Needed in a turbine for energy production.");
 
-        add(ModItems.ACCELERATION_UPGRADE.get(), "Acceleration Upgrade");
-        add(ModItems.ACCELERATION_UPGRADE.get().getDescriptionId() + "_description", "Increases the machine speed! Can be stacked.");
-        add(ModItems.FABRICATION_UPGRADE.get(), "Fabrication Upgrade");
-        add(ModItems.FABRICATION_UPGRADE.get().getDescriptionId() + "_description", "Improves the machine fabrication, results in higher production! Can be stacked.");
-
         add(ModItems.GRAPHITE_TUBE.get(), "Graphite Tube");
         add(ModItems.GRAPHITE_CRYSTAL.get(), "Graphite");
 

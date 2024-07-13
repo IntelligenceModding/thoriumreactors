@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
+import unhappycodings.thoriumreactors.common.enums.ReactorState;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
     private final float reactorContamination; // uSv per hour
     private final float reactorPressure; // in PSI
     private final int reactorHeight; // in PSI
-    private final ReactorStateEnum reactorState; // STARTING - RUNNING - STOP
+    private final ReactorState reactorState; // STARTING - RUNNING - STOP
     private final FluidStack fluidIn;
     private final FluidStack fluidOut;
     private final String notification;
@@ -49,7 +49,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
 
     public ClientReactorControllerDataPacket(BlockPos pos, float reactorTargetTemperature, float reactorCurrentTemperature, byte reactorTargetLoadSet, byte reactorCurrentLoadSet,
                                              long reactorRunningSince, float reactorStatus, float reactorContamination,
-                                             float reactorPressure, int reactorHeight, ReactorStateEnum reactorState, boolean turbineActivated, boolean turbineCoilsEngaged,
+                                             float reactorPressure, int reactorHeight, ReactorState reactorState, boolean turbineActivated, boolean turbineCoilsEngaged,
                                              byte turbineTargetFlow, byte turbineCurrentFlow, long turbinePowerGeneration, byte turbineSpeed, byte[] depletedfuelRodStatus, byte[] fuelRodStatus, byte[] controlRodStatus,
                                              FluidStack fluidIn, FluidStack fluidOut, String notification, boolean isReactorActive, boolean isTurbineActive, boolean isExchangerActive, int reactorCapacity, List<BlockPos> turbinePositions) {
         this.pos = pos;
@@ -85,7 +85,7 @@ public class ClientReactorControllerDataPacket implements IPacket {
 
     public static ClientReactorControllerDataPacket decode(FriendlyByteBuf buffer) {
         return new ClientReactorControllerDataPacket(buffer.readBlockPos(), buffer.readFloat(), buffer.readFloat(), buffer.readByte(), buffer.readByte(), buffer.readLong(),
-                buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt(), buffer.readEnum(ReactorStateEnum.class),
+                buffer.readFloat(), buffer.readFloat(), buffer.readFloat(), buffer.readInt(), buffer.readEnum(ReactorState.class),
                 buffer.readBoolean(), buffer.readBoolean(), buffer.readByte(), buffer.readByte(), buffer.readLong(), buffer.readByte(), buffer.readByteArray(), buffer.readByteArray(),
                 buffer.readByteArray(), buffer.readFluidStack(), buffer.readFluidStack(), buffer.readUtf(),
                 buffer.readBoolean(), buffer.readBoolean(), buffer.readBoolean(), buffer.readInt(), buffer.readList(FriendlyByteBuf::readBlockPos));

@@ -712,20 +712,15 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
         ScreenUtil.drawCenteredText(Component.literal(entity.getNotification()).withStyle(ScreenUtil::notoSans), graphics, this.getXSize() / 2, 170, 16711422);
 
         // Graphs
+        TurbineControllerBlockEntity targetEntity = !entity.getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) : null;
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.temp")).append(Component.literal(", °C")).withStyle(ScreenUtil::notoSans), graphics, -21, 189, 11184810);
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.flow")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.mbs")))).withStyle(ScreenUtil::notoSans), graphics, 47, 189, 11184810);
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.speed_cap")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.rpm")))).withStyle(ScreenUtil::notoSans), graphics, 117, 189, 11184810);
         ScreenUtil.drawText(Component.translatable(FormattingUtil.getTranslatable("reactor.text.generation")).append(Component.literal(", ").append(Component.translatable(FormattingUtil.getTranslatable("reactor.text.fet")))).withStyle(ScreenUtil::notoSans), graphics, 185, 189, 11184810);
         ScreenUtil.drawCenteredText(Component.literal(String.valueOf(Math.round(entity.getReactorCurrentTemperature() * 10f) / 10f)).withStyle(ScreenUtil::notoSans), graphics, 7, 202, 16711422);
-        if (!entity.getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(entity.getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
-            ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity.getCurrentFlowrate())).withStyle(ScreenUtil::notoSans), graphics, 76, 202, 16711422);
-            ScreenUtil.drawCenteredText(Component.literal(String.valueOf(Math.floor(targetEntity.getRpm() * 100f) / 100f)).withStyle(ScreenUtil::notoSans), graphics, 145, 202, 16711422);
-            ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity.getTurbineGeneration())).withStyle(ScreenUtil::notoSans), graphics, 215, 202, 16711422);
-        } else {
-            ScreenUtil.drawCenteredText(Component.literal("0.0").withStyle(ScreenUtil::notoSans), graphics, 76, 202, 16711422);
-            ScreenUtil.drawCenteredText(Component.literal("0.0").withStyle(ScreenUtil::notoSans), graphics, 145, 202, 16711422);
-            ScreenUtil.drawCenteredText(Component.literal("0.0").withStyle(ScreenUtil::notoSans), graphics, 215, 202, 16711422);
-        }
+        ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? targetEntity.getCurrentFlowrate() : 0f)).withStyle(ScreenUtil::notoSans), graphics, 76, 202, 16711422);
+        ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? Math.floor(targetEntity.getRpm() * 100f) / 100f : 0f)).withStyle(ScreenUtil::notoSans), graphics, 145, 202, 16711422);
+        ScreenUtil.drawCenteredText(Component.literal(String.valueOf(targetEntity != null ? targetEntity.getTurbineGeneration() : 0f)).withStyle(ScreenUtil::notoSans), graphics, 215, 202, 16711422);
         pPoseStack.popPose();
 
         // normal text
@@ -773,11 +768,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     }
 
     public void updateFlowGraphData() {
-        float value = 0;
-
-        if (!this.container.getTile().getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
-            value = targetEntity.getCurrentFlowrate();
-        }
+        TurbineControllerBlockEntity targetEntity = this.container.getTile().getTurbinePos().size() > 0 ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) : null;
+        float value = targetEntity != null ? targetEntity.getCurrentFlowrate() : 0f;
         if (flowIntegers < flowGraphValues.length) {
             flowGraphValues[flowIntegers] = value;
             flowIntegers++;
@@ -789,11 +781,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     }
 
     public void updateSpeedGraphData() {
-        float value = 0;
-
-        if (!this.container.getTile().getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
-            value = (float) (Math.floor(targetEntity.getRpm() * 100) / 100);
-        }
+        TurbineControllerBlockEntity targetEntity = !this.container.getTile().getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) : null;
+        float value = targetEntity != null ? (float) (Math.floor(targetEntity.getRpm() * 100) / 100) : 0f;
         if (speedIntegers < speedGraphValues.length) {
             speedGraphValues[speedIntegers] = value;
             speedIntegers++;
@@ -805,11 +794,8 @@ public class ReactorControllerScreen extends AbstractContainerScreen<ReactorCont
     }
 
     public void updateGenerationGraphData() {
-        float value = 0;
-
-        if (!this.container.getTile().getTurbinePos().isEmpty() && container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) instanceof TurbineControllerBlockEntity targetEntity) {
-            value = targetEntity.getTurbineGeneration();
-        }
+        TurbineControllerBlockEntity targetEntity = !this.container.getTile().getTurbinePos().isEmpty() ? (TurbineControllerBlockEntity) container.getTile().getLevel().getBlockEntity(this.container.getTile().getTurbinePos().get(selectedTurbine)) : null;
+        float value = targetEntity != null ?  targetEntity.getTurbineGeneration() : 0f;
         if (generationIntegers < generationGraphValues.length) {
             generationGraphValues[generationIntegers] = value;
             generationIntegers++;

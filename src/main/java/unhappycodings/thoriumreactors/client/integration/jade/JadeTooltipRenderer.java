@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import snownee.jade.api.*;
@@ -18,30 +17,22 @@ import snownee.jade.api.ui.IElement;
 import snownee.jade.api.ui.IElementHelper;
 import snownee.jade.util.Color;
 import unhappycodings.thoriumreactors.ThoriumReactors;
-import unhappycodings.thoriumreactors.common.block.machine.MachineGeneratorBlock;
 import unhappycodings.thoriumreactors.common.block.reactor.ReactorValveBlock;
-import unhappycodings.thoriumreactors.common.block.tank.FluidTankBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
-import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
-import unhappycodings.thoriumreactors.common.blockentity.WaterSourceBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.machine.MachineBlastFurnaceBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorValveBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.tank.EnergyTankBlockEntity;
-import unhappycodings.thoriumreactors.common.blockentity.tank.FluidTankBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalValveBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbinePowerPortBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineValveBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ValveType;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
-import unhappycodings.thoriumreactors.common.registration.ModFluids;
 import unhappycodings.thoriumreactors.common.util.FormattingUtil;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
     INSTANCE;
@@ -94,7 +85,7 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
                 }
                 for (int i = 0; i < 4; i++) {
                     if (accessor.getLevel().getBlockEntity(BlockEntity.getPosFromTag(serverData.getCompound("ValvePos-" + i))) instanceof ReactorValveBlockEntity valveBlockEntity) {
-                        if (valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_INPUT || valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_OUTPUT) {
+                        if (valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveType.FLUID_INPUT || valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveType.FLUID_OUTPUT) {
                             FluidStack fluid = FluidStack.loadFluidStackFromNBT(serverData.getCompound("ValveFluid-" + i));
                             tooltip.add(fluidBar(elements, fluid, fluid.getAmount(), 1000));
                         }
@@ -187,7 +178,7 @@ public enum JadeTooltipRenderer implements IBlockComponentProvider, IServerDataP
             if (entity.valvePos == null) return;
             for (int i = 0; i < entity.valvePos.size(); i++)
                 if (accessor.getLevel().getBlockEntity(entity.valvePos.get(i)) instanceof ReactorValveBlockEntity valveBlockEntity) {
-                    if (valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_INPUT || valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_OUTPUT) {
+                    if (valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveType.FLUID_INPUT || valveBlockEntity.getBlockState().getValue(ReactorValveBlock.TYPE) == ValveType.FLUID_OUTPUT) {
                         data.put("ValveFluid-" + i, valveBlockEntity.getUpdateTag().get("FluidIn"));
                         data.put("ValvePos-" + i, parsePosToTag(valveBlockEntity.getBlockPos()));
                     }

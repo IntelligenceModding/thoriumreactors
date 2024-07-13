@@ -6,20 +6,20 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
+import unhappycodings.thoriumreactors.common.enums.ReactorState;
 import unhappycodings.thoriumreactors.common.network.base.IPacket;
 
 public class ReactorControllerStatePacket implements IPacket {
     BlockPos pos;
-    ReactorStateEnum state;
+    ReactorState state;
 
-    public ReactorControllerStatePacket(BlockPos pos, ReactorStateEnum state) {
+    public ReactorControllerStatePacket(BlockPos pos, ReactorState state) {
         this.pos = pos;
         this.state = state;
     }
 
     public static ReactorControllerStatePacket decode(FriendlyByteBuf buffer) {
-        return new ReactorControllerStatePacket(buffer.readBlockPos(), buffer.readEnum(ReactorStateEnum.class));
+        return new ReactorControllerStatePacket(buffer.readBlockPos(), buffer.readEnum(ReactorState.class));
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -28,9 +28,9 @@ public class ReactorControllerStatePacket implements IPacket {
         Level level = player.getCommandSenderWorld();
         if (level.getBlockEntity(pos) instanceof ReactorControllerBlockEntity entity) {
             entity.setReactorState(state);
-            if (state == ReactorStateEnum.STARTING && entity.getReactorRunningSince() == 0) {
+            if (state == ReactorState.STARTING && entity.getReactorRunningSince() == 0) {
                 entity.setReactorRunningSince(0);
-            } else if (state == ReactorStateEnum.STOP) {
+            } else if (state == ReactorState.STOP) {
                 entity.setReactorRunningSince(-1);
             }
         }

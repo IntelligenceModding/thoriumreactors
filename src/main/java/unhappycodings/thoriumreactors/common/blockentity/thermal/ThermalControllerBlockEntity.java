@@ -1,7 +1,6 @@
 package unhappycodings.thoriumreactors.common.blockentity.thermal;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -16,12 +15,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import unhappycodings.thoriumreactors.common.block.machine.MachineUraniumOxidizerBlock;
-import unhappycodings.thoriumreactors.common.block.thermal.ThermalControllerBlock;
 import unhappycodings.thoriumreactors.common.block.thermal.ThermalValveBlock;
 import unhappycodings.thoriumreactors.common.blockentity.ModFluidTank;
 import unhappycodings.thoriumreactors.common.blockentity.thermal.base.ThermalFrameBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ThermalValveTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ThermalValveType;
 import unhappycodings.thoriumreactors.common.registration.ModBlockEntities;
 import unhappycodings.thoriumreactors.common.registration.ModBlocks;
 import unhappycodings.thoriumreactors.common.registration.ModFluids;
@@ -52,7 +49,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
             if (valvePos == null) return;
             for (BlockPos pos : valvePos) {
                 if (!(level.getBlockEntity(pos) instanceof ThermalValveBlockEntity entity)) return;
-                if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveTypeEnum.HEATING_FLUID_INPUT) {
+                if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveType.HEATING_FLUID_INPUT) {
                     entity.getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(pos).getValue(ThermalValveBlock.FACING)).ifPresent(storage -> {
                         FluidStack fluidExternal = storage.getFluidInTank(0);
                         int amount = fluidExternal.getAmount();
@@ -68,7 +65,7 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
                     });
                 }
 
-                if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveTypeEnum.HEATING_FLUID_OUTPUT) {
+                if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveType.HEATING_FLUID_OUTPUT) {
                     entity.getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(pos).getValue(ThermalValveBlock.FACING)).ifPresent(storage -> {
                         int amount = Math.min(getFluidAmountIn(), 10);
                         if (getFluidIn().getFluid().isSame(ModFluids.SOURCE_HEATED_MOLTEN_SALT.get()) && amount > 0) {
@@ -82,14 +79,14 @@ public class ThermalControllerBlockEntity extends ThermalFrameBlockEntity {
                     });
                 }
 
-                if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveTypeEnum.COOLANT_INPUT && conversions >= 10) {
+                if (level.getBlockState(pos).getValue(ThermalValveBlock.TYPE) == ThermalValveType.COOLANT_INPUT && conversions >= 10) {
                     entity.getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(pos).getValue(ThermalValveBlock.FACING)).ifPresent(storageInput -> {
                         FluidStack coolantIn = storageInput.getFluidInTank(0);
                         int amount = Math.min(coolantIn.getAmount(), 5);
                         if (amount > 0 && coolantIn.getFluid().isSame(Fluids.WATER)) {
                             for (BlockPos blockPos : valvePos) {
                                 if (!level.getBlockState(blockPos).is(ModBlocks.THERMAL_VALVE.get())) return;
-                                if (level.getBlockState(blockPos).getValue(ThermalValveBlock.TYPE) == ThermalValveTypeEnum.COOLANT_OUTPUT) {
+                                if (level.getBlockState(blockPos).getValue(ThermalValveBlock.TYPE) == ThermalValveType.COOLANT_OUTPUT) {
                                     ThermalValveBlockEntity valveBlock = (ThermalValveBlockEntity) level.getBlockEntity(blockPos);
                                     valveBlock.getCapability(ForgeCapabilities.FLUID_HANDLER, valveBlock.getBlockState().getValue(ThermalValveBlock.FACING)).ifPresent(storageOutput -> {
                                         FluidStack coolantOut = storageOutput.getFluidInTank(0);

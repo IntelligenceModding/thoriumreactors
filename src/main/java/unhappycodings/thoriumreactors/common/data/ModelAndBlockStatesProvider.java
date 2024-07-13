@@ -84,8 +84,17 @@ public class ModelAndBlockStatesProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.FLUORITE_ORE.get());
         simpleBlock(ModBlocks.DEEPSLATE_FLUORITE_ORE.get());
 
-        simpleBlock(ModBlocks.BLASTED_STONE.get());
         simpleBlock(ModBlocks.THORIUM_BLOCK.get());
+        simpleBlock(ModBlocks.RAW_URANIUM_BLOCK.get());
+        simpleBlock(ModBlocks.RAW_TITANIC_IRON_BLOCK.get());
+        simpleBlock(ModBlocks.RAW_PYROCHLORE_BLOCK.get());
+        simpleBlock(ModBlocks.RAW_MOLYBDENUM_BLOCK.get());
+        simpleBlock(ModBlocks.RAW_BAUXITE_BLOCK.get());
+        simpleBlock(ModBlocks.RAW_NICKEL_BLOCK.get());
+        simpleBlock(ModBlocks.RAW_MANGANESE_BLOCK.get());
+        simpleBlock(ModBlocks.RAW_CHROMITE_BLOCK.get());
+
+        simpleBlock(ModBlocks.BLASTED_STONE.get());
         simpleBlock(ModBlocks.BLASTED_IRON_BLOCK.get());
         simpleBlock(ModBlocks.STEEL_BLOCK.get());
         simpleBlock(ModBlocks.MANGANESE_BLOCK.get());

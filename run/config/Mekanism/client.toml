@@ -78,12 +78,12 @@
 				y = 2147483647
 
 			[client.gui.window.crafting0]
-				x = 2147483647
-				y = 2147483647
+				x = -157
+				y = 99
 
 			[client.gui.window.crafting1]
-				x = 2147483647
-				y = 2147483647
+				x = -146
+				y = 7
 
 			[client.gui.window.crafting2]
 				x = 2147483647
@@ -110,8 +110,8 @@
 				y = 2147483647
 
 			[client.gui.window.upgrade]
-				x = -113
-				y = 51
+				x = -168
+				y = 24
 
 	#QIO Config
 	[client.qio]

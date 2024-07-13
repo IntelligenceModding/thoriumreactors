@@ -71,6 +71,17 @@ public class ItemTagsProvider extends net.minecraft.data.tags.TagsProvider<Item>
         tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/sodium"))).add(getResourceKey(ModItems.SODIUM.get()));
         tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/potassium"))).add(getResourceKey(ModItems.POTASSIUM.get()));
         tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/thorium"))).add(getResourceKey(ModItems.THORIUM.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/titanic_iron"))).add(getResourceKey(ModItems.RAW_TITANIC_IRON.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/titanium"))).add(getResourceKey(ModItems.RAW_TITANIC_IRON.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/pyrochlore"))).add(getResourceKey(ModItems.RAW_PYROCHLORE.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/molybdenum"))).add(getResourceKey(ModItems.RAW_MOLYBDENUM.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/bauxite"))).add(getResourceKey(ModItems.RAW_BAUXITE.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/aluminium"))).add(getResourceKey(ModItems.RAW_BAUXITE.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/aluminum"))).add(getResourceKey(ModItems.RAW_BAUXITE.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/nickel"))).add(getResourceKey(ModItems.RAW_NICKEL.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/manganese"))).add(getResourceKey(ModItems.RAW_MANGANESE.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/chromite"))).add(getResourceKey(ModItems.RAW_CHROMITE.get()));
+        tag(ItemTags.create(new ResourceLocation("forge", "raw_materials/chrome"))).add(getResourceKey(ModItems.RAW_CHROMITE.get()));
 
         // Storage Blocks
         tag(ItemTags.create(new ResourceLocation("forge", "storage_blocks/chromium"))).add(getResourceKey(ModBlocks.CHROMIUM_BLOCK.get().asItem()));

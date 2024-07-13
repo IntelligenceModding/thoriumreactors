@@ -38,6 +38,11 @@ public class MachineConcentratorScreen extends MachineScreen<MachineConcentrator
     }
 
     @Override
+    public boolean supportsSpeedUpgrade() {
+        return true;
+    }
+
+    @Override
     protected void renderLabels(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY) {
         super.renderLabels(graphics, pMouseX, pMouseY);
         MachineConcentratorBlockEntity entity = this.container.getTile();

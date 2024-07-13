@@ -1,4 +1,4 @@
-// 1.20.1	2024-03-03T16:00:01.243173	Block Tags
+// 1.20.1	2024-07-06T22:46:20.0995075	Block Tags
 483497d1b81511f489431233395233781dec6199 data/forge/tags/blocks/chests.json
 6556de364554ad25e5afce87eebb9e7a675a9c28 data/forge/tags/blocks/chests/blasted_iron.json
 4ab18cc4eef20123e8edb493dd6590209c40ac8e data/forge/tags/blocks/chests/steel.json
@@ -37,5 +37,5 @@ c9a7123c7eea0a22f4e24220854ee77ed22e4fe4 data/forge/tags/blocks/storage_blocks/p
 db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/blocks/storage_blocks/titanic_iron.json
 db185e1bf06e8baf2d05aff02ab6f10f4e008e16 data/forge/tags/blocks/storage_blocks/titanium.json
 b224eb8423908182c0097920c8b62c5c36f692cf data/forge/tags/blocks/storage_blocks/uranium.json
-3970c7583bd6a035da6942c2a393b7527a04961b data/minecraft/tags/blocks/mineable/pickaxe.json
-3970c7583bd6a035da6942c2a393b7527a04961b data/minecraft/tags/blocks/needs_stone_tool.json
+472e3cbaeb02502acd6c7135835dc735de2b3377 data/minecraft/tags/blocks/mineable/pickaxe.json
+472e3cbaeb02502acd6c7135835dc735de2b3377 data/minecraft/tags/blocks/needs_stone_tool.json

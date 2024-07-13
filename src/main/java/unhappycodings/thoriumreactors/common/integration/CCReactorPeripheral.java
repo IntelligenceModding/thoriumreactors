@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorCasingBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.reactor.ReactorControllerBlockEntity;
 import unhappycodings.thoriumreactors.common.blockentity.turbine.TurbineControllerBlockEntity;
-import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
+import unhappycodings.thoriumreactors.common.enums.ReactorState;
 import unhappycodings.thoriumreactors.common.util.LuaUtil;
 
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class CCReactorPeripheral implements IPeripheral {
     public final void setReactorState(String status) {
         ReactorControllerBlockEntity entity = getReactorController();
         if (entity == null) return;
-        entity.setReactorState(ReactorStateEnum.get(status));
+        entity.setReactorState(ReactorState.get(status));
     }
 
     @LuaFunction(mainThread = true)

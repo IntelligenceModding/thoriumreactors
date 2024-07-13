@@ -37,8 +37,8 @@ import unhappycodings.thoriumreactors.common.blockentity.thermal.ThermalControll
 import unhappycodings.thoriumreactors.common.capability.RadiationSavedData;
 import unhappycodings.thoriumreactors.common.config.CommonConfig;
 import unhappycodings.thoriumreactors.common.container.reactor.ReactorControllerContainer;
-import unhappycodings.thoriumreactors.common.enums.ReactorStateEnum;
-import unhappycodings.thoriumreactors.common.enums.ValveTypeEnum;
+import unhappycodings.thoriumreactors.common.enums.ReactorState;
+import unhappycodings.thoriumreactors.common.enums.ValveType;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toclient.reactor.ClientReactorRenderDataPacket;
 import unhappycodings.thoriumreactors.common.registration.*;
@@ -76,7 +76,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
     private int reactorHeight = 0;
     private int fuelAdditions = 0;
     private boolean scrammed;
-    private ReactorStateEnum reactorState = ReactorStateEnum.STOP; // STARTING - RUNNING - STOP
+    private ReactorState reactorState = ReactorState.STOP; // STARTING - RUNNING - STOP
     // Rods
     public byte[] depletedFuelRodStatus = new byte[81];
     public byte[] fuelRodStatus = new byte[81];
@@ -138,7 +138,8 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
             // If scrammed, do simulation
             if (isScrammed()) doScramSimulation();
             else updateControlRods();
-            if (getReactorState() != ReactorStateEnum.STOP) {
+
+            if (getReactorState() != ReactorState.STOP) {
                 doReactorSimulation();
             } else {
                 setReactorActive(false);
@@ -206,7 +207,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         }
 
         BlockPos corePos = getBlockPos().relative(getBlockState().getValue(ReactorControllerBlock.FACING).getOpposite(), 2);
-        if (getReactorState() != ReactorStateEnum.STOP) {
+        if (getReactorState() != ReactorState.STOP) {
             if (soundTicks == 0) {
                 stopReactorSound(ModSounds.REACTOR_RUN.get());
                 stopReactorSound(ModSounds.REACTOR_SHUTDOWN.get());
@@ -251,7 +252,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
             level.playSound(null, getBlockPos(), ModSounds.ALARM_1.get(), SoundSource.BLOCKS, 2f, 1f);
         if (level.getGameTime() % 40 == 0)
             level.playSound(null, getBlockPos(), ModSounds.ALARM_2.get(), SoundSource.BLOCKS, 2f, 1f);
-        setReactorState(ReactorStateEnum.STOP);
+        setReactorState(ReactorState.STOP);
         updateBlock();
     }
 
@@ -280,7 +281,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setCoreHeating(true);
         setReactorActive(true);
 
-        if (getReactorCurrentTemperature() > 100 && getReactorState() == ReactorStateEnum.RUNNING) {
+        if (getReactorCurrentTemperature() > 100 && getReactorState() == ReactorState.RUNNING) {
             int modifier = (int) Math.floor(getReactorCurrentTemperature() / 50f);
             int amount = (int) (getFluidSpaceOut() > modifier ? (getFluidAmountIn() >= modifier ? modifier : getFluidAmountIn()) * CommonConfig.reactorSaltGenerationModifier.get() : (getFluidSpaceOut() >= modifier ? modifier : getFluidSpaceOut()) * CommonConfig.reactorSaltGenerationModifier.get());
 
@@ -318,7 +319,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         float targetTemperature = (((fuelValuePercent * controlValuePercent) / 100f) * MAX_HEAT) * (reactorStatus / 20f - 4);
         short normalTemp = (short) (level.getBiome(getBlockPos()).is(Tags.Biomes.IS_COLD) ? 4 : 22);
 
-        setReactorTargetTemperature(targetTemperature < normalTemp || getReactorState() == ReactorStateEnum.STOP ? normalTemp : targetTemperature);
+        setReactorTargetTemperature(targetTemperature < normalTemp || getReactorState() == ReactorState.STOP ? normalTemp : targetTemperature);
 
         // Default reactor heating
         if (getReactorCurrentTemperature() + calculateTemperature(false) < getReactorTargetTemperature())
@@ -380,7 +381,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         if (valvePos != null) {
             for (BlockPos blockPos : valvePos) {
                 if (!level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) return;
-                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_OUTPUT) {
+                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveType.FLUID_OUTPUT) {
                     level.getBlockEntity(blockPos).getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(blockPos).getValue(ReactorValveBlock.FACING)).ifPresent(storage -> {
                         if (getFluidOut().isEmpty()) return;
 
@@ -403,7 +404,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         if (valvePos != null) {
             for (BlockPos blockPos : valvePos) {
                 if (!level.getBlockState(blockPos).is(ModBlocks.REACTOR_VALVE.get())) return;
-                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.FLUID_INPUT) {
+                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveType.FLUID_INPUT) {
                     level.getBlockEntity(blockPos).getCapability(ForgeCapabilities.FLUID_HANDLER, level.getBlockState(blockPos).getValue(ReactorValveBlock.FACING)).ifPresent(storage -> {
                         FluidStack fluidExternal = storage.getFluidInTank(0);
                         int amount = Math.min(FLUID_TANK_IN.getCapacity() - FLUID_TANK_IN.getFluidAmount(), fluidExternal.getAmount());
@@ -437,10 +438,10 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
 
                 ReactorValveBlockEntity entity = (ReactorValveBlockEntity) level.getBlockEntity(blockPos);
 
-                if (fuelAdditions == 0 && fuelValue + depletedFuelValue < 8100 && entity.getItem(0).is(ModItems.ENRICHED_URANIUM.get()) && fuelPercentage < getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_INPUT) {
+                if (fuelAdditions == 0 && fuelValue + depletedFuelValue < 8100 && entity.getItem(0).is(ModItems.ENRICHED_URANIUM.get()) && fuelPercentage < getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveType.ITEM_INPUT) {
                     entity.getItem(0).shrink(1);
                     fuelAdditions = 10;
-                } else if (fuelPercentage >= getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveTypeEnum.ITEM_OUTPUT) {
+                } else if (fuelPercentage >= getReactorTargetLoadSet() && level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) == ValveType.ITEM_OUTPUT) {
                     if (fuelAdditions == 10) {
                         if (entity.getItem(0).isEmpty())
                             entity.setItem(0, new ItemStack(ModItems.ENRICHED_URANIUM.get(), 1));
@@ -450,7 +451,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
                     }
                 }
 
-                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) != ValveTypeEnum.ITEM_OUTPUT || depletedFuelValue < 10) continue;
+                if (level.getBlockState(blockPos).getValue(ReactorValveBlock.TYPE) != ValveType.ITEM_OUTPUT || depletedFuelValue < 10) continue;
                 if ((entity.getItem(0).is(ModItems.DEPLETED_URANIUM.get()) && entity.getItem(0).getCount() < entity.getItem(0).getMaxStackSize()) || entity.getItem(0).isEmpty()) {
 
                     int runs = 0;
@@ -635,7 +636,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setReactorPressure(tag.getFloat("ReactorPressure"));
         setFuelAdditions(tag.getInt("FuelAdditions"));
         setScrammed(tag.getBoolean("Scrammed"));
-        setReactorState(ReactorStateEnum.get(tag.getString("ReactorState")));
+        setReactorState(ReactorState.get(tag.getString("ReactorState")));
         FLUID_TANK_IN.readFromNBT(tag.getCompound("FluidIn"));
         FLUID_TANK_OUT.readFromNBT(tag.getCompound("FluidOut"));
         reactorCapacity = tag.getInt("ReactorCapacity");
@@ -705,7 +706,7 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         setReactorPressure(nbt.getFloat("ReactorPressure"));
         setFuelAdditions(nbt.getInt("FuelAdditions"));
         setScrammed(nbt.getBoolean("Scrammed"));
-        setReactorState(ReactorStateEnum.get(nbt.getString("ReactorState")));
+        setReactorState(ReactorState.get(nbt.getString("ReactorState")));
         FLUID_TANK_IN.readFromNBT(nbt.getCompound("FluidIn"));
         FLUID_TANK_OUT.readFromNBT(nbt.getCompound("FluidOut"));
         reactorCapacity = nbt.getInt("ReactorCapacity");
@@ -941,11 +942,11 @@ public class ReactorControllerBlockEntity extends ReactorFrameBlockEntity implem
         this.reactorPressure = reactorPressure;
     }
 
-    public ReactorStateEnum getReactorState() {
+    public ReactorState getReactorState() {
         return reactorState;
     }
 
-    public void setReactorState(ReactorStateEnum reactorState) {
+    public void setReactorState(ReactorState reactorState) {
         this.reactorState = reactorState;
     }
 

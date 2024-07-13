@@ -1,5 +1,6 @@
 package unhappycodings.thoriumreactors.common.container.base.screen;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -10,9 +11,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import unhappycodings.thoriumreactors.ThoriumReactors;
+import unhappycodings.thoriumreactors.client.config.ClientConfig;
 import unhappycodings.thoriumreactors.client.gui.widgets.ModButton;
 import unhappycodings.thoriumreactors.common.blockentity.base.MachineContainerBlockEntity;
 import unhappycodings.thoriumreactors.common.container.base.container.BaseContainer;
+import unhappycodings.thoriumreactors.common.enums.MachineSettingsWindow;
 import unhappycodings.thoriumreactors.common.network.PacketHandler;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineChangedPacket;
 import unhappycodings.thoriumreactors.common.network.toserver.MachineDumpModePacket;
@@ -33,7 +36,9 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     public static final ResourceLocation REDSTONE_IGNORED = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/redstone_ignored.png");
     public static final ResourceLocation INFORMATION = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/information.png");
     public static final ResourceLocation WARNING = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/warning.png");
-    public static final ResourceLocation UPGRADE = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/slot/upgrade.png");
+    public static final ResourceLocation UPGRADES = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/upgrades.png");
+    public static final ResourceLocation SIDES = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/sides.png");
+    public static final ResourceLocation SIDES_BUTTON = new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/button/sides_btn.png");
 
     boolean lastPowerable;
     int lastRedstoneMode;
@@ -53,6 +58,18 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
         super.init();
     }
 
+    @Override
+    public void renderBackground(@NotNull GuiGraphics graphics) {
+        super.renderBackground(graphics);
+
+        if (ClientConfig.machineSettingsWindow.get() == MachineSettingsWindow.UPGRADES)
+            graphics.blit(new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/upgrades.png"), getGuiLeft() + getSizeX() + 24, getGuiTop(), 0, 0, 54, 59, 54, 59); //left
+
+        if (ClientConfig.machineSettingsWindow.get() == MachineSettingsWindow.SIDES)
+            graphics.blit(new ResourceLocation(ThoriumReactors.MOD_ID, "textures/gui/sides.png"), getGuiLeft() + getSizeX() + 24, getGuiTop(), 0, 0, 54, 59, 54, 59); //left
+
+    }
+
     protected void addButtons() {
         MachineContainerBlockEntity tile = (MachineContainerBlockEntity) getTile();
         // Information
@@ -66,18 +83,18 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
         lastRedstoneMode = tile.getRedstoneMode();
         addRenderableWidget(new ModButton(-20, 42, 16, 16, lastRedstoneMode == 0 ? REDSTONE_IGNORED : lastRedstoneMode == 1 ? REDSTONE_NORMAL : REDSTONE_INVERTED, this::changeRedstoneMode, null, tile, this, 16, 32, true));
 
+        // Upgrades Button
+        addRenderableWidget(new ModButton(getSizeX() + 4, 6, 16, 16, UPGRADES, this::openUpgrades, null, tile, this, 16, 32, true));
+
+        // Sides Config Button
+        addRenderableWidget(new ModButton(getSizeX() + 4, 24, 16, 16, SIDES, this::openSidesConfig, null, tile, this, 16, 32, true));
+
         // Warning
         if (!isSpaceAbove())
-            addRenderableWidget(new ModButton(getSizeX() + 2, 6, 16, 16, WARNING, null, null, tile, this, 16, 32, false));
+            addRenderableWidget(new ModButton(-20, getSizeY() - 18, 16, 16, WARNING, null, null, tile, this, 16, 32, false));
 
-    }
+        addRenderableWidget(new ModButton(getSizeX() + 28 + 53, 27, 15, 15, SIDES_BUTTON, null, null, tile, this, 15, 30, true));
 
-    @Override
-    public void renderBackground(@NotNull GuiGraphics pGuiGraphics) {
-        super.renderBackground(pGuiGraphics);
-
-        pGuiGraphics.blit(UPGRADE, getGuiLeft() - 22, getGuiTop() + 60, 0, 0, 20, 20, 20, 20);
-        pGuiGraphics.blit(UPGRADE, getGuiLeft() - 22, getGuiTop() + 82, 0, 0, 20, 20, 20, 20);
     }
 
     @Override
@@ -101,13 +118,48 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
             graphics.renderComponentTooltip(Minecraft.getInstance().font, list, pMouseX - leftPos, pMouseY - topPos);
         }
 
-        if (ScreenUtil.mouseInArea(getGuiLeft() + getSizeX() + 2, getGuiTop() + 6, getGuiLeft() + getSizeX() + 17, getGuiTop() + 21, pMouseX, pMouseY) && !isSpaceAbove()) {
+        if (ScreenUtil.mouseInArea(getGuiLeft() - 20, getGuiTop() + getSizeY() - 18, getGuiLeft() -5, getGuiTop() + getSizeY() - 3, pMouseX, pMouseY) && !isSpaceAbove()) {
             List<Component> list = new ArrayList<>();
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.warning")).withStyle(ChatFormatting.RED));
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.needs_air")));
             list.add(Component.translatable(FormattingUtil.getTranslatable("machines.tooltip.make_space")));
             graphics.renderComponentTooltip(Minecraft.getInstance().font, list, pMouseX - leftPos, pMouseY - topPos);
         }
+
+        PoseStack pPoseStack = graphics.pose();
+        pPoseStack.pushPose();
+        pPoseStack.scale(0.7f, 0.7f, 0.7f);
+        if (ClientConfig.machineSettingsWindow.get() == MachineSettingsWindow.UPGRADES) {
+            ScreenUtil.drawCenteredText(Component.literal("Upgrades").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 148, 2, 11184810);
+
+            pPoseStack.popPose();
+            pPoseStack.pushPose();
+            pPoseStack.scale(0.55f, 0.55f, 0.55f);
+
+            ScreenUtil.drawText(Component.literal("Speed").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 193, 27, 16711422);
+            ScreenUtil.drawText(Component.literal("1").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 254, 27, 16711422);
+
+            ScreenUtil.drawText(Component.literal("Power").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 193, 55, 16711422);
+            ScreenUtil.drawText(Component.literal("1").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 254, 55, 16711422);
+
+            ScreenUtil.drawText(Component.literal("Output").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 193, 83, 16711422);
+            ScreenUtil.drawText(Component.literal("1").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 254, 83, 16711422);
+
+            pPoseStack.popPose();
+            pPoseStack.pushPose();
+            pPoseStack.scale(0.35f, 0.35f, 0.35f);
+
+            ScreenUtil.drawText(Component.literal("Processing").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 404, 57, 16711422);
+
+            ScreenUtil.drawText(Component.literal("Energy").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 404, 101, 16711422);
+
+            ScreenUtil.drawText(Component.literal("Sensor").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 404, 145, 16711422);
+
+        }
+        if (ClientConfig.machineSettingsWindow.get() == MachineSettingsWindow.SIDES) {
+            ScreenUtil.drawCenteredText(Component.literal("Sides IO").withStyle(ScreenUtil::notoSans), graphics, getSizeX() + 148, 2, 11184810);
+        }
+        pPoseStack.popPose();
 
     }
 
@@ -128,6 +180,14 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     protected void changeDumpMode(String tag) {
         PacketHandler.sendToServer(new MachineDumpModePacket(getTile().getBlockPos(), tag));
         sendChangedPacket();
+    }
+
+    protected void openUpgrades() {
+        ClientConfig.machineSettingsWindow.set(ClientConfig.machineSettingsWindow.get() != MachineSettingsWindow.UPGRADES ? MachineSettingsWindow.UPGRADES : MachineSettingsWindow.NONE);
+    }
+
+    protected void openSidesConfig() {
+        ClientConfig.machineSettingsWindow.set(ClientConfig.machineSettingsWindow.get() != MachineSettingsWindow.SIDES ? MachineSettingsWindow.SIDES : MachineSettingsWindow.NONE);
     }
 
     protected void sendChangedPacket() {
@@ -178,4 +238,17 @@ public class MachineScreen<T extends BaseContainer> extends BaseScreen<T> {
     public BlockEntity getTile() {
         return this.getMenu().getTile();
     }
+
+    public boolean supportsSpeedUpgrade() {
+        return false;
+    }
+
+    public boolean supportsPowerUpgrade() {
+        return false;
+    }
+
+    public boolean supportsProcessingUpgrade() {
+        return false;
+    }
+
 }
